@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "../layout/AuthenticatedLayout";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useAuth } from "../hooks/useAuth";
 
@@ -13,7 +13,7 @@ const Products = () => {
     data: products,
     error,
     isLoading,
-  } = useQuery("products", fetchProducts);
+  } = useQuery({ queryKey: ["products"], queryFn: fetchProducts });
 
   const { user } = useAuth(); // Este hook debe devolver el estado de autenticación
 

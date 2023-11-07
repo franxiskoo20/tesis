@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DefaultLayout from "../layout/DefaultLayout";
 import { useAuth } from "../hooks/useAuth";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Navigate, useNavigate } from "react-router-dom";
 import { authService } from "../services/authService";
 
@@ -18,7 +18,8 @@ const Signup = () => {
     isLoading,
     isError,
     error,
-  } = useMutation(authService.register, {
+  } = useMutation({
+    mutationFn: authService.register,
     onSuccess: (data) => {
       // login({ email, password });
       console.log({ email, password });

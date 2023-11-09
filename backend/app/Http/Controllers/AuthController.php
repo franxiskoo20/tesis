@@ -2,51 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\LoginRequest;
+
+
 class AuthController extends Controller
 {
-    // Registro de usuario
-    public function register(Request $request)
+    private $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|max:255',
-            'password' => 'required|string|min:3',
-        ]);
+        $this->userRepository = $userRepository;
+    }
 
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-        ]);
-
+    // Registro de usuario
+    public function register(RegisterRequest $request)
+    {
+        $user = $this->userRepository->create($request->validated());
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
-        ]);
+        ], 201);
     }
 
     // Inicio de sesión y generación de token
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $validatedData = $request->validate([
-            'email' => 'required',
-            'password' => 'required',
-
-        ]);
-
-        if (!Auth::attempt($validatedData)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+        if (!Auth::attempt($request->validated())) {
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        $user = User::where('email', $validatedData['email'])->firstOrFail();
-
+        $user = $this->userRepository->findByEmail($request->validated()['email']);
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -54,7 +46,6 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
         ]);
     }
-
     // Cierre de sesión y revocación de token
     public function logout(Request $request)
     {
@@ -63,17 +54,17 @@ class AuthController extends Controller
         return response()->json(['message' => 'You have successfully logged out and the token was successfully deleted']);
     }
 
-    // Cierre de sesión y revocación de token
-    public function allusers()
+    // Obtener todos los usuarios
+    public function allUsers()
     {
-        $users = User::all();
+        $users = $this->userRepository->getAll();
         return response()->json($users);
     }
 
     // Obtener información del usuario autenticado
-    public function user()
+    public function user(Request $request)
     {
-        $user = Auth::user();
+        $user = $request->user();
         return response()->json([
             'name' => $user->name,
             'email' => $user->email,

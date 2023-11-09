@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 
-export default function DefaultLayout({ children }) {
+export default function DefaultLayout({children}) {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>

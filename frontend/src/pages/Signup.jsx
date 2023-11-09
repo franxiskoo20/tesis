@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DefaultLayout from "../layout/DefaultLayout";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../contexts/AuthProvider";
+
 import { useMutation } from "@tanstack/react-query";
 import { Navigate, useNavigate } from "react-router-dom";
 import { authService } from "../services/authService";

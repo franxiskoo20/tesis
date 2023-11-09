@@ -1,43 +1,42 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import "./assets/fontStyle.js";
-
+import { RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthProvider.jsx";
-import Products from "./pages/Products.jsx";
-import Signup from "./pages/Signup.jsx";
-import Login from "./pages/Login.jsx";
-import ProtectedRoute from "./routes/ProtectedRoute.jsx";
-import PublicRoute from "./routes/PublicRoutes.jsx";
-import ErrorPage from "./routes/ErrorPage.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
 
-// import Loading from "./components/Loading.jsx";
+import { createBrowserRouter } from "react-router-dom";
+
+import { ProtectedRoutes, PublicRoutes, ErrorPage } from "./routes";
+
+import { Products, Signup, Login, Dashboard } from "./pages";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <PublicRoute />,
+    element: <PublicRoutes />,
+    errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Login /> },
       { path: "signup", element: <Signup /> },
     ],
   },
   {
-    element: <ProtectedRoute />,
+    path: "/app",
+    element: <ProtectedRoutes />,
+    errorElement: <ErrorPage />,
     children: [
       { path: "products", element: <Products /> },
       { path: "dashboard", element: <Dashboard /> },
     ],
   },
-  { path: "*", element: <ErrorPage /> },
 ]);
 
-function App() {
+
+
+const App = () => {
   return (
     <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
   );
-}
+};
 
 export default App;

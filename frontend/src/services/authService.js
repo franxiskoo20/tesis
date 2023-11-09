@@ -2,7 +2,7 @@ import httpClient from "./api/httpClient";
 
 export const authService = {
   async register({ name, email, password }) {
-    await httpClient.get("/sanctum/csrf-cookie");
+    // await httpClient.get("/sanctum/csrf-cookie");
     const { data } = await httpClient.post("/api/register", {
       name,
       email,
@@ -11,7 +11,7 @@ export const authService = {
     return data;
   },
   async login(credentials) {
-    await httpClient.get("/sanctum/csrf-cookie");
+    // await httpClient.get("/sanctum/csrf-cookie");
     const { data } = await httpClient.post("/api/login", credentials);
     console.log("Creado correctamente", data);
     return data;
@@ -27,8 +27,8 @@ export const authService = {
   },
 
   async logout(token) {
-    await httpClient.get("/sanctum/csrf-cookie");
-    return httpClient.post(
+    // await httpClient.get("/sanctum/csrf-cookie");
+    return await httpClient.post(
       "/api/logout",
       {},
       {

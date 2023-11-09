@@ -4,11 +4,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../contexts/AuthProvider";
 // import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function AuthenticatedLayout({ children }) {
+ 
   const { logout } = useAuth();
   // const navigate = useNavigate();
 
@@ -31,10 +32,10 @@ export default function AuthenticatedLayout({ children }) {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               My Application
             </Typography>
-            <Button color="inherit" component={Link} to="/dashboard">
+            <Button color="inherit" component={Link} to="/app/dashboard">
               Dashboard
             </Button>
-            <Button color="inherit" component={Link} to="/products">
+            <Button color="inherit" component={Link} to="/app/products">
               Products
             </Button>
             <Button color="inherit" onClick={handleSignOut}>

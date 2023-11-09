@@ -1,32 +1,28 @@
 import { useState } from "react";
 import DefaultLayout from "../layout/DefaultLayout";
-import { useAuth } from "../hooks/useAuth";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthProvider";
 import { TextField, Button, Container, Box, Typography } from "@mui/material";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, isAuthenticated, isLoading, isError, error } = useAuth();
+  const { login } = useAuth();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Manejador del evento submit del formulario
   const handleSubmit = async (event) => {
     event.preventDefault();
     login({ email, password });
-    navigate("/dashboard");
+    // navigate("/dashboard");
   };
 
   // Si está cargando, podríamos mostrar un indicador de carga
-  if (isLoading) {
-    return <div>Loading...Login</div>;
-  }
 
   // Si el usuario ya está autenticado, redirigir al dashboard
-  if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
-  }
+  // if (isAuthenticated) {
+  //   return <Navigate to="/dashboard" replace />;
+  // }
 
   return (
     <DefaultLayout>
@@ -42,7 +38,11 @@ const Login = () => {
           <Typography component="h1" variant="h5">
             Login
           </Typography>
-          {isError && <Typography color="error">{error?.message}</Typography>}
+          {/* {isLoginError && (
+            <Typography color="error">
+              {loginError.response?.data?.message}
+            </Typography>
+          )} */}
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -54,7 +54,7 @@ const Login = () => {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -66,10 +66,10 @@ const Login = () => {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Contraseña"
               type="password"
               id="password"
-              autoComplete="current-password"
+              // autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { authService } from "../services/authService";
 
@@ -22,6 +22,9 @@ export const AuthProvider = ({ children }) => {
       queryClient.invalidateQueries({ queryKey: ["authUser"] });
       localStorage.setItem("token", data.access_token);
     },
+    onError: (error) => {
+      setErrorLogin(error.response?.data?.message);
+    },
   });
 
   const logoutMutation = useMutation({
@@ -44,4 +47,12 @@ export const AuthProvider = ({ children }) => {
       {isLoading ? <div>Loading...Provider</div> : children}
     </AuthContext.Provider>
   );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("error en useAuth de AuthProvider");
+  }
+  return context;
 };

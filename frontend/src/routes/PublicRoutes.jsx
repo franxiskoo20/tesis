@@ -1,10 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../contexts/AuthProvider";
 
-function PublicRoute() {
+const PublicRoutes = () => {
   const { isAuthenticated } = useAuth(); // Tu hook de autenticación
-  return isAuthenticated ? <Navigate to="/dashboard" replace /> : <Outlet />;
-}
+  return isAuthenticated ? <Navigate to="/app/dashboard" replace /> : <Outlet />;
+};
 
-
-export default PublicRoute;
+export default PublicRoutes;

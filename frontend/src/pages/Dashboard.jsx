@@ -1,4 +1,4 @@
-import { useAuth } from "../contexts/AuthProvider";
+import useAuth from "../hooks/useAuth";
 import AuthenticatedLayout from "../layout/AuthenticatedLayout";
 
 const Dashboard = () => {

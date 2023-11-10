@@ -6,7 +6,7 @@ import { createBrowserRouter } from "react-router-dom";
 
 import { ProtectedRoutes, PublicRoutes, ErrorPage } from "./routes";
 
-import { Products, Signup, Login, Dashboard } from "./pages";
+import { Products, Register, Login, Dashboard } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Login /> },
-      { path: "signup", element: <Signup /> },
+      // { path: "signup", element: <Signup /> },
     ],
   },
   {
@@ -25,11 +25,10 @@ const router = createBrowserRouter([
     children: [
       { path: "products", element: <Products /> },
       { path: "dashboard", element: <Dashboard /> },
+      { path: "register", element: <Register /> },
     ],
   },
 ]);
-
-
 
 const App = () => {
   return (

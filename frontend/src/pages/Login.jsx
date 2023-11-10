@@ -1,6 +1,6 @@
 import { useState } from "react";
 import DefaultLayout from "../layout/DefaultLayout";
-import { useAuth } from "../contexts/AuthProvider";
+import  useAuth  from "../hooks/useAuth";
 import { TextField, Button, Container, Box, Typography } from "@mui/material";
 
 const Login = () => {
@@ -8,15 +8,37 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const { login } = useAuth();
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   // const navigate = useNavigate();
 
   // Manejador del evento submit del formulario
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    login({ email, password });
-    // navigate("/dashboard");
-  };
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   login({ email, password });
+  //   // navigate("/dashboard");
+  // };
 
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    setError(""); // Resetear el estado de error antes de cada intento de login
+    login(
+      { email, password },
+      {
+        onSuccess: () => {
+          setIsLoading(false);
+        },
+        onError: (error) => {
+          // Aquí manejas el error de login
+          setError(
+            error.response?.data?.message || "Ocurrió un error durante el login"
+          );
+          setIsLoading(false);
+        },
+      }
+    );
+  };
   // Si está cargando, podríamos mostrar un indicador de carga
 
   // Si el usuario ya está autenticado, redirigir al dashboard
@@ -36,16 +58,12 @@ const Login = () => {
           }}
         >
           <Typography component="h1" variant="h5">
-            Login
+            Login {isLoading && "esta cargando el login...."}
           </Typography>
-          {/* {isLoginError && (
-            <Typography color="error">
-              {loginError.response?.data?.message}
-            </Typography>
-          )} */}
+          {error && <Typography color="error">{error}</Typography>}
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={handleLogin}
             noValidate
             sx={{ mt: 1 }}
           >

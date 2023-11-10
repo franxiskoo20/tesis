@@ -4,7 +4,12 @@ import { AuthProvider } from "./contexts/AuthProvider.jsx";
 
 import { createBrowserRouter } from "react-router-dom";
 
-import { ProtectedRoutes, PublicRoutes, ErrorPage } from "./routes";
+import {
+  ProtectedRoutes,
+  PublicRoutes,
+  ErrorPage,
+  RoleProtectedElement,
+} from "./routes";
 
 import { Products, Register, Login, Dashboard } from "./pages";
 
@@ -15,7 +20,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Login /> },
-      // { path: "signup", element: <Signup /> },
+      { path: "register", element: <Register /> },
     ],
   },
   {
@@ -23,9 +28,16 @@ const router = createBrowserRouter([
     element: <ProtectedRoutes />,
     errorElement: <ErrorPage />,
     children: [
-      { path: "products", element: <Products /> },
+      {
+        path: "products",
+        element: (
+          <RoleProtectedElement allowedRoles={"Jefe Comercial"}>
+            <Products />
+          </RoleProtectedElement>
+        ),
+      },
       { path: "dashboard", element: <Dashboard /> },
-      { path: "register", element: <Register /> },
+      // { path: "register", element: <Register /> },
     ],
   },
 ]);

@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AuthenticatedLayout from "../layout/AuthenticatedLayout";
-
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { adminService } from "../services/adminService";
 
@@ -43,7 +42,10 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    register({ name, email, password, role_type: role },localStorage.getItem("token"));
+    register(
+      { name, email, password, role_type: role },
+      localStorage.getItem("token")
+    );
   };
 
   if (isLoading) {

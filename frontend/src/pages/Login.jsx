@@ -41,10 +41,6 @@ const Login = () => {
   };
   // Si está cargando, podríamos mostrar un indicador de carga
 
-  // Si el usuario ya está autenticado, redirigir al dashboard
-  // if (isAuthenticated) {
-  //   return <Navigate to="/dashboard" replace />;
-  // }
 
   return (
     <DefaultLayout>
@@ -87,7 +83,7 @@ const Login = () => {
               label="Contraseña"
               type="password"
               id="password"
-              // autoComplete="current-password"
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

@@ -18,7 +18,7 @@ export default function DefaultLayout({children}) {
             <Button color="inherit" component={Link} to="/">
               Login
             </Button>
-            <Button color="inherit" component={Link} to="/signup">
+            <Button color="inherit" component={Link} to="/register">
               Signup
             </Button>
           </Toolbar>

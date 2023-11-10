@@ -14,9 +14,8 @@ export default function AuthenticatedLayout({ children }) {
   // const navigate = useNavigate();
 
   const navigationByRole = {
-    "Administrador": [
+    Administrador: [
       { name: "Dashboard", path: "/app/dashboard" },
-      { name: "Products", path: "/app/products" },
       { name: "Registrar Usuarios", path: "/app/register" },
     ],
     "Jefe Comercial": [
@@ -29,14 +28,7 @@ export default function AuthenticatedLayout({ children }) {
   console.log(user);
 
   const handleSignOut = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      await logout(); // Espera a que se complete la solicitud de logout
-      console.log("Se cerró la sesión");
-    } catch (error) {
-      console.error("Hubo un error al cerrar la sesión", error);
-      // Manejar el error aquí, si es necesario
-    }
+    await logout();
   };
 
   const roleBasedNavigation = (role) => {

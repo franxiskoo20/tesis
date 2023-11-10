@@ -5,20 +5,23 @@ import { authService } from "../services/authService";
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-
-  
   const queryClient = useQueryClient();
+
+  // const userQuery = useQuery({
+  //   queryKey: ["authUser"],
+  //   queryFn: () => authService.validateToken(localStorage.getItem("token")),
+  //   enabled: !!localStorage.getItem("token"),
+  // });
 
   const userQuery = useQuery({
     queryKey: ["authUser"],
-    queryFn: () => authService.validateToken(localStorage.getItem("token")),
+    queryFn:() => authService.validateToken(),
     enabled: !!localStorage.getItem("token"),
   });
 
   const user = userQuery.data;
   const isLoading = userQuery.isLoading;
-  
-  
+
   const loginMutation = useMutation({
     mutationFn: authService.login,
     onSuccess: (data) => {
@@ -50,4 +53,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-

@@ -61,10 +61,8 @@ class AuthController extends Controller
     // Obtener información del usuario autenticado
     public function user(Request $request)
     {
-        $user = $request->user();
-        return response()->json([
-            'name' => $user->name,
-            'email' => $user->email,
-        ]);
+        $user = $this->userRepository->getAuthenticatedUser($request);
+        
+        return response()->json($user);
     }
 }

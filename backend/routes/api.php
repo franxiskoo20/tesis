@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RoleController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,6 +30,8 @@ Route::apiResource('products', ProductController::class);
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('register', [AuthController::class, 'register'])->middleware('role:Administrador');
+    Route::get('roles', [RoleController::class, 'index'])->middleware('role:Administrador');
+    
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('user', [AuthController::class, 'user']);
 });

@@ -32,4 +32,16 @@ class UserRepository  implements UserRepositoryInterface
     {
         return User::all();
     }
+
+    public function getAuthenticatedUser($request)
+    {
+        $user = $request->user();
+        $user->load('role'); // Eager load the role
+
+        return [
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->role->role_type ?? null,
+        ];
+    }
 }

@@ -23,12 +23,9 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $user = $this->userRepository->create($request->validated());
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ], 201);
+        return response()->json(['message' => 'Usuario registrado con éxito.'], 201);
     }
 
     // Inicio de sesión y generación de token

@@ -16,7 +16,6 @@ use App\Http\Controllers\AuthController;
 */
 
 // Rutas de autenticación
-Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 // Rutas de prueba
@@ -27,6 +26,8 @@ Route::get('prueba', [ProductController::class, 'index']);
 Route::apiResource('products', ProductController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
+
+    Route::post('register', [AuthController::class, 'register'])->middleware('role:Administrador');
     Route::post('logout', [AuthController::class, 'logout']);
     Route::get('user', [AuthController::class, 'user']);
 });

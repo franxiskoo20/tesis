@@ -1,4 +1,3 @@
-
 import { RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthProvider.jsx";
 
@@ -11,7 +10,7 @@ import {
   RoleProtectedElement,
 } from "./routes";
 
-import { Products, Register, Login, Dashboard } from "./pages";
+import { Products, Register, Login, Dashboard, Users } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +32,14 @@ const router = createBrowserRouter([
         element: (
           <RoleProtectedElement allowedRoles={"Jefe Comercial"}>
             <Products />
+          </RoleProtectedElement>
+        ),
+      },
+      {
+        path: "users",
+        element: (
+          <RoleProtectedElement allowedRoles={"Administrador"}>
+            <Users />
           </RoleProtectedElement>
         ),
       },

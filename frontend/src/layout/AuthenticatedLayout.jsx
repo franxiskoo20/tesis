@@ -1,9 +1,12 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
+import {
+  Typography,
+  Button,
+  Container,
+  Toolbar,
+  Box,
+  AppBar,
+} from "@mui/material";
+
 import useAuth from "../hooks/useAuth";
 // import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -17,6 +20,7 @@ export default function AuthenticatedLayout({ children }) {
     Administrador: [
       { name: "Dashboard", path: "/app/dashboard" },
       { name: "Registrar Usuarios", path: "/app/register" },
+      { name: "Usuarios", path: "/app/users" },
     ],
     "Jefe Comercial": [
       { name: "Dashboard", path: "/app/dashboard" },

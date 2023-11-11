@@ -1,41 +1,16 @@
-import httpClient from "./api/httpClient";
-
+import makeRequest from "./api/makeRequest";
 export const authService = {
   
-  async login(credentials) {
-    await httpClient.get("/sanctum/csrf-cookie");
-    const { data } = await httpClient.post("/api/login", credentials);
-    console.log("Creado correctamente", data);
-    return data;
+  login(credentials) {
+    makeRequest("get", "/sanctum/csrf-cookie");
+    return makeRequest("post", "/api/login", credentials);
   },
 
-  // async validateToken(token) {
-  //   const { data } = await httpClient.get("/api/user", {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   });
-  //   return data;
-  // },
-
-  async validateToken() {
-    const { data } = await httpClient.get("/api/user");
-    return data;
+  validateToken() {
+    return makeRequest("get", "/api/user");
   },
-  // async logout(token) {
-  //   // await httpClient.get("/sanctum/csrf-cookie");
-  //   return await httpClient.post(
-  //     "/api/logout",
-  //     {},
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     }
-  //   );
-  // },
-  async logout() {
-    // await httpClient.get("/sanctum/csrf-cookie");
-    return await httpClient.post("/api/logout");
+
+  logout() {
+    return makeRequest("post", "/api/logout");
   },
 };

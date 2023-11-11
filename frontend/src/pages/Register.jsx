@@ -16,6 +16,7 @@ import {
   Snackbar,
   Typography,
   Alert,
+  Container,
 } from "@mui/material";
 
 const Register = () => {
@@ -34,10 +35,10 @@ const Register = () => {
 
   const {
     mutate: register,
-    data,
     isLoading,
     isError,
     error,
+    data,
   } = useMutation({
     mutationFn: adminService.register,
   });
@@ -61,97 +62,100 @@ const Register = () => {
   if (isLoading) {
     return <div>Loading...Sigup</div>;
   }
-  console.log(data);
 
   return (
     <AuthenticatedLayout>
-      <Box component="form" onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h5" mt={2}>
-              Registrar
-            </Typography>
-            {isError && (
-              <Snackbar
-                open={true}
-                autoHideDuration={2000}
-                message={error?.message}
+      <Container component="main" maxWidth="xs">
+        <Box component="form" onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="h5" mt={2}>
+                Registrar
+              </Typography>
+              {isError && (
+                <Snackbar
+                  open={true}
+                  autoHideDuration={2000}
+                  message={error?.message}
+                />
+              )}
+              {data && (
+                <Snackbar
+                  open={open}
+                  autoHideDuration={1000}
+                  onClose={handleClose}
+                >
+                  <Alert severity="success" onClose={handleClose}>
+                    {data?.message}
+                  </Alert>
+                </Snackbar>
+              )}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Name"
+                variant="outlined"
+                type="text"
+                fullWidth
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                required
               />
-            )}
-            {data && (
-              <Snackbar
-                open={open}
-                autoHideDuration={1000}
-                onClose={handleClose}
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Email"
+                variant="outlined"
+                type="email"
+                fullWidth
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Password"
+                variant="outlined"
+                type="password"
+                fullWidth
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl fullWidth>
+                <InputLabel id="role-select-label">Rol</InputLabel>
+                <Select
+                  labelId="role-select-label"
+                  id="role-select"
+                  value={role}
+                  label="Rol"
+                  onChange={(e) => setRole(e.target.value)}
+                >
+                  {roles?.map((r) => (
+                    <MenuItem key={r.role_type} value={r.role_type}>
+                      {r.role_type}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+                disabled={isLoading}
               >
-                <Alert severity="success" onClose={handleClose}>{data?.message}</Alert>
-              </Snackbar>
-            )}
+                Registrar
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Name"
-              variant="outlined"
-              type="text"
-              fullWidth
-              onChange={(e) => setName(e.target.value)}
-              value={name}
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Email"
-              variant="outlined"
-              type="email"
-              fullWidth
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Password"
-              variant="outlined"
-              type="password"
-              fullWidth
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl fullWidth>
-              <InputLabel id="role-select-label">Rol</InputLabel>
-              <Select
-                labelId="role-select-label"
-                id="role-select"
-                value={role}
-                label="Rol"
-                onChange={(e) => setRole(e.target.value)}
-              >
-                {roles?.map((r) => (
-                  <MenuItem key={r.role_type} value={r.role_type}>
-                    {r.role_type}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              disabled={isLoading}
-            >
-              Registrar
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      </Container>
     </AuthenticatedLayout>
   );
 };

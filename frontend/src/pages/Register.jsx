@@ -4,6 +4,8 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { adminService } from "../services/adminService";
 
 import {
+  Grid,
+  Box,
   TextField,
   Button,
   Select,
@@ -12,7 +14,8 @@ import {
   InputLabel,
   // CircularProgress,
   Snackbar,
-  Grid,
+  Typography,
+  Alert,
 } from "@mui/material";
 
 const Register = () => {
@@ -20,71 +23,102 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
 
   const {
     mutate: register,
+    data,
     isLoading,
     isError,
     error,
   } = useMutation({
     mutationFn: adminService.register,
-    onSuccess: (data) => {
-      // login({ email, password });
-      console.log({ email, password });
-    },
-    onError: (error) => {},
   });
+
+  useEffect(() => {
+    if (data) {
+      setOpen(true);
+    }
+  }, [data]);
 
   const { data: roles } = useQuery({
     queryKey: ["roles"],
-    queryFn: () => adminService.getRoles(localStorage.getItem("token")),
+    queryFn: () => adminService.getRoles(),
   });
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    register(
-      { name, email, password, role_type: role },
-      localStorage.getItem("token")
-    );
+    register({ name, email, password, role_type: role });
   };
 
   if (isLoading) {
     return <div>Loading...Sigup</div>;
   }
+  console.log(data);
 
   return (
     <AuthenticatedLayout>
-      <form onSubmit={handleSubmit}>
+      <Box component="form" onSubmit={handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <h1>Registrar</h1>
-            {isError && <Snackbar open={true} message={error?.message} />}
+            <Typography variant="h5" mt={2}>
+              Registrar
+            </Typography>
+            {isError && (
+              <Snackbar
+                open={true}
+                autoHideDuration={2000}
+                message={error?.message}
+              />
+            )}
+            {data && (
+              <Snackbar
+                open={open}
+                autoHideDuration={1000}
+                onClose={handleClose}
+              >
+                <Alert severity="success" onClose={handleClose}>{data?.message}</Alert>
+              </Snackbar>
+            )}
           </Grid>
           <Grid item xs={12}>
             <TextField
               label="Name"
               variant="outlined"
+              type="text"
               fullWidth
               onChange={(e) => setName(e.target.value)}
               value={name}
+              required
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               label="Email"
               variant="outlined"
+              type="email"
               fullWidth
               onChange={(e) => setEmail(e.target.value)}
               value={email}
+              required
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
               label="Password"
               variant="outlined"
+              type="password"
               fullWidth
               onChange={(e) => setPassword(e.target.value)}
               value={password}
+              required
             />
           </Grid>
           <Grid item xs={12}>
@@ -94,6 +128,7 @@ const Register = () => {
                 labelId="role-select-label"
                 id="role-select"
                 value={role}
+                label="Rol"
                 onChange={(e) => setRole(e.target.value)}
               >
                 {roles?.map((r) => (
@@ -109,13 +144,14 @@ const Register = () => {
               type="submit"
               variant="contained"
               color="primary"
+              fullWidth
               disabled={isLoading}
             >
-              Create Account
+              Registrar
             </Button>
           </Grid>
         </Grid>
-      </form>
+      </Box>
     </AuthenticatedLayout>
   );
 };

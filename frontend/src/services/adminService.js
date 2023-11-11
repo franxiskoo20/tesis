@@ -8,18 +8,13 @@ export const adminService = {
       name,
       email,
       password,
-      role_id
+      role_id,
     });
     return data;
   },
 
-  async getRoles(token) {
-    const { data } = await httpClient.get("/api/roles", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+  async getRoles() {
+    const { data } = await httpClient.get("/api/roles");
     return data;
   },
-  
-}
+};

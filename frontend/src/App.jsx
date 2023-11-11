@@ -1,4 +1,4 @@
-import "./assets/fontStyle.js";
+
 import { RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthProvider.jsx";
 
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Login /> },
-      { path: "register", element: <Register /> },
+      // { path: "register", element: <Register /> },
     ],
   },
   {
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         ),
       },
       { path: "dashboard", element: <Dashboard /> },
-      // { path: "register", element: <Register /> },
+      { path: "register", element: <Register /> },
     ],
   },
 ]);

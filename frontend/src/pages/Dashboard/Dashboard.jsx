@@ -1,5 +1,5 @@
-import useAuth from "../hooks/useAuth";
-import AuthenticatedLayout from "../layout/AuthenticatedLayout";
+import useAuth from "../../hooks/useAuth"
+import AuthenticatedLayout from "../../layout/AuthenticatedLayout";
 
 const Dashboard = () => {
   const { user } = useAuth(); // Este hook debe devolver el estado de autenticación

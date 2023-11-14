@@ -31,6 +31,8 @@ class RegisterRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
+            'role_id' => 'required|numeric',
+
         ];
     }
 
@@ -43,6 +45,8 @@ class RegisterRequest extends FormRequest
             'email.unique' => 'El email ya está registrado.',
             'password.required' => 'El campo contraseña es obligatorio.',
             'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
+            'role_id.required' => 'El campo rol es obligatorio.',
+            'role_id.numeric' => 'El campo rol debe ser un numero.',
         ];
     }
 

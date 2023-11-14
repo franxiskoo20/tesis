@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import AuthenticatedLayout from "../layout/AuthenticatedLayout";
+import AuthenticatedLayout from "../../layout/AuthenticatedLayout";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { adminService } from "../services/adminService";
+import { adminService } from "../../services/adminService";
 
 import {
   Grid,
@@ -23,7 +23,7 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [role_id, setRole] = useState("");
   const [open, setOpen] = useState(false);
 
   const handleClose = (event, reason) => {
@@ -51,12 +51,12 @@ const Register = () => {
 
   const { data: roles } = useQuery({
     queryKey: ["roles"],
-    queryFn: () => adminService.getRoles(),
+    queryFn: adminService.getRoles,
   });
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    register({ name, email, password, role_type: role });
+    console.log({ name, email, password, role_id });
+    register({ name, email, password, role_id });
   };
 
   if (isLoading) {
@@ -130,12 +130,12 @@ const Register = () => {
                 <Select
                   labelId="role-select-label"
                   id="role-select"
-                  value={role}
+                  value={role_id}
                   label="Rol"
                   onChange={(e) => setRole(e.target.value)}
                 >
                   {roles?.map((r) => (
-                    <MenuItem key={r.role_type} value={r.role_type}>
+                    <MenuItem key={r.role_type} value={r.id}>
                       {r.role_type}
                     </MenuItem>
                   ))}

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import DefaultLayout from "../layout/DefaultLayout";
-import  useAuth  from "../hooks/useAuth";
+import DefaultLayout from "../../layout/DefaultLayout";
+import  useAuth  from "../../hooks/useAuth";
 import { TextField, Button, Container, Box, Typography } from "@mui/material";
 
 const Login = () => {

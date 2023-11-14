@@ -13,4 +13,8 @@ export const adminService = {
   getRoles() {
     return makeRequest("get", "/api/roles");
   },
+
+  getUsers() {
+    return makeRequest("get", "/api/users");
+  },
 };

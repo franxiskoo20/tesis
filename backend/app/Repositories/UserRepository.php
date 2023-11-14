@@ -13,13 +13,13 @@ class UserRepository  implements UserRepositoryInterface
 {
     public function create(array $data)
     {
-        $adminRoleId = Role::where('role_type', 'Administrador')->first()->id;
+        // $adminRoleId = Role::where('role_type', $data[''])->first()->id;
 
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'role_id' => $adminRoleId,
+            'role_id' => $data['role_id'],
         ]);
     }
 

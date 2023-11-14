@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: (
-          <RoleProtectedElement allowedRoles={"Jefe Comercial"}>
+          <RoleProtectedElement allowedRoles={["Jefe Comercial","Administrador"]}>
             <Products />
           </RoleProtectedElement>
         ),

@@ -1,24 +1,32 @@
+import { useEffect, useState } from "react";
 import UserTable from "../../components/Table/UserTable";
 import AuthenticatedLayout from "../../layout/AuthenticatedLayout";
 import { useQuery } from "@tanstack/react-query";
 import { adminService } from "../../services/adminService";
+import { adaptUserData } from "../../adapters/adaptUserData";
 
 const Users = () => {
-  // const users = [
-  //   { id: "1", name: "Francisco", email: "prueba" },
-  //   { id: "2", name: "Francisco", email: "prueba" },
-  // ];
+  const [adaptedUsers, setAdaptedUsers] = useState([]);
 
-  const { data: users, isLoading } = useQuery({
+  const { data, isSuccess } = useQuery({
     queryKey: ["users"],
     queryFn: adminService.getUsers,
   });
- { isLoading ? console.log("loading") : console.log(users)}
 
+  useEffect(() => {
+    if (isSuccess && data) {
+      const adapted = data.map((user) => adaptUserData(user));
+      setAdaptedUsers(adapted);
+    }
+  }, [data, isSuccess]);
+ 
+  {
+    isSuccess && console.log(adaptedUsers);
+  }
+  
   return (
     <AuthenticatedLayout>
-      {/* {!isLoading && console.log(data)} */}
-      {!isLoading && <UserTable users={users} />}
+      {isSuccess && <UserTable users={adaptedUsers} />}
     </AuthenticatedLayout>
   );
 };

@@ -10,17 +10,14 @@ import {
   RoleProtectedElement,
 } from "./routes";
 
-import { Products, Register, Login, Dashboard, Users } from "./pages";
+import { Products, Login, Dashboard, Users } from "./pages";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <PublicRoutes />,
     errorElement: <ErrorPage />,
-    children: [
-      { index: true, element: <Login /> },
-      // { path: "register", element: <Register /> },
-    ],
+    children: [{ index: true, element: <Login /> }],
   },
   {
     path: "/app",
@@ -30,7 +27,9 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: (
-          <RoleProtectedElement allowedRoles={["Jefe Comercial","Administrador"]}>
+          <RoleProtectedElement
+            allowedRoles={["Administrador", "Jefe Comercial"]}
+          >
             <Products />
           </RoleProtectedElement>
         ),
@@ -44,7 +43,6 @@ const router = createBrowserRouter([
         ),
       },
       { path: "dashboard", element: <Dashboard /> },
-      { path: "register", element: <Register /> },
     ],
   },
 ]);

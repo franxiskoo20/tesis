@@ -4,20 +4,14 @@ import  useAuth  from "../../hooks/useAuth";
 import { TextField, Button, Container, Box, Typography } from "@mui/material";
 
 const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+ 
   const { login } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  // const navigate = useNavigate();
-
-  // Manejador del evento submit del formulario
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   login({ email, password });
-  //   // navigate("/dashboard");
-  // };
 
   const handleLogin = async (event) => {
     event.preventDefault();

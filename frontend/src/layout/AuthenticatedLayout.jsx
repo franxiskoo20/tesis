@@ -25,7 +25,18 @@ export default function AuthenticatedLayout({ children }) {
       { name: "Dashboard", path: "/app/dashboard" },
       { name: "Products", path: "/app/products" },
     ],
-    // Define la navegación para otros roles aquí...
+    "Customer Service": [
+      { name: "Dashboard", path: "/app/dashboard" },
+      { name: "Products", path: "/app/products" },
+    ],
+    Romana: [
+      { name: "Dashboard", path: "/app/dashboard" },
+      { name: "Products", path: "/app/products" },
+    ],
+    Portero: [
+      { name: "Dashboard", path: "/app/dashboard" },
+      { name: "Products", path: "/app/products" },
+    ],
   };
 
   const handleSignOut = async () => {

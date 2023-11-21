@@ -1,12 +1,9 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import AuthenticatedLayout from "../../layout/AuthenticatedLayout";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { adminService } from "../../services/adminService";
 
 import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
   Grid,
   Box,
   TextField,
@@ -15,39 +12,85 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  // CircularProgress,
+  Snackbar,
+  Typography,
+  Alert,
+  Container,
 } from "@mui/material";
 
-const Register = ({ open, onClose, onUserAdded }) => {
+const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role_id, setRole] = useState("");
+  const [open, setOpen] = useState(false);
 
-  // obtener roles
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const {
+    mutate: register,
+    isLoading,
+    isError,
+    error,
+    data,
+  } = useMutation({
+    mutationFn: adminService.register,
+  });
+
+  useEffect(() => {
+    if (data) {
+      setOpen(true);
+    }
+  }, [data]);
+
   const { data: roles } = useQuery({
     queryKey: ["roles"],
     queryFn: adminService.getRoles,
   });
-
-  const registerMutation = useMutation({
-    mutationFn: adminService.register,
-    onSuccess: () => {
-      if (onUserAdded) onUserAdded();
-      onClose();
-    },
-  });
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    registerMutation.mutate({ name, email, password, role_id });
+    console.log({ name, email, password, role_id });
+    register({ name, email, password, role_id });
   };
 
+  if (isLoading) {
+    return <div>Loading...Sigup</div>;
+  }
+
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Registrar Usuario</DialogTitle>
-      <DialogContent>
-        <Box component="form" my={1} onSubmit={handleSubmit}>
+    <AuthenticatedLayout>
+      <Container component="main" maxWidth="xs">
+        <Box component="form" onSubmit={handleSubmit}>
           <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Typography variant="h5" mt={2}>
+                Registrar
+              </Typography>
+              {isError && (
+                <Snackbar
+                  open={true}
+                  autoHideDuration={2000}
+                  message={error?.message}
+                />
+              )}
+              {data && (
+                <Snackbar
+                  open={open}
+                  autoHideDuration={1000}
+                  onClose={handleClose}
+                >
+                  <Alert severity="success" onClose={handleClose}>
+                    {data?.message}
+                  </Alert>
+                </Snackbar>
+              )}
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 label="Name"
@@ -105,15 +148,15 @@ const Register = ({ open, onClose, onUserAdded }) => {
                 variant="contained"
                 color="primary"
                 fullWidth
-                disabled={registerMutation.isLoading}
+                disabled={isLoading}
               >
                 Registrar
               </Button>
             </Grid>
           </Grid>
         </Box>
-      </DialogContent>
-    </Dialog>
+      </Container>
+    </AuthenticatedLayout>
   );
 };
 

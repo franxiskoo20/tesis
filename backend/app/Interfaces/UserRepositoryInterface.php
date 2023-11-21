@@ -9,4 +9,6 @@ interface UserRepositoryInterface
     public function findByEmail(string $email);
     public function getAll();
     public function getAuthenticatedUser($request);
+    public function update($id, array $data);
+    public function delete($id);
 }

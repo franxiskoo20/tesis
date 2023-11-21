@@ -28,10 +28,6 @@ class UserRepository  implements UserRepositoryInterface
         return User::where('email', $email)->firstOrFail();
     }
 
-    public function getAll()
-    {
-        return User::all();
-    }
 
     public function getAuthenticatedUser($request)
     {
@@ -43,5 +39,25 @@ class UserRepository  implements UserRepositoryInterface
             'email' => $user->email,
             'role' => $user->role->role_type ?? null,
         ];
+    }
+
+    public function getAll()
+    {
+        return User::with('role:id,role_type')->get();
+        // return User::all();
+    }
+
+    public function update($id, array $data)
+    {
+        $user = User::findOrFail($id);
+        $user->update($data);
+        return $user;
+    }
+
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return $user;
     }
 }

@@ -17,4 +17,10 @@ export const adminService = {
   getUsers() {
     return makeRequest("get", "/api/users");
   },
+  deleteUser(userId) {
+    return makeRequest("delete", `/api/user/${userId}`);
+  },
+  updateUser(userId, data) {
+    return makeRequest("put", `/api/user/${userId}`, data);
+  },
 };

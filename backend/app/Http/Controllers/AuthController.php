@@ -51,13 +51,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'You have successfully logged out and the token was successfully deleted']);
     }
 
-    // Obtener todos los usuarios
-    public function allUsers()
-    {
-        $users = $this->userRepository->getAll();
-        return response()->json($users);
-    }
-
+   
     // Obtener información del usuario autenticado
     public function user(Request $request)
     {

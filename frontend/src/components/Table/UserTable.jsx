@@ -1,55 +1,53 @@
+import { useState } from "react";
 import MUIDataTable from "mui-datatables";
+import { adminService } from "../../services/adminService";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  Button,
+  IconButton,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import userTableStaticColumns from "./userTableColumns";
+import userTableStaticOptions from "./userTableOptions";
 
-const UserTable = ({ users, onEdit, onDelete }) => {
+const UserTable = ({ users, onEdit, onAddUser }) => {
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+
+  const queryClient = useQueryClient();
+
+  const renderAddUserButton = () => {
+    return (
+      <Button variant="contained" color="primary" onClick={onAddUser}>
+        Agregar Usuario
+      </Button>
+    );
+  };
+
+  const deleteMutation = useMutation({
+    mutationFn: (userId) => adminService.deleteUser(userId),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["users"]);
+    },
+  });
+
+  const handleDelete = (userId) => {
+    setSelectedUserId(userId);
+    setDeleteConfirmOpen(true);
+  };
+  const confirmDelete = () => {
+    deleteMutation.mutate(selectedUserId);
+    setDeleteConfirmOpen(false);
+  };
+
   const columns = [
-    {
-      name: "id",
-      label: "ID",
-      options: {
-        filter: false,
-        sort: true,
-      },
-    },
-    {
-      name: "name",
-      label: "Name",
-      options: {
-        filter: false,
-        sort: true,
-      },
-    },
-    {
-      name: "email",
-      label: "Email",
-      options: {
-        filter: false,
-        sort: true,
-      },
-    },
-    {
-      name: "roleName",
-      label: "Rol",
-      options: {
-        filter: true,
-        sort: true,
-      },
-    },
-    {
-      name: "createdAt",
-      label: "fecha de creacion",
-      options: {
-        filter: false,
-        sort: true,
-      },
-    },
-    {
-      name: "updatedAt",
-      label: "fecha de actualizacion",
-      options: {
-        filter: false,
-        sort: true,
-      },
-    },
+    ...userTableStaticColumns,
     {
       name: "Actions",
       options: {
@@ -59,10 +57,12 @@ const UserTable = ({ users, onEdit, onDelete }) => {
         customBodyRenderLite: (dataIndex) => {
           return (
             <>
-              <button onClick={() => onEdit(users[dataIndex])}>Edit</button>
-              <button onClick={() => onDelete(users[dataIndex].id)}>
-                Delete
-              </button>
+              <IconButton onClick={() => onEdit(users[dataIndex])}>
+                <EditIcon />
+              </IconButton>
+              <IconButton onClick={() => handleDelete(users[dataIndex].id)}>
+                <DeleteIcon />
+              </IconButton>
             </>
           );
         },
@@ -71,52 +71,36 @@ const UserTable = ({ users, onEdit, onDelete }) => {
   ];
 
   const options = {
-    filterType: "checkbox",
-    responsive: "standard",
-    selectableRows: "none",
-    viewColumns: "false",
-    textLabels: {
-      body: {
-        noMatch: "Lo siento, no se encontraron registros",
-        toolTip: "Ordenar",
-      },
-      pagination: {
-        next: "Siguiente página",
-        previous: "Página anterior",
-        rowsPerPage: "Filas por página:",
-        displayRows: "de",
-      },
-      toolbar: {
-        search: "Buscar",
-        downloadCsv: "Descargar CSV",
-        print: "Imprimir",
-        viewColumns: "Ver Columnas",
-        filterTable: "Filtrar Tabla",
-      },
-      filter: {
-        all: "Todos",
-        title: "FILTROS",
-        reset: "REINICIAR",
-      },
-      viewColumns: {
-        title: "Mostrar Columnas",
-        titleAria: "Mostrar/Ocultar Columnas de la Tabla",
-      },
-      selectedRows: {
-        text: "fila(s) seleccionadas",
-        delete: "Eliminar",
-        deleteAria: "Eliminar Filas Seleccionadas",
-      },
-    },
+    ...userTableStaticOptions,
+    customToolbar: renderAddUserButton,
   };
 
   return (
-    <MUIDataTable
-      title={"Lista de usuarios"}
-      data={users}
-      columns={columns}
-      options={options}
-    />
+    <>
+      <MUIDataTable
+        title={"Lista de usuarios"}
+        data={users}
+        columns={columns}
+        options={options}
+      />
+      <Dialog
+        open={deleteConfirmOpen}
+        onClose={() => setDeleteConfirmOpen(false)}
+      >
+        <DialogTitle>Confirmar Eliminación</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            ¿Estás seguro de que quieres eliminar este usuario?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteConfirmOpen(false)}>Cancelar</Button>
+          <Button onClick={confirmDelete} color="primary">
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 

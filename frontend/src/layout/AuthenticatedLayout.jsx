@@ -19,7 +19,6 @@ export default function AuthenticatedLayout({ children }) {
   const navigationByRole = {
     Administrador: [
       { name: "Dashboard", path: "/app/dashboard" },
-      { name: "Registrar Usuarios", path: "/app/register" },
       { name: "Usuarios", path: "/app/users" },
     ],
     "Jefe Comercial": [
@@ -28,8 +27,6 @@ export default function AuthenticatedLayout({ children }) {
     ],
     // Define la navegación para otros roles aquí...
   };
-
-  console.log(user);
 
   const handleSignOut = async () => {
     await logout();
@@ -45,7 +42,7 @@ export default function AuthenticatedLayout({ children }) {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1 }} mb={3}>
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

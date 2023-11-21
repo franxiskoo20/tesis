@@ -10,7 +10,7 @@ import {
   RoleProtectedElement,
 } from "./routes";
 
-import { Products, Login, Dashboard, Users } from "./pages";
+import { Products, Login, Dashboard, UserManagement } from "./pages";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         path: "users",
         element: (
           <RoleProtectedElement allowedRoles={"Administrador"}>
-            <Users />
+            <UserManagement />
           </RoleProtectedElement>
         ),
       },

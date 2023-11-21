@@ -4,9 +4,9 @@ import AuthenticatedLayout from "../../layout/AuthenticatedLayout";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { adminService } from "../../services/adminService";
 import { adaptUserData } from "../../adapters/adaptUserData";
-import Register from "../Register/Register";
+import UserRegistrationModal from "../../components/UserRegistrationModal";
 
-const Users = () => {
+const UserManagement = () => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   // const [adaptedUsers, setAdaptedUsers] = useState([]);
 
@@ -31,7 +31,7 @@ const Users = () => {
       {isSuccess && (
         <UserTable users={adaptedUsers} onAddUser={handleOpenRegister} />
       )}
-      <Register
+      <UserRegistrationModal
         open={isRegisterOpen}
         onClose={handleCloseRegister}
         onUserAdded={handleUserAdded}
@@ -40,4 +40,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default UserManagement;

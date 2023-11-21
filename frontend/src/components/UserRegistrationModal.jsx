@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { adminService } from "../../services/adminService";
+import { adminService } from "../services/adminService";
 
 import {
   Dialog,
@@ -17,7 +17,7 @@ import {
   InputLabel,
 } from "@mui/material";
 
-const Register = ({ open, onClose, onUserAdded }) => {
+const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -117,4 +117,4 @@ const Register = ({ open, onClose, onUserAdded }) => {
   );
 };
 
-export default Register;
+export default UserRegistrationModal;

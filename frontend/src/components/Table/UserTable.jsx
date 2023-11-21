@@ -2,22 +2,16 @@ import { useState } from "react";
 import MUIDataTable from "mui-datatables";
 import { adminService } from "../../services/adminService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  Button,
-  IconButton,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import userTableStaticColumns from "./userTableColumns";
 import userTableStaticOptions from "./userTableOptions";
+import ConfirmDeleteDialog from "../ConfirmDeleteDialog";
 
 const UserTable = ({ users, onEdit, onAddUser }) => {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   const queryClient = useQueryClient();
@@ -83,23 +77,11 @@ const UserTable = ({ users, onEdit, onAddUser }) => {
         columns={columns}
         options={options}
       />
-      <Dialog
+      <ConfirmDeleteDialog
         open={deleteConfirmOpen}
         onClose={() => setDeleteConfirmOpen(false)}
-      >
-        <DialogTitle>Confirmar Eliminación</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            ¿Estás seguro de que quieres eliminar este usuario?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDeleteConfirmOpen(false)}>Cancelar</Button>
-          <Button onClick={confirmDelete} color="primary">
-            Eliminar
-          </Button>
-        </DialogActions>
-      </Dialog>
+        onConfirm={confirmDelete}
+      />
     </>
   );
 };

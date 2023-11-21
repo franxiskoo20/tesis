@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import UserTable from "../../components/Table/UserTable";
 import AuthenticatedLayout from "../../layout/AuthenticatedLayout";
 import { useQuery, useQueryClient } from "@tanstack/react-query";

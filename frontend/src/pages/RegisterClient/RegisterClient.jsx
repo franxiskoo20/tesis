@@ -19,7 +19,7 @@ import {
   Container,
 } from "@mui/material";
 
-const Register = () => {
+const RegisterClient = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -160,4 +160,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterClient;

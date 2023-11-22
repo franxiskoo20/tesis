@@ -1,6 +1,7 @@
 import { AppBar, Toolbar, Typography, Button } from "@mui/material";
 import logo from "../../assets/image/logo_camanchaca_blanco.png";
 import { Link } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const NavigationBar = ({ children, user, onSignOut, roleBasedNavigation }) => (
   <AppBar position="static">
@@ -18,8 +19,8 @@ const NavigationBar = ({ children, user, onSignOut, roleBasedNavigation }) => (
       {children}
       {user && roleBasedNavigation(user.role)}
       {user && (
-        <Button color="inherit" onClick={onSignOut}>
-          Logout
+        <Button color="inherit" onClick={onSignOut} startIcon={<LogoutIcon />}>
+          Salir
         </Button>
       )}
     </Toolbar>

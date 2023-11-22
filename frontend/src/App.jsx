@@ -3,14 +3,9 @@ import { AuthProvider } from "./features/auth/AuthProvider";
 
 import { createBrowserRouter } from "react-router-dom";
 
-import {
-  ProtectedRoutes,
-  PublicRoutes,
-  ErrorPage,
-  RoleProtectedElement,
-} from "./routes";
+import { ProtectedRoutes, PublicRoutes, RoleProtectedElement } from "./routes";
 
-import { Products, Login, Dashboard, UserManagement } from "./pages";
+import { Products, Login, Dashboard, UserManagement, ErrorPage } from "./pages";
 
 import { ROLES } from "./constants/roles";
 
@@ -22,29 +17,27 @@ const router = createBrowserRouter([
     children: [{ index: true, element: <Login /> }],
   },
   {
-    path: "/app",
+    // path: "/app",
     element: <ProtectedRoutes />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "products",
+        path: "app/products",
         element: (
-          <RoleProtectedElement
-            allowedRoles={[ROLES.ADMINISTRADOR, ROLES.JEFE_COMERCIAL]}
-          >
+          <RoleProtectedElement allowedRoles={ROLES.JEFE_COMERCIAL}>
             <Products />
           </RoleProtectedElement>
         ),
       },
       {
-        path: "users",
+        path: "app/users",
         element: (
           <RoleProtectedElement allowedRoles={ROLES.ADMINISTRADOR}>
             <UserManagement />
           </RoleProtectedElement>
         ),
       },
-      { path: "dashboard", element: <Dashboard /> },
+      { path: "app/dashboard", element: <Dashboard /> },
     ],
   },
 ]);

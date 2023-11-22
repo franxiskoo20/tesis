@@ -1,5 +1,8 @@
 import NavigationBar from "../common/NavigationBar";
 import { Button, Container, Box } from "@mui/material";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PeopleIcon from '@mui/icons-material/People';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import useAuth from "../../features/auth/useAuth";
 import { Link } from "react-router-dom";
@@ -11,8 +14,8 @@ export default function AuthenticatedLayout({ children }) {
 
   const navigationByRole = {
     [ROLES.ADMINISTRADOR]: [
-      { name: "Dashboard", path: "/app/dashboard" },
-      { name: "Usuarios", path: "/app/users" },
+      { name: "Dashboard", path: "/app/dashboard", icon: <DashboardIcon /> },
+      { name: "Usuarios", path: "/app/users", icon: <PeopleIcon /> },
     ],
     [ROLES.JEFE_COMERCIAL]: [
       { name: "Dashboard", path: "/app/dashboard" },
@@ -38,7 +41,7 @@ export default function AuthenticatedLayout({ children }) {
 
   const roleBasedNavigation = (role) => {
     return navigationByRole[role]?.map((item) => (
-      <Button key={item.name} color="inherit" component={Link} to={item.path}>
+      <Button key={item.name} color="inherit" component={Link} to={item.path} startIcon={item.icon}>
         {item.name}
       </Button>
     ));

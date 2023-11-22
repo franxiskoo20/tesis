@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { adminService } from "../services/adminService";
+import { adminService } from "../../services/adminService";
 
 import {
   Dialog,

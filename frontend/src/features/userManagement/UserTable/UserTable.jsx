@@ -1,13 +1,13 @@
 import { useState } from "react";
 import MUIDataTable from "mui-datatables";
-import { adminService } from "../../services/adminService";
+import { adminService } from "../../../services/adminService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import userTableStaticColumns from "./userTableColumns";
 import userTableStaticOptions from "./userTableOptions";
-import ConfirmDeleteDialog from "../ConfirmDeleteDialog";
+import ConfirmDeleteDialog from "../../../components/ConfirmDeleteDialog";
 
 const UserTable = ({ users, onEdit, onAddUser }) => {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);

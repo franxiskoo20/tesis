@@ -1,13 +1,12 @@
 import { useState } from "react";
-import DefaultLayout from "../../layout/DefaultLayout";
-import  useAuth  from "../../hooks/useAuth";
+import DefaultLayout from "../../components/layout/DefaultLayout";
+import useAuth from "../../features/auth/useAuth";
 import { TextField, Button, Container, Box, Typography } from "@mui/material";
 
 const Login = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- 
+
   const { login } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +34,6 @@ const Login = () => {
   };
   // Si está cargando, podríamos mostrar un indicador de carga
 
-
   return (
     <DefaultLayout>
       <Container component="main" maxWidth="xs">
@@ -48,7 +46,7 @@ const Login = () => {
           }}
         >
           <Typography component="h1" variant="h5">
-            Login {isLoading && "esta cargando el login...."}
+            Acceder {isLoading && "esta cargando el login...."}
           </Typography>
           {error && <Typography color="error">{error}</Typography>}
           <Box

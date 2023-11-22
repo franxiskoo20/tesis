@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import useAuth from "../features/auth/useAuth";
 
 const PublicRoutes = () => {
   const { isAuthenticated } = useAuth(); // Tu hook de autenticación

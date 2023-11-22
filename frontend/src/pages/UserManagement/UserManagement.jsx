@@ -1,10 +1,10 @@
 import { useState } from "react";
-import UserTable from "../../components/Table/UserTable";
-import AuthenticatedLayout from "../../layout/AuthenticatedLayout";
+import UserTable from "../../features/userManagement/UserTable/UserTable";
+import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { adminService } from "../../services/adminService";
 import { adaptUserData } from "../../adapters/adaptUserData";
-import UserRegistrationModal from "../../components/UserRegistrationModal";
+import UserRegistrationModal from "../../features/userManagement/UserRegistrationModal";
 
 const UserManagement = () => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);

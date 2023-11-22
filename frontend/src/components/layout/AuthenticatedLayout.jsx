@@ -1,39 +1,32 @@
-import {
-  Typography,
-  Button,
-  Container,
-  Toolbar,
-  Box,
-  AppBar,
-} from "@mui/material";
+import NavigationBar from "../common/NavigationBar";
+import { Button, Container, Box } from "@mui/material";
 
-import useAuth from "../hooks/useAuth";
-// import { useNavigate } from "react-router-dom";
+import useAuth from "../../features/auth/useAuth";
 import { Link } from "react-router-dom";
+
+import { ROLES } from "../../constants/roles";
 
 export default function AuthenticatedLayout({ children }) {
   const { user, logout } = useAuth();
 
-  // const navigate = useNavigate();
-
   const navigationByRole = {
-    Administrador: [
+    [ROLES.ADMINISTRADOR]: [
       { name: "Dashboard", path: "/app/dashboard" },
       { name: "Usuarios", path: "/app/users" },
     ],
-    "Jefe Comercial": [
+    [ROLES.JEFE_COMERCIAL]: [
       { name: "Dashboard", path: "/app/dashboard" },
       { name: "Products", path: "/app/products" },
     ],
-    "Customer Service": [
+    [ROLES.CUSTOMER_SERVICE]: [
       { name: "Dashboard", path: "/app/dashboard" },
       { name: "Products", path: "/app/products" },
     ],
-    Romana: [
+    [ROLES.ROMANA]: [
       { name: "Dashboard", path: "/app/dashboard" },
       { name: "Products", path: "/app/products" },
     ],
-    Portero: [
+    [ROLES.PORTERO]: [
       { name: "Dashboard", path: "/app/dashboard" },
       { name: "Products", path: "/app/products" },
     ],
@@ -54,21 +47,13 @@ export default function AuthenticatedLayout({ children }) {
   return (
     <>
       <Box sx={{ flexGrow: 1 }} mb={3}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              My Application
-            </Typography>
-            {user && roleBasedNavigation(user.role)}
-            <Button color="inherit" onClick={handleSignOut}>
-              Logout
-            </Button>
-          </Toolbar>
-        </AppBar>
+        <NavigationBar
+          user={user}
+          onSignOut={handleSignOut}
+          roleBasedNavigation={roleBasedNavigation}
+        />
       </Box>
-      <Container>
-        <main>{children}</main>
-      </Container>
+      <Container>{children}</Container>
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import AuthenticatedLayout from "../../layout/AuthenticatedLayout";
+import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { adminService } from "../../services/adminService";
 

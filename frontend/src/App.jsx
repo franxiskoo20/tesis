@@ -1,5 +1,5 @@
 import { RouterProvider } from "react-router-dom";
-import { AuthProvider } from "./contexts/AuthProvider.jsx";
+import { AuthProvider } from "./features/auth/AuthProvider";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -11,6 +11,8 @@ import {
 } from "./routes";
 
 import { Products, Login, Dashboard, UserManagement } from "./pages";
+
+import { ROLES } from "./constants/roles";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +30,7 @@ const router = createBrowserRouter([
         path: "products",
         element: (
           <RoleProtectedElement
-            allowedRoles={["Administrador", "Jefe Comercial"]}
+            allowedRoles={[ROLES.ADMINISTRADOR, ROLES.JEFE_COMERCIAL]}
           >
             <Products />
           </RoleProtectedElement>
@@ -37,7 +39,7 @@ const router = createBrowserRouter([
       {
         path: "users",
         element: (
-          <RoleProtectedElement allowedRoles={"Administrador"}>
+          <RoleProtectedElement allowedRoles={ROLES.ADMINISTRADOR}>
             <UserManagement />
           </RoleProtectedElement>
         ),

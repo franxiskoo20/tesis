@@ -4,9 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
 {
@@ -44,9 +44,11 @@ class LoginRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
-        throw new HttpResponseException(
-            response()->json($validator->errors()->all(), Response::HTTP_BAD_REQUEST)
-        );
+        $response = response()->json([
+            'message' => 'Los datos proporcionados no son válidos.',
+            'errors' => $validator->errors(),
+        ], 422);
+
+        throw new ValidationException($validator, $response);
     }
-  
 }

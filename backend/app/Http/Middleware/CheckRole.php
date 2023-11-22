@@ -17,7 +17,7 @@ class CheckRole
     public function handle(Request $request, Closure $next, $role)
     {
         if (!$request->user() || !$request->user()->hasRole($role)) {
-            abort(403, 'Acceso no autorizado.');
+            abort(403, 'Acceso no autorizado no tiene el rol pertinente.');
         }
 
         return $next($request);

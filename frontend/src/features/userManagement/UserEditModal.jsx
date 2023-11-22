@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { adminService } from "../../services/adminService";
@@ -15,9 +15,13 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 
 const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
+  const [showPasswordFields, setShowPasswordFields] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -28,6 +32,9 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
   const { data: roles } = useQuery({
     queryKey: ["roles"],
     queryFn: adminService.getRoles,
+    onSuccess: (data) => {
+      console.log(data);
+    },
   });
 
   const updateMutation = useMutation({
@@ -42,13 +49,15 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     if (userToEdit) {
       setValue("name", userToEdit.name);
       setValue("email", userToEdit.email);
-      setValue("role_id", userToEdit.role_id);
-      // No establecer la contraseña aquí
     }
   }, [userToEdit, setValue]);
 
   const onSubmit = (data) => {
     updateMutation.mutate(data);
+  };
+
+  const handleTogglePasswordFields = (event) => {
+    setShowPasswordFields(event.target.checked);
   };
 
   return (
@@ -80,7 +89,6 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
                 helperText={errors.email ? "Este campo es requerido" : ""}
               />
             </Grid>
-            {/* No incluir campos de contraseña a menos que también quieras permitir cambiar la contraseña aquí */}
             <Grid item xs={12}>
               <FormControl fullWidth>
                 <InputLabel id="role-select-label">Rol</InputLabel>
@@ -89,6 +97,7 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
                   labelId="role-select-label"
                   id="role-select"
                   label="Rol"
+                  defaultValue={userToEdit.roleId}
                   error={!!errors.role_id}
                 >
                   {roles?.map((role) => (
@@ -99,6 +108,54 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
                 </Select>
               </FormControl>
             </Grid>
+            {/* Switch para mostrar/ocultar campos de contraseña */}
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={showPasswordFields}
+                    onChange={handleTogglePasswordFields}
+                  />
+                }
+                label={
+                  showPasswordFields
+                    ? "Ocultar Cambio de Contraseña"
+                    : "Cambiar Contraseña"
+                }
+              />
+            </Grid>
+
+            {/* Campos de contraseña que se muestran condicionalmente */}
+            {showPasswordFields && (
+              <>
+                <Grid item xs={12}>
+                  <TextField
+                    {...register("password", { required: true })}
+                    label="Nueva Contraseña"
+                    variant="outlined"
+                    type="password"
+                    fullWidth
+                    error={!!errors.password}
+                    helperText={
+                      errors.password ? "Este campo es requerido" : ""
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    {...register("confirmPassword", { required: true })}
+                    label="Confirmar Nueva Contraseña"
+                    variant="outlined"
+                    type="password"
+                    fullWidth
+                    error={!!errors.confirmPassword}
+                    helperText={
+                      errors.confirmPassword ? "Este campo es requerido" : ""
+                    }
+                  />
+                </Grid>
+              </>
+            )}
             <Grid item xs={12}>
               <Button
                 type="submit"

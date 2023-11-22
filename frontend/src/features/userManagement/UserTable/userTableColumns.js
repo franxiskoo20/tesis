@@ -5,6 +5,7 @@ const userTableStaticColumns = [
     options: {
       filter: false,
       sort: true,
+      customBodyRenderLite: (dataIndex) => dataIndex + 1,
     },
   },
   {

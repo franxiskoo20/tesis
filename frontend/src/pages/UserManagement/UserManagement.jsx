@@ -14,12 +14,14 @@ const UserManagement = () => {
 
   const queryClient = useQueryClient();
 
+  // obtener usuarios y adaptarlos
   const { data: adaptedUsers, isSuccess } = useQuery({
     queryKey: ["users"],
     queryFn: adminService.getUsers,
     select: (data) => data.map(adaptUserData),
   });
 
+  // modal de registro 
   const handleOpenRegister = () => setIsRegisterOpen(true);
   const handleCloseRegister = () => setIsRegisterOpen(false);
 

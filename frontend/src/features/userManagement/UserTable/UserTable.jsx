@@ -11,7 +11,7 @@ import ConfirmDeleteDialog from "../../../components/ConfirmDeleteDialog";
 
 const UserTable = ({ users, onEdit, onAddUser }) => {
   const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-  
+
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   const queryClient = useQueryClient();

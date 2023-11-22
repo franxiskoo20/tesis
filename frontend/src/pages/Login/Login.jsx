@@ -1,38 +1,29 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import useAuth from "../../features/auth/useAuth";
 import { TextField, Button, Container, Box, Typography } from "@mui/material";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const { login } = useAuth();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setError(""); // Resetear el estado de error antes de cada intento de login
-    login(
-      { email, password },
-      {
-        onSuccess: () => {
-          setIsLoading(false);
-        },
-        onError: (error) => {
-          // Aquí manejas el error de login
-          setError(
-            error.response?.data?.message || "Ocurrió un error durante el login"
-          );
-          setIsLoading(false);
-        },
-      }
-    );
+  const onSubmit = async (data) => {
+    login(data, {
+      onSuccess: () => {
+        // Manejar éxito
+      },
+      onError: (error) => {
+        // Manejar error
+        console.log(error);
+      },
+    });
   };
-  // Si está cargando, podríamos mostrar un indicador de carga
 
   return (
     <DefaultLayout>
@@ -46,38 +37,35 @@ const Login = () => {
           }}
         >
           <Typography component="h1" variant="h5">
-            Acceder {isLoading && "esta cargando el login...."}
+            Acceder
           </Typography>
-          {error && <Typography color="error">{error}</Typography>}
           <Box
             component="form"
-            onSubmit={handleLogin}
+            onSubmit={handleSubmit(onSubmit)}
             noValidate
             sx={{ mt: 1 }}
           >
             <TextField
+              {...register("email", { required: true })}
               margin="normal"
               required
               fullWidth
-              id="email"
               label="Email"
-              name="email"
               autoComplete="email"
               autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              error={!!errors.email}
+              helperText={errors.email ? "Este campo es requerido" : ""}
             />
             <TextField
+              {...register("password", { required: true })}
               margin="normal"
               required
               fullWidth
-              name="password"
               label="Contraseña"
               type="password"
-              id="password"
               autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              error={!!errors.password}
+              helperText={errors.password ? "Este campo es requerido" : ""}
             />
             <Button
               type="submit"

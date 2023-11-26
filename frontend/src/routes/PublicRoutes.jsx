@@ -2,7 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import useAuth from "../features/auth/useAuth";
 
 const PublicRoutes = () => {
-  const { isAuthenticated } = useAuth(); // Tu hook de autenticación
+  const { isAuthenticated } = useAuth(); 
   return isAuthenticated ? (
     <Navigate to="/app/dashboard" replace />
   ) : (

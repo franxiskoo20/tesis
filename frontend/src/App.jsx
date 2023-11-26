@@ -17,7 +17,6 @@ const router = createBrowserRouter([
     children: [{ index: true, element: <Login /> }],
   },
   {
-    // path: "/app",
     element: <ProtectedRoutes />,
     errorElement: <ErrorPage />,
     children: [

@@ -7,15 +7,9 @@ export const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const queryClient = useQueryClient();
 
-  // const userQuery = useQuery({
-  //   queryKey: ["authUser"],
-  //   queryFn: () => authService.validateToken(localStorage.getItem("token")),
-  //   enabled: !!localStorage.getItem("token"),
-  // });
-
   const userQuery = useQuery({
     queryKey: ["authUser"],
-    queryFn:() => authService.validateToken(),
+    queryFn: () => authService.validateToken(),
     enabled: !!localStorage.getItem("token"),
   });
 
@@ -37,7 +31,6 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("token");
     },
   });
-  // const isLoadingLogin = logoutMutation.isLoading;
 
   const value = {
     user,
@@ -48,7 +41,6 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {/* {isLoadingLogin && <h1>CARGANDPO LOGIN</h1>} */}
       {isLoading ? <div>Loading...Provider</div> : children}
     </AuthContext.Provider>
   );

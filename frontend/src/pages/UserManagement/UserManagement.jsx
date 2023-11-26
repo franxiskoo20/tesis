@@ -21,7 +21,7 @@ const UserManagement = () => {
     select: (data) => data.map(adaptUserData),
   });
 
-  // modal de registro 
+  // modal de registro
   const handleOpenRegister = () => setIsRegisterOpen(true);
   const handleCloseRegister = () => setIsRegisterOpen(false);
 

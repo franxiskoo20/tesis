@@ -66,7 +66,6 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
       <DialogContent>
         <Box component="form" my={1} onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={2}>
-            {/* Campos del formulario */}
             <Grid item xs={12}>
               <TextField
                 {...register("name", { required: true })}

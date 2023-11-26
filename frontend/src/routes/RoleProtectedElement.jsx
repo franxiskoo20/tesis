@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import useAuth from "../features/auth/useAuth"; // Asegúrate de importar correctamente tu hook useAuth
+import useAuth from "../features/auth/useAuth";
 
 const RoleProtectedElement = ({ children, allowedRoles }) => {
   const { user } = useAuth();

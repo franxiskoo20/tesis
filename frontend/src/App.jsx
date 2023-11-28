@@ -1,5 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./features/auth/AuthProvider";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -8,6 +10,7 @@ import { ProtectedRoutes, PublicRoutes, RoleProtectedElement } from "./routes";
 import { Products, Login, Dashboard, UserManagement, ErrorPage } from "./pages";
 
 import { ROLES } from "./constants/roles";
+import { DrawerProvider } from "./contexts/DrawerProvider";
 
 const router = createBrowserRouter([
   {
@@ -41,11 +44,29 @@ const router = createBrowserRouter([
   },
 ]);
 
+// Crear el tema personalizado
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#0070ba",
+    },
+    background: {
+      default: "#F5F5F5",
+    },
+  },
+});
+
 const App = () => {
   return (
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+
+      <AuthProvider>
+        <DrawerProvider>
+          <RouterProvider router={router} />
+        </DrawerProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 };
 

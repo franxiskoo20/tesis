@@ -15,7 +15,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Logo from "../../components/common/Logo";
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -69,8 +69,8 @@ export default function DrawerBar({
   open,
 }) {
   return (
-    <Box display={"flex"}>
-      <AppBar position="fixed" open={open}>
+    <>
+      <AppBar position="absolute" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -110,25 +110,26 @@ export default function DrawerBar({
             justifyContent: "space-between",
           }}
         >
-          <Logo />
-          {open && (
-            <Toolbar
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-end",
-                px: [1],
-              }}
-            >
-              <IconButton onClick={toggleDrawer}>
-                <ChevronLeftIcon />
-              </IconButton>
-            </Toolbar>
-          )}
+          <Box px={2}>
+            <Logo color="azul" />
+          </Box>
+
+          <Toolbar
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              px: [1],
+            }}
+          >
+            <IconButton onClick={toggleDrawer}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </Toolbar>
         </Box>
         <Divider />
         <List component="nav">{roleBasedNavigation}</List>
       </Drawer>
-    </Box>
+    </>
   );
 }

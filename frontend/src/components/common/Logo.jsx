@@ -1,23 +1,16 @@
 import { Link } from "react-router-dom";
-import logo from "../../assets/image/logo_camanchaca_azul.png";
-import { Box } from "@mui/material";
+import logoBlanco from "../../assets/image/logo_camanchaca_blanco.png";
+import logoAzul from "../../assets/image/logo_camanchaca_azul.png";
+// import { Box } from "@mui/material";
 
-const Logo = () => (
-  <Box>
-    <Link to="/">
-      <img
-        src={logo}
-        alt="Logo Camanchaca"
-        style={{ maxWidth: 58, cursor: "pointer" }}
-      />
-    </Link>
-  </Box>
+const Logo = ({ color }) => (
+  <Link to="/">
+    <img
+      src={color === 'azul' ? logoAzul : logoBlanco}
+      alt="Logo Camanchaca"
+      style={{ maxWidth: 150, cursor: "pointer" }}
+    />
+  </Link>
 );
 
 export default Logo;
-
-/**
- * 
- * 
- * 
- */

@@ -13,22 +13,22 @@ class UserSeeder extends Seeder
 
     public function run()
     {
-       // Primero, asegúrate de que el rol de administrador esté creado.
+        // Primero, asegúrate de que el rol de administrador esté creado.
 
-       $adminRoleId = Role::firstOrCreate(['role_type' => 'Administrador'])->id;
-       $jefeRoleId = Role::firstOrCreate(['role_type' => 'Jefe Comercial'])->id;
+        $adminRoleId = Role::firstOrCreate(['role_type' => 'Administrador'])->id;
+        $jefeRoleId = Role::firstOrCreate(['role_type' => 'Jefe Comercial'])->id;
 
         User::create([
             'name' => 'Admin',
             'email' => 'admin@admin',
-            'password' => Hash::make('password'), 
+            'password' => Hash::make('password'),
             'role_id' => $adminRoleId,
         ]);
 
         User::create([
             'name' => 'Jefe',
             'email' => 'jefe@jefe',
-            'password' => Hash::make('password'), 
+            'password' => Hash::make('password'),
             'role_id' => $jefeRoleId,
         ]);
     }

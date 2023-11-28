@@ -7,7 +7,7 @@ import useAuth from "../../features/auth/useAuth";
 export default function AuthenticatedLayout({ children }) {
   const { user, logout } = useAuth();
 
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(true);
 
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);

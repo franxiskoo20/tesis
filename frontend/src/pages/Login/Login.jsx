@@ -1,10 +1,17 @@
 import { useForm } from "react-hook-form";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import useAuth from "../../features/auth/useAuth";
-import { TextField, Button, Container, Box, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Container,
+  Box,
+  Typography,
+  Avatar,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const Login = () => {
-  
   const {
     register,
     handleSubmit,
@@ -13,7 +20,7 @@ const Login = () => {
 
   const { login } = useAuth();
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     login(data, {
       onSuccess: () => {
         // Manejar éxito
@@ -36,6 +43,9 @@ const Login = () => {
             alignItems: "center",
           }}
         >
+          <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
           <Typography component="h1" variant="h5">
             Acceder
           </Typography>

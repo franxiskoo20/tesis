@@ -9,36 +9,39 @@ import {
   List,
   Button,
   Box,
-  useMediaQuery,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Logo from "../../components/common/Logo";
 
-const drawerWidth = 170;
+const drawerWidth = 240;
 
-const AppBar = styled(MuiAppBar)(({ theme, open }) => {
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const closedDrawerWidth = isSmallScreen ? 57 : 73;
-
-  return {
-    width: `calc(100% - ${open ? drawerWidth : closedDrawerWidth}px)`,
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(["width", "margin"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: open
-        ? theme.transitions.duration.enteringScreen
-        : theme.transitions.duration.leavingScreen,
+      duration: theme.transitions.duration.leavingScreen,
     }),
-  };
-});
+  }),
+}));
 
-const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
   "& .MuiDrawer-paper": {
     position: "relative",
     whiteSpace: "nowrap",
     width: drawerWidth,
-    overflowX: "hidden",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -47,9 +50,13 @@ const Drawer = styled(MuiDrawer)(({ theme, open }) => ({
     height: "100vh",
     ...(!open && {
       overflowX: "hidden",
+      transition: theme.transitions.create("width", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
       width: theme.spacing(7),
       [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9.2),
+        width: theme.spacing(9),
       },
     }),
   },
@@ -63,11 +70,7 @@ export default function DrawerBar({
 }) {
   return (
     <Box display={"flex"}>
-      <AppBar
-        position="fixed"
-        open={open}
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
+      <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"

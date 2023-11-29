@@ -11,14 +11,19 @@ async function makeRequest(method, url, data = null) {
     const response = await httpClient(config);
     return response.data;
   } catch (error) {
+    let errorMessage;
+
     if (error.response) {
-      const errorMessage = error.response.data.message;
-      throw new Error(errorMessage);
+      errorMessage = error.response.data.message;
     } else if (error.request) {
-      throw new Error("No se recibió respuesta del servidor");
+      errorMessage = "No se recibió respuesta del servidor";
     } else {
-      throw new Error("Error al realizar la solicitud");
+      errorMessage = "Error al realizar la solicitud";
     }
+
+    console.log(errorMessage); // Imprime el mensaje de error en la consola
+    console.log(error?.response?.data?.errors);
+    throw new Error(errorMessage);
   }
 }
 

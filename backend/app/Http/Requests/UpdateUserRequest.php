@@ -27,9 +27,11 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
+        // Obtiene el ID del usuario desde el parámetro de la ruta.
+        $userId = $this->route('id');
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $this->user,
+            'email' => 'required|string|email|max:255|unique:users,email,' . $userId,
             'role_id' => 'required|numeric',
         ];
     }

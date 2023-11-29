@@ -1,45 +1,52 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { adminService } from "../../services/adminService";
-
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Grid,
-  Box,
-  TextField,
-  Button,
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  Switch,
-  FormControlLabel,
-} from "@mui/material";
+import { Grid, Box } from "@mui/material";
+import { yupResolver } from "@hookform/resolvers/yup";
+import ModalLayout from "../../components/layout/ModalLayout";
+import ActionButtons from "../../components/common/ActionButtons";
+import { Switch, FormControlLabel } from "@mui/material";
+import { userValidationSchema } from "./utils/validationSchemasUtils";
+import UserFormFields from "./form/UserFormFields";
+import PasswordFields from "./form/PasswordFields";
 
 const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
-  const [showPasswordFields, setShowPasswordFields] = useState(false);
-
   const {
     register,
     handleSubmit,
-    setValue,
+    reset,
+    control,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(userValidationSchema),
+  });
+
+  // switch para mostrar/ocultar campos de contraseña
+  const [showPasswordFields, setShowPasswordFields] = useState(false);
+  const switchLabel = showPasswordFields
+    ? "Ocultar Cambio de Contraseña"
+    : "Cambiar Contraseña";
 
   const { data: roles } = useQuery({
     queryKey: ["roles"],
     queryFn: adminService.getRoles,
-    onSuccess: (data) => {
-      console.log(data);
-    },
   });
 
   const updateMutation = useMutation({
     mutationFn: (data) => adminService.updateUser(userToEdit.id, data),
     onSuccess: () => {
+      console.log("se envio el formulario");
+      if (onUserUpdated) onUserUpdated();
+      onClose();
+    },
+  });
+
+  const updatePasswordMutation = useMutation({
+    mutationFn: (data) => adminService.updateUserPassword(userToEdit.id, data),
+    onSuccess: () => {
+      console.log("se envio el formulario pass");
+
       if (onUserUpdated) onUserUpdated();
       onClose();
     },
@@ -47,13 +54,44 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
 
   useEffect(() => {
     if (userToEdit) {
-      setValue("name", userToEdit.name);
-      setValue("email", userToEdit.email);
+      reset({
+        name: userToEdit.name,
+        email: userToEdit.email,
+        role_id: userToEdit.roleId,
+      });
     }
-  }, [userToEdit, setValue]);
+  }, [userToEdit, reset]);
+
+  const hasUserChanged = (data) => {
+    // Convertir ambos valores a números antes de la comparación
+    const roleChanged = parseInt(data.role_id, 10) !== userToEdit.roleId;
+
+    return (
+      data.name !== userToEdit.name ||
+      data.email !== userToEdit.email ||
+      roleChanged
+    );
+  };
 
   const onSubmit = (data) => {
-    updateMutation.mutate(data);
+    const passwordChanged = data.password && data.password_confirmation;
+    const userChanged = hasUserChanged(data);
+
+    if (passwordChanged || userChanged) {
+      if (passwordChanged) {
+        updatePasswordMutation.mutate({
+          new_password: data.password,
+          new_password_confirmation: data.password_confirmation,
+        });
+      }
+
+      if (userChanged) {
+        updateMutation.mutate(data);
+      }
+    } else {
+      onClose();
+      console.log("No hay cambios para actualizar");
+    }
   };
 
   const handleTogglePasswordFields = (event) => {
@@ -61,115 +99,44 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Editar Usuario</DialogTitle>
-      <DialogContent>
-        <Box component="form" my={1} onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                {...register("name", { required: true })}
-                label="Name"
-                variant="outlined"
-                type="text"
-                fullWidth
-                error={!!errors.name}
-                helperText={errors.name ? "Este campo es requerido" : ""}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                {...register("email", { required: true })}
-                label="Email"
-                variant="outlined"
-                type="email"
-                fullWidth
-                error={!!errors.email}
-                helperText={errors.email ? "Este campo es requerido" : ""}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl fullWidth>
-                <InputLabel id="role-select-label">Rol</InputLabel>
-                <Select
-                  {...register("role_id", { required: true })}
-                  labelId="role-select-label"
-                  id="role-select"
-                  label="Rol"
-                  defaultValue={userToEdit.roleId}
-                  error={!!errors.role_id}
-                >
-                  {roles?.map((role) => (
-                    <MenuItem key={role.id} value={role.id}>
-                      {role.role_type}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            {/* Switch para mostrar/ocultar campos de contraseña */}
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={showPasswordFields}
-                    onChange={handleTogglePasswordFields}
-                  />
-                }
-                label={
-                  showPasswordFields
-                    ? "Ocultar Cambio de Contraseña"
-                    : "Cambiar Contraseña"
-                }
-              />
-            </Grid>
-
-            {/* Campos de contraseña que se muestran condicionalmente */}
-            {showPasswordFields && (
-              <>
-                <Grid item xs={12}>
-                  <TextField
-                    {...register("password", { required: true })}
-                    label="Nueva Contraseña"
-                    variant="outlined"
-                    type="password"
-                    fullWidth
-                    error={!!errors.password}
-                    helperText={
-                      errors.password ? "Este campo es requerido" : ""
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    {...register("confirmPassword", { required: true })}
-                    label="Confirmar Nueva Contraseña"
-                    variant="outlined"
-                    type="password"
-                    fullWidth
-                    error={!!errors.confirmPassword}
-                    helperText={
-                      errors.confirmPassword ? "Este campo es requerido" : ""
-                    }
-                  />
-                </Grid>
-              </>
-            )}
-            <Grid item xs={12}>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-                disabled={updateMutation.isLoading}
-              >
-                Actualizar
-              </Button>
-            </Grid>
+    <ModalLayout title="Editar Usuario" open={open} onClose={onClose}>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>
+        <Grid container spacing={2}>
+          <UserFormFields
+            register={register}
+            errors={errors}
+            control={control}
+            roles={roles}
+          />
+          {/* Switch para mostrar/ocultar campos de contraseña */}
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={showPasswordFields}
+                  onChange={handleTogglePasswordFields}
+                />
+              }
+              label={switchLabel}
+            />
           </Grid>
-        </Box>
-      </DialogContent>
-    </Dialog>
+          <PasswordFields
+            register={register}
+            errors={errors}
+            showPasswordFields={showPasswordFields}
+          />
+
+          <Grid item xs={12}>
+            <ActionButtons
+              isLoading={
+                updateMutation.isLoading || updatePasswordMutation.isLoading
+              }
+              onCancel={onClose}
+            />
+          </Grid>
+        </Grid>
+      </Box>
+    </ModalLayout>
   );
 };
 

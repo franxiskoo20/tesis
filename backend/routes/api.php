@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('register', [AuthController::class, 'register'])->middleware('role:Administrador');
     Route::get('roles', [RoleController::class, 'index'])->middleware('role:Administrador');
+
     Route::put('user/{id}', [UserController::class, 'update'])->middleware('role:Administrador');
 
     Route::delete('/user/{id}', [UserController::class, 'delete'])->middleware('role:Administrador');

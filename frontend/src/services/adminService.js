@@ -1,11 +1,12 @@
 import makeRequest from "./api/makeRequest";
 
 export const adminService = {
-  register({ name, email, password, role_id }) {
+  register({ name, email, password, password_confirmation, role_id }) {
     return makeRequest("post", "/api/register", {
       name,
       email,
       password,
+      password_confirmation,
       role_id,
     });
   },
@@ -22,5 +23,8 @@ export const adminService = {
   },
   updateUser(userId, data) {
     return makeRequest("put", `/api/user/${userId}`, data);
+  },
+  updateUserPassword(userId, data) {
+    return makeRequest("put", `/api/user/${userId}/change-password`, data);
   },
 };

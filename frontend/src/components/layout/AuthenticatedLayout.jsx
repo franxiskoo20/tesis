@@ -27,7 +27,6 @@ export default function AuthenticatedLayout({ children }) {
         component="main"
         sx={{
           flexGrow: 1,
-          height: "100vh",
           overflow: "auto",
           mt: 8,
         }}

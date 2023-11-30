@@ -21,7 +21,6 @@ const UserManagement = () => {
     select: (data) => data.map(adaptUserData),
   });
 
-  // modal de registro
   const handleOpenRegister = () => setIsRegisterOpen(true);
   const handleCloseRegister = () => setIsRegisterOpen(false);
 
@@ -31,6 +30,7 @@ const UserManagement = () => {
   };
 
   const handleOpenEdit = (user) => {
+    console.log("usurioResivido" + user);
     setUserToEdit(user);
     setIsEditOpen(true);
   };

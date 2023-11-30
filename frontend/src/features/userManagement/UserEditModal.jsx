@@ -20,7 +20,21 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(userValidationSchema),
+    defaultValues: {
+      role_id: "",
+    },
   });
+
+  useEffect(() => {
+    if (userToEdit) {
+      console.log("userToEdit" + userToEdit.name);
+      reset({
+        name: userToEdit.name,
+        email: userToEdit.email,
+        role_id: userToEdit.roleId,
+      });
+    }
+  }, [userToEdit, reset]);
 
   // switch para mostrar/ocultar campos de contraseña
   const [showPasswordFields, setShowPasswordFields] = useState(false);
@@ -52,20 +66,9 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     },
   });
 
-  useEffect(() => {
-    if (userToEdit) {
-      reset({
-        name: userToEdit.name,
-        email: userToEdit.email,
-        role_id: userToEdit.roleId,
-      });
-    }
-  }, [userToEdit, reset]);
-
   const hasUserChanged = (data) => {
-    // Convertir ambos valores a números antes de la comparación
-    const roleChanged = parseInt(data.role_id, 10) !== userToEdit.roleId;
-
+    const roleChanged = parseInt(data.role_id) !== userToEdit.roleId;
+    console.log(roleChanged);
     return (
       data.name !== userToEdit.name ||
       data.email !== userToEdit.email ||

@@ -1,6 +1,7 @@
 import { createContext } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { authService } from "../../services/authService";
+import Loading from "../../components/common/Loading";
 
 export const AuthContext = createContext(null);
 
@@ -41,7 +42,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      {isLoading ? <div>Loading...Provider</div> : children}
+      {isLoading ? <Loading/> : children}
     </AuthContext.Provider>
   );
 };

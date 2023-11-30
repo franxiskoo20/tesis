@@ -1,24 +1,32 @@
-import {  Box, Button } from "@mui/material";
-
-const ActionButtons = ({ isLoading, onCancel }) => (
-  <Box sx={{ display: "flex", justifyContent: "center" }}>
-    <Button
-      type="submit"
-      variant="contained"
-      color="primary"
+import { Box } from "@mui/material";
+import CancelButtom from "./CancelButton";
+import AcceptButton from "./AcceptButton";
+const ActionButtons = ({
+  isLoading = false,
+  onCancel,
+  onAccept,
+  acceptButtonLabel,
+  acceptButtonIcon,
+  cancelButtonLabel,
+  cancelButtonIcon,
+}) => (
+  <Box
+    sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}
+  >
+    <AcceptButton
       disabled={isLoading}
-      sx={{ mx: 1 }}
+      label={acceptButtonLabel}
+      startIcon={acceptButtonIcon}
+      onClick={onAccept}
     >
-      Registrar
-    </Button>
-    <Button
+      {acceptButtonLabel}
+    </AcceptButton>
+    <CancelButtom
       onClick={onCancel}
-      variant="outlined"
-      color="primary"
-      sx={{ mx: 1 }}
-    >
-      Cancelar
-    </Button>
+      label={cancelButtonLabel}
+      startIcon={cancelButtonIcon}
+    />
   </Box>
 );
+
 export default ActionButtons;

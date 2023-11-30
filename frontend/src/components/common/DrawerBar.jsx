@@ -48,8 +48,8 @@ const Drawer = styled(MuiDrawer, {
     }),
     boxSizing: "border-box",
     height: "100vh",
+    overflowX: "hidden",
     ...(!open && {
-      overflowX: "hidden",
       transition: theme.transitions.create("width", {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -63,10 +63,10 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function DrawerBar({
-  onSignOut,
   roleBasedNavigation,
   toggleDrawer,
   open,
+  handleToggleExitConfirmation,
 }) {
   return (
     <>
@@ -95,7 +95,7 @@ export default function DrawerBar({
 
           <Button
             color="inherit"
-            onClick={onSignOut}
+            onClick={handleToggleExitConfirmation}
             startIcon={<LogoutIcon />}
           >
             Salir
@@ -119,7 +119,7 @@ export default function DrawerBar({
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
-              px: [1],
+              px: 1,
             }}
           >
             <IconButton onClick={toggleDrawer}>

@@ -1,7 +1,7 @@
 import MUIDataTable from "mui-datatables";
 
 import userTableStaticOptions from "./userTableOptions";
-import ConfirmDeleteDialog from "../../../components/ConfirmDeleteDialog";
+import GenericConfirmDialog from "../../../components/GenericConfirmDialog";
 import useAddUserButton from "../hook/useAddUserButton";
 import useDeleteHandler from "../hook/useDeleteHandler";
 import useTableColumns from "../hook/useTableColumns";
@@ -31,10 +31,13 @@ const UserTable = ({ users, onEdit, onAddUser }) => {
         columns={columns}
         options={options}
       />
-      <ConfirmDeleteDialog
+      <GenericConfirmDialog
         open={deleteConfirmOpen}
         onClose={() => setDeleteConfirmOpen(false)}
         onConfirm={confirmDelete}
+        title="Confirmar Eliminación"
+        confirmButtonText="Eliminar"
+        cancelButtonText="Cancelar"
       />
     </>
   );

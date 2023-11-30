@@ -10,6 +10,8 @@ import { Switch, FormControlLabel } from "@mui/material";
 import { userValidationSchema } from "./utils/validationSchemasUtils";
 import UserFormFields from "./form/UserFormFields";
 import PasswordFields from "./form/PasswordFields";
+import EditIcon from "@mui/icons-material/Edit";
+
 
 const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
   const {
@@ -135,6 +137,8 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
                 updateMutation.isLoading || updatePasswordMutation.isLoading
               }
               onCancel={onClose}
+              acceptButtonLabel="Editar"
+              acceptButtonIcon={<EditIcon />}
             />
           </Grid>
         </Grid>

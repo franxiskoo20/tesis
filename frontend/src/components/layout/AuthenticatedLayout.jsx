@@ -1,14 +1,21 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import DrawerBar from "../common/DrawerBar";
 import { Box, Container } from "@mui/material";
 import { getRoleNavigationItems } from "../../utils/navigationUtils";
 import useAuth from "../../features/auth/useAuth";
 import { useDrawer } from "../../hooks/useDrawer";
+import GenericConfirmDialog from "../GenericConfirmDialog";
 
 export default function AuthenticatedLayout({ children }) {
   const { user, logout } = useAuth();
 
   const { drawerOpen, toggleDrawer } = useDrawer();
+
+  const [toggleExitConfirmation, setToggleExitConfirmation] = useState(false);
+
+  const handleToggleExitConfirmation = () => {
+    setToggleExitConfirmation(!toggleExitConfirmation);
+  };
 
   const roleBasedNavigation = useMemo(
     () => getRoleNavigationItems(user.role),
@@ -22,6 +29,15 @@ export default function AuthenticatedLayout({ children }) {
         roleBasedNavigation={roleBasedNavigation}
         toggleDrawer={toggleDrawer}
         open={drawerOpen}
+        handleToggleExitConfirmation={handleToggleExitConfirmation}
+      />
+      <GenericConfirmDialog
+        open={toggleExitConfirmation}
+        onClose={handleToggleExitConfirmation}
+        onConfirm={logout}
+        title="Confirmar Salida"
+        confirmButtonText="Salir"
+        cancelButtonText="Cancelar"
       />
       <Box
         component="main"

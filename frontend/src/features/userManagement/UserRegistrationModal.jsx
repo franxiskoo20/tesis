@@ -9,6 +9,8 @@ import ActionButtons from "../../components/common/ActionButtons";
 import { userValidationSchema } from "./utils/validationSchemasUtils";
 import UserFormFields from "./form/UserFormFields";
 import PasswordFields from "./form/PasswordFields";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+
 
 const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
   const {
@@ -19,7 +21,7 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
   } = useForm({
     resolver: yupResolver(userValidationSchema),
     defaultValues: {
-      role_id: '',
+      role_id: "",
     },
   });
 
@@ -59,6 +61,8 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
             <ActionButtons
               isLoading={registerMutation.isLoading}
               onCancel={onClose}
+              acceptButtonLabel="Registrar"
+              acceptButtonIcon={<HowToRegIcon />}
             />
           </Grid>
         </Grid>

@@ -1,4 +1,4 @@
-import useAuth from "../../features/auth/useAuth";
+import useAuth from "../../features/auth/hooks/useAuth";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 
 const Dashboard = () => {

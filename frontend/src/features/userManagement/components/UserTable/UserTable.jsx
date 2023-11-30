@@ -1,10 +1,10 @@
 import MUIDataTable from "mui-datatables";
 
 import userTableStaticOptions from "./userTableOptions";
-import GenericConfirmDialog from "../../../components/GenericConfirmDialog";
-import useAddUserButton from "../hook/useAddUserButton";
-import useDeleteHandler from "../hook/useDeleteHandler";
-import useTableColumns from "../hook/useTableColumns";
+import GenericConfirmDialog from "../../../../components/dialogs/GenericConfirmDialog";
+import useAddUserButton from "../../hooks/useAddUserButton";
+import useDeleteHandler from "../../hooks/useDeleteHandler";
+import useTableColumns from "../../hooks/useTableColumns";
 
 const UserTable = ({ users, onEdit, onAddUser }) => {
   const { renderAddUserButton } = useAddUserButton(onAddUser);

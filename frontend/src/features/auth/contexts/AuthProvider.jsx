@@ -1,7 +1,7 @@
 import { createContext } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { authService } from "../../services/authService";
-import Loading from "../../components/common/Loading";
+import { authService } from "../../../services/authService";
+import Loading from "../../../components/common/loading/Loading";
 
 export const AuthContext = createContext(null);
 

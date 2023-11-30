@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import DefaultLayout from "../../components/layout/DefaultLayout";
-import useAuth from "../../features/auth/useAuth";
+import useAuth from "../../features/auth/hooks/useAuth";
 import {
   TextField,
   Button,

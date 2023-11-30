@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Button, Box } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Logo from "../common/Logo";
+import Logo from "../Layout/Logo";
 
 const NavigationBar = ({ children, user, onSignOut, roleBasedNavigation }) => (
   <AppBar position="static">

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import logoBlanco from "../../assets/image/logo_camanchaca_blanco.png";
-import logoAzul from "../../assets/image/logo_camanchaca_azul.png";
+import logoBlanco from "../../../assets/image/logo_camanchaca_blanco.png";
+import logoAzul from "../../../assets/image/logo_camanchaca_azul.png";
 
 const COLORS = {
   AZUL: "azul",

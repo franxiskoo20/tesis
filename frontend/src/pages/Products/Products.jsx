@@ -1,7 +1,7 @@
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import  useAuth  from "../../features/auth/useAuth";
+import useAuth from "../../features/auth/hooks/useAuth";
 
 const fetchProducts = async () => {
   const { data } = await axios.get("http://localhost:8000/api/prueba");
@@ -9,7 +9,6 @@ const fetchProducts = async () => {
 };
 
 const Products = () => {
-  
   const {
     data: products,
     error,

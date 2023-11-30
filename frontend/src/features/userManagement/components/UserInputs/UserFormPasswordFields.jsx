@@ -1,7 +1,7 @@
-import CustomTextField from "../../../components/common/CustomTextField";
+import CustomTextField from "../../../../components/common/Inputs/CustomTextField";
 import Grid from '@mui/material/Grid';
 
-const PasswordFields = ({ register, errors, showPasswordFields }) => {
+const PasswordFields = ({ register, errors, showPasswordFields = true }) => {
   const renderPasswordField = (name, label) => (
     <Grid item xs={12}>
       <CustomTextField

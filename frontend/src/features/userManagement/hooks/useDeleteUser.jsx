@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { adminService } from "../../../services/adminService";
+import { userService } from "../services/userService";
 
 const useDeleteUser = () => {
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation({
-    mutationFn: (userId) => adminService.deleteUser(userId),
+    mutationFn: (userId) => userService.deleteUser(userId),
     onSuccess: () => {
       queryClient.invalidateQueries(["users"]);
     },

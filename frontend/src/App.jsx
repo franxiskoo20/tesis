@@ -1,13 +1,13 @@
 import { RouterProvider } from "react-router-dom";
-import { AuthProvider } from "./features/auth/AuthProvider";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-
 import { createBrowserRouter } from "react-router-dom";
 
-import { ProtectedRoutes, PublicRoutes, RoleProtectedElement } from "./routes";
+import CssBaseline from "@mui/material/CssBaseline";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { AuthProvider } from "./features/auth/contexts/AuthProvider";
+import { ProtectedRoutes, PublicRoutes, RoleProtectedElement } from "./routes";
 import { Products, Login, Dashboard, UserManagement, ErrorPage } from "./pages";
+
 
 import { ROLES } from "./constants/roles";
 import { DrawerProvider } from "./contexts/DrawerProvider";

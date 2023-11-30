@@ -1,4 +1,4 @@
-import userTableStaticColumns from "../UserTable/userTableColumns";
+import userTableStaticColumns from "../components/UserTable/userTableColumns";
 import { StyledIconButton } from "../styles/UserTableStyledComponents";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";

@@ -1,10 +1,10 @@
 import { useMemo, useState } from "react";
-import DrawerBar from "../common/DrawerBar";
+import DrawerBar from "../common/navigation/DrawerBar";
 import { Box, Container } from "@mui/material";
 import { getRoleNavigationItems } from "../../utils/navigationUtils";
-import useAuth from "../../features/auth/useAuth";
+import useAuth from "../../features/auth/hooks/useAuth";
 import { useDrawer } from "../../hooks/useDrawer";
-import GenericConfirmDialog from "../GenericConfirmDialog";
+import GenericConfirmDialog from "../dialogs/GenericConfirmDialog";
 
 export default function AuthenticatedLayout({ children }) {
   const { user, logout } = useAuth();

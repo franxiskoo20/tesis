@@ -7,7 +7,7 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import ActionButtons from "./common/ActionButtons";
+import ActionButtons from "../common/buttons/ActionButtons";
 
 const GenericConfirmDialog = ({
   open,

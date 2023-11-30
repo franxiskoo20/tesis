@@ -1,10 +1,11 @@
 import { Box } from "@mui/material";
 import CancelButtom from "./CancelButton";
 import AcceptButton from "./AcceptButton";
+
 const ActionButtons = ({
   isLoading = false,
-  onCancel,
   onAccept,
+  onCancel,
   acceptButtonLabel,
   acceptButtonIcon,
   cancelButtonLabel,

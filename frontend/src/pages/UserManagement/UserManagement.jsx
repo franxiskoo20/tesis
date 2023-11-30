@@ -1,11 +1,11 @@
 import { useState } from "react";
-import UserTable from "../../features/userManagement/UserTable/UserTable";
+import UserTable from "../../features/userManagement/components/UserTable/UserTable";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { adminService } from "../../services/adminService";
+import { userService } from "../../features/userManagement/services/userService";
 import { adaptUserData } from "../../adapters/adaptUserData";
-import UserRegistrationModal from "../../features/userManagement/UserRegistrationModal";
-import UserEditModal from "../../features/userManagement/UserEditModal";
+import UserRegistrationModal from "../../features/userManagement/components/UserModal/UserRegistrationModal";
+import UserEditModal from "../../features/userManagement/components/UserModal/UserEditModal";
 
 const UserManagement = () => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -17,7 +17,7 @@ const UserManagement = () => {
   // obtener usuarios y adaptarlos
   const { data: adaptedUsers, isSuccess } = useQuery({
     queryKey: ["users"],
-    queryFn: adminService.getUsers,
+    queryFn: userService.getUsers,
     select: (data) => data.map(adaptUserData),
   });
 
@@ -30,7 +30,7 @@ const UserManagement = () => {
   };
 
   const handleOpenEdit = (user) => {
-    console.log("usurioResivido" + user);
+    console.log("usurioResivido: " + user.id);
     setUserToEdit(user);
     setIsEditOpen(true);
   };

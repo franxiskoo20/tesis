@@ -13,7 +13,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Logo from "../../components/common/Logo";
+import Logo from "../layout/Logo";
 
 const drawerWidth = 250;
 

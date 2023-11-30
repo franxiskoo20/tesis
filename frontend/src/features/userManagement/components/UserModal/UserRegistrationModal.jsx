@@ -1,25 +1,25 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { adminService } from "../../services/adminService";
+import { userService } from "../../services/userService";
 
 import { Grid, Box } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import ModalLayout from "../../components/layout/ModalLayout";
-import ActionButtons from "../../components/common/ActionButtons";
-import { userValidationSchema } from "./utils/validationSchemasUtils";
-import UserFormFields from "./form/UserFormFields";
-import PasswordFields from "./form/PasswordFields";
+import ModalLayout from "../../../../components/layout/ModalLayout";
+import ActionButtons from "../../../../components/common/buttons/ActionButtons";
+import { userValidationSchemaWithPassword } from "../../utils/validationSchemasUtils";
+import UserFormFields from "../../components/UserInputs/UserFormFields";
+import UserFormPasswordFields from "../../components/UserInputs/UserFormPasswordFields";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
-
 
 const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
   const {
     register,
     handleSubmit,
+    reset,
     control,
-    formState: { errors },
+    formState: { errors, touchedFields },
   } = useForm({
-    resolver: yupResolver(userValidationSchema),
+    resolver: yupResolver(userValidationSchemaWithPassword),
     defaultValues: {
       role_id: "",
     },
@@ -27,19 +27,25 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
 
   const { data: roles } = useQuery({
     queryKey: ["roles"],
-    queryFn: adminService.getRoles,
+    queryFn: userService.getRoles,
   });
 
   const registerMutation = useMutation({
-    mutationFn: adminService.register,
+    mutationFn: userService.register,
     onSuccess: () => {
       if (onUserAdded) onUserAdded();
-      onClose();
+      handleClose();
     },
   });
 
   const onSubmit = (data) => {
+    console.log("Datos enviados: " + data.name + " " + data.email);
     registerMutation.mutate(data);
+  };
+
+  const handleClose = () => {
+    reset();
+    onClose();
   };
 
   return (
@@ -49,18 +55,15 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
           <UserFormFields
             register={register}
             errors={errors}
+            touchedFields={touchedFields}
             control={control}
             roles={roles}
           />
-          <PasswordFields
-            register={register}
-            errors={errors}
-            showPasswordFields={true}
-          />
+          <UserFormPasswordFields register={register} errors={errors} />
           <Grid item xs={12}>
             <ActionButtons
               isLoading={registerMutation.isLoading}
-              onCancel={onClose}
+              onCancel={handleClose}
               acceptButtonLabel="Registrar"
               acceptButtonIcon={<HowToRegIcon />}
             />

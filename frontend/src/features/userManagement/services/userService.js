@@ -1,6 +1,7 @@
-import makeRequest from "./api/makeRequest";
+import makeRequest from "../../../services/api/makeRequest";
 
-export const adminService = {
+export const userService = {
+  
   register({ name, email, password, password_confirmation, role_id }) {
     return makeRequest("post", "/api/register", {
       name,

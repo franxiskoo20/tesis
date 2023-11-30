@@ -1,17 +1,25 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { adminService } from "../../services/adminService";
+import { userService } from "../../services/userService";
 import { Grid, Box } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
-import ModalLayout from "../../components/layout/ModalLayout";
-import ActionButtons from "../../components/common/ActionButtons";
+import ModalLayout from "../../../../components/layout/ModalLayout";
 import { Switch, FormControlLabel } from "@mui/material";
-import { userValidationSchema } from "./utils/validationSchemasUtils";
-import UserFormFields from "./form/UserFormFields";
-import PasswordFields from "./form/PasswordFields";
+import { userValidationSchemaWithoutPassword } from "../../utils/validationSchemasUtils";
+import UserFormFields from "../../components/UserInputs/UserFormFields";
+import UserFormPasswordFields from "../../components/UserInputs/UserFormPasswordFields";
 import EditIcon from "@mui/icons-material/Edit";
 
+import ActionButtons from "../../../../components/common/buttons/ActionButtons";
+
+/**
+ * * Componente para editar usuarios
+ * @param open abre el modal
+ * @param onClose cierra el modal
+ * @param userToEdit usuario a editar
+ * @param onUserUpdated actualiza la lista de usuarios de la tabla
+ */
 
 const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
   const {
@@ -21,15 +29,16 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     control,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(userValidationSchema),
+    resolver: yupResolver(userValidationSchemaWithoutPassword),
     defaultValues: {
       role_id: "",
     },
   });
 
+  // cargar datos del usuario a editar
   useEffect(() => {
     if (userToEdit) {
-      console.log("userToEdit" + userToEdit.name);
+      console.log("userToEdit: " + userToEdit.name);
       reset({
         name: userToEdit.name,
         email: userToEdit.email,
@@ -38,30 +47,33 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     }
   }, [userToEdit, reset]);
 
+  const { data: roles } = useQuery({
+    queryKey: ["roles"],
+    queryFn: userService.getRoles,
+  });
+
   // switch para mostrar/ocultar campos de contraseña
   const [showPasswordFields, setShowPasswordFields] = useState(false);
   const switchLabel = showPasswordFields
     ? "Ocultar Cambio de Contraseña"
     : "Cambiar Contraseña";
 
-  const { data: roles } = useQuery({
-    queryKey: ["roles"],
-    queryFn: adminService.getRoles,
-  });
-
+  // enviar datos del formulario para editar usuario
   const updateMutation = useMutation({
-    mutationFn: (data) => adminService.updateUser(userToEdit.id, data),
+    mutationFn: (data) => userService.updateUser(userToEdit.id, data),
     onSuccess: () => {
       console.log("se envio el formulario");
-      if (onUserUpdated) onUserUpdated();
-      onClose();
+      if (onUserUpdated) {
+        onUserUpdated();
+        onClose();
+      }
     },
   });
 
   const updatePasswordMutation = useMutation({
-    mutationFn: (data) => adminService.updateUserPassword(userToEdit.id, data),
+    mutationFn: (data) => userService.updateUserPassword(userToEdit.id, data),
     onSuccess: () => {
-      console.log("se envio el formulario pass");
+      console.log("se envio el formulario password");
 
       if (onUserUpdated) onUserUpdated();
       onClose();
@@ -70,7 +82,7 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
 
   const hasUserChanged = (data) => {
     const roleChanged = parseInt(data.role_id) !== userToEdit.roleId;
-    console.log(roleChanged);
+    console.log("roleChanged status: " + roleChanged);
     return (
       data.name !== userToEdit.name ||
       data.email !== userToEdit.email ||
@@ -104,7 +116,7 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
   };
 
   return (
-    <ModalLayout title="Editar Usuario" open={open} onClose={onClose}>
+    <ModalLayout title="Registrar Usuario" open={open} onClose={onClose}>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>
         <Grid container spacing={2}>
           <UserFormFields
@@ -113,7 +125,6 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
             control={control}
             roles={roles}
           />
-          {/* Switch para mostrar/ocultar campos de contraseña */}
           <Grid item xs={12}>
             <FormControlLabel
               control={
@@ -125,7 +136,7 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
               label={switchLabel}
             />
           </Grid>
-          <PasswordFields
+          <UserFormPasswordFields
             register={register}
             errors={errors}
             showPasswordFields={showPasswordFields}
@@ -133,11 +144,9 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
 
           <Grid item xs={12}>
             <ActionButtons
-              isLoading={
-                updateMutation.isLoading || updatePasswordMutation.isLoading
-              }
+              // isLoading={registerMutation.isLoading}
               onCancel={onClose}
-              acceptButtonLabel="Editar"
+              acceptButtonLabel="Registrar"
               acceptButtonIcon={<EditIcon />}
             />
           </Grid>

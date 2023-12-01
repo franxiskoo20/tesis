@@ -5,8 +5,10 @@ import GenericConfirmDialog from "../../../../components/dialogs/GenericConfirmD
 import useAddUserButton from "../../hooks/useAddUserButton";
 import useDeleteHandler from "../../hooks/useDeleteHandler";
 import useTableColumns from "../../hooks/useTableColumns";
+import TableOverlayLoader from "./TableLoader";
+import Box from "@mui/material/Box";
 
-const UserTable = ({ users, onEdit, onAddUser }) => {
+const UserTable = ({ users, onEdit, onAddUser, isRegistering }) => {
   const { renderAddUserButton } = useAddUserButton(onAddUser);
 
   const {
@@ -24,7 +26,8 @@ const UserTable = ({ users, onEdit, onAddUser }) => {
   };
 
   return (
-    <>
+    <Box position={"relative"}>
+      <TableOverlayLoader isLoading={isRegistering} />
       <MUIDataTable
         title={"Lista de usuarios"}
         data={users}
@@ -39,7 +42,7 @@ const UserTable = ({ users, onEdit, onAddUser }) => {
         confirmButtonText="Eliminar"
         cancelButtonText="Cancelar"
       />
-    </>
+    </Box>
   );
 };
 

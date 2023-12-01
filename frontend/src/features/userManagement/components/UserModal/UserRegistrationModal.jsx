@@ -20,6 +20,7 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
     formState: { errors, touchedFields },
   } = useForm({
     resolver: yupResolver(userValidationSchemaWithPassword),
+    mode: "onChange",
     defaultValues: {
       role_id: "",
     },
@@ -33,8 +34,11 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
   const registerMutation = useMutation({
     mutationFn: userService.register,
     onSuccess: () => {
-      if (onUserAdded) onUserAdded();
+      onUserAdded?.();
       handleClose();
+    },
+    onError: (error) => {
+      console.error("Error al registrar el usuario:", error);
     },
   });
 
@@ -59,7 +63,11 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
             control={control}
             roles={roles}
           />
-          <UserFormPasswordFields register={register} errors={errors} />
+          <UserFormPasswordFields
+            register={register}
+            errors={errors}
+            touchedFields={touchedFields}
+          />
           <Grid item xs={12}>
             <ActionButtons
               isLoading={registerMutation.isLoading}

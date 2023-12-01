@@ -1,4 +1,4 @@
-import { formatDate } from "../utils/dateUtils"; // Asumiendo que la función está en dateUtils.js
+import { formatDate } from "../../../utils/dateUtils"; // Asumiendo que la función está en dateUtils.js
 
 export const adaptUserData = (userData) => {
   return {

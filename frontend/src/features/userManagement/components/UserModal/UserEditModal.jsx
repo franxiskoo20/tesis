@@ -27,9 +27,10 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     handleSubmit,
     reset,
     control,
-    formState: { errors },
+    formState: { errors, touchedFields },
   } = useForm({
     resolver: yupResolver(userValidationSchemaWithoutPassword),
+    mode: "onChange",
     defaultValues: {
       role_id: "",
     },
@@ -47,6 +48,7 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     }
   }, [userToEdit, reset]);
 
+  // obtener roles
   const { data: roles } = useQuery({
     queryKey: ["roles"],
     queryFn: userService.getRoles,
@@ -62,7 +64,6 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
   const updateMutation = useMutation({
     mutationFn: (data) => userService.updateUser(userToEdit.id, data),
     onSuccess: () => {
-      console.log("se envio el formulario");
       if (onUserUpdated) {
         onUserUpdated();
         onClose();
@@ -70,15 +71,17 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     },
   });
 
+  // enviar datos del formulario para editar contraseña
   const updatePasswordMutation = useMutation({
     mutationFn: (data) => userService.updateUserPassword(userToEdit.id, data),
     onSuccess: () => {
-      console.log("se envio el formulario password");
-
       if (onUserUpdated) onUserUpdated();
       onClose();
     },
   });
+
+  const isUpdating =
+    updateMutation.isLoading || updatePasswordMutation.isLoading;
 
   const hasUserChanged = (data) => {
     const roleChanged = parseInt(data.role_id) !== userToEdit.roleId;
@@ -90,6 +93,7 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     );
   };
 
+  // enviar datos del formulario para editar usuario
   const onSubmit = (data) => {
     const passwordChanged = data.password && data.password_confirmation;
     const userChanged = hasUserChanged(data);
@@ -111,6 +115,7 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     }
   };
 
+  // switch para mostrar/ocultar campos de contraseña
   const handleTogglePasswordFields = (event) => {
     setShowPasswordFields(event.target.checked);
   };
@@ -122,6 +127,7 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
           <UserFormFields
             register={register}
             errors={errors}
+            touchedFields={touchedFields}
             control={control}
             roles={roles}
           />
@@ -139,12 +145,13 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
           <UserFormPasswordFields
             register={register}
             errors={errors}
+            touchedFields={touchedFields}
             showPasswordFields={showPasswordFields}
           />
 
           <Grid item xs={12}>
             <ActionButtons
-              // isLoading={registerMutation.isLoading}
+              isLoading={isUpdating}
               onCancel={onClose}
               acceptButtonLabel="Registrar"
               acceptButtonIcon={<EditIcon />}

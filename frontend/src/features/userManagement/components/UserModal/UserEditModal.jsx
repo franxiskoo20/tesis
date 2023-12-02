@@ -22,15 +22,9 @@ import ActionButtons from "../../../../components/common/buttons/ActionButtons";
  */
 
 const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    control,
-    formState: { errors, touchedFields },
-  } = useForm({
+
+  const { handleSubmit, reset, control } = useForm({
     resolver: yupResolver(userValidationSchemaWithoutPassword),
-    mode: "onChange",
     defaultValues: {
       role_id: "",
     },
@@ -124,10 +118,15 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     <ModalLayout title="Registrar Usuario" open={open} onClose={onClose}>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>
         <Grid container spacing={2}>
-          <UserFormFields
+          {/* <UserFormFields
             register={register}
             errors={errors}
             touchedFields={touchedFields}
+            control={control}
+            roles={roles}
+          /> */}
+          <UserFormFields
+            // register={register}
             control={control}
             roles={roles}
           />
@@ -142,13 +141,16 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
               label={switchLabel}
             />
           </Grid>
-          <UserFormPasswordFields
+          {/* <UserFormPasswordFields
             register={register}
             errors={errors}
             touchedFields={touchedFields}
             showPasswordFields={showPasswordFields}
+          /> */}
+          <UserFormPasswordFields
+            control={control}
+            showPasswordFields={showPasswordFields}
           />
-
           <Grid item xs={12}>
             <ActionButtons
               isLoading={isUpdating}

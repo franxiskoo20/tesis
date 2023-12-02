@@ -2,28 +2,25 @@ import CustomTextField from "../../../../components/common/Inputs/CustomTextFiel
 import Grid from "@mui/material/Grid";
 
 const PasswordFields = ({
-  register,
-  errors,
-  touchedFields,
+  control = { control },
   showPasswordFields = true,
 }) => {
   const renderPasswordField = (name, label) => (
     <Grid item xs={12}>
       <CustomTextField
-        register={register}
         name={name}
         label={label}
-        touchedFields={touchedFields}
+        control={control}
         type="password"
-        errors={errors}
+        autoComplete="new-password"
       />
     </Grid>
   );
 
   return showPasswordFields ? (
     <>
-      {renderPasswordField("password", "Password")}
-      {renderPasswordField("password_confirmation", "Confirmar Password")}
+      {renderPasswordField("password", "Contraseña")}
+      {renderPasswordField("password_confirmation", "Confirmar Contraseña")}
     </>
   ) : null;
 };

@@ -10,19 +10,24 @@ import { userValidationSchemaWithPassword } from "../../utils/validationSchemasU
 import UserFormFields from "../../components/UserInputs/UserFormFields";
 import UserFormPasswordFields from "../../components/UserInputs/UserFormPasswordFields";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
+import { DevTool } from "@hookform/devtools";
+
+// const DEFAULT_VALUES = {
+//   name: "",
+//   email: "",
+//   password: "",
+//   password_confirmation: "",
+// };
 
 const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    control,
-    formState: { errors, touchedFields },
-  } = useForm({
-    resolver: yupResolver(userValidationSchemaWithPassword),
+  const { handleSubmit, reset, control } = useForm({
     mode: "onChange",
+    resolver: yupResolver(userValidationSchemaWithPassword),
     defaultValues: {
-      role_id: "",
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
     },
   });
 
@@ -56,18 +61,10 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
     <ModalLayout title="Registrar Usuario" open={open} onClose={onClose}>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>
         <Grid container spacing={2}>
-          <UserFormFields
-            register={register}
-            errors={errors}
-            touchedFields={touchedFields}
-            control={control}
-            roles={roles}
-          />
-          <UserFormPasswordFields
-            register={register}
-            errors={errors}
-            touchedFields={touchedFields}
-          />
+          <UserFormFields control={control} />
+
+          <UserFormPasswordFields control={control} />
+
           <Grid item xs={12}>
             <ActionButtons
               isLoading={registerMutation.isLoading}
@@ -78,6 +75,7 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
           </Grid>
         </Grid>
       </Box>
+      <DevTool control={control} /> {/* set up the dev tool */}
     </ModalLayout>
   );
 };

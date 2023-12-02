@@ -2,32 +2,23 @@ import CustomTextField from "../../../../components/common/Inputs/CustomTextFiel
 import CustomSelect from "../../../../components/common/Inputs/CustomSelect";
 import Grid from "@mui/material/Grid";
 
-const UserFormFields = ({
-  register,
-  errors,
-  touchedFields,
-  control,
-  roles,
-}) => {
-  
+const UserFormFields = ({ control }) => {
   const renderTextField = (name, label, type) => (
     <Grid item xs={12}>
       <CustomTextField
         name={name}
         label={label}
         type={type}
-        register={register}
-        errors={errors}
-        touchedFields={touchedFields}
+        control={control}
       />
     </Grid>
   );
 
   return (
     <>
-      {renderTextField("name", "Name", "text")}
-      {renderTextField("email", "Email", "email")}
-      <Grid item xs={12}>
+      {renderTextField("name", "Nombre", "text")}
+      {renderTextField("email", "Correo", "email")}
+      {/* <Grid item xs={12}>
         <CustomSelect
           control={control}
           errors={errors}
@@ -38,7 +29,7 @@ const UserFormFields = ({
             label: r.role_type,
           }))}
         />
-      </Grid>
+      </Grid> */}
     </>
   );
 };

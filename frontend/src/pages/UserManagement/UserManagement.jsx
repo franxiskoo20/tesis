@@ -83,8 +83,7 @@ const UserManagement = () => {
         open={isRegisterOpen}
         onClose={handleCloseRegister}
         onUserAdded={handleUserAdded}
-        // handleIsRegisteringTrue={handleIsRegisteringTrue}
-        // handleIsRegisteringFalse={handleIsRegisteringFalse}
+    
       />
       {userToEdit && (
         <UserEditModal

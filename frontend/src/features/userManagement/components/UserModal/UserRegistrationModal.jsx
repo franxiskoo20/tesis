@@ -38,12 +38,12 @@ const UserRegistrationModal = ({
   const registerMutation = useMutation({
     mutationFn: userService.register,
     onError: (error) => {
-      showSnackbar(error.message || "Error en el registro de usuario", "error");
+      showSnackbar(error?.errors || "Error en el registro de usuario", "error");
     },
-    onSuccess: () => {
-      showSnackbar("Usuario registrado correctamente", "success");
+    onSuccess: (data) => {
+      showSnackbar(data?.message || "Usuario registrado con éxito", "success");
       onUserAdded?.();
-      handleClose();
+      handleClose?.();
     },
   });
 

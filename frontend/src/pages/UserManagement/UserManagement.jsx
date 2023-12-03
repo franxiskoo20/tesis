@@ -11,7 +11,6 @@ import useSnackbar from "../../hooks/useSnackbar";
 import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
 /**
  *
- * TODO: agregar manejo de errores
  *
  */
 const UserManagement = () => {
@@ -20,9 +19,9 @@ const UserManagement = () => {
   const [isRegisterOpen, setIsRegisterOpen] = useState(false); // Estado para abrir o cerrar el modal de registro
 
   const [isEditOpen, setIsEditOpen] = useState(false); // Estado para abrir o cerrar el modal de edición de usuario
-  const [userToEdit, setUserToEdit] = useState(false); // Estado para almacenar el usuario a editar
+  const [userToEdit, setUserToEdit] = useState(null); // Estado para almacenar el usuario a editar
 
-  const [isRegistering, setIsRegistering] = useState(false); // Estado para manejar el estado de registro
+  const [isSubmitting, setisSubmitting] = useState(false); // Estado para manejar el estado de registro
 
   const {
     open: openSnackbar,
@@ -43,18 +42,16 @@ const UserManagement = () => {
     select: (data) => data.map(adaptUserData),
   });
 
-  // Función para abrir el modal de registro y cerrarlo
-  const handleOpenRegister = () => setIsRegisterOpen(true);
-
-  const handleCloseRegister = () => setIsRegisterOpen(false);
+  const handleToggleRegister = () => {
+    return setIsRegisterOpen(!isRegisterOpen);
+  };
 
   // Función para actualizar la lista de usuarios
   const handleUserAdded = async () => {
-    setIsRegistering(true);
-  
+    setisSubmitting(true);
     await queryClient.invalidateQueries(["users"]);
-    setIsRegistering(false);
-    handleCloseRegister();
+    setisSubmitting(false);
+    handleToggleRegister();
   };
 
   // Función para abrir el modal de edición
@@ -69,8 +66,10 @@ const UserManagement = () => {
   };
 
   // Función para actualizar la lista de usuarios
-  const handleUserUpdated = () => {
-    queryClient.invalidateQueries(["users"]);
+  const handleUserUpdated = async () => {
+    setisSubmitting(true);
+    await queryClient.invalidateQueries(["users"]);
+    setisSubmitting(false);
     handleCloseEdit();
   };
 
@@ -81,9 +80,9 @@ const UserManagement = () => {
       ) : isSuccess ? (
         <UserTable
           users={adaptedUsers}
-          onAddUser={handleOpenRegister}
+          onAddUser={handleToggleRegister}
           onEdit={handleOpenEdit}
-          isRegistering={isRegistering}
+          isSubmitting={isSubmitting}
         />
       ) : (
         // Opcional: manejar el estado de error o vacío
@@ -91,7 +90,7 @@ const UserManagement = () => {
       )}
       <UserRegistrationModal
         open={isRegisterOpen}
-        onClose={handleCloseRegister}
+        onClose={handleToggleRegister}
         onUserAdded={handleUserAdded}
         showSnackbar={showSnackbar}
       />
@@ -101,6 +100,7 @@ const UserManagement = () => {
           onClose={handleCloseEdit}
           userToEdit={userToEdit}
           onUserUpdated={handleUserUpdated}
+          showSnackbar={showSnackbar}
         />
       )}
       <CustomSnackbar

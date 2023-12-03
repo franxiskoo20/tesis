@@ -60,17 +60,64 @@ export const userValidationSchemaWithPassword = yup.object().shape({
 //     .required("Este campo es requerido"),
 // });
 
+// export const userValidationSchemaWithoutPassword = yup.object().shape({
+//   name: yup.string().required("Este campo es requerido"),
+//   email: yup
+//     .string()
+//     .email("Correo electrónico inválido")
+//     .required("Este campo es requerido"),
+//   password: yup
+//     .string()
+//     .min(6, "La contraseña debe tener al menos 6 caracteres"),
+//   password_confirmation: yup
+//     .string()
+//     .oneOf([yup.ref("password"), null], "Las contraseñas no coinciden"),
+//   role_id: yup.string().required("Este campo es requerido"),
+// });
+
+// export const userValidationSchemaWithoutPassword = yup.object().shape({
+//   name: yup.string().required("Este campo es requerido"),
+//   email: yup
+//     .string()
+//     .email("Correo electrónico inválido")
+//     .required("Este campo es requerido"),
+//   role_id: yup.string().required("Este campo es requerido"),
+//   changePassword: yup.boolean(),
+//   password: yup.string().when("changePassword", {
+//     is: true,
+//     then: yup.string().required("La contraseña es requerida"),
+//     otherwise: yup.string().notRequired(),
+//   }),
+//   password_confirmation: yup.string().when("changePassword", {
+//     is: true,
+//     then: yup
+//       .string()
+//       .oneOf([yup.ref("password"), null], "Las contraseñas no coinciden")
+//       .required("La confirmación de la contraseña es requerida"),
+//     otherwise: yup.string().notRequired(),
+//   }),
+// });
+
 export const userValidationSchemaWithoutPassword = yup.object().shape({
   name: yup.string().required("Este campo es requerido"),
   email: yup
     .string()
     .email("Correo electrónico inválido")
     .required("Este campo es requerido"),
-  password: yup
-    .string()
-    .min(6, "La contraseña debe tener al menos 6 caracteres"),
+  role_id: yup.string().required("Este campo es requerido"),
+  changePassword: yup.boolean(),
+  password: yup.string().when("changePassword", ([changePassword], schema) => {
+    return changePassword
+      ? schema.required("La contraseña es requerida")
+      : schema.notRequired();
+  }),
   password_confirmation: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Las contraseñas no coinciden"),
-  role_id: yup.string().required("Este campo es requerido"),
+    .when("changePassword", ([changePassword], schema) => {
+      return changePassword
+        ? schema
+            .oneOf([yup.ref("password"), null], "Las contraseñas no coinciden")
+            .required("La confirmación de la contraseña es requerida")
+        : schema.notRequired();
+    }),
 });

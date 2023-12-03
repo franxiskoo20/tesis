@@ -44,10 +44,11 @@ class LoginRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
+        $errors = $validator->errors()->getMessages();
         $response = response()->json([
             'message' => 'Los datos proporcionados no son válidos.',
-            'errors' => $validator->errors(),
-        ], 422);
+            'errors' => $errors,
+        ], Response::HTTP_UNPROCESSABLE_ENTITY);
 
         throw new ValidationException($validator, $response);
     }

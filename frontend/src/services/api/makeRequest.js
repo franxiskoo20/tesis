@@ -3,22 +3,25 @@ import httpClient from "./httpClient";
 async function makeRequest(method, url, data = null) {
   try {
     const config = {
-      method,
-      url,
-      data,
+      method: method,
+      url: url,
+      data: data,
     };
 
     const response = await httpClient(config);
     return response.data;
-    
-  } catch ({ response, request }) {
-    const errorMessage = response
-      ? response.data.message
-      : request
-      ? "No se recibió respuesta del servidor"
-      : "Error al realizar la solicitud";
+  } catch (error) {
+    let errorMessage;
 
-    throw new Error(errorMessage);
+    if (error.response) {
+      errorMessage = error.response.data;
+    } else if (error.request) {
+      errorMessage = "No se recibió respuesta del servidor";
+    } else {
+      errorMessage = "Error al realizar la solicitud";
+    }
+
+    throw errorMessage;
   }
 }
 

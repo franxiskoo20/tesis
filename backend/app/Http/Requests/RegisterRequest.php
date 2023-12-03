@@ -53,13 +53,21 @@ class RegisterRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
+        // $errors = $validator->errors()->getMessages();
+        // // Obtén el primer mensaje de error
+        // $firstErrorMessage = '';
+        // foreach ($errors as $fieldErrors) {
+        //     if (count($fieldErrors) > 0) {
+        //         $firstErrorMessage = $fieldErrors[0];
+        //         break;
+        //     }
+        // }
+
         $response = response()->json([
             'message' => 'Los datos proporcionados no son válidos.',
-            'errors' => $validator->errors(),
-        ], 422);
+            'errors' => $validator->errors()->first(),
+        ],  Response::HTTP_UNPROCESSABLE_ENTITY);
 
         throw new ValidationException($validator, $response);
     }
-
-
 }

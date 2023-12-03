@@ -11,7 +11,7 @@ import UserFormFields from "../../components/UserInputs/UserFormFields";
 import UserFormPasswordFields from "../../components/UserInputs/UserFormPasswordFields";
 import EditIcon from "@mui/icons-material/Edit";
 import useRoles from "../../hooks/useRoles";
-import ActionButtons from "../../../../components/common/buttons/ActionButtons";
+import ActionButtons from "../../../../components/common/Buttons/ActionButtons";
 
 /**
  * * Componente para editar usuarios
@@ -21,34 +21,28 @@ import ActionButtons from "../../../../components/common/buttons/ActionButtons";
  * @param onUserUpdated actualiza la lista de usuarios de la tabla
  */
 
-const DEFAULT_VALUES = {
+const DEFAULT_VALUES_EDIT = {
   name: "",
   email: "",
+  role_id: "",
+  changePassword: false,
   password: "",
   password_confirmation: "",
-  role_id: "",
 };
 
-const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
-  const { handleSubmit, reset, control } = useForm({
+const UserEditModal = ({
+  open,
+  onClose,
+  userToEdit,
+  onUserUpdated,
+  showSnackbar,
+}) => {
+  // formulario react-hook-form
+  const { handleSubmit, reset, control, setValue } = useForm({
     resolver: yupResolver(userValidationSchemaWithoutPassword),
     mode: "onChange",
-    defaultValues: DEFAULT_VALUES,
+    defaultValues: DEFAULT_VALUES_EDIT,
   });
-  // cargar datos del usuario a editar
-  useEffect(() => {
-    if (userToEdit) {
-      console.log("userToEdit: " + userToEdit.name);
-      reset({
-        name: userToEdit.name,
-        email: userToEdit.email,
-        role_id: userToEdit.roleId,
-      });
-    }
-  }, [userToEdit, reset]);
-
-  // obtener roles
-  const { roles } = useRoles();
 
   // switch para mostrar/ocultar campos de contraseña
   const [showPasswordFields, setShowPasswordFields] = useState(false);
@@ -56,29 +50,58 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     ? "Ocultar Cambio de Contraseña"
     : "Cambiar Contraseña";
 
+  // cargar datos del usuario a editar
+  useEffect(() => {
+    if (userToEdit) {
+      reset({
+        name: userToEdit.name,
+        email: userToEdit.email,
+        role_id: userToEdit.roleId,
+        changePassword: false,
+        password: "",
+        password_confirmation: "",
+      });
+    }
+  }, [userToEdit, reset]);
+
+  // obtener roles
+  const { roles } = useRoles();
+
   // enviar datos del formulario para editar usuario
   const updateMutation = useMutation({
     mutationFn: (data) => userService.updateUser(userToEdit.id, data),
-    onSuccess: () => {
-      if (onUserUpdated) {
-        onUserUpdated();
-        onClose();
-      }
+    onError: (error) => {
+      showSnackbar(
+        error?.errors || "Error en actulización de usuario",
+        "error"
+      );
+    },
+    onSuccess: (data) => {
+      showSnackbar(data?.message || "Usuario actualizado con éxito", "success");
+      onUserUpdated?.();
+      onClose?.();
     },
   });
 
   // enviar datos del formulario para editar contraseña
   const updatePasswordMutation = useMutation({
     mutationFn: (data) => userService.updateUserPassword(userToEdit.id, data),
+    onError: (error) => {
+      showSnackbar(
+        error?.errors || "Error en actulización de contraseña",
+        "error"
+      );
+    },
     onSuccess: () => {
-      if (onUserUpdated) onUserUpdated();
-      onClose();
+      showSnackbar("Contraseña actualizada con éxito", "success");
+      onUserUpdated?.();
+      onClose?.();
     },
   });
 
+  // verificar si el usuario ha cambiado
   const hasUserChanged = (data) => {
     const roleChanged = parseInt(data.role_id) !== userToEdit.roleId;
-    console.log("roleChanged status: " + roleChanged);
     return (
       data.name !== userToEdit.name ||
       data.email !== userToEdit.email ||
@@ -88,28 +111,32 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
 
   // enviar datos del formulario para editar usuario
   const onSubmit = (data) => {
-    const passwordChanged = data.password && data.password_confirmation;
-    const userChanged = hasUserChanged(data);
+    const { password, password_confirmation, changePassword, ...userData } =
+      data;
+    const passwordChanged = changePassword && password && password_confirmation;
 
-    if (passwordChanged || userChanged) {
-      if (passwordChanged) {
-        updatePasswordMutation.mutate({
-          new_password: data.password,
-          new_password_confirmation: data.password_confirmation,
-        });
-      }
+    const userChanged = hasUserChanged(userData);
 
-      if (userChanged) {
-        updateMutation.mutate(data);
-      }
-    } else {
-      onClose();
-      console.log("No hay cambios para actualizar");
+    if (passwordChanged) {
+      updatePasswordMutation.mutate({
+        new_password: data.password,
+        new_password_confirmation: data.password_confirmation,
+      });
+    }
+
+    if (userChanged) {
+      updateMutation.mutate(userData);
+    }
+
+    if (!passwordChanged && !userChanged) {
+      showSnackbar("No se han detectado cambios", "info");
+      onClose?.();
     }
   };
 
   // switch para mostrar/ocultar campos de contraseña
   const handleTogglePasswordFields = (event) => {
+    setValue("changePassword", event.target.checked);
     setShowPasswordFields(event.target.checked);
   };
 
@@ -133,10 +160,7 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
               label={switchLabel}
             />
           </Grid>
-          <UserFormPasswordFields
-            control={control}
-            showPasswordFields={showPasswordFields}
-          />
+          {showPasswordFields && <UserFormPasswordFields control={control} />}
           <Grid item xs={12}>
             <ActionButtons
               onCancel={onClose}

@@ -6,7 +6,7 @@ import LoginForm from "../../features/auth/components/LoginForm";
 import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
 import useSnackbar from "../../hooks/useSnackbar";
 
-const Login = () => {
+const LoginPage = () => {
   const { login } = useAuth();
 
   const { open, message, severity, showSnackbar, closeSnackbar } =
@@ -48,4 +48,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

@@ -13,7 +13,7 @@ import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
  *
  *
  */
-const UserManagement = () => {
+const UserManagementPage = () => {
   const queryClient = useQueryClient();
 
   const [isRegisterOpen, setIsRegisterOpen] = useState(false); // Estado para abrir o cerrar el modal de registro
@@ -113,4 +113,4 @@ const UserManagement = () => {
   );
 };
 
-export default UserManagement;
+export default UserManagementPage;

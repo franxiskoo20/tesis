@@ -20,6 +20,11 @@ async function makeRequest(method, url, data = null) {
     } else {
       errorMessage = "Error al realizar la solicitud";
     }
+    if (typeof errorMessage === "object" && errorMessage !== null) {
+      console.log(errorMessage.message);
+    } else {
+      console.log(errorMessage);
+    }
 
     throw errorMessage;
   }

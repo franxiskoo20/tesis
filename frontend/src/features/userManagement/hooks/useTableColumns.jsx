@@ -13,13 +13,18 @@ const useTableColumns = (users, handleDelete, onEdit) => {
         sort: false,
         empty: true,
         customBodyRenderLite: (dataIndex) => {
+          const isDisabled = dataIndex === 0;
           return (
             <>
-              <StyledIconButton onClick={() => onEdit(users[dataIndex])}>
+              <StyledIconButton
+                onClick={() => !isDisabled && onEdit(users[dataIndex])}
+                disabled={isDisabled}
+              >
                 <EditIcon />
               </StyledIconButton>
               <StyledIconButton
-                onClick={() => handleDelete(users[dataIndex].id)}
+                onClick={() => !isDisabled && handleDelete(users[dataIndex].id)}
+                disabled={isDisabled}
               >
                 <DeleteIcon />
               </StyledIconButton>

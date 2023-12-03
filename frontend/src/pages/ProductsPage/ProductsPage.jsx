@@ -8,7 +8,8 @@ const fetchProducts = async () => {
   return data;
 };
 
-const Products = () => {
+const ProductsPage = () => {
+ 
   const {
     data: products,
     error,
@@ -35,4 +36,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductsPage;

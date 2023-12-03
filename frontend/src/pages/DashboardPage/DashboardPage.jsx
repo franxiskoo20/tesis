@@ -1,7 +1,7 @@
 import useAuth from "../../features/auth/hooks/useAuth";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 
-const Dashboard = () => {
+const DashboardPage = () => {
   const { user } = useAuth(); // Este hook debe devolver el estado de autenticación
   return (
     <AuthenticatedLayout>
@@ -11,4 +11,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;

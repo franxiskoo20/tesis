@@ -6,8 +6,15 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { AuthProvider } from "./features/auth/contexts/AuthProvider";
 import { ProtectedRoutes, PublicRoutes, RoleProtectedElement } from "./routes";
-import { Products, Login, Dashboard, UserManagement, ErrorPage } from "./pages";
-
+import {
+  CustomersPage,
+  DashboardPage,
+  ErrorPage,
+  LoginPage,
+  ProductsPage,
+  ServicesPage,
+  UserManagementPage,
+} from "./pages";
 
 import { ROLES } from "./constants/roles";
 import { DrawerProvider } from "./contexts/DrawerProvider";
@@ -17,29 +24,53 @@ const router = createBrowserRouter([
     path: "/",
     element: <PublicRoutes />,
     errorElement: <ErrorPage />,
-    children: [{ index: true, element: <Login /> }],
+    children: [{ index: true, element: <LoginPage /> }],
   },
   {
     element: <ProtectedRoutes />,
     errorElement: <ErrorPage />,
     children: [
+      { path: "app/dashboard", element: <DashboardPage /> },
       {
         path: "app/products",
         element: (
-          <RoleProtectedElement allowedRoles={ROLES.JEFE_COMERCIAL}>
-            <Products />
+          <RoleProtectedElement
+            allowedRoles={[ROLES.ADMINISTRADOR, ROLES.JEFE_COMERCIAL]}
+          >
+            <ProductsPage />
           </RoleProtectedElement>
         ),
       },
       {
         path: "app/users",
         element: (
-          <RoleProtectedElement allowedRoles={ROLES.ADMINISTRADOR}>
-            <UserManagement />
+          <RoleProtectedElement
+            allowedRoles={[ROLES.ADMINISTRADOR, ROLES.JEFE_COMERCIAL]}
+          >
+            <UserManagementPage />
           </RoleProtectedElement>
         ),
       },
-      { path: "app/dashboard", element: <Dashboard /> },
+      {
+        path: "app/customers",
+        element: (
+          <RoleProtectedElement
+            allowedRoles={[ROLES.ADMINISTRADOR, ROLES.JEFE_COMERCIAL]}
+          >
+            <CustomersPage />
+          </RoleProtectedElement>
+        ),
+      },
+      {
+        path: "app/services",
+        element: (
+          <RoleProtectedElement
+            allowedRoles={[ROLES.ADMINISTRADOR, ROLES.JEFE_COMERCIAL]}
+          >
+            <ServicesPage />
+          </RoleProtectedElement>
+        ),
+      },
     ],
   },
 ]);

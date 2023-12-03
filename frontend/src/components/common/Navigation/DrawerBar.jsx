@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import {
   AppBar as MuiAppBar,
@@ -13,6 +14,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import LogoutButton from "../../../features/auth/components/LogoutButton";
 import Logo from "../Logo/Logo";
+import {titlesByRoute} from "../../../constants/mappingObject";
 
 const drawerWidth = 250;
 
@@ -46,7 +48,7 @@ const Drawer = styled(MuiDrawer, {
       duration: theme.transitions.duration.enteringScreen,
     }),
     boxSizing: "border-box",
-    height: "100vh",
+    minHeight : "100vh",
     overflowX: "hidden",
     ...(!open && {
       transition: theme.transitions.create("width", {
@@ -67,6 +69,10 @@ export default function DrawerBar({
   open,
   logout,
 }) {
+  const location = useLocation();
+  // Obtiene el título basado en la ruta actual, o un título por defecto si la ruta no está definida
+  const titles = titlesByRoute[location.pathname] || "Mi Aplicación";
+
   return (
     <>
       <AppBar position="absolute" open={open}>
@@ -88,7 +94,7 @@ export default function DrawerBar({
             color="inherit"
             sx={{ flexGrow: 1 }}
           >
-            Dashboard
+            {titles}
           </Typography>
 
           <LogoutButton logout={logout} />

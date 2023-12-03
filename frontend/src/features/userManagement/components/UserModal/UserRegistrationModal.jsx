@@ -21,7 +21,12 @@ const DEFAULT_VALUES = {
   role_id: "",
 };
 
-const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
+const UserRegistrationModal = ({
+  open,
+  onClose,
+  onUserAdded,
+  showSnackbar,
+}) => {
   const { handleSubmit, reset, control } = useForm({
     mode: "onChange",
     resolver: yupResolver(userValidationSchemaWithPassword),
@@ -33,9 +38,10 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
   const registerMutation = useMutation({
     mutationFn: userService.register,
     onError: (error) => {
-      console.error("Error al registrar el usuario:", error);
+      showSnackbar(error.message || "Error en el registro de usuario", "error");
     },
     onSuccess: () => {
+      showSnackbar("Usuario registrado correctamente", "success");
       onUserAdded?.();
       handleClose();
     },

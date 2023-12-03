@@ -35,6 +35,7 @@ const LoginForm = ({ onSubmit, isPending }) => {
         name="password"
         label="Contraseña"
         type="password"
+        autoComplete="current-password"
         control={control}
         sx={{ mt: 2 }}
       />

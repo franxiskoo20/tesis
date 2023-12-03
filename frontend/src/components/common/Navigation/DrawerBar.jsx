@@ -12,7 +12,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import LogoutButton from "../../../features/auth/components/LogoutButton";
-import Logo from "../Layout/Logo";
+import Logo from "../Logo/Logo";
 
 const drawerWidth = 250;
 

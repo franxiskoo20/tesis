@@ -6,26 +6,27 @@ import GenericConfirmDialog from "../../../components/dialogs/GenericConfirmDial
 function LogoutButton({ logout }) {
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
-    setOpen(true);
+  const handleToggleDialog = () => {
+    setOpen(!open);
   };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+  
   return (
     <>
       <GenericConfirmDialog
         open={open}
-        onClose={handleClose}
-        onConfirm={logout}
+        onClose={handleToggleDialog}
+        onConfirm={logout.mutate}
         title="Confirmar Salida"
         confirmButtonText="Salir"
         cancelButtonText="Cancelar"
+        isPending={logout.isPending}
       />
 
-      <Button color="inherit" onClick={handleOpen} startIcon={<LogoutIcon />}>
+      <Button
+        color="inherit"
+        onClick={handleToggleDialog}
+        startIcon={<LogoutIcon />}
+      >
         Salir
       </Button>
     </>

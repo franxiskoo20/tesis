@@ -7,7 +7,8 @@ import { adaptUserData } from "../../features/userManagement/adapters/adaptUserD
 import UserRegistrationModal from "../../features/userManagement/components/UserModal/UserRegistrationModal";
 import UserEditModal from "../../features/userManagement/components/UserModal/UserEditModal";
 import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
-
+import useSnackbar from "../../hooks/useSnackbar";
+import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
 /**
  *
  * TODO: agregar manejo de errores
@@ -22,6 +23,14 @@ const UserManagement = () => {
   const [userToEdit, setUserToEdit] = useState(false); // Estado para almacenar el usuario a editar
 
   const [isRegistering, setIsRegistering] = useState(false); // Estado para manejar el estado de registro
+
+  const {
+    open: openSnackbar,
+    message,
+    severity,
+    showSnackbar,
+    closeSnackbar,
+  } = useSnackbar();
 
   // obtener usuarios y adaptarlos
   const {
@@ -42,6 +51,7 @@ const UserManagement = () => {
   // Función para actualizar la lista de usuarios
   const handleUserAdded = async () => {
     setIsRegistering(true);
+  
     await queryClient.invalidateQueries(["users"]);
     setIsRegistering(false);
     handleCloseRegister();
@@ -83,7 +93,7 @@ const UserManagement = () => {
         open={isRegisterOpen}
         onClose={handleCloseRegister}
         onUserAdded={handleUserAdded}
-    
+        showSnackbar={showSnackbar}
       />
       {userToEdit && (
         <UserEditModal
@@ -93,6 +103,12 @@ const UserManagement = () => {
           onUserUpdated={handleUserUpdated}
         />
       )}
+      <CustomSnackbar
+        open={openSnackbar}
+        setOpen={closeSnackbar}
+        message={message}
+        severity={severity}
+      />
     </AuthenticatedLayout>
   );
 };

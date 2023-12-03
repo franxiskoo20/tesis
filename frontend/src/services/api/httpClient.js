@@ -6,7 +6,6 @@ const httpClient = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    "X-Requested-With": "XMLHttpRequest",
   },
 });
 
@@ -24,15 +23,17 @@ httpClient.interceptors.request.use(
   }
 );
 
-httpClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response.status === 401) {
-      // Manejar error de autenticación, como redirigir al login
-      console.log("error 401 francisco");
-    }
-    return Promise.reject(error);
-  }
-);
+// const UNAUTHORIZED = 401;
+
+// httpClient.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response.status === UNAUTHORIZED) {
+//       // Manejar error de autenticación, como redirigir al login
+//       console.log("error 401 francisco");
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 
 export default httpClient;

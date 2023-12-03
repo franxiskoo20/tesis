@@ -3,22 +3,22 @@ import useAuth from "../../features/auth/hooks/useAuth";
 import { Container, Typography, Avatar } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import LoginForm from "../../features/auth/components/LoginForm";
+import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
+import useSnackbar from "../../hooks/useSnackbar";
 
 const Login = () => {
   const { login } = useAuth();
 
+  const { open, message, severity, showSnackbar, closeSnackbar } =
+    useSnackbar();
+
   const onSubmit = (data) => {
     login.mutate(data, {
-      onSuccess: () => {
-        // Manejar éxito
-      },
       onError: (error) => {
-        // Manejar error
-        console.log(error);
+        showSnackbar(error.message || "Error en el inicio de sesión", "error");
       },
     });
   };
-
   return (
     <DefaultLayout>
       <Container
@@ -37,6 +37,12 @@ const Login = () => {
           Acceder
         </Typography>
         <LoginForm onSubmit={onSubmit} isPending={login.isPending} />
+        <CustomSnackbar
+          open={open}
+          setOpen={closeSnackbar}
+          message={message}
+          severity={severity}
+        />
       </Container>
     </DefaultLayout>
   );

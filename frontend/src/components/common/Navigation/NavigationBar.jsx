@@ -1,5 +1,5 @@
 import { AppBar, Toolbar, Box } from "@mui/material";
-import Logo from "../Layout/Logo";
+import Logo from "../Logo/Logo";
 
 const NavigationBar = ({ children }) => (
   <AppBar position="static">

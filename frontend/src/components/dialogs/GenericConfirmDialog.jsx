@@ -17,6 +17,7 @@ const GenericConfirmDialog = ({
   message = "¿Estás seguro de que quieres realizar esta acción?",
   confirmButtonText,
   cancelButtonText,
+  isPending = false,
 }) => (
   <Dialog open={open} onClose={onClose}>
     <DialogTitle>
@@ -34,10 +35,11 @@ const GenericConfirmDialog = ({
     </DialogContent>
     <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
       <ActionButtons
-        onAccept={onConfirm.mutate}
+        onAccept={onConfirm}
         onCancel={onClose}
         acceptButtonLabel={confirmButtonText}
         cancelButtonLabel={cancelButtonText}
+        isPending={isPending}
       />
     </DialogActions>
   </Dialog>

@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { authService } from "../../../services/authService";
+import { authService } from "../services/authService";
 import Loading from "../../../components/common/loading/Loading";
 
 export const AuthContext = createContext(null);
@@ -8,14 +8,11 @@ export const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const queryClient = useQueryClient();
 
-  const userQuery = useQuery({
+  const { data: user, isLoading } = useQuery({
     queryKey: ["authUser"],
     queryFn: () => authService.validateToken(),
     enabled: !!localStorage.getItem("token"),
   });
-
-  const user = userQuery.data;
-  const isLoading = userQuery.isLoading;
 
   const loginMutation = useMutation({
     mutationFn: authService.login,
@@ -36,13 +33,13 @@ export const AuthProvider = ({ children }) => {
   const value = {
     user,
     isAuthenticated: !!user,
-    login: loginMutation.mutate,
-    logout: logoutMutation.mutate,
+    login: loginMutation,
+    logout: logoutMutation,
   };
 
   return (
     <AuthContext.Provider value={value}>
-      {isLoading ? <Loading/> : children}
+      {isLoading ? <Loading /> : children}
     </AuthContext.Provider>
   );
 };

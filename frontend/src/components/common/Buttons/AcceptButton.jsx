@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 /**
@@ -17,18 +17,22 @@ const AcceptButton = ({
   type = "submit",
   onClick,
   startIcon = defaultAcceptIcon,
-  disabled = false,
+  isPending = false,
+
   sx = {},
 }) => {
   return (
     <Button
       type={type}
+      fullWidth
       variant="contained"
-      color="primary"
+      color={"primary"}
       onClick={onClick}
-      startIcon={startIcon}
-      disabled={disabled}
-      sx={{ mx: 1, ...sx }}
+      startIcon={isPending ? <CircularProgress size={24} /> : startIcon}
+      disabled={isPending}
+      sx={{
+        ...sx,
+      }}
     >
       {label}
     </Button>

@@ -1,20 +1,13 @@
-import { AppBar, Toolbar, Button, Box } from "@mui/material";
-import LogoutIcon from "@mui/icons-material/Logout";
+import { AppBar, Toolbar, Box } from "@mui/material";
 import Logo from "../Layout/Logo";
 
-const NavigationBar = ({ children, user, onSignOut, roleBasedNavigation }) => (
+const NavigationBar = ({ children }) => (
   <AppBar position="static">
     <Toolbar>
-      <Box sx={{ marginRight: "auto" }}>
+      <Box flexGrow={1}>
         <Logo />
       </Box>
       {children}
-      {user && roleBasedNavigation(user.role)}
-      {user && (
-        <Button color="inherit" onClick={onSignOut} startIcon={<LogoutIcon />}>
-          Salir
-        </Button>
-      )}
     </Toolbar>
   </AppBar>
 );

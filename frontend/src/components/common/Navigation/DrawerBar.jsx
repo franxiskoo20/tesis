@@ -7,13 +7,12 @@ import {
   Typography,
   Divider,
   List,
-  Button,
   Box,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import LogoutIcon from "@mui/icons-material/Logout";
-import Logo from "../layout/Logo";
+import LogoutButton from "../../../features/auth/components/LogoutButton";
+import Logo from "../Layout/Logo";
 
 const drawerWidth = 250;
 
@@ -66,7 +65,7 @@ export default function DrawerBar({
   roleBasedNavigation,
   toggleDrawer,
   open,
-  handleToggleExitConfirmation,
+  logout,
 }) {
   return (
     <>
@@ -87,19 +86,12 @@ export default function DrawerBar({
             component="h1"
             variant="h6"
             color="inherit"
-            noWrap
             sx={{ flexGrow: 1 }}
           >
             Dashboard
           </Typography>
 
-          <Button
-            color="inherit"
-            onClick={handleToggleExitConfirmation}
-            startIcon={<LogoutIcon />}
-          >
-            Salir
-          </Button>
+          <LogoutButton logout={logout} />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

@@ -1,4 +1,4 @@
-import makeRequest from "./api/makeRequest";
+import makeRequest from "../../../services/api/makeRequest";
 // se utiliza el shorthand method syntax
 
 export const authService = {

@@ -17,7 +17,7 @@ const CancelButton = ({
   type = "button",
   onClick,
   startIcon = defaultCancelIcon,
-  disabled = false,
+  isPending = false,
   sx = {},
 }) => {
   return (
@@ -25,10 +25,11 @@ const CancelButton = ({
       type={type}
       variant="outlined"
       color="primary"
+      fullWidth
       onClick={onClick}
       startIcon={startIcon}
-      disabled={disabled}
-      sx={{ mx: 1, ...sx }}
+      disabled={isPending}
+      sx={{ ...sx }}
     >
       {label}
     </Button>

@@ -3,29 +3,33 @@ import CancelButtom from "./CancelButton";
 import AcceptButton from "./AcceptButton";
 
 const ActionButtons = ({
-  isLoading = false,
+  acceptButtonLabel,
+  cancelButtonLabel,
+  acceptButtonIcon,
+  cancelButtonIcon,
   onAccept,
   onCancel,
-  acceptButtonLabel,
-  acceptButtonIcon,
-  cancelButtonLabel,
-  cancelButtonIcon,
+  isPending = false,
 }) => (
   <Box
     sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}
   >
+    
     <AcceptButton
-      disabled={isLoading}
       label={acceptButtonLabel}
       startIcon={acceptButtonIcon}
       onClick={onAccept}
+      isPending={isPending}
+      sx={{ mr: 1 }}
     >
       {acceptButtonLabel}
     </AcceptButton>
     <CancelButtom
-      onClick={onCancel}
       label={cancelButtonLabel}
       startIcon={cancelButtonIcon}
+      onClick={onCancel}
+      isPending={isPending}
+      sx={{ ml: 1 }}
     />
   </Box>
 );

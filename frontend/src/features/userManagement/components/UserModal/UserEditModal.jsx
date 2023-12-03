@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { userService } from "../../services/userService";
 import { Grid, Box } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -10,7 +10,7 @@ import { userValidationSchemaWithoutPassword } from "../../utils/validationSchem
 import UserFormFields from "../../components/UserInputs/UserFormFields";
 import UserFormPasswordFields from "../../components/UserInputs/UserFormPasswordFields";
 import EditIcon from "@mui/icons-material/Edit";
-
+import useRoles from "../../hooks/useRoles";
 import ActionButtons from "../../../../components/common/buttons/ActionButtons";
 
 /**
@@ -21,15 +21,20 @@ import ActionButtons from "../../../../components/common/buttons/ActionButtons";
  * @param onUserUpdated actualiza la lista de usuarios de la tabla
  */
 
-const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
+const DEFAULT_VALUES = {
+  name: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
+  role_id: "",
+};
 
+const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
   const { handleSubmit, reset, control } = useForm({
     resolver: yupResolver(userValidationSchemaWithoutPassword),
-    defaultValues: {
-      role_id: "",
-    },
+    mode: "onChange",
+    defaultValues: DEFAULT_VALUES,
   });
-
   // cargar datos del usuario a editar
   useEffect(() => {
     if (userToEdit) {
@@ -43,10 +48,7 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
   }, [userToEdit, reset]);
 
   // obtener roles
-  const { data: roles } = useQuery({
-    queryKey: ["roles"],
-    queryFn: userService.getRoles,
-  });
+  const { roles } = useRoles();
 
   // switch para mostrar/ocultar campos de contraseña
   const [showPasswordFields, setShowPasswordFields] = useState(false);
@@ -73,9 +75,6 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
       onClose();
     },
   });
-
-  const isUpdating =
-    updateMutation.isLoading || updatePasswordMutation.isLoading;
 
   const hasUserChanged = (data) => {
     const roleChanged = parseInt(data.role_id) !== userToEdit.roleId;
@@ -114,22 +113,15 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     setShowPasswordFields(event.target.checked);
   };
 
+  // la mutación está pendiente de ejecución
+  const isUpdating =
+    updateMutation.isPending || updatePasswordMutation.isPending;
+
   return (
     <ModalLayout title="Registrar Usuario" open={open} onClose={onClose}>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>
         <Grid container spacing={2}>
-          {/* <UserFormFields
-            register={register}
-            errors={errors}
-            touchedFields={touchedFields}
-            control={control}
-            roles={roles}
-          /> */}
-          <UserFormFields
-            // register={register}
-            control={control}
-            roles={roles}
-          />
+          <UserFormFields control={control} roles={roles} />
           <Grid item xs={12}>
             <FormControlLabel
               control={
@@ -141,22 +133,16 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
               label={switchLabel}
             />
           </Grid>
-          {/* <UserFormPasswordFields
-            register={register}
-            errors={errors}
-            touchedFields={touchedFields}
-            showPasswordFields={showPasswordFields}
-          /> */}
           <UserFormPasswordFields
             control={control}
             showPasswordFields={showPasswordFields}
           />
           <Grid item xs={12}>
             <ActionButtons
-              isLoading={isUpdating}
               onCancel={onClose}
-              acceptButtonLabel="Registrar"
+              acceptButtonLabel="Editar"
               acceptButtonIcon={<EditIcon />}
+              isPending={isUpdating}
             />
           </Grid>
         </Grid>

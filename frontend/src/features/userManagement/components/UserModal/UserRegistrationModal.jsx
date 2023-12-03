@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { userService } from "../../services/userService";
 
 import { Grid, Box } from "@mui/material";
@@ -11,39 +11,33 @@ import UserFormFields from "../../components/UserInputs/UserFormFields";
 import UserFormPasswordFields from "../../components/UserInputs/UserFormPasswordFields";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { DevTool } from "@hookform/devtools";
+import useRoles from "../../hooks/useRoles";
 
-// const DEFAULT_VALUES = {
-//   name: "",
-//   email: "",
-//   password: "",
-//   password_confirmation: "",
-// };
+const DEFAULT_VALUES = {
+  name: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
+  role_id: "",
+};
 
 const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
   const { handleSubmit, reset, control } = useForm({
     mode: "onChange",
     resolver: yupResolver(userValidationSchemaWithPassword),
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-      password_confirmation: "",
-    },
+    defaultValues: DEFAULT_VALUES,
   });
 
-  const { data: roles } = useQuery({
-    queryKey: ["roles"],
-    queryFn: userService.getRoles,
-  });
+  const { roles } = useRoles();
 
   const registerMutation = useMutation({
     mutationFn: userService.register,
+    onError: (error) => {
+      console.error("Error al registrar el usuario:", error);
+    },
     onSuccess: () => {
       onUserAdded?.();
       handleClose();
-    },
-    onError: (error) => {
-      console.error("Error al registrar el usuario:", error);
     },
   });
 
@@ -52,25 +46,26 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
     registerMutation.mutate(data);
   };
 
+  // Reset campos del formulario al cerrar el modal
   const handleClose = () => {
     reset();
     onClose();
   };
 
   return (
-    <ModalLayout title="Registrar Usuario" open={open} onClose={onClose}>
+    <ModalLayout title="Registrar Usuario" open={open} onClose={handleClose}>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>
         <Grid container spacing={2}>
-          <UserFormFields control={control} />
+          <UserFormFields control={control} roles={roles} />
 
           <UserFormPasswordFields control={control} />
 
           <Grid item xs={12}>
             <ActionButtons
-              isLoading={registerMutation.isLoading}
-              onCancel={handleClose}
               acceptButtonLabel="Registrar"
               acceptButtonIcon={<HowToRegIcon />}
+              onCancel={handleClose}
+              isPending={registerMutation.isPending}
             />
           </Grid>
         </Grid>

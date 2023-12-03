@@ -34,7 +34,7 @@ const GenericConfirmDialog = ({
     </DialogContent>
     <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
       <ActionButtons
-        onAccept={onConfirm}
+        onAccept={onConfirm.mutate}
         onCancel={onClose}
         acceptButtonLabel={confirmButtonText}
         cancelButtonLabel={cancelButtonText}

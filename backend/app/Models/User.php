@@ -43,6 +43,13 @@ class User extends Authenticatable
     //     'email_verified_at' => 'datetime',
     // ];
 
+    /**
+     * Obtener los clientes del usuario.
+     */
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
 
     /**
      * Obtener el rol del usuario.

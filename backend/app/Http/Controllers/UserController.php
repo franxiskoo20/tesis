@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Interfaces\UserRepositoryInterface;
@@ -91,7 +90,7 @@ class UserController extends Controller
      * @param int $id Identificador del usuario a eliminar.
      * @return \Illuminate\Http\JsonResponse Respuesta JSON confirmando la eliminación.
      */
-    public function delete($id)
+    public function destroy($id)
     {
         try {
             $this->userRepository->delete($id);

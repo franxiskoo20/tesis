@@ -6,7 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +29,9 @@ Route::get('prueba', [ProductController::class, 'index']);
 Route::apiResource('products', ProductController::class);
 
 
+
+
+
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('register', [AuthController::class, 'register'])->middleware('role:Administrador');
@@ -36,10 +39,17 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::put('user/{id}', [UserController::class, 'update'])->middleware('role:Administrador');
 
-    Route::delete('/user/{id}', [UserController::class, 'delete'])->middleware('role:Administrador');
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->middleware('role:Administrador');
 
     Route::put('user/{id}/change-password', [UserController::class, 'changePassword'])->middleware('role:Administrador');
 
     Route::get('user', [AuthController::class, 'user']);
     Route::post('logout', [AuthController::class, 'logout']);
+
+    Route::prefix('customers')->group(function () {
+        Route::get('/', [CustomerController::class, 'index']); // Obtener todos los clientes
+        Route::post('/', [CustomerController::class, 'store']); // Crear un nuevo cliente
+        Route::put('/{id}', [CustomerController::class, 'update']); // Actualizar un cliente
+        Route::delete('/{id}', [CustomerController::class, 'destroy']); // Eliminar un cliente
+    });
 });

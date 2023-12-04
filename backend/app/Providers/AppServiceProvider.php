@@ -9,6 +9,9 @@ use App\Repositories\UserRepository;
 use App\Interfaces\RoleRepositoryInterface;
 use App\Repositories\RoleRepository;
 
+use App\Interfaces\CustomerRepositoryInterface;
+use App\Repositories\CustomerRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -20,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(RoleRepositoryInterface::class, RoleRepository::class);
+        $this->app->bind(CustomerRepositoryInterface::class, CustomerRepository::class);
     }
 
     /**

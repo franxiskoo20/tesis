@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 
-class RegisterRequest extends FormRequest
+class CustomerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,9 +29,10 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'role_id' => 'required|numeric',
+            'description' => 'required|string|max:255',
+            'status' => 'required|boolean',
+            'logo' => 'string|max:255',
+            'user_id' => 'required|numeric',
         ];
     }
 
@@ -40,14 +41,11 @@ class RegisterRequest extends FormRequest
         return [
 
             'name.required' => 'El campo nombre es obligatorio.',
-            'email.required' => 'El campo email es obligatorio.',
-            'email.email' => 'El campo email debe ser una dirección de correo válida.',
-            'email.unique' => 'El email ya está registrado.',
-            'password.required' => 'El campo contraseña es obligatorio.',
-            'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
-            'password.confirmed' => 'La contraseña no se confirmo correctamente',
-            'role_id.required' => 'El campo rol es obligatorio.',
-            'role_id.numeric' => 'El campo rol debe ser un numero.',
+            'description.required' => 'El campo descripción es obligatorio.',
+            'status.required' => 'El campo estado es obligatorio.',
+            'logo.required' => 'El campo logo es obligatorio.',
+            'user_id.required' => 'El campo usuario es obligatorio.',
+            'user_id.numeric' => 'El campo usuario debe ser un numero.',
         ];
     }
 

@@ -9,10 +9,7 @@ import UserEditModal from "../../features/userManagement/components/UserModal/Us
 import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
 import useSnackbar from "../../hooks/useSnackbar";
 import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
-/**
- *
- *
- */
+
 const UserManagementPage = () => {
   const queryClient = useQueryClient();
 

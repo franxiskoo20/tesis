@@ -28,7 +28,9 @@ export default function AuthenticatedLayout({ children }) {
           my: 12,
         }}
       >
-        <Container maxWidth="lg">{children}</Container>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          {children}
+        </Container>
       </Box>
     </Box>
   );

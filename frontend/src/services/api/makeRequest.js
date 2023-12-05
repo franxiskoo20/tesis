@@ -1,10 +1,15 @@
 import httpClient from "./httpClient";
+const DEFAULT_HEADERS = {
+  "Content-Type": "application/json",
+  Accept: "application/json",
+};
 
 async function makeRequest(method, url, data = null) {
   try {
     const config = {
       method: method,
       url: url,
+      headers: data instanceof FormData ? {} : DEFAULT_HEADERS,
       data: data,
     };
 

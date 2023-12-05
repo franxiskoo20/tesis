@@ -30,8 +30,8 @@ class CustomerRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'status' => 'required|boolean',
-            'logo' => 'string|max:255',
+            'status' => 'required|boolean|in:0,1',
+            'logo' => 'nullable|file|max:2048',
             'user_id' => 'required|numeric',
         ];
     }

@@ -10,7 +10,6 @@ import { userValidationSchemaWithPassword } from "../../utils/validationSchemasU
 import UserFormFields from "../../components/UserInputs/UserFormFields";
 import UserFormPasswordFields from "../../components/UserInputs/UserFormPasswordFields";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
-import { DevTool } from "@hookform/devtools";
 import useRoles from "../../hooks/useRoles";
 
 const DEFAULT_VALUES = {
@@ -76,7 +75,6 @@ const UserRegistrationModal = ({
           </Grid>
         </Grid>
       </Box>
-      <DevTool control={control} /> {/* set up the dev tool */}
     </ModalLayout>
   );
 };

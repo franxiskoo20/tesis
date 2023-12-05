@@ -26,14 +26,14 @@ class CustomerController extends Controller
             $customers = $this->customerRepository->getAll();
             return response()->json($customers);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Error al mostrar los Clientes', 'message' => $e->getMessage()], 500);
         }
     }
 
     public function store(CustomerRequest $request)
     {
         try {
-            $this->customerRepository->create($request->validated());
+            $this->customerRepository->create($request->all());
             return response()->json(['message' => 'Cliente creado con éxito'], 201);
         } catch (Exception $e) {
             return response()->json(['error' => 'Error al crear el cliente', 'message' => $e->getMessage()], 500);
@@ -47,9 +47,9 @@ class CustomerController extends Controller
             $customer = $this->customerRepository->getById($id);
             return response()->json($customer);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Cliente no encontrado'], 404);
+            return response()->json(['error' => 'Cliente no encontrado', 'message' => $e->getMessage()], 404);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Error al obtener el cliente'], 500);
+            return response()->json(['error' => 'Error al obtener el cliente', 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -60,9 +60,9 @@ class CustomerController extends Controller
             $customer = $this->customerRepository->update($id, $data);
             return response()->json(['customer' => $customer, 'message' => 'Cliente actualizado con éxito']);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => $e->getMessage()], 404);
+            return response()->json(['error' => 'Error al actualizar el cliente', 'message' => $e->getMessage()], 404);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Error al actualizar el usuario'], 500);
+            return response()->json(['error' => 'Error al actualizar el cliente', 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -73,9 +73,9 @@ class CustomerController extends Controller
             $this->customerRepository->delete($id);
             return response()->json(['message' => 'Cliente eliminado con éxito']);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => $e->getMessage()], 404);
+            return response()->json(['error' => 'Error al eliminar el cliente', 'message' => $e->getMessage()], 404);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Error al eliminar el cliente'], 500);
+            return response()->json(['error' => 'Error al elminar el cliente', 'message' => $e->getMessage()], 500);
         }
     }
 }

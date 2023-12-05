@@ -19,17 +19,23 @@ class UserSeeder extends Seeder
         $jefeRoleId = Role::firstOrCreate(['role_type' => 'Jefe Comercial'])->id;
 
         User::create([
-            'name' => 'Admin',
-            'email' => 'admin@admin',
-            'password' => Hash::make('asdasd'),
+            'name' => 'Administrador',
+            "email" => 'admin@admin.com',
+            'password' => Hash::make('Franxiskoo20%'),
             'role_id' => $adminRoleId,
         ]);
 
-        User::create([
-            'name' => 'Jefe',
-            'email' => 'jefe@jefe',
-            'password' => Hash::make('asdasd'),
+        User::create([ 
+            'name' => 'Jefe Comercial',
+            'email' => 'jefe@jefe.com',
+            'password' => Hash::make('Franxiskoo20%'),
             'role_id' => $jefeRoleId,
+        ]);
+        User::create([
+            'name' => 'Francisco',
+            'email' => 'adm@adm',
+            'password' => Hash::make('asd'),
+            'role_id' => $adminRoleId,
         ]);
     }
 }

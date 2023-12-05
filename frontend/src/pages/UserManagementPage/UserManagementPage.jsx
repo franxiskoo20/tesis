@@ -1,14 +1,14 @@
-import { useState } from "react";
-import UserTable from "../../features/userManagement/components/UserTable/UserTable";
-import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { userService } from "../../features/userManagement/services/userService";
-import { adaptUserData } from "../../features/userManagement/adapters/adaptUserData";
-import UserRegistrationModal from "../../features/userManagement/components/UserModal/UserRegistrationModal";
-import UserEditModal from "../../features/userManagement/components/UserModal/UserEditModal";
+import { useState } from "react";
 import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
-import useSnackbar from "../../hooks/useSnackbar";
+import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
+import { adaptUserData } from "../../features/userManagement/adapters/adaptUserData";
+import UserEditModal from "../../features/userManagement/components/UserModal/UserEditModal";
+import UserRegistrationModal from "../../features/userManagement/components/UserModal/UserRegistrationModal";
+import UserTable from "../../features/userManagement/components/UserTable/UserTable";
+import { userService } from "../../features/userManagement/services/userService";
+import useSnackbar from "../../hooks/useSnackbar";
 
 const UserManagementPage = () => {
   const queryClient = useQueryClient();

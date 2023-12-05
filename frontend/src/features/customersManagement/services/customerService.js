@@ -2,13 +2,14 @@ import makeRequest from "../../../services/api/makeRequest";
 
 export const customerService = {
   addCustomer({ name, description, status, logo, user_id }) {
-    return makeRequest("post", "/api/customers", {
-      name,
-      description,
-      status,
-      logo,
-      user_id,
-    });
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("status", status ? 1 : 0);
+    formData.append("logo", logo);
+    formData.append("user_id", user_id);
+
+    return makeRequest("post", "/api/customers", formData);
   },
 
   getCustomers() {

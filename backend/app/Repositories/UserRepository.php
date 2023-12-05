@@ -52,6 +52,7 @@ class UserRepository implements UserRepositoryInterface
         $user->load('role');
 
         return [
+            'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
             'role' => $user->role->role_type ?? null,

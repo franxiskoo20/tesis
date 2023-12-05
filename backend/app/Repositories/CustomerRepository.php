@@ -4,7 +4,8 @@ namespace App\Repositories;
 
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Models\Customer;
-
+use Illuminate\Http\UploadedFile;
+use Illuminate\Http\Request;
 
 class CustomerRepository implements CustomerRepositoryInterface
 {
@@ -16,13 +17,21 @@ class CustomerRepository implements CustomerRepositoryInterface
    */
   public function create(array $data)
   {
-    return Customer::create([
+
+
+    if (isset($data['logo']) && $data['logo'] instanceof UploadedFile) {
+      $path = $data['logo']->store('logos', 'public');
+      $data['logo'] = $path;
+    }
+
+    $customer = Customer::create([
       'name' => $data['name'],
       'description' => $data['description'],
       'status' => $data['status'],
-      'logo' => $data['logo'],
+      'logo' => $data['logo'] ?? null,
       'user_id' => $data['user_id'],
     ]);
+    return $customer;
   }
 
   /**
@@ -68,6 +77,6 @@ class CustomerRepository implements CustomerRepositoryInterface
 
   public function getAll()
   {
-    return Customer::all();
+    return Customer::with('user')->get();
   }
 }

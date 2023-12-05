@@ -1,5 +1,7 @@
 import CustomTextField from "../../../../components/common/Inputs/CustomTextField";
 import Grid from "@mui/material/Grid";
+import CustomDropzoneArea from "../../../../components/common/Inputs/CustomDropzoneArea";
+import CustomSwitch from "../../../../components/common/Inputs/CustomSwitch";
 
 const CustomerFormFields = ({ control }) => {
   const renderTextField = (name, label, type) => (
@@ -18,6 +20,8 @@ const CustomerFormFields = ({ control }) => {
     <>
       {renderTextField("name", "Nombre", "text")}
       {renderTextField("description", "Descripción", "textarea")}
+      <CustomDropzoneArea name="logo" control={control} />
+      <CustomSwitch name="status" label="Habilitado" control={control} />
     </>
   );
 };

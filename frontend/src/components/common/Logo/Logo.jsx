@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import logoBlanco from "../../../assets/image/logo_camanchaca_blanco.png";
 import logoAzul from "../../../assets/image/logo_camanchaca_azul.png";
+import logoBlanco from "../../../assets/image/logo_camanchaca_blanco.png";
 
 const COLORS = {
   AZUL: "azul",
 };
 const Logo = ({ color }) => (
-  <Link to="/">
+  <Link to="/"> 
     <img
       src={color === COLORS.AZUL ? logoAzul : logoBlanco}
       alt="Logo Camanchaca"

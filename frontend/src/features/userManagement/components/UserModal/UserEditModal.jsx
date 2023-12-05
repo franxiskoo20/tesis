@@ -1,17 +1,16 @@
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { userService } from "../../services/userService";
-import { Grid, Box } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
+import EditIcon from "@mui/icons-material/Edit";
+import { Box, FormControlLabel, Grid, Switch } from "@mui/material";
+import { useMutation } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import ActionButtons from "../../../../components/common/Buttons/ActionButtons";
 import ModalLayout from "../../../../components/layout/ModalLayout";
-import { Switch, FormControlLabel } from "@mui/material";
-import { userValidationSchemaWithoutPassword } from "../../utils/validationSchemasUtils";
 import UserFormFields from "../../components/UserInputs/UserFormFields";
 import UserFormPasswordFields from "../../components/UserInputs/UserFormPasswordFields";
-import EditIcon from "@mui/icons-material/Edit";
 import useRoles from "../../hooks/useRoles";
-import ActionButtons from "../../../../components/common/Buttons/ActionButtons";
+import { userService } from "../../services/userService";
+import { userValidationSchemaWithoutPassword } from "../../utils/validationSchemasUser";
 
 /**
  * * Componente para editar usuarios

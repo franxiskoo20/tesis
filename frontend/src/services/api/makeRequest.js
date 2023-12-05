@@ -17,7 +17,7 @@ async function makeRequest(method, url, data = null) {
     return response.data;
   } catch (error) {
     let errorMessage;
-
+    alert("Ocurrió un error al intentar iniciar sesión: " + error);
     if (error.response) {
       errorMessage = error.response.data;
     } else if (error.request) {
@@ -25,14 +25,19 @@ async function makeRequest(method, url, data = null) {
     } else {
       errorMessage = "Error al realizar la solicitud";
     }
-    if (typeof errorMessage === "object" && errorMessage !== null) {
-      console.log(errorMessage.message);
+
+    // Verificar si el error es un error de conexión a la base de datos
+    // Verificar si el error es un error de conexión a la base de datos
+
+    if (errorMessage !== null) {
+      console.log("errors make: " + errorMessage?.errors);
+      console.log("error make: " + errorMessage?.error);
+      console.log("Mesaje make: " + errorMessage?.message);
     } else {
-      console.log(errorMessage);
+      console.log(error);
     }
 
     throw errorMessage;
   }
 }
-
 export default makeRequest;

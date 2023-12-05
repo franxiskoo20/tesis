@@ -7,6 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Exception;
 
 class AuthController extends Controller
 {
@@ -53,7 +54,11 @@ class AuthController extends Controller
     // Obtener información del usuario autenticado
     public function user(Request $request)
     {
-        $user = $this->userRepository->getAuthenticatedUser($request);
-        return response()->json($user);
+        try {
+            $user = $this->userRepository->getAuthenticatedUser($request);
+            return response()->json($user);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Usuario no registrado', 'message' => $e->getMessage()], 500);
+        }
     }
 }

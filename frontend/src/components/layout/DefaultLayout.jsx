@@ -2,8 +2,8 @@ import NavigationBar from "../common/navigation/NavigationBar";
 
 import { Link } from "react-router-dom";
 
-import { Button, Box } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Box, Button } from "@mui/material";
 
 export default function DefaultLayout({ children }) {
   return (

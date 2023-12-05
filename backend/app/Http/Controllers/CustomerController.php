@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\CustomerRepositoryInterface;
 use App\Http\Requests\CustomerRequest;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 
 
@@ -46,8 +45,6 @@ class CustomerController extends Controller
         try {
             $customer = $this->customerRepository->getById($id);
             return response()->json($customer);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Cliente no encontrado', 'message' => $e->getMessage()], 404);
         } catch (Exception $e) {
             return response()->json(['error' => 'Error al obtener el cliente', 'message' => $e->getMessage()], 500);
         }
@@ -59,8 +56,6 @@ class CustomerController extends Controller
             $data = $request->validated();
             $customer = $this->customerRepository->update($id, $data);
             return response()->json(['customer' => $customer, 'message' => 'Cliente actualizado con éxito']);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Error al actualizar el cliente', 'message' => $e->getMessage()], 404);
         } catch (Exception $e) {
             return response()->json(['error' => 'Error al actualizar el cliente', 'message' => $e->getMessage()], 500);
         }
@@ -72,8 +67,6 @@ class CustomerController extends Controller
         try {
             $this->customerRepository->delete($id);
             return response()->json(['message' => 'Cliente eliminado con éxito']);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Error al eliminar el cliente', 'message' => $e->getMessage()], 404);
         } catch (Exception $e) {
             return response()->json(['error' => 'Error al elminar el cliente', 'message' => $e->getMessage()], 500);
         }

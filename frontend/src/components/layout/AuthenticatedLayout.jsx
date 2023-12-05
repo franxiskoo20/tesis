@@ -1,10 +1,11 @@
-import DrawerBar from "../common/Navigation/DrawerBar";
 import { Box, Container } from "@mui/material";
-import { getRoleNavigationItems } from "../../utils/navigationUtils";
 import useAuth from "../../features/auth/hooks/useAuth";
 import { useDrawer } from "../../hooks/useDrawer";
+import { getRoleNavigationItems } from "../../utils/navigationUtils";
+import DrawerBar from "../common/Navigation/DrawerBar";
 
 export default function AuthenticatedLayout({ children }) {
+
   const { user, logout } = useAuth();
 
   const { drawerOpen, toggleDrawer } = useDrawer();

@@ -1,16 +1,16 @@
 import { useMutation } from "@tanstack/react-query";
 import { userService } from "../../services/userService";
 
-import { Grid, Box } from "@mui/material";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import ModalLayout from "../../../../components/layout/ModalLayout";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import { Box, Grid } from "@mui/material";
+import { useForm } from "react-hook-form";
 import ActionButtons from "../../../../components/common/buttons/ActionButtons";
-import { userValidationSchemaWithPassword } from "../../utils/validationSchemasUtils";
+import ModalLayout from "../../../../components/layout/ModalLayout";
 import UserFormFields from "../../components/UserInputs/UserFormFields";
 import UserFormPasswordFields from "../../components/UserInputs/UserFormPasswordFields";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
 import useRoles from "../../hooks/useRoles";
+import { userValidationSchemaWithPassword } from "../../utils/validationSchemasUser";
 
 const DEFAULT_VALUES = {
   name: "",

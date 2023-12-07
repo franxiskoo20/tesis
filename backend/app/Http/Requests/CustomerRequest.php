@@ -31,7 +31,7 @@ class CustomerRequest extends FormRequest
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'status' => 'required|boolean|in:0,1',
-            'logo' => 'nullable|file|max:2048',
+            'logo' => 'nullable',
             'user_id' => 'required|numeric',
         ];
     }
@@ -43,7 +43,6 @@ class CustomerRequest extends FormRequest
             'name.required' => 'El campo nombre es obligatorio.',
             'description.required' => 'El campo descripción es obligatorio.',
             'status.required' => 'El campo estado es obligatorio.',
-            'logo.required' => 'El campo logo es obligatorio.',
             'user_id.required' => 'El campo usuario es obligatorio.',
             'user_id.numeric' => 'El campo usuario debe ser un numero.',
         ];

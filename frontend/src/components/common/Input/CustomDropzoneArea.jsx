@@ -1,5 +1,6 @@
 import { FormHelperText } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import { alpha } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 import { Controller } from "react-hook-form";
 import { DropzoneArea } from "react-mui-dropzone";
@@ -12,8 +13,8 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "25px",
     },
     "& p": {
-      fontSize: "1.2rem",
-      color: theme.palette.text.disabled,
+      fontSize: "1rem",
+      color: alpha(theme.palette.text.primary, 0.6),
     },
   },
 }));
@@ -42,9 +43,9 @@ const CustomDropzoneArea = ({ name, control }) => {
               acceptedFiles={["image/*"]}
               dropzoneText={"Arrastra y suelta una imagen aquí o haz clic"}
               onChange={(files) => {
-                if (files[0] !== undefined) {
-                  field.onChange(files[0]);
-                }
+                // if (files[0] !== undefined) {
+                field.onChange(files[0]);
+                // }
               }}
               classes={classes}
               showAlerts={false}

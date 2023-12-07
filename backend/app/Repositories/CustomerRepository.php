@@ -22,8 +22,9 @@ class CustomerRepository implements CustomerRepositoryInterface
     if (isset($data['logo']) && $data['logo'] instanceof UploadedFile) {
       $path = $data['logo']->store('logos', 'public');
       $data['logo'] = $path;
+    } else {
+      $data['logo'] = 'logos/no-logo.png'; // Asegúrate de que esta ruta sea correcta.
     }
-
     $customer = Customer::create([
       'name' => $data['name'],
       'description' => $data['description'],

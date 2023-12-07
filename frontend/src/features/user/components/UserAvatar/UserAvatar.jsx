@@ -13,7 +13,6 @@ const getInitials = (name) => {
 // Componente Avatar
 const UserAvatar = ({ name, role }) => {
   const avatarColor = ROLE_COLORS[role] || "grey"; // Color por defecto si el rol no está definido
-  console.log(avatarColor);
   return <Avatar sx={{ bgcolor: avatarColor }}>{getInitials(name)}</Avatar>;
 };
 

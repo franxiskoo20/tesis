@@ -27,33 +27,25 @@ const CustomDropzoneArea = ({ name, control }) => {
       <Controller
         name={name}
         control={control}
-        render={({
-          field,
-          fieldState: {
-            error,
-            // isTouched, isDirty, invalid
-          },
-        }) => (
+        render={({ field, fieldState: { error } }) => (
           <>
-            {/* {console.log("isTouched: " + isTouched)}
-            {console.log("error: " + !!error)}
-            {console.log("isDirty: " + isDirty)}
-            {console.log("invalid: " + invalid)} */}
             <DropzoneArea
               acceptedFiles={["image/*"]}
               dropzoneText={"Arrastra y suelta una imagen aquí o haz clic"}
               onChange={(files) => {
-                // if (files[0] !== undefined) {
                 field.onChange(files[0]);
-                // }
               }}
               classes={classes}
               showAlerts={false}
               filesLimit={1}
             />
-            {error && (
+            {error ? (
               <FormHelperText sx={{ mx: 2, color: "error.main" }} error>
                 {error.message}
+              </FormHelperText>
+            ) : (
+              <FormHelperText sx={{ mx: 2 }} className={classes.infoText}>
+                Campo opcional. Tamaño máximo del archivo: 2MB.
               </FormHelperText>
             )}
           </>

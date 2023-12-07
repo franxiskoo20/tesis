@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import ChipButton from "../../../../components/common/Button/ChipButton";
+import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import useTableColumns from "../../hooks/useTableColumns";
-import TableOverlayLoader from "./TableLoader";
 import userTableStaticOptions from "./userTableOptions";
 
 const UserTable = ({ users, onAddUser, onEdit, onDelete, isSubmitting }) => {
@@ -19,13 +19,13 @@ const UserTable = ({ users, onAddUser, onEdit, onDelete, isSubmitting }) => {
 
   return (
     <Box position="relative">
+      <OverlayLoader isLoading={isSubmitting} />
       <MUIDataTable
         title={"Lista de usuarios"}
         data={users}
         columns={columns}
         options={options}
       />
-      <TableOverlayLoader isLoading={isSubmitting} />
     </Box>
   );
 };

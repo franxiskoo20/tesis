@@ -22,7 +22,7 @@ class Customer extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class)->select(['id', 'name', 'email']);
+        return $this->belongsTo(User::class)->select(['id', 'name', 'email', 'role_id']);
     }
 
 }

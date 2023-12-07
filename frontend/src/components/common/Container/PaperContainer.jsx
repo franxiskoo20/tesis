@@ -1,8 +1,8 @@
 import { Box, Paper, Typography } from "@mui/material";
 
-const PaperComponent = ({ title, button, children }) => {
+const PaperComponent = ({ title, button, children, relativePosition }) => {
   return (
-    <Paper component="section" elevation={3} sx={{ p: 2 }}>
+    <Paper component="section" elevation={3} sx={{ p: 2, position: relativePosition ? 'relative' : 'initial' }}>
       <Box
         component="header"
         sx={{

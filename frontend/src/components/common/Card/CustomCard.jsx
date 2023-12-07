@@ -14,7 +14,7 @@ import {
 import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import { grey } from "@mui/material/colors";
 import { useState } from "react";
-import UserAvatar from "../../../user/components/UserAvatar/UserAvatar";
+import UserAvatar from "../../../features/user/components/UserAvatar/UserAvatar";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -27,73 +27,60 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const CustomerCard = ({ customers }) => {
+const CustomCard = ({ data }) => {
+  const [expanded, setExpanded] = useState(false);
   const baseUrl = "http://localhost:8000/storage/";
 
-  const [expanded, setExpanded] = useState({});
-
-  const handleExpandClick = (customerId) => {
-    setExpanded((prevExpanded) => ({
-      ...prevExpanded,
-      [customerId]: !prevExpanded[customerId],
-    }));
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
   };
 
   return (
     <>
-      {customers?.map((customer) => (
-        <Grid xs={12} sm={6} md={4} key={customer.id}>
+      {data?.map((item) => (
+        <Grid xs={12} sm={6} md={4} key={item.id}>
           <Card>
             <CardHeader
               avatar={
-                <UserAvatar
-                  role={customer.user.roleId}
-                  name={customer.user.name}
-                />
+                <UserAvatar role={item.user.roleId} name={item.user.name} />
               }
-              title={customer.user.name}
+              title={item.user.name}
               subheader={
                 <Box sx={{ color: grey[400] }}>
-                  {customer.user.email}
+                  {item.user.email}
                   <br />
-                  {customer.createdAt}
+                  {item.createdAt}
                 </Box>
               }
               sx={{ bgcolor: "primary.main", color: "primary.contrastText" }}
             />
 
-            {customer.logo && (
+            {item.logo && (
               <CardMedia
                 component="img"
                 height="160"
-                image={`${baseUrl}${customer.logo}`}
-                alt={customer.name}
+                image={`${baseUrl}${item.logo}`}
+                alt={item.name}
                 sx={{ objectFit: "contain", objectPosition: "center" }}
               />
             )}
             <CardActionArea>
               <CardContent sx={{ display: "flex" }}>
                 <Typography gutterBottom variant="h6" component="div">
-                  {customer.name}
+                  {item.name}
                 </Typography>
                 <ExpandMore
-                  expand={expanded[customer.id] || false}
-                  onClick={() => handleExpandClick(customer.id)}
-                  aria-expanded={expanded[customer.id] || false}
+                  expand={expanded}
+                  onClick={handleExpandClick}
+                  aria-expanded={expanded}
                   aria-label="show more"
                 >
                   <ExpandMoreIcon />
                 </ExpandMore>
               </CardContent>
-              <Collapse
-                in={expanded[customer.id] || false}
-                timeout="auto"
-                unmountOnExit
-              >
+              <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                  <Typography variant="body2">
-                    {customer.description}
-                  </Typography>
+                  <Typography variant="body2">{item.description}</Typography>
                 </CardContent>
               </Collapse>
             </CardActionArea>
@@ -104,4 +91,4 @@ const CustomerCard = ({ customers }) => {
   );
 };
 
-export default CustomerCard;
+export default CustomCard;

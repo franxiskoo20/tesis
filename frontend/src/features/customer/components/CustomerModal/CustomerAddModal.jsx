@@ -6,11 +6,12 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import ActionButtons from "../../../../components/common/Button/ActionButton";
 import ModalLayout from "../../../../components/layout/ModalLayout";
+import { useSnackbar } from "../../../../hooks/useSnackbar";
 import useAuth from "../../../auth/hooks/useAuth";
+import { CUSTOMER_SNACKBAR } from "../../constants/customerSnackbar";
 import { customerService } from "../../services/customerService";
 import { validationSchemasCustomer } from "../../utils/validationSchemasCustomer";
 import CustomerFormFields from "../CustomerInputs/CustomerFormFields";
-
 const CustomerAddModal = ({ open, onClose, onCustomerAdded }) => {
   const { user } = useAuth();
 
@@ -22,20 +23,23 @@ const CustomerAddModal = ({ open, onClose, onCustomerAdded }) => {
     user_id: user?.id || "",
   };
 
-  const { handleSubmit, reset, control, watch } = useForm({
+  const { handleSubmit, reset, control } = useForm({
     mode: "onChange",
     resolver: yupResolver(validationSchemasCustomer),
     defaultValues: DEFAULT_VALUES_CUSTOMER,
   });
 
+  const { showSnackbar } = useSnackbar();
+
   const addCustomerMutation = useMutation({
     mutationFn: customerService.addCustomer,
     onError: (error) => {
-      console.log(error?.errors);
-      // showSnackbar(error?.errors || "Error al agregar el cliente", "error");
+      const snackbar = CUSTOMER_SNACKBAR.CUSTOMER_REGISTER_ERROR;
+      showSnackbar(error?.errors || snackbar.message, snackbar.type);
     },
-    onSuccess: () => {
-      // showSnackbar(data?.message || "Cliente agregado con éxito", "success");
+    onSuccess: (data) => {
+      const snackbar = CUSTOMER_SNACKBAR.CUSTOMER_REGISTER_SUCCESS;
+      showSnackbar(data?.message || snackbar.message, snackbar.type);
       onCustomerAdded?.();
       handleClose?.();
     },
@@ -49,7 +53,6 @@ const CustomerAddModal = ({ open, onClose, onCustomerAdded }) => {
     reset();
     onClose();
   };
-  console.log(watch());
   return (
     <ModalLayout title="Registrar Cliente" open={open} onClose={handleClose}>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>

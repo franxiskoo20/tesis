@@ -1,6 +1,7 @@
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { InputAdornment, TextField } from "@mui/material";
+import { useState } from "react";
 import { Controller } from "react-hook-form";
 
 /**
@@ -11,7 +12,16 @@ import { Controller } from "react-hook-form";
  * @param type tipo de campo
  * @param rest otros atributos
  */
-const CustomTextField = ({ name, label, type, control, ...rest }) => {
+const CustomTextField = ({
+  name,
+  label,
+  type,
+  control,
+  maxLength = 256,
+  ...rest
+}) => {
+  const [charCount, setCharCount] = useState(0);
+
   // mostrar icono de error o de correcto en el campo de texto
   const renderEndAdornment = (isDirty, error) => {
     return error ? (
@@ -20,9 +30,9 @@ const CustomTextField = ({ name, label, type, control, ...rest }) => {
       <CheckCircleOutlineIcon sx={{ color: "primary.main" }} />
     ) : null;
   };
-
-  const renderHelperText = (isDirty, error) => {
-    return error ? error.message : isDirty ? "Correcto" : "";
+  const renderHelperText = (isDirty, error, charCount) => {
+    const charCountText = `${charCount}/${maxLength} caracteres`;
+    return error ? error.message : isDirty ? "Correcto - " + charCountText : "";
   };
 
   return (
@@ -32,6 +42,11 @@ const CustomTextField = ({ name, label, type, control, ...rest }) => {
       render={({ field, fieldState: { error, isDirty } }) => (
         <TextField
           {...field}
+          onChange={(e) => {
+            setCharCount(e.target.value.length);
+            console.log(charCount);
+            field.onChange(e);
+          }}
           id={name}
           label={label}
           variant="outlined"
@@ -39,7 +54,6 @@ const CustomTextField = ({ name, label, type, control, ...rest }) => {
           fullWidth
           error={!!error}
           autoComplete={name}
-          multiline
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -47,7 +61,7 @@ const CustomTextField = ({ name, label, type, control, ...rest }) => {
               </InputAdornment>
             ),
           }}
-          helperText={renderHelperText(isDirty, error)}
+          helperText={renderHelperText(isDirty, error, charCount)}
           FormHelperTextProps={{
             sx: {
               color: isDirty && !error ? "primary.main" : "error.main",

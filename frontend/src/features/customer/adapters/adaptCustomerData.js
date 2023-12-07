@@ -14,6 +14,7 @@ export const adaptCustomerData = (customer) => {
       id: customer.user.id,
       name: customer.user.name,
       email: customer.user.email,
+      roleId: customer.user.role_id,
     },
   };
 };

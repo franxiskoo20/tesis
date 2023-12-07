@@ -11,6 +11,7 @@ const CustomerFormFields = ({ control }) => {
         label={label}
         type={type}
         control={control}
+        multiline
       />
     </Grid>
   );

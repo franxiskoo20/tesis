@@ -1,6 +1,6 @@
 import CircularProgress from "@mui/material/CircularProgress";
 
-const TableOverlayLoader = ({ isLoading }) => {
+const OverlayLoader = ({ isLoading }) => {
   if (!isLoading) return null;
 
   return (
@@ -23,4 +23,4 @@ const TableOverlayLoader = ({ isLoading }) => {
   );
 };
 
-export default TableOverlayLoader;
+export default OverlayLoader;

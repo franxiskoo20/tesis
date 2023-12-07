@@ -1,10 +1,10 @@
-import DefaultLayout from "../../components/layout/DefaultLayout";
-import useAuth from "../../features/auth/hooks/useAuth";
-import { Container, Typography, Avatar } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import LoginForm from "../../features/auth/components/LoginForm";
+import { Avatar, Container, Typography } from "@mui/material";
+import DefaultLayout from "../../components/layout/DefaultLayout";
 import CustomSnackbar from "../../components/snackbar/CustomSnackbar";
-import useSnackbar from "../../hooks/useSnackbar";
+import LoginForm from "../../features/auth/components/LoginForm";
+import useAuth from "../../features/auth/hooks/useAuth";
+import { useSnackbar } from "../../hooks/useSnackbar";
 
 const LoginPage = () => {
   const { login } = useAuth();

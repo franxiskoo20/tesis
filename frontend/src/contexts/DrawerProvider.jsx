@@ -10,7 +10,7 @@ export const DrawerProvider = ({ children }) => {
   };
 
   return (
-    <DrawerContext.Provider value={{ drawerOpen, setDrawerOpen, toggleDrawer }}>
+    <DrawerContext.Provider value={{ drawerOpen, toggleDrawer }}>
       {children}
     </DrawerContext.Provider>
   );

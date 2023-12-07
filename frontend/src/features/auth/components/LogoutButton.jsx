@@ -1,7 +1,7 @@
-import { useState } from "react";
-import Button from "@mui/material/Button";
 import LogoutIcon from "@mui/icons-material/Logout";
-import GenericConfirmDialog from "../../../components/dialogs/GenericConfirmDialog";
+import Button from "@mui/material/Button";
+import { useState } from "react";
+import GenericConfirmDialog from "../../../components/modal/GenericConfirmModal";
 
 function LogoutButton({ logout }) {
   const [open, setOpen] = useState(false);

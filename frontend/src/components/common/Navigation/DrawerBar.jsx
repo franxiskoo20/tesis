@@ -1,22 +1,22 @@
-import { useLocation } from "react-router-dom";
-import { styled } from "@mui/material/styles";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
+  Box,
+  Divider,
+  IconButton,
+  List,
   AppBar as MuiAppBar,
   Drawer as MuiDrawer,
   Toolbar,
-  IconButton,
   Typography,
-  Divider,
-  List,
-  Box,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { styled } from "@mui/material/styles";
+import { useLocation } from "react-router-dom";
+import { titlesByRoute } from "../../../constants/mappingObject";
 import LogoutButton from "../../../features/auth/components/LogoutButton";
 import Logo from "../Logo/Logo";
-import {titlesByRoute} from "../../../constants/mappingObject";
 
-const drawerWidth = 250;
+const drawerWidth = 220;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -48,7 +48,7 @@ const Drawer = styled(MuiDrawer, {
       duration: theme.transitions.duration.enteringScreen,
     }),
     boxSizing: "border-box",
-    minHeight : "100vh",
+    minHeight: "100vh",
     overflowX: "hidden",
     ...(!open && {
       transition: theme.transitions.create("width", {
@@ -108,16 +108,13 @@ export default function DrawerBar({
             justifyContent: "space-between",
           }}
         >
-          <Box px={2}>
-            <Logo color="azul" />
-          </Box>
-
+          <Logo color="azul" />
           <Toolbar
             sx={{
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
-              px: 1,
+              px: [1],
             }}
           >
             <IconButton onClick={toggleDrawer}>

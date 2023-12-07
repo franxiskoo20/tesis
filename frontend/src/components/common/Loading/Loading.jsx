@@ -1,12 +1,12 @@
-import { CircularProgress, Box, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 
-function Loading({ message = "Cargando...", fullscreen = true }) {
+function Loading({ message = "Cargando..." }) {
   const boxStyle = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    minHeight: fullscreen ? "100vh" : "auto",
+    minHeight: "100vh",
     transition: "all 0.3s ease-in-out", // Transición suave
   };
 

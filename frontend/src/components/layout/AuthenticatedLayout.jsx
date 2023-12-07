@@ -1,11 +1,10 @@
 import { Box, Container } from "@mui/material";
 import useAuth from "../../features/auth/hooks/useAuth";
 import { useDrawer } from "../../hooks/useDrawer";
-import { getRoleNavigationItems } from "../../utils/navigationUtils";
+import { getRoleNavigationItems } from "../../utils/navigationUtil";
 import DrawerBar from "../common/Navigation/DrawerBar";
 
 export default function AuthenticatedLayout({ children }) {
-
   const { user, logout } = useAuth();
 
   const { drawerOpen, toggleDrawer } = useDrawer();
@@ -14,7 +13,7 @@ export default function AuthenticatedLayout({ children }) {
   const roleBasedNavigation = getRoleNavigationItems(user.role);
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box component="section" sx={{ display: "flex" }}>
       <DrawerBar
         logout={logout}
         roleBasedNavigation={roleBasedNavigation}

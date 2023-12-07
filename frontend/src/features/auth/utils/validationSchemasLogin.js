@@ -24,7 +24,6 @@ import * as yup from "yup";
  */
 
 export const loginValidationSchema = yup.object().shape({
-  name: yup.string().required("Este campo es requerido"),
   email: yup
     .string()
     .email("Correo electrónico inválido")

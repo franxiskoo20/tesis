@@ -1,25 +1,22 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-// import UserAvatar from "../components/UserAvatar/UserAvatar";
-
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
-// import { userTableStaticColumn } from "../constants/userTableColumn";
 import { customerTableStaticColumn } from "../constants/customerTableColumn";
+import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 
 const customerTableColumn = (customers, onEdit, onDelete) => {
   const columns = [
-    // {
-    //   name: "",
-    //   options: {
-    //     filter: false,
-    //     sort: false,
-    //     customBodyRenderLite: (dataIndex) => {
-    //       const user = users[dataIndex];
-    //       return <UserAvatar name={user.name} role={user.roleId} />;
-    //     },
-    //   },
-    // },
-    // ...userTableStaticColumn,
+    {
+      name: "",
+      options: {
+        filter: false,
+        sort: false,
+        customBodyRenderLite: (dataIndex) => {
+          const customer = customers[dataIndex].user;
+          return <UserAvatar name={customer.name} role={customer.roleId} />;
+        },
+      },
+    },
     ...customerTableStaticColumn,
     {
       name: "actions",
@@ -29,20 +26,17 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
         sort: false,
         empty: true,
         customBodyRenderLite: (dataIndex) => {
-          const isDisabled = dataIndex === 0;
           return (
             <>
               <CustomIconButton
                 aria-label="edit"
-                onClick={() => !isDisabled && onEdit(customers[dataIndex])}
-                disabled={isDisabled}
+                onClick={() => onEdit(customers[dataIndex])}
               >
                 <EditIcon />
               </CustomIconButton>
               <CustomIconButton
                 aria-label="delete"
-                onClick={() => !isDisabled && onDelete(customers[dataIndex].id)}
-                disabled={isDisabled}
+                onClick={() => onDelete(customers[dataIndex].id)}
               >
                 <DeleteIcon />
               </CustomIconButton>

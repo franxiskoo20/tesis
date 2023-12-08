@@ -1,17 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
-import { Box } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
-import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import ActionButton from "../../../../components/common/Button/ActionButton";
-import ModalLayout from "../../../../components/layout/ModalLayout";
-import { useSnackbar } from "../../../../hooks/useSnackbar";
+import ActionModal from "../../../../components/modal/ActionModal";
+import useGenericMutation from "../../../../hooks/useGenericMutation";
 import useAuth from "../../../auth/hooks/useAuth";
 import { CUSTOMER_SNACKBAR } from "../../constants/customerSnackbar";
 import { customerService } from "../../services/customerService";
 import { validationSchemasCustomer } from "../../utils/validationSchemasCustomer";
 import CustomerFormFields from "../CustomerInputs/CustomerFormFields";
+
 const CustomerAddModal = ({ open, onClose, onCustomerAdded }) => {
   const { user } = useAuth();
 
@@ -29,45 +25,36 @@ const CustomerAddModal = ({ open, onClose, onCustomerAdded }) => {
     defaultValues: DEFAULT_VALUES_CUSTOMER,
   });
 
-  const { showSnackbar } = useSnackbar();
-
-  const addCustomerMutation = useMutation({
+  const addCustomerMutation = useGenericMutation({
     mutationFn: customerService.addCustomer,
-    onError: (error) => {
-      const snackbar = CUSTOMER_SNACKBAR.CUSTOMER_REGISTER_ERROR;
-      showSnackbar(error?.errors || snackbar.message, snackbar.type);
-    },
-    onSuccess: (data) => {
-      const snackbar = CUSTOMER_SNACKBAR.CUSTOMER_REGISTER_SUCCESS;
-      showSnackbar(data?.message || snackbar.message, snackbar.type);
+    successMessage: CUSTOMER_SNACKBAR.CUSTOMER_REGISTER_SUCCESS.message,
+    errorMessage: CUSTOMER_SNACKBAR.CUSTOMER_REGISTER_ERROR.message,
+    onSuccessCallback: () => {
+      onClose?.();
       onCustomerAdded?.();
     },
   });
-
+  
   const onSubmit = (data) => {
     addCustomerMutation.mutate(data);
   };
+
   // Reset campos del formulario al cerrar el modal
   const handleClose = () => {
     reset();
     onClose();
   };
   return (
-    <ModalLayout title="Registrar Cliente" open={open} onClose={handleClose}>
-      <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>
-        <Grid container spacing={2}>
-          <CustomerFormFields control={control} />
-          <Grid xs={12}>
-            <ActionButton
-              acceptButtonLabel="Agregar"
-              acceptButtonIcon={<HowToRegIcon />}
-              onCancel={handleClose}
-              isPending={addCustomerMutation.isPending}
-            />
-          </Grid>
-        </Grid>
-      </Box>
-    </ModalLayout>
+    <ActionModal
+      open={open}
+      onClose={handleClose}
+      title="Registrar Cliente"
+      onSubmit={handleSubmit(onSubmit)}
+      isPending={addCustomerMutation.isPending}
+      submitLabel="Agregar"
+    >
+      <CustomerFormFields control={control} />
+    </ActionModal>
   );
 };
 

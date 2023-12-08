@@ -1,13 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
-import { Box } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
-import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import ActionButton from "../../../../components/common/Button/ActionButton";
-import ModalLayout from "../../../../components/layout/ModalLayout";
-import { useSnackbar } from "../../../../hooks/useSnackbar";
+import ActionModal from "../../../../components/modal/ActionModal";
+import useGenericMutation from "../../../../hooks/useGenericMutation";
 import useAuth from "../../../auth/hooks/useAuth";
 import { CUSTOMER_SNACKBAR } from "../../constants/customerSnackbar";
 import { customerService } from "../../services/customerService";
@@ -30,12 +25,11 @@ const CustomerEditModal = ({
   };
 
   // formulario react-hook-form
-  const { handleSubmit, reset, control, watch } = useForm({
+  const { handleSubmit, reset, control } = useForm({
     resolver: yupResolver(validationSchemasCustomer),
     mode: "onChange",
     defaultValues: DEFAULT_VALUES_EDIT_CUSTOMER,
   });
-  const { showSnackbar } = useSnackbar();
 
   // cargar datos del usuario a editar
   useEffect(() => {
@@ -49,43 +43,34 @@ const CustomerEditModal = ({
       });
     }
   }, [customerToEdit, reset, user]);
-  // enviar datos del formulario para editar usuario
-  const customerUpdateMutation = useMutation({
+
+  const customerUpdateMutation = useGenericMutation({
     mutationFn: (data) =>
       customerService.updateCustomer(customerToEdit.id, data),
-    onError: (error) => {
-      const snackbar = CUSTOMER_SNACKBAR.CUSTOMER_EDIT_ERROR;
-      showSnackbar(error?.errors || snackbar.message, snackbar.type);
-    },
-    onSuccess: (data) => {
-      const snackbar = CUSTOMER_SNACKBAR.CUSTOMER_EDIT_SUCCESS;
-      showSnackbar(data?.message || snackbar.message, snackbar.type);
+    successMessage: CUSTOMER_SNACKBAR.CUSTOMER_EDIT_ERROR.message,
+    errorMessage: CUSTOMER_SNACKBAR.CUSTOMER_EDIT_ERROR.message,
+    onSuccessCallback: () => {
+      onClose?.();
       onCustomerUpdated?.();
     },
   });
 
   // enviar datos del formulario para editar usuario
   const onSubmit = (data) => {
-    console.log("data: " + data);
     customerUpdateMutation.mutate(data);
   };
-  console.log(watch());
+
   return (
-    <ModalLayout title="Editar Cliente" open={open} onClose={onClose}>
-      <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>
-        <Grid container spacing={2}>
-          <CustomerFormFields control={control} />
-          <Grid xs={12}>
-            <ActionButton
-              acceptButtonLabel="Agregar"
-              acceptButtonIcon={<HowToRegIcon />}
-              onCancel={onClose}
-              isPending={customerUpdateMutation.isPending}
-            />
-          </Grid>
-        </Grid>
-      </Box>
-    </ModalLayout>
+    <ActionModal
+      open={open}
+      onClose={onClose}
+      title="Registrar Cliente"
+      onSubmit={handleSubmit(onSubmit)}
+      isPending={customerUpdateMutation.isPending}
+      submitLabel="Agregar"
+    >
+      <CustomerFormFields control={control} />
+    </ActionModal>
   );
 };
 

@@ -1,10 +1,9 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import PaperContainer from "../../components/common/Container/PaperContainer";
 import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
-import OverlayLoader from "../../components/common/Loading/OverlayLoader";
 import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import { adaptCustomerData } from "../../features/customer/adapters/adaptCustomerData";
@@ -14,6 +13,8 @@ import CustomerDeleteModal from "../../features/customer/components/CustomerModa
 import CustomerEditModal from "../../features/customer/components/CustomerModal/CustomerEditModal";
 import CustomerTable from "../../features/customer/components/CustomerTable/CustomerTable";
 import { customerService } from "../../features/customer/services/customerService";
+import useAsyncAction from "../../hooks/useAsyncAction";
+import useModalState from "../../hooks/useModalState";
 
 const a11yProps = (index) => {
   return {
@@ -23,15 +24,6 @@ const a11yProps = (index) => {
 };
 
 const CustomerPage = () => {
-  const queryClient = useQueryClient();
-
-  const [modalState, setModalState] = useState({
-    isRegisterOpen: false,
-    isEditOpen: false,
-    isDeleteOpen: false,
-    customerToAction: null,
-  });
-
   const {
     data: customers,
     isSuccess,
@@ -42,31 +34,25 @@ const CustomerPage = () => {
     select: (data) => data.map(adaptCustomerData),
   });
 
-  // Estado para abrir o cerrar el modal de registro
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    isRegisterOpen,
+    isEditOpen,
+    isDeleteOpen,
+    itemToAction,
+    setItemToAction,
+    toggleModal,
+  } = useModalState();
+
+  const { isSubmitting, handleAsyncAction } = useAsyncAction(customers);
+
   const [tabValue, setTabValue] = useState(0);
-
-  const toggleModal = (modalType) => {
-    setModalState((prevState) => ({
-      ...prevState,
-      [modalType]: !prevState[modalType],
-    }));
-  };
-
-  const handleCustomerAction = async (actionType) => {
-    toggleModal(actionType);
-    setIsSubmitting(true);
-    await queryClient.invalidateQueries(["customers"]);
-    setIsSubmitting(false);
-  };
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
   return (
     <AuthenticatedLayout>
-      <PaperContainer title={"Lista de Clientes"} relativePosition={true}>
-        <OverlayLoader isLoading={isSubmitting} />
+      <PaperContainer title="Lista de Clientes" relativePosition={true}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={tabValue}
@@ -77,7 +63,6 @@ const CustomerPage = () => {
             <Tab label="Tabla" {...a11yProps(1)} />
           </Tabs>
         </Box>
-
         <CustomTabPanel value={tabValue} index={0}>
           {isLoading ? (
             <LoadingSkeleton count={3} xs={12} sm={12} md={6} lg={4} />
@@ -97,48 +82,47 @@ const CustomerPage = () => {
           ) : (
             <CustomerTable
               customers={customers}
-              onAddCustomer={() => toggleModal("isRegisterOpen")}
-              onEdit={(customer) =>
-                setModalState({
-                  ...modalState,
-                  isEditOpen: true,
-                  customerToAction: customer,
-                })
-              }
-              onDelete={(customer) =>
-                setModalState({
-                  ...modalState,
-                  isDeleteOpen: true,
-                  customerToAction: customer,
-                })
-              }
+              onAddCustomer={() => toggleModal("register")}
+              onEdit={(customer) => {
+                setItemToAction(customer);
+                toggleModal("edit");
+              }}
+              onDelete={(customer) => {
+                setItemToAction(customer);
+                toggleModal("delete");
+              }}
               isSubmitting={isSubmitting}
             />
           )}
           <CustomerAddModal
-            open={modalState.isRegisterOpen}
-            onClose={() => toggleModal("isRegisterOpen")}
-            onCustomerAdded={() => handleCustomerAction("isRegisterOpen")}
+            open={isRegisterOpen}
+            onClose={() => {
+              toggleModal("register");
+              setItemToAction(null);
+            }}
+            onCustomerAdded={() => handleAsyncAction()}
           />
-          {modalState.customerToAction && (
-            <CustomerDeleteModal
-              open={modalState.isDeleteOpen}
-              onClose={() =>
-                setModalState({ isDeleteOpen: false, customerToAction: null })
-              }
-              customerToDelete={modalState.customerToAction}
-              onCustomerDelete={() => handleCustomerAction("isDeleteOpen")}
-            />
-          )}
-          {modalState.customerToAction && (
-            <CustomerEditModal
-              open={modalState.isEditOpen}
-              onClose={() =>
-                setModalState({ isEditOpen: false, customerToAction: null })
-              }
-              customerToEdit={modalState.customerToAction}
-              onCustomerUpdated={() => handleCustomerAction("isEditOpen")}
-            />
+          {itemToAction && (
+            <>
+              <CustomerDeleteModal
+                open={isDeleteOpen}
+                onClose={() => {
+                  toggleModal("delete");
+                  setItemToAction(null);
+                }}
+                customerToDelete={itemToAction}
+                onCustomerDelete={() => handleAsyncAction()}
+              />
+              <CustomerEditModal
+                open={isEditOpen}
+                onClose={() => {
+                  toggleModal("edit");
+                  setItemToAction(null);
+                }}
+                customerToEdit={itemToAction}
+                onCustomerUpdated={() => handleAsyncAction()}
+              />
+            </>
           )}
         </CustomTabPanel>
       </PaperContainer>

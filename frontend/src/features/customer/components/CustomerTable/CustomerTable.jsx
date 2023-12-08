@@ -2,8 +2,6 @@ import { Box } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import ChipButton from "../../../../components/common/Button/ChipButton";
 import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
-// import { userTableStaticOption } from "../../constants/userTableOption";
-// import useTableColumn from "../../hooks/useTableColumn";
 import { customerTableStaticOption } from "../../constants/customerTableOption";
 import useCustomerTableColumn from "../../hooks/useCustomerTableColumn";
 
@@ -14,10 +12,11 @@ const CustomerTable = ({
   onDelete,
   isSubmitting,
 }) => {
+
   const renderAddUserButton = () => {
     return <ChipButton label={"Agregar Cliente"} onClick={onAddCustomer} />;
-  };
-
+  };  
+  console.log(customers)
   const columns = useCustomerTableColumn(customers, onEdit, onDelete);
 
   const options = {

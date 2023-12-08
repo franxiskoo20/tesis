@@ -1,8 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
 import GenericConfirmModal from "../../../../components/modal/GenericConfirmModal";
-import { useSnackbar } from "../../../../hooks/useSnackbar";
 import { CUSTOMER_SNACKBAR } from "../../constants/customerSnackbar";
 import { customerService } from "../../services/customerService";
+import useGenericMutation from "../../../../hooks/useGenericMutation";
 
 const CustomerDeleteModal = ({
   open,
@@ -10,21 +9,17 @@ const CustomerDeleteModal = ({
   customerToDelete,
   onCustomerDelete,
 }) => {
-  const { showSnackbar } = useSnackbar();
-
-  const deleteMutation = useMutation({
+  const deleteMutation = useGenericMutation({
     mutationFn: (customerToDelete) =>
       customerService.deleteCustomer(customerToDelete),
-    onError: (error) => {
-      const snackbar = CUSTOMER_SNACKBAR.CUSTOMER_DELETE_ERROR;
-      showSnackbar(error?.errors || snackbar.message, snackbar.type);
-    },
-    onSuccess: (data) => {
+    successMessage: CUSTOMER_SNACKBAR.CUSTOMER_DELETE_SUCCESS.message,
+    errorMessage: CUSTOMER_SNACKBAR.CUSTOMER_DELETE_ERROR.message,
+    onSuccessCallback: () => {
+      onClose?.();
       onCustomerDelete?.();
-      const snackbar = CUSTOMER_SNACKBAR.CUSTOMER_DELETE_SUCCESS;
-      showSnackbar(data?.message || snackbar.message, snackbar.type);
     },
   });
+
   return (
     <>
       <GenericConfirmModal

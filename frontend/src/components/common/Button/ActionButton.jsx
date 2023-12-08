@@ -14,7 +14,6 @@ const ActionButton = ({
   <Box
     sx={{ display: "flex", justifyContent: "center", alignContent: "center" }}
   >
-    
     <AcceptButton
       label={acceptButtonLabel}
       startIcon={acceptButtonIcon}

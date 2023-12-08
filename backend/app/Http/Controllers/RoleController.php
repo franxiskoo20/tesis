@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Interfaces\RoleRepositoryInterface;
+use Exception;
 
 class RoleController extends Controller
 {
@@ -16,7 +16,11 @@ class RoleController extends Controller
 
     public function index()
     {
-        $roles = $this->roleRepository->getAll();
-        return response()->json($roles);
+        try {
+            $roles = $this->roleRepository->getAll();
+            return response()->json($roles);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al mostrar los Roles', 'message' => $e->getMessage()], 500);
+        }
     }
 }

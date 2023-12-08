@@ -20,7 +20,18 @@ export const customerService = {
     return makeRequest("delete", `/api/customers/${customerId}`);
   },
 
-  updateCustomer(customerId, data) {
-    return makeRequest("put", `/api/customers/${customerId}`, data);
+  updateCustomer(customerToEdit, { name, description, status, logo, user_id }) {
+    const formDataUpdate = new FormData();
+    formDataUpdate.append("name", name);
+    formDataUpdate.append("description", description);
+    formDataUpdate.append("status", status ? 1 : 0);
+    formDataUpdate.append("logo", logo);
+    formDataUpdate.append("user_id", user_id);
+    formDataUpdate.append("_method", "PUT");
+    return makeRequest(
+      "post",
+      `/api/customers/${customerToEdit}`,
+      formDataUpdate
+    );
   },
 };

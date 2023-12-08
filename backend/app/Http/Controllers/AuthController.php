@@ -58,7 +58,7 @@ class AuthController extends Controller
             $user = $this->userRepository->getAuthenticatedUser($request);
             return response()->json($user);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Usuario no registrado', 'message' => $e->getMessage()], 500);
+            return response()->json(['errors' => 'Usuario no registrado', 'message' => $e->getMessage()], 500);
         }
     }
 }

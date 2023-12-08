@@ -44,7 +44,6 @@ const CustomTextField = ({
           {...field}
           onChange={(e) => {
             setCharCount(e.target.value.length);
-            console.log(charCount);
             field.onChange(e);
           }}
           id={name}

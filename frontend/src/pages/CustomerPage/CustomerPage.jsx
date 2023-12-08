@@ -1,8 +1,7 @@
-import { Box, Tab, Tabs } from "@mui/material";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import ChipButton from "../../components/common/Button/ChipButton";
 import PaperContainer from "../../components/common/Container/PaperContainer";
 import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
 import OverlayLoader from "../../components/common/Loading/OverlayLoader";
@@ -11,6 +10,9 @@ import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import { adaptCustomerData } from "../../features/customer/adapters/adaptCustomerData";
 import CustomerCard from "../../features/customer/components/CustomerCard/CustomerCard";
 import CustomerAddModal from "../../features/customer/components/CustomerModal/CustomerAddModal";
+import CustomerDeleteModal from "../../features/customer/components/CustomerModal/CustomerDeleteModal";
+import CustomerEditModal from "../../features/customer/components/CustomerModal/CustomerEditModal";
+import CustomerTable from "../../features/customer/components/CustomerTable/CustomerTable";
 import { customerService } from "../../features/customer/services/customerService";
 
 const a11yProps = (index) => {
@@ -23,6 +25,13 @@ const a11yProps = (index) => {
 const CustomerPage = () => {
   const queryClient = useQueryClient();
 
+  const [modalState, setModalState] = useState({
+    isRegisterOpen: false,
+    isEditOpen: false,
+    isDeleteOpen: false,
+    customerToAction: null,
+  });
+
   const {
     data: customers,
     isSuccess,
@@ -33,44 +42,31 @@ const CustomerPage = () => {
     select: (data) => data.map(adaptCustomerData),
   });
 
-  const [isAddCustomerOpen, setIsAddCustomerOpen] = useState(false); // Estado para abrir o cerrar el modal de registro
-  const [isSubmitting, setisSubmitting] = useState(false);
+  // Estado para abrir o cerrar el modal de registro
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [tabValue, setTabValue] = useState(0);
 
-  const handleToggleAddCustomer = () => {
-    return setIsAddCustomerOpen(!isAddCustomerOpen);
+  const toggleModal = (modalType) => {
+    setModalState((prevState) => ({
+      ...prevState,
+      [modalType]: !prevState[modalType],
+    }));
   };
 
-  const handleCustomerAdded = async () => {
-    setisSubmitting(true);
+  const handleCustomerAction = async (actionType) => {
+    toggleModal(actionType);
+    setIsSubmitting(true);
     await queryClient.invalidateQueries(["customers"]);
-    setisSubmitting(false);
-    handleToggleAddCustomer();
+    setIsSubmitting(false);
   };
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
-
   return (
     <AuthenticatedLayout>
-      <PaperContainer
-        title={"Lista de Clientes"}
-        button={
-          <ChipButton
-            label="Agregar cliente"
-            onClick={handleToggleAddCustomer}
-          />
-        }
-        relativePosition={true}
-      >
+      <PaperContainer title={"Lista de Clientes"} relativePosition={true}>
         <OverlayLoader isLoading={isSubmitting} />
-        <CustomerAddModal
-          open={isAddCustomerOpen}
-          onClose={handleToggleAddCustomer}
-          onCustomerAdded={handleCustomerAdded}
-        />
-        {/* Tabs */}
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={tabValue}
@@ -84,7 +80,7 @@ const CustomerPage = () => {
 
         <CustomTabPanel value={tabValue} index={0}>
           {isLoading ? (
-            <LoadingSkeleton count={3} xs={12} sm={6} md={4} />
+            <LoadingSkeleton count={3} xs={12} sm={12} md={6} lg={4} />
           ) : isSuccess ? (
             <Box component="article" mt={4}>
               <Grid container spacing={2}>
@@ -92,12 +88,58 @@ const CustomerPage = () => {
               </Grid>
             </Box>
           ) : (
-            <div>No hay datos disponibles</div>
+            <Typography>No hay datos disponibles</Typography>
           )}
         </CustomTabPanel>
         <CustomTabPanel value={tabValue} index={1}>
-          {/* Aquí va el contenido de tu tabla de clientes */}
-          <h1>HOLA</h1>
+          {isLoading ? (
+            <LoadingSkeleton />
+          ) : (
+            <CustomerTable
+              customers={customers}
+              onAddCustomer={() => toggleModal("isRegisterOpen")}
+              onEdit={(customer) =>
+                setModalState({
+                  ...modalState,
+                  isEditOpen: true,
+                  customerToAction: customer,
+                })
+              }
+              onDelete={(customer) =>
+                setModalState({
+                  ...modalState,
+                  isDeleteOpen: true,
+                  customerToAction: customer,
+                })
+              }
+              isSubmitting={isSubmitting}
+            />
+          )}
+          <CustomerAddModal
+            open={modalState.isRegisterOpen}
+            onClose={() => toggleModal("isRegisterOpen")}
+            onCustomerAdded={() => handleCustomerAction("isRegisterOpen")}
+          />
+          {modalState.customerToAction && (
+            <CustomerDeleteModal
+              open={modalState.isDeleteOpen}
+              onClose={() =>
+                setModalState({ isDeleteOpen: false, customerToAction: null })
+              }
+              customerToDelete={modalState.customerToAction}
+              onCustomerDelete={() => handleCustomerAction("isDeleteOpen")}
+            />
+          )}
+          {modalState.customerToAction && (
+            <CustomerEditModal
+              open={modalState.isEditOpen}
+              onClose={() =>
+                setModalState({ isEditOpen: false, customerToAction: null })
+              }
+              customerToEdit={modalState.customerToAction}
+              onCustomerUpdated={() => handleCustomerAction("isEditOpen")}
+            />
+          )}
         </CustomTabPanel>
       </PaperContainer>
     </AuthenticatedLayout>

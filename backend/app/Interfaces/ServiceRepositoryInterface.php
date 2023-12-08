@@ -3,7 +3,7 @@
 namespace App\Interfaces;
 
 
-interface CustomerRepositoryInterface
+interface ServiceRepositoryInterface
 {
   public function create(array $data);
   public function getById($id);

@@ -4,7 +4,7 @@ export const CUSTOMER_SNACKBAR = {
     type: "success",
   },
   CUSTOMER_REGISTER_ERROR: {
-    message: "Error en el registro de Cliente",
+    message: "Error en el registro del Cliente",
     type: "error",
   },
   CUSTOMER_EDIT_SUCCESS: {

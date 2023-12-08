@@ -24,5 +24,4 @@ class Customer extends Model
     {
         return $this->belongsTo(User::class)->select(['id', 'name', 'email', 'role_id']);
     }
-
 }

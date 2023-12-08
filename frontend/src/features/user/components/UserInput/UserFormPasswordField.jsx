@@ -1,8 +1,8 @@
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Unstable_Grid2";
 import CustomTextField from "../../../../components/common/Input/CustomTextField";
 
 const renderPasswordField = (name, label, control) => (
-  <Grid item xs={12}>
+  <Grid xs={12}>
     <CustomTextField
       name={name}
       label={label}
@@ -14,7 +14,6 @@ const renderPasswordField = (name, label, control) => (
 );
 
 const UserFormPasswordField = ({ control }) => {
-
   return (
     <>
       {renderPasswordField("password", "Contraseña", control)}

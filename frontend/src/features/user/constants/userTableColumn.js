@@ -1,4 +1,4 @@
-const userTableStaticColumns = [
+export const userTableStaticColumn = [
   {
     name: "id",
     label: "ID",
@@ -50,4 +50,3 @@ const userTableStaticColumns = [
   },
 ];
 
-export default userTableStaticColumns;

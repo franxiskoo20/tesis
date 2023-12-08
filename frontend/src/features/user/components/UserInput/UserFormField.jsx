@@ -1,11 +1,10 @@
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Unstable_Grid2";
 import CustomSelect from "../../../../components/common/Input/CustomSelect";
 import CustomTextField from "../../../../components/common/Input/CustomTextField";
 
 const UserFormField = ({ control, roles }) => {
-  
   const renderTextField = (name, label, type) => (
-    <Grid item xs={12}>
+    <Grid xs={12}>
       <CustomTextField
         name={name}
         label={label}
@@ -19,7 +18,7 @@ const UserFormField = ({ control, roles }) => {
     <>
       {renderTextField("name", "Nombre", "text")}
       {renderTextField("email", "Correo", "email")}
-      <Grid item xs={12}>
+      <Grid xs={12}>
         <CustomSelect
           control={control}
           name="role_id"

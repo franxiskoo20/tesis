@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, FormControlLabel, Grid, Switch } from "@mui/material";
+import { Box, FormControlLabel, Switch } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -129,7 +130,6 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
   // switch para mostrar/ocultar campos de contraseña
   const handleTogglePasswordFields = (event) => {
     setValue("changePassword", event.target.checked);
-    console.log(event.target.checked)
     setShowPasswordFields(event.target.checked);
   };
 
@@ -142,7 +142,7 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
       <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>
         <Grid container spacing={2}>
           <UserFormField control={control} roles={roles} />
-          <Grid item xs={12}>
+          <Grid xs={12}>
             <FormControlLabel
               control={
                 <Switch
@@ -154,7 +154,7 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
             />
           </Grid>
           {showPasswordFields && <UserFormPasswordField control={control} />}
-          <Grid item xs={12}>
+          <Grid xs={12}>
             <ActionButton
               onCancel={onClose}
               acceptButtonLabel="Editar"

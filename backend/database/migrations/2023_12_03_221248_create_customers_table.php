@@ -19,11 +19,8 @@ return new class extends Migration
             $table->string('description');
             $table->boolean('status');
             $table->string('logo')->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constrained("users")->onDelete('cascade');
             $table->timestamps();
-
-            // Foreign key reference to the users table
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

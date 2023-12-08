@@ -3,6 +3,7 @@ import HowToRegIcon from "@mui/icons-material/HowToReg";
 import { Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useMutation } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import ActionButton from "../../../../components/common/Button/ActionButton";
 import ModalLayout from "../../../../components/layout/ModalLayout";
@@ -12,10 +13,15 @@ import { CUSTOMER_SNACKBAR } from "../../constants/customerSnackbar";
 import { customerService } from "../../services/customerService";
 import { validationSchemasCustomer } from "../../utils/validationSchemasCustomer";
 import CustomerFormFields from "../CustomerInputs/CustomerFormFields";
-const CustomerAddModal = ({ open, onClose, onCustomerAdded }) => {
-  const { user } = useAuth();
 
-  const DEFAULT_VALUES_CUSTOMER = {
+const CustomerEditModal = ({
+  open,
+  onClose,
+  customerToEdit,
+  onCustomerUpdated,
+}) => {
+  const { user } = useAuth();
+  const DEFAULT_VALUES_EDIT_CUSTOMER = {
     name: "",
     description: "",
     status: false,
@@ -23,37 +29,49 @@ const CustomerAddModal = ({ open, onClose, onCustomerAdded }) => {
     user_id: user?.id || "",
   };
 
-  const { handleSubmit, reset, control } = useForm({
-    mode: "onChange",
+  // formulario react-hook-form
+  const { handleSubmit, reset, control, watch } = useForm({
     resolver: yupResolver(validationSchemasCustomer),
-    defaultValues: DEFAULT_VALUES_CUSTOMER,
+    mode: "onChange",
+    defaultValues: DEFAULT_VALUES_EDIT_CUSTOMER,
   });
-
   const { showSnackbar } = useSnackbar();
 
-  const addCustomerMutation = useMutation({
-    mutationFn: customerService.addCustomer,
+  // cargar datos del usuario a editar
+  useEffect(() => {
+    if (customerToEdit) {
+      reset({
+        name: customerToEdit.name,
+        description: customerToEdit.description,
+        status: Boolean(customerToEdit.status),
+        logo: undefined,
+        user_id: user?.id || "",
+      });
+    }
+  }, [customerToEdit, reset, user]);
+  // enviar datos del formulario para editar usuario
+  const customerUpdateMutation = useMutation({
+    mutationFn: (data) =>
+      customerService.updateCustomer(customerToEdit.id, data),
     onError: (error) => {
-      const snackbar = CUSTOMER_SNACKBAR.CUSTOMER_REGISTER_ERROR;
+      const snackbar = CUSTOMER_SNACKBAR.CUSTOMER_EDIT_ERROR;
       showSnackbar(error?.errors || snackbar.message, snackbar.type);
     },
     onSuccess: (data) => {
-      const snackbar = CUSTOMER_SNACKBAR.CUSTOMER_REGISTER_SUCCESS;
+      const snackbar = CUSTOMER_SNACKBAR.CUSTOMER_EDIT_SUCCESS;
       showSnackbar(data?.message || snackbar.message, snackbar.type);
-      onCustomerAdded?.();
+      onCustomerUpdated?.();
     },
   });
 
+  // enviar datos del formulario para editar usuario
   const onSubmit = (data) => {
-    addCustomerMutation.mutate(data);
+    console.log("data: " + data);
+    customerUpdateMutation.mutate(data);
   };
-  // Reset campos del formulario al cerrar el modal
-  const handleClose = () => {
-    reset();
-    onClose();
-  };
+  console.log(watch());
   return (
-    <ModalLayout title="Registrar Cliente" open={open} onClose={handleClose}>
+    <ModalLayout title="Editar Cliente" open={open} onClose={onClose}>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>
         <Grid container spacing={2}>
           <CustomerFormFields control={control} />
@@ -61,8 +79,8 @@ const CustomerAddModal = ({ open, onClose, onCustomerAdded }) => {
             <ActionButton
               acceptButtonLabel="Agregar"
               acceptButtonIcon={<HowToRegIcon />}
-              onCancel={handleClose}
-              isPending={addCustomerMutation.isPending}
+              onCancel={onClose}
+              isPending={customerUpdateMutation.isPending}
             />
           </Grid>
         </Grid>
@@ -71,4 +89,4 @@ const CustomerAddModal = ({ open, onClose, onCustomerAdded }) => {
   );
 };
 
-export default CustomerAddModal;
+export default CustomerEditModal;

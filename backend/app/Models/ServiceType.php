@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class ServiceType extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'role_type'
-    ];
+    protected $fillable = ['name', 'description'];
 
-    public function user()
+
+    public function service()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(Service::class);
     }
 }

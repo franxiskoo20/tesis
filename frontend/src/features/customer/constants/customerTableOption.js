@@ -1,4 +1,4 @@
-const userTableStaticOptions = {
+export const customerTableStaticOption = {
   filterType: "checkbox",
   responsive: "standard",
   selectableRows: "none",
@@ -37,5 +37,3 @@ const userTableStaticOptions = {
     },
   },
 };
-
-export default userTableStaticOptions;

@@ -3,7 +3,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Box,
   Card,
-  CardActionArea,
+  CardActions,
   CardContent,
   CardHeader,
   CardMedia,
@@ -28,7 +28,8 @@ const ExpandMore = styled((props) => {
 }));
 
 const CustomerCard = ({ customers }) => {
-  const baseUrl = "http://localhost:8000/storage/";
+  const baseUrlStorage =
+    import.meta.env.VITE_BASE_URL_STORAGE || "http://localhost:8000/storage/";
 
   const [expanded, setExpanded] = useState({});
 
@@ -42,7 +43,7 @@ const CustomerCard = ({ customers }) => {
   return (
     <>
       {customers?.map((customer) => (
-        <Grid xs={12} sm={6} md={4} key={customer.id}>
+        <Grid xs={12} sm={12} md={6} lg={4} key={customer.id}>
           <Card>
             <CardHeader
               avatar={
@@ -66,37 +67,34 @@ const CustomerCard = ({ customers }) => {
               <CardMedia
                 component="img"
                 height="160"
-                image={`${baseUrl}${customer.logo}`}
+                image={`${baseUrlStorage}${customer.logo}`}
                 alt={customer.name}
                 sx={{ objectFit: "contain", objectPosition: "center" }}
               />
             )}
-            <CardActionArea>
-              <CardContent sx={{ display: "flex" }}>
-                <Typography gutterBottom variant="h6" component="div">
-                  {customer.name}
-                </Typography>
-                <ExpandMore
-                  expand={expanded[customer.id] || false}
-                  onClick={() => handleExpandClick(customer.id)}
-                  aria-expanded={expanded[customer.id] || false}
-                  aria-label="show more"
-                >
-                  <ExpandMoreIcon />
-                </ExpandMore>
-              </CardContent>
-              <Collapse
-                in={expanded[customer.id] || false}
-                timeout="auto"
-                unmountOnExit
+
+            <CardActions disableSpacing>
+              <Typography gutterBottom variant="h6" component="div">
+                {customer.name}
+              </Typography>
+              <ExpandMore
+                expand={expanded[customer.id] || false}
+                onClick={() => handleExpandClick(customer.id)}
+                aria-expanded={expanded[customer.id] || false}
+                aria-label="show more"
               >
-                <CardContent>
-                  <Typography variant="body2">
-                    {customer.description}
-                  </Typography>
-                </CardContent>
-              </Collapse>
-            </CardActionArea>
+                <ExpandMoreIcon />
+              </ExpandMore>
+            </CardActions>
+            <Collapse
+              in={expanded[customer.id] || false}
+              timeout="auto"
+              unmountOnExit
+            >
+              <CardContent>
+                <Typography variant="body2">{customer.description}</Typography>
+              </CardContent>
+            </Collapse>
           </Card>
         </Grid>
       ))}

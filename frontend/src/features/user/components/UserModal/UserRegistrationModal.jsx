@@ -3,7 +3,8 @@ import { userService } from "../../services/userService";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 import { useForm } from "react-hook-form";
 import ActionButtons from "../../../../components/common/Button/ActionButton";
 import ModalLayout from "../../../../components/layout/ModalLayout";
@@ -62,8 +63,7 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
           <UserFormField control={control} roles={roles} />
 
           <UserFormPasswordField control={control} />
-
-          <Grid item xs={12}>
+          <Grid xs={12}>
             <ActionButtons
               acceptButtonLabel="Registrar"
               acceptButtonIcon={<HowToRegIcon />}

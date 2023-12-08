@@ -46,17 +46,23 @@ class User extends Authenticatable
     /**
      * Obtener los clientes del usuario.
      */
-    public function customers()
-    {
-        return $this->hasMany(Customer::class);
-    }
+    // public function customers()
+    // {
+    //     return $this->hasMany(Customer::class);
+    // }
 
     /**
      * Obtener el rol del usuario.
+     * relacion: uno a uno
      */
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 
     /**

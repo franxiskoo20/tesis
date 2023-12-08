@@ -2,18 +2,18 @@ import { Box } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import ChipButton from "../../../../components/common/Button/ChipButton";
 import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
-import useTableColumns from "../../hooks/useTableColumns";
-import userTableStaticOptions from "./userTableOptions";
+import { userTableStaticOption } from "../../constants/userTableOption";
+import useTableColumn from "../../hooks/useTableColumn";
 
 const UserTable = ({ users, onAddUser, onEdit, onDelete, isSubmitting }) => {
   const renderAddUserButton = () => {
     return <ChipButton label={"Agregar Usuario"} onClick={onAddUser} />;
   };
 
-  const columns = useTableColumns(users, onEdit, onDelete);
+  const columns = useTableColumn(users, onEdit, onDelete);
 
   const options = {
-    ...userTableStaticOptions,
+    ...userTableStaticOption,
     customToolbar: renderAddUserButton,
   };
 

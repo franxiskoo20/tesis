@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Interfaces\UserRepositoryInterface;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 
 /**
@@ -33,13 +32,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse Lista de usuarios en formato JSON.
      */
-    public function allUsers()
+    public function index()
     {
         try {
             $users = $this->userRepository->getAll();
             return response()->json($users);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['errors' => 'Error al mostrar los Usuarios', 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -57,10 +56,8 @@ class UserController extends Controller
             $data = $request->validated();
             $user = $this->userRepository->updateUser($id, $data);
             return response()->json(['user' => $user, 'message' => 'Usuario actualizado con éxito']);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Usuario no encontrado'], 404);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Error al actualizar el usuario'], 500);
+            return response()->json(['errors' => 'Error al actualizar el Usuario', 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -77,10 +74,8 @@ class UserController extends Controller
             $newPassword = $request->input('new_password');
             $this->userRepository->updatePassword($id, $newPassword);
             return response()->json(['message' => 'Contraseña actualizada exitosamente']);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Usuario no encontrado'], 404);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Error al actualizar la contraseña'], 500);
+            return response()->json(['errors' => 'Error al actualizar la contraseña', 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -95,10 +90,8 @@ class UserController extends Controller
         try {
             $this->userRepository->delete($id);
             return response()->json(['message' => 'Usuario eliminado exitosamente']);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Usuario no encontrado'], 404);
         } catch (Exception $e) {
-            return response()->json(['error' => 'Error al eliminar el usuario'], 500);
+            return response()->json(['errors' => 'Error al eliminar el usuario', 'message' => $e->getMessage()], 500);
         }
     }
 }

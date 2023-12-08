@@ -2,8 +2,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import UserAvatar from "../components/UserAvatar/UserAvatar";
-import userTableStaticColumns from "../components/UserTable/userTableColumns";
-const useTableColumns = (users, onEdit, onDelete) => {
+import { userTableStaticColumn } from "../constants/userTableColumn";
+
+const useTableColumn = (users, onEdit, onDelete) => {
   const columns = [
     {
       name: "",
@@ -16,7 +17,7 @@ const useTableColumns = (users, onEdit, onDelete) => {
         },
       },
     },
-    ...userTableStaticColumns,
+    ...userTableStaticColumn,
     {
       name: "actions",
       label: "Acción",
@@ -52,4 +53,4 @@ const useTableColumns = (users, onEdit, onDelete) => {
   return columns;
 };
 
-export default useTableColumns;
+export default useTableColumn;

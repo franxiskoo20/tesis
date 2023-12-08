@@ -1,10 +1,12 @@
+import { Box } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
 const OverlayLoader = ({ isLoading }) => {
   if (!isLoading) return null;
 
   return (
-    <div
+    <Box
+      component={"div"}
       style={{
         position: "absolute",
         top: 0,
@@ -19,7 +21,7 @@ const OverlayLoader = ({ isLoading }) => {
       }}
     >
       <CircularProgress />
-    </div>
+    </Box>
   );
 };
 

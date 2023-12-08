@@ -23,17 +23,14 @@ use App\Http\Controllers\CustomerController;
 Route::post('login', [AuthController::class, 'login']);
 
 // Rutas de prueba
-Route::get('users', [UserController::class, 'allusers']);
 Route::get('prueba', [ProductController::class, 'index']);
 
 Route::apiResource('products', ProductController::class);
 
-
-
-
-
+// Rutas protegidas
 Route::middleware('auth:sanctum')->group(function () {
 
+    Route::get('users', [UserController::class, 'index']);
     Route::post('register', [AuthController::class, 'register'])->middleware('role:Administrador');
     Route::get('roles', [RoleController::class, 'index'])->middleware('role:Administrador');
 

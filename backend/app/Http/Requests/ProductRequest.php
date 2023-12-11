@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 
-class ServiceRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,7 +30,9 @@ class ServiceRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'service_type_id' => 'required|numeric',
+            'status' => 'required|boolean|in:0,1',
+            'logo' => 'nullable',
+            'business_id' => 'required|numeric',
             'user_id' => 'required|numeric',
         ];
     }
@@ -41,9 +43,10 @@ class ServiceRequest extends FormRequest
 
             'name.required' => 'El campo nombre es obligatorio.',
             'description.required' => 'El campo descripción es obligatorio.',
-            'service_type_id.required' => 'El campo tipo de servicio es obligatorio.',
-            'service_type_id.numeric' => 'El campo  tipo de servicio debe ser un numero.',
+            'status.required' => 'El campo estado es obligatorio.',
             'user_id.required' => 'El campo usuario es obligatorio.',
+            'business_id.required' => 'El campo negocio es obligatorio.',
+            'business_id.numeric' => 'El campo negocio debe ser un numero.',
             'user_id.numeric' => 'El campo usuario debe ser un numero.',
         ];
     }

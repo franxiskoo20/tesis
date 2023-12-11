@@ -104,15 +104,6 @@ const CustomerPage = () => {
           />
           {itemToAction && (
             <>
-              <CustomerDeleteModal
-                open={isDeleteOpen}
-                onClose={() => {
-                  toggleModal("delete");
-                  setItemToAction(null);
-                }}
-                customerToDelete={itemToAction}
-                onCustomerDelete={() => handleAsyncAction()}
-              />
               <CustomerEditModal
                 open={isEditOpen}
                 onClose={() => {
@@ -121,6 +112,15 @@ const CustomerPage = () => {
                 }}
                 customerToEdit={itemToAction}
                 onCustomerUpdated={() => handleAsyncAction()}
+              />
+              <CustomerDeleteModal
+                open={isDeleteOpen}
+                onClose={() => {
+                  toggleModal("delete");
+                  setItemToAction(null);
+                }}
+                customerToDelete={itemToAction}
+                onCustomerDelete={() => handleAsyncAction()}
               />
             </>
           )}

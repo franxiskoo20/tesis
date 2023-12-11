@@ -13,6 +13,10 @@ use App\Interfaces\ServiceRepositoryInterface;
 use App\Repositories\ServiceRepository;
 use App\Interfaces\ServiceTypeRepositoryInterface;
 use App\Repositories\ServiceTypeRepository;
+use App\Interfaces\ProductRepositoryInterface;
+use App\Repositories\ProductRepository;
+use App\Interfaces\BusinessRepositoryInterface;
+use App\Repositories\BusinessRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CustomerRepositoryInterface::class, CustomerRepository::class);
         $this->app->bind(ServiceRepositoryInterface::class, ServiceRepository::class);
         $this->app->bind(ServiceTypeRepositoryInterface::class, ServiceTypeRepository::class);
+        $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
+        $this->app->bind(BusinessRepositoryInterface::class, BusinessRepository::class);
     }
 
     /**

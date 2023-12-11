@@ -12,16 +12,14 @@ const CustomerTable = ({
   onDelete,
   isSubmitting,
 }) => {
-
-  const renderAddUserButton = () => {
+  const renderAddCustomerButton = () => {
     return <ChipButton label={"Agregar Cliente"} onClick={onAddCustomer} />;
-  };  
-  console.log(customers)
+  };
   const columns = useCustomerTableColumn(customers, onEdit, onDelete);
 
   const options = {
     ...customerTableStaticOption,
-    customToolbar: renderAddUserButton,
+    customToolbar: renderAddCustomerButton,
   };
 
   return (

@@ -2,13 +2,14 @@
 
 namespace App\Http\Requests;
 
+
 use Illuminate\Foundation\Http\FormRequest;
 
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 
-class ServiceRequest extends FormRequest
+class BusinessRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,23 +29,14 @@ class ServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'service_type_id' => 'required|numeric',
-            'user_id' => 'required|numeric',
+            'business_type' => 'required|string|max:255',
         ];
     }
-
     public function messages()
     {
         return [
 
-            'name.required' => 'El campo nombre es obligatorio.',
-            'description.required' => 'El campo descripción es obligatorio.',
-            'service_type_id.required' => 'El campo tipo de servicio es obligatorio.',
-            'service_type_id.numeric' => 'El campo  tipo de servicio debe ser un numero.',
-            'user_id.required' => 'El campo usuario es obligatorio.',
-            'user_id.numeric' => 'El campo usuario debe ser un numero.',
+            'business_type.required' => 'El campo nombre es obligatorio.',
         ];
     }
 

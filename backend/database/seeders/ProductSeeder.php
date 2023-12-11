@@ -10,6 +10,6 @@ class ProductSeeder extends Seeder
     public function run()
     {
         // Poblar la base de datos con 50 productos de prueba
-        Product::factory()->count(50)->create();
+        // Product::factory()->count(50)->create();
     }
 }

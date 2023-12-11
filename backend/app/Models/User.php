@@ -34,22 +34,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    // /**
-    //  * The attributes that should be cast.
-    //  *
-    //  * @var array<string, string>
-    //  */
-    // protected $casts = [
-    //     'email_verified_at' => 'datetime',
-    // ];
-
-    /**
-     * Obtener los clientes del usuario.
-     */
-    // public function customers()
-    // {
-    //     return $this->hasMany(Customer::class);
-    // }
 
     /**
      * Obtener el rol del usuario.
@@ -60,16 +44,32 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function service()
-    {
-        return $this->belongsTo(Service::class);
-    }
-
     /**
      * Verifica si el usuario tiene un rol específico.
      */
     public function hasRole($role)
     {
         return $this->role->role_type === $role;
+    }
+
+    /**
+     * Obtener los clientes del usuario.
+     */
+    public function customer()
+    {
+        return $this->hasOne(Customer::class);
+    }
+
+    public function service()
+    {
+        return $this->hasOne(Service::class);
+    }
+
+    /**
+     * Obtener los clientes del usuario.
+     */
+    public function product()
+    {
+        return $this->hasOne(Product::class);
     }
 }

@@ -15,7 +15,7 @@ import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import { grey } from "@mui/material/colors";
 import { useState } from "react";
 import UserAvatar from "../../../features/user/components/UserAvatar/UserAvatar";
-
+import StatusBadge from "../../ui/StatusBadge";
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -29,7 +29,8 @@ const ExpandMore = styled((props) => {
 
 const CustomCard = ({ data }) => {
   const [expanded, setExpanded] = useState(false);
-  const baseUrl = "http://localhost:8000/storage/";
+  const baseUrl =
+    import.meta.env.VITE_BASE_URL_STORAGE || "http://localhost:8000/storage/";
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -40,21 +41,21 @@ const CustomCard = ({ data }) => {
       {data?.map((item) => (
         <Grid xs={12} sm={6} md={4} key={item.id}>
           <Card>
-            <CardHeader
-              avatar={
-                <UserAvatar role={item.user.roleId} name={item.user.name} />
-              }
-              title={item.user.name}
-              subheader={
-                <Box sx={{ color: grey[400] }}>
-                  {item.user.email}
-                  <br />
-                  {item.createdAt}
-                </Box>
-              }
-              sx={{ bgcolor: "primary.main", color: "primary.contrastText" }}
-            />
-
+              <CardHeader
+                avatar={
+                  <UserAvatar role={item.user.roleId} name={item.user.name} />
+                }
+                title={item.user.name}
+                subheader={
+                  <Box sx={{ color: grey[400] }}>
+                    {item.user.email}
+                    <br />
+                    {item.createdAt}
+                  </Box>
+                }
+                sx={{ bgcolor: "primary.main", color: "primary.contrastText" }}
+              />
+            </StatusBadge>
             {item.logo && (
               <CardMedia
                 component="img"
@@ -66,9 +67,10 @@ const CustomCard = ({ data }) => {
             )}
             <CardActionArea>
               <CardContent sx={{ display: "flex" }}>
-                <Typography gutterBottom variant="h6" component="div">
+                {/* <StatusBadge title={item.name} status={true} /> */}
+                {/* <Typography gutterBottom variant="h6" component="div">
                   {item.name}
-                </Typography>
+                </Typography> */}
                 <ExpandMore
                   expand={expanded}
                   onClick={handleExpandClick}

@@ -14,11 +14,11 @@ class Service extends Model
 
     public function serviceType()
     {
-        return $this->belongsTo(ServiceType::class);
+        return $this->belongsTo(ServiceType::class)->select(['id', 'name', 'description']);
     }
 
     public function user()
     {
-        return $this->hasOne(User::class)->select(['id', 'name', 'email', 'role_id']);
+        return $this->belongsTo(User::class)->select(['id', 'name', 'email', 'role_id']);
     }
 }

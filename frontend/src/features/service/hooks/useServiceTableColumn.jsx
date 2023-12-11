@@ -1,10 +1,9 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
-import StatusChip from "../../../components/ui/StatusChip";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 
-const customerTableColumn = (customers, onEdit, onDelete) => {
+const useServiceTableColumn = (services, onEdit, onDelete) => {
   const columns = [
     {
       name: "",
@@ -12,8 +11,8 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
         filter: false,
         sort: false,
         customBodyRenderLite: (dataIndex) => {
-          const customer = customers[dataIndex].user;
-          return <UserAvatar name={customer.name} role={customer.roleId} />;
+          const service = services[dataIndex].user;
+          return <UserAvatar name={service.name} role={service.roleId} />;
         },
       },
     },
@@ -28,7 +27,7 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
     },
     {
       name: "name",
-      label: "Empresa",
+      label: "Servicio",
       options: {
         filter: false,
         sort: true,
@@ -43,17 +42,29 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
       },
     },
     {
-      name: "status",
-      label: "Estado",
+      name: "serviceTypeNane",
+      label: "Tipo de Servicio",
       options: {
-        filter: false,
+        filter: true,
         sort: true,
-        customBodyRenderLite: (dataIndex) => {
-          const customerStatus = customers[dataIndex].status;
-          return <StatusChip enabled={customerStatus} />;
-        },
+        // customBodyRenderLite: (dataIndex) => {
+        //   const serviceTypeName = services[dataIndex].serviceType.name;
+        //   return <span>{serviceTypeName}</span>;
+        // },
       },
     },
+    // {
+    //   name: "serviceType.name",
+    //   label: "Tipo de Servicio",
+    //   options: {
+    //     filter: false,
+    //     sort: true,
+    // customBodyRenderLite: (dataIndex) => {
+    //   const servicestatus = services[dataIndex].;
+    //   return <StatusChip enabled={servicestatus} />;
+    // },
+    //   },
+    // },
     {
       name: "createdAt",
       label: "fecha de creacion",
@@ -83,13 +94,13 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
             <>
               <CustomIconButton
                 aria-label="edit"
-                onClick={() => onEdit(customers[dataIndex])}
+                onClick={() => onEdit(services[dataIndex])}
               >
                 <EditIcon />
               </CustomIconButton>
               <CustomIconButton
                 aria-label="delete"
-                onClick={() => onDelete(customers[dataIndex].id)}
+                onClick={() => onDelete(services[dataIndex].id)}
               >
                 <DeleteIcon />
               </CustomIconButton>
@@ -103,4 +114,4 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
   return columns;
 };
 
-export default customerTableColumn;
+export default useServiceTableColumn;

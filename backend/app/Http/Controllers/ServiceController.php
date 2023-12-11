@@ -28,7 +28,7 @@ class ServiceController extends Controller
     public function store(ServiceRequest $request)
     {
         try {
-            $service = $this->serviceRepository->create($request->validate());
+            $service = $this->serviceRepository->create($request->validated());
             return response()->json(['service' => $service, 'message' => 'Servicio creado con éxito'], 201);
         } catch (Exception $e) {
             return response()->json(['errors' => 'Error al crear el servicio', 'message' => $e->getMessage()], 500);

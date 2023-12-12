@@ -42,7 +42,7 @@ const useServiceTableColumn = (services, onEdit, onDelete) => {
       },
     },
     {
-      name: "serviceTypeNane",
+      name: "serviceTypeName",
       label: "Tipo de Servicio",
       options: {
         filter: true,

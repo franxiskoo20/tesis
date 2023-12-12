@@ -4,7 +4,6 @@ import CustomerAccordion from "../../../components/common/Accordion/CustomerAcco
 
 const ServiceType = () => {
   const { serviceType } = useServiceType();
-  console.log(serviceType);
   return (
     <Box position="relative">
       <CustomerAccordion items={serviceType} />

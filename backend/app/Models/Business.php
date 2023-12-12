@@ -11,7 +11,7 @@ class Business extends Model
 
 
     protected $fillable = [
-        'business_type'
+        'name','description'
     ];
 
     public function product()

@@ -19,7 +19,7 @@ export const serviceOfService = {
   },
 
   updateService(serviceId, data) {
-    return makeRequest("post", `/api/services/${serviceId}`, data);
+    return makeRequest("put", `/api/services/${serviceId}`, data);
   },
 
   addServiceType(data) {

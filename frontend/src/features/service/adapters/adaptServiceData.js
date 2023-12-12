@@ -8,7 +8,7 @@ export const adaptServiceData = (service) => {
     serviceTypeId: service.service_type_id,
     createdAt: formatDate(service.created_at),
     updatedAt: formatDate(service.updated_at),
-    serviceTypeNane: service.service_type.name,
+    serviceTypeName: service.service_type.name,
     // serviceTypeDescription: service.service_type.description,
     user: {
       id: service.user.id,

@@ -8,6 +8,7 @@ use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\RateController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServiceTypeController;
 
@@ -71,5 +72,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [BusinessController::class, 'store']);
         Route::put('/{id}', [BusinessController::class, 'update']);
         Route::delete('/{id}', [BusinessController::class, 'destroy']);
+    });
+
+    Route::prefix('rates')->group(function () {
+        Route::get('/', [RateController::class, 'index']);
+        Route::post('/', [RateController::class, 'store']);
+        Route::put('/{id}', [RateController::class, 'update']);
+        Route::delete('/{id}', [RateController::class, 'destroy']);
     });
 });

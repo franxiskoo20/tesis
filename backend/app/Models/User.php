@@ -72,4 +72,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Product::class);
     }
+
+    public function rate()
+    {
+        return $this->hasOne(Rate::class);
+    }
 }

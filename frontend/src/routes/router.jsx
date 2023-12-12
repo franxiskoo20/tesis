@@ -8,6 +8,7 @@ import {
   ProductPage,
   ServicePage,
   UserPage,
+  RatePage
 } from "../pages";
 import { ProtectedRoutes, PublicRoutes, RoleProtectedElement } from "./";
 
@@ -60,6 +61,16 @@ const router = createBrowserRouter([
             allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
           >
             <ServicePage />
+          </RoleProtectedElement>
+        ),
+      },
+      {
+        path: "app/rates",
+        element: (
+          <RoleProtectedElement
+            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
+          >
+            <RatePage />
           </RoleProtectedElement>
         ),
       },

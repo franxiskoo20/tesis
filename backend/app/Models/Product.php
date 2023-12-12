@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'name',
         'description',
@@ -20,11 +20,15 @@ class Product extends Model
 
     public function business()
     {
-        return $this->belongsTo(Business::class);
+        return $this->belongsTo(Business::class)->select(['id', 'name']);
     }
 
     public function user()
     {
         return $this->belongsTo(User::class)->select(['id', 'name', 'email', 'role_id']);
+    }
+    public function rate()
+    {
+        return $this->hasOne(Rate::class);
     }
 }

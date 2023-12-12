@@ -19,6 +19,7 @@ const navigationByRole = {
     },
     { name: "Servicios", path: "/app/services", icon: <PostAddIcon /> },
     { name: "Clientes", path: "/app/customers", icon: <SupportAgentIcon /> },
+    { name: "Tarifas", path: "/app/rates", icon: <ShoppingCartIcon /> },
   ],
   [ROLES_USER.JEFE_COMERCIAL]: [
     { name: "Dashboard", path: "/app/dashboard", icon: <DashboardIcon /> },

@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 const CustomerAccordion = ({ items }) => {
   return (
     <>
-      {items.map((item) => (
+      {items?.map((item) => (
         <Accordion key={item.id}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}

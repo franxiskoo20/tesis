@@ -27,37 +27,37 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-const CustomerCard = ({ customers }) => {
+const ProductCard = ({ products }) => {
   const baseUrlStorage =
     import.meta.env.VITE_BASE_URL_STORAGE || "http://localhost:8000/storage/";
 
   const [expanded, setExpanded] = useState({});
 
-  const handleExpandClick = (customerId) => {
+  const handleExpandClick = (productId) => {
     setExpanded((prevExpanded) => ({
       ...prevExpanded,
-      [customerId]: !prevExpanded[customerId],
+      [productId]: !prevExpanded[productId],
     }));
   };
 
   return (
     <>
-      {customers?.map((customer) => (
-        <Grid xs={12} sm={12} md={6} lg={4} key={customer.id}>
+      {products?.map((products) => (
+        <Grid xs={12} sm={12} md={6} lg={4} key={products.id}>
           <Card>
             <CardHeader
               avatar={
                 <UserAvatar
-                  role={customer.user.roleId}
-                  name={customer.user.name}
+                  role={products.user.roleId}
+                  name={products.user.name}
                 />
               }
-              title={customer.user.name}
+              title={products.user.name}
               subheader={
                 <Box sx={{ color: grey[400] }}>
-                  {customer.user.email}
+                  {products.user.email}
                   <br />
-                  {customer.createdAt}
+                  {products.createdAt}
                 </Box>
               }
               sx={{
@@ -67,37 +67,37 @@ const CustomerCard = ({ customers }) => {
               }}
             />
 
-            {customer.logo && (
+            {products.logo && (
               <CardMedia
                 component="img"
                 height="160"
-                image={`${baseUrlStorage}${customer.logo}`}
-                alt={customer.name}
+                image={`${baseUrlStorage}${products.logo}`}
+                alt={products.name}
                 sx={{ objectFit: "contain", objectPosition: "center" }}
               />
             )}
 
             <CardActions disableSpacing>
               <Typography gutterBottom variant="h6" component="div">
-                {customer.name}
-                <StatusChip enabled={customer.status} sx={{ m: 1 }} />
+                {products.name}
+                <StatusChip enabled={products.status} sx={{ m: 1 }} />
               </Typography>
               <ExpandMore
-                expand={expanded[customer.id] || false}
-                onClick={() => handleExpandClick(customer.id)}
-                aria-expanded={expanded[customer.id] || false}
+                expand={expanded[products.id] || false}
+                onClick={() => handleExpandClick(products.id)}
+                aria-expanded={expanded[products.id] || false}
                 aria-label="show more"
               >
                 <ExpandMoreIcon />
               </ExpandMore>
             </CardActions>
             <Collapse
-              in={expanded[customer.id] || false}
+              in={expanded[products.id] || false}
               timeout="auto"
               unmountOnExit
             >
               <CardContent>
-                <Typography variant="body2">{customer.description}</Typography>
+                <Typography variant="body2">{products.description}</Typography>
               </CardContent>
             </Collapse>
           </Card>
@@ -107,4 +107,4 @@ const CustomerCard = ({ customers }) => {
   );
 };
 
-export default CustomerCard;
+export default ProductCard;

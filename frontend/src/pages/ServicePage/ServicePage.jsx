@@ -1,4 +1,4 @@
-import { Box, Divider, Tab, Tabs } from "@mui/material";
+import { Divider, Tab, Tabs } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import PaperContainer from "../../components/common/Container/PaperContainer";
@@ -6,14 +6,14 @@ import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
 import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import { adaptServiceData } from "../../features/service/adapters/adaptServiceData";
-import { serviceOfService } from "../../features/service/services/serviceOfService";
-import ServiceTable from "../../features/service/components/ServiceTable/ServiceTable";
-import useModalState from "../../hooks/useModalState";
-import useAsyncAction from "../../hooks/useAsyncAction";
 import ServiceAddModal from "../../features/service/components/ServiceModal/ServiceAddModal";
 import ServiceDeleteModal from "../../features/service/components/ServiceModal/ServiceDeleteModal";
 import ServiceEditModal from "../../features/service/components/ServiceModal/ServiceEditModal";
+import ServiceTable from "../../features/service/components/ServiceTable/ServiceTable";
 import ServiceType from "../../features/service/serviceType/serviceType";
+import { serviceOfService } from "../../features/service/services/serviceOfService";
+import useAsyncAction from "../../hooks/useAsyncAction";
+import useModalState from "../../hooks/useModalState";
 
 const a11yProps = (index) => {
   return {
@@ -44,7 +44,7 @@ const ServicePage = () => {
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
-  console.log(services);
+
   return (
     <AuthenticatedLayout>
       <PaperContainer title="Lista de Servicios" relativePosition={true}>
@@ -92,8 +92,8 @@ const ServicePage = () => {
                   toggleModal("edit");
                   setItemToAction(null);
                 }}
-                serviceToEdit={itemToAction}
-                onServiceUpdated={() => handleAsyncAction()}
+                toEdit={itemToAction}
+                onUpdated={() => handleAsyncAction()}
               />
               <ServiceDeleteModal
                 open={isDeleteOpen}

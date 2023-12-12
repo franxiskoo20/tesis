@@ -16,4 +16,8 @@ class ServiceType extends Model
     {
         return $this->hasOne(Service::class);
     }
+    public function rate()
+    {
+        return $this->hasOne(Rate::class);
+    }
 }

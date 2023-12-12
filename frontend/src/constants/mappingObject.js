@@ -4,5 +4,6 @@ export const titlesByRoute = {
   "/app/products": "Productos",
   "/app/services": "Servicios",
   "/app/customers": "Clientes",
+  "/app/rates": "Tarifas",
   // Agrega más rutas y títulos según sea necesario
 };

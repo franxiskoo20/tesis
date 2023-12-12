@@ -17,6 +17,8 @@ use App\Interfaces\ProductRepositoryInterface;
 use App\Repositories\ProductRepository;
 use App\Interfaces\BusinessRepositoryInterface;
 use App\Repositories\BusinessRepository;
+use App\Interfaces\RateRepositoryInterface;
+use App\Repositories\RateRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ServiceTypeRepositoryInterface::class, ServiceTypeRepository::class);
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->bind(BusinessRepositoryInterface::class, BusinessRepository::class);
+        $this->app->bind(RateRepositoryInterface::class, RateRepository::class);
     }
 
     /**

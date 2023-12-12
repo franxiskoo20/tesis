@@ -1,45 +1,134 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Divider, Tab, Tabs, Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { useState } from "react";
 import PaperContainer from "../../components/common/Container/PaperContainer";
 import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
+import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
+import BusinessType from "../../features/product/BusinessType/BusinessType";
+import { adaptProductData } from "../../features/product/adapters/adaptProductData";
+import ProductCard from "../../features/product/components/ProductCard/ProductCard";
+import ProductAddModal from "../../features/product/components/ProductModal/ProductAddModal";
+import ProductDeleteModal from "../../features/product/components/ProductModal/ProductDeleteModal";
+import ProductTable from "../../features/product/components/ProductTable/ProductTable";
+import { productService } from "../../features/product/services/productService";
+import useAsyncAction from "../../hooks/useAsyncAction";
+import useModalState from "../../hooks/useModalState";
 
-const fetchProducts = async () => {
-  const { data } = await axios.get("http://localhost:8000/api/prueba");
-  return data;
+const a11yProps = (index) => {
+  return {
+    id: `product-tab-${index}`,
+    "aria-controls": `product-tabpanel-${index}`,
+  };
 };
 
 const ProductPage = () => {
   const {
     data: products,
-    error,
+    isSuccess,
     isLoading,
-  } = useQuery({ queryKey: ["products"], queryFn: fetchProducts });
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: productService.getProducts,
+    select: (data) => data.map(adaptProductData),
+  });
 
-  if (error) return <div>Ha ocurrido un error: {error.message}</div>;
+  const {
+    isRegisterOpen,
+    // isEditOpen,
+    isDeleteOpen,
+    itemToAction,
+    setItemToAction,
+    toggleModal,
+  } = useModalState();
 
+  const { isSubmitting, handleAsyncAction } = useAsyncAction(products);
+
+  const [tabValue, setTabValue] = useState(0);
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+  console.log(products);
   return (
     <AuthenticatedLayout>
-      <PaperContainer title={"Lista de Productos"}>
-        {isLoading ? (
-          <LoadingSkeleton count={3} xs={12} sm={4} md={4} />
-        ) : (
-          <Box component="article" mt={4}>
-            <Grid container spacing={2}>
-              {products.map((product) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-                  <Box component="article" sx={{ p: 2 }}>
-                    <Typography variant="h7">{product.name}</Typography>
-                    <Typography variant="body1">
-                      {product.description}
-                    </Typography>
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        )}
+      <PaperContainer title="Lista de Productos" relativePosition={true}>
+        {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}> */}
+        <Tabs
+          value={tabValue}
+          onChange={handleTabChange}
+          aria-label="products tabs"
+        >
+          <Tab label="Tarjetas" {...a11yProps(0)} />
+          <Tab label="Productos" {...a11yProps(1)} />
+          <Tab label="Tipos de Negocio" {...a11yProps(2)} />
+        </Tabs>
+        <Divider />
+        <CustomTabPanel value={tabValue} index={0}>
+          {isLoading ? (
+            <LoadingSkeleton count={3} xs={12} sm={12} md={6} lg={4} />
+          ) : isSuccess ? (
+            <Box component="article" mt={4}>
+              <Grid container spacing={2}>
+                <ProductCard products={products} />
+              </Grid>
+            </Box>
+          ) : (
+            <Typography>No hay datos disponibles</Typography>
+          )}
+        </CustomTabPanel>
+        <CustomTabPanel value={tabValue} index={1}>
+          {isLoading ? (
+            <LoadingSkeleton />
+          ) : (
+            <ProductTable
+              products={products}
+              onAdd={() => toggleModal("register")}
+              // onEdit={(service) => {
+              //   setItemToAction(service);
+              //   toggleModal("edit");
+              // }}
+              onDelete={(service) => {
+                setItemToAction(service);
+                toggleModal("delete");
+              }}
+              isSubmitting={isSubmitting}
+            />
+          )}
+          <ProductAddModal
+            open={isRegisterOpen}
+            onClose={() => {
+              toggleModal("register");
+              setItemToAction(null);
+            }}
+            onAdded={() => handleAsyncAction()}
+          />
+          {itemToAction && (
+            <>
+              {/* <ServiceEditModal
+                open={isEditOpen}
+                onClose={() => {
+                  toggleModal("edit");
+                  setItemToAction(null);
+                }}
+                serviceToEdit={itemToAction}
+                onServiceUpdated={() => handleAsyncAction()}
+              /> */}
+              <ProductDeleteModal
+                open={isDeleteOpen}
+                onClose={() => {
+                  toggleModal("delete");
+                  setItemToAction(null);
+                }}
+                toDelete={itemToAction}
+                onDelete={() => handleAsyncAction()}
+              />
+            </>
+          )}
+        </CustomTabPanel>
+        <CustomTabPanel value={tabValue} index={2}>
+          <BusinessType />
+        </CustomTabPanel>
       </PaperContainer>
     </AuthenticatedLayout>
   );

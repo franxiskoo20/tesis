@@ -21,4 +21,9 @@ class Service extends Model
     {
         return $this->belongsTo(User::class)->select(['id', 'name', 'email', 'role_id']);
     }
+
+    public function rate()
+    {
+        return $this->hasOne(Rate::class);
+    }
 }

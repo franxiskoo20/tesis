@@ -4,17 +4,18 @@ import { useSnackbar } from "../../../../hooks/useSnackbar";
 import { USER_SNACKBAR } from "../../constants/userSnackbar";
 import { userService } from "../../services/userService";
 
-const UserDeleteModal = ({ open, onClose, userToDelete, onUserDelete }) => {
+const UserDeleteModal = ({ open, onClose, toDelete, onDelete }) => {
   const { showSnackbar } = useSnackbar();
 
   const deleteMutation = useMutation({
-    mutationFn: (userToDelete) => userService.deleteUser(userToDelete),
+    mutationFn: (toDelete) => userService.deleteUser(toDelete),
     onError: (error) => {
       const snackbar = USER_SNACKBAR.USER_DELETE_ERROR;
       showSnackbar(error?.errors || snackbar.message, snackbar.type);
     },
     onSuccess: (data) => {
-      onUserDelete?.();
+      onClose?.();
+      onDelete?.();
       const snackbar = USER_SNACKBAR.USER_DELETE_SUCCESS;
       showSnackbar(data?.message || snackbar.message, snackbar.type);
     },
@@ -24,7 +25,7 @@ const UserDeleteModal = ({ open, onClose, userToDelete, onUserDelete }) => {
       <GenericConfirmModal
         open={open}
         onClose={onClose}
-        onConfirm={() => deleteMutation.mutate(userToDelete)}
+        onConfirm={() => deleteMutation.mutate(toDelete)}
         title="Confirmar Eliminación"
         confirmButtonText="Eliminar"
         cancelButtonText="Cancelar"

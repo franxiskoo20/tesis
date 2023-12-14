@@ -49,7 +49,7 @@ class User extends Authenticatable
      */
     public function hasRole($role)
     {
-        return $this->role->role_type === $role;
+        return $this->role->name === $role;
     }
 
     /**

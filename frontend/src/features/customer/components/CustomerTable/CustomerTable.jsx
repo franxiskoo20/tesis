@@ -16,7 +16,6 @@ const CustomerTable = ({
     return <ChipButton label={"Agregar Cliente"} onClick={onAddCustomer} />;
   };
   const columns = useCustomerTableColumn(customers, onEdit, onDelete);
-
   const options = {
     ...customerTableStaticOption,
     customToolbar: renderAddCustomerButton,

@@ -3,7 +3,8 @@ import { useState } from "react";
 import PaperContainer from "../../components/common/Container/PaperContainer";
 import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
-
+import CreateRate from "../../features/rate/components/RateForm/CreateRate";
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
 const a11yProps = (index) => {
   return {
     id: `service-tab-${index}`,
@@ -30,12 +31,14 @@ const RatePage = () => {
           <Tab label="Tipo de Tarifas" {...a11yProps(1)} />
         </Tabs>
         <Divider />
-        <CustomTabPanel value={tabValue} index={0}>
-          <h1>PRUEBA</h1>
-        </CustomTabPanel>
-        <CustomTabPanel value={tabValue} index={1}>
-          <h1>PRUEBA</h1>
-        </CustomTabPanel>
+        <Grid container spacing={2}>
+          <CustomTabPanel value={tabValue} index={0}>
+            <CreateRate />
+          </CustomTabPanel>
+          <CustomTabPanel value={tabValue} index={1}>
+            <h1>PRUEBA</h1>
+          </CustomTabPanel>
+        </Grid>
       </PaperContainer>
     </AuthenticatedLayout>
   );

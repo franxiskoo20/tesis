@@ -7,8 +7,7 @@ import {
 } from "@mui/material";
 import { Controller } from "react-hook-form";
 
-const CustomSelect = ({ name, label, options, control }) => {
- 
+const CustomSelect = ({ name, label, options, control, disabled, ...rest }) => {
   const renderHelperText = (isDirty, error) => {
     return error ? error.message : isDirty ? "Correcto" : "";
   };
@@ -18,7 +17,7 @@ const CustomSelect = ({ name, label, options, control }) => {
       name={name}
       control={control}
       render={({ field, fieldState: { error, isDirty } }) => (
-        <FormControl fullWidth error={!!error}>
+        <FormControl fullWidth error={!!error} disabled={disabled}>
           <InputLabel id={`${name}-label`}>{label}</InputLabel>
           <Select
             {...field}
@@ -35,6 +34,7 @@ const CustomSelect = ({ name, label, options, control }) => {
                   : "action.active",
               },
             }}
+            {...rest}
           >
             {options?.map((option) => (
               <MenuItem key={option.value} value={option.value}>

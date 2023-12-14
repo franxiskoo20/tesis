@@ -55,7 +55,8 @@ class UserRepository implements UserRepositoryInterface
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'role' => $user->role->role_type ?? null,
+            'role_id' => $user->role_id,
+            'role' => $user->role->name ?? null,
         ];
     }
 
@@ -66,7 +67,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getAll()
     {
-        return User::with('role:id,role_type')->get();
+        return User::with('role:id,name')->get();
     }
 
     /**

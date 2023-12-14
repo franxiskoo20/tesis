@@ -20,9 +20,7 @@ const ActionButton = ({
       onClick={onAccept}
       isPending={isPending}
       sx={{ mr: 1 }}
-    >
-      {acceptButtonLabel}
-    </AcceptButton>
+    />
     <CancelButtom
       label={cancelButtonLabel}
       startIcon={cancelButtonIcon}

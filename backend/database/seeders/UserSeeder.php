@@ -15,8 +15,8 @@ class UserSeeder extends Seeder
     {
         // Primero, asegúrate de que el rol de administrador esté creado.
 
-        $adminRoleId = Role::firstOrCreate(['role_type' => 'Administrador'])->id;
-        $jefeRoleId = Role::firstOrCreate(['role_type' => 'Jefe Comercial'])->id;
+        $adminRoleId = Role::firstOrCreate(['name' => 'Administrador'])->id;
+        $jefeRoleId = Role::firstOrCreate(['name' => 'Jefe Comercial'])->id;
 
         // User::create([
         //     'name' => 'Administrador',

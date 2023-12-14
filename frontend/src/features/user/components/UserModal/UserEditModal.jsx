@@ -19,8 +19,8 @@ import { userValidationSchemaWithoutPassword } from "../../utils/validationSchem
  * * Componente para editar usuarios
  * @param open abre el modal
  * @param onClose cierra el modal
- * @param userToEdit usuario a editar
- * @param onUserUpdated actualiza la lista de usuarios de la tabla
+ * @param toEdit usuario a editar
+ * @param onEdit actualiza la lista de usuarios de la tabla
  */
 
 const DEFAULT_VALUES_EDIT = {
@@ -32,7 +32,7 @@ const DEFAULT_VALUES_EDIT = {
   password_confirmation: "",
 };
 
-const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
+const UserEditModal = ({ open, onClose, toEdit, onEdit }) => {
   // formulario react-hook-form
   const { handleSubmit, reset, control, setValue } = useForm({
     resolver: yupResolver(userValidationSchemaWithoutPassword),
@@ -48,24 +48,24 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
 
   // cargar datos del usuario a editar
   useEffect(() => {
-    if (userToEdit) {
+    if (toEdit) {
       reset({
-        name: userToEdit.name,
-        email: userToEdit.email,
-        role_id: userToEdit.roleId,
+        name: toEdit.name,
+        email: toEdit.email,
+        role_id: toEdit.roleId,
         changePassword: false,
         password: "",
         password_confirmation: "",
       });
     }
-  }, [userToEdit, reset]);
+  }, [toEdit, reset]);
 
   // obtener roles
   const { roles } = useRoles();
 
   // enviar datos del formulario para editar usuario
   const updateMutation = useMutation({
-    mutationFn: (data) => userService.updateUser(userToEdit.id, data),
+    mutationFn: (data) => userService.updateUser(toEdit.id, data),
     onError: (error) => {
       const snackbar = USER_SNACKBAR.USER_EDIT_ERROR;
       showSnackbar(error?.errors || snackbar.message, snackbar.type);
@@ -73,13 +73,14 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     onSuccess: (data) => {
       const snackbar = USER_SNACKBAR.USER_EDIT_SUCCESS;
       showSnackbar(data?.message || snackbar.message, snackbar.type);
-      onUserUpdated?.();
+      onClose?.();
+      onEdit?.();
     },
   });
 
   // enviar datos del formulario para editar contraseña
   const updatePasswordMutation = useMutation({
-    mutationFn: (data) => userService.updateUserPassword(userToEdit.id, data),
+    mutationFn: (data) => userService.updateUserPassword(toEdit.id, data),
     onError: (error) => {
       showSnackbar(
         error?.errors || "Error en actulización de contraseña",
@@ -88,17 +89,16 @@ const UserEditModal = ({ open, onClose, userToEdit, onUserUpdated }) => {
     },
     onSuccess: () => {
       showSnackbar("Contraseña actualizada con éxito", "success");
-      onUserUpdated?.();
+      onClose?.();
+      onEdit?.();
     },
   });
 
   // verificar si el usuario ha cambiado
   const hasUserChanged = (data) => {
-    const roleChanged = parseInt(data.role_id) !== userToEdit.roleId;
+    const roleChanged = parseInt(data.role_id) !== toEdit.roleId;
     return (
-      data.name !== userToEdit.name ||
-      data.email !== userToEdit.email ||
-      roleChanged
+      data.name !== toEdit.name || data.email !== toEdit.email || roleChanged
     );
   };
 

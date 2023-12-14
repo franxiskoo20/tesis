@@ -1,13 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { userService } from "../../services/userService";
-
 import { yupResolver } from "@hookform/resolvers/yup";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
-import { Box } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
 import { useForm } from "react-hook-form";
-import ActionButtons from "../../../../components/common/Button/ActionButton";
-import ModalLayout from "../../../../components/layout/ModalLayout";
+import ActionModal from "../../../../components/modal/ActionModal";
 import { useSnackbar } from "../../../../hooks/useSnackbar";
 import { USER_SNACKBAR } from "../../constants/userSnackbar";
 import useRoles from "../../hooks/useRoles";
@@ -23,7 +18,7 @@ const DEFAULT_VALUES = {
   role_id: "",
 };
 
-const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
+const UserRegistrationModal = ({ open, onClose, onAdded }) => {
   const { handleSubmit, reset, control } = useForm({
     mode: "onChange",
     resolver: yupResolver(userValidationSchemaWithPassword),
@@ -42,7 +37,8 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
     onSuccess: (data) => {
       const snackbar = USER_SNACKBAR.USER_REGISTER_SUCCESS;
       showSnackbar(data?.message || snackbar.message, snackbar.type);
-      onUserAdded?.();
+      handleClose?.();
+      onAdded?.();
     },
   });
 
@@ -50,30 +46,23 @@ const UserRegistrationModal = ({ open, onClose, onUserAdded }) => {
     registerMutation.mutate(data);
   };
 
-  // Reset campos del formulario al cerrar el modal
   const handleClose = () => {
     reset();
     onClose();
   };
 
   return (
-    <ModalLayout title="Registrar Usuario" open={open} onClose={handleClose}>
-      <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>
-        <Grid container spacing={2}>
-          <UserFormField control={control} roles={roles} />
-
-          <UserFormPasswordField control={control} />
-          <Grid xs={12}>
-            <ActionButtons
-              acceptButtonLabel="Registrar"
-              acceptButtonIcon={<HowToRegIcon />}
-              onCancel={handleClose}
-              isPending={registerMutation.isPending}
-            />
-          </Grid>
-        </Grid>
-      </Box>
-    </ModalLayout>
+    <ActionModal
+      open={open}
+      onClose={handleClose}
+      title="Registrar Usuario"
+      onSubmit={handleSubmit(onSubmit)}
+      isPending={registerMutation.isPending}
+      submitLabel="Registrar"
+    >
+      <UserFormField control={control} roles={roles} />
+      <UserFormPasswordField control={control} />
+    </ActionModal>
   );
 };
 

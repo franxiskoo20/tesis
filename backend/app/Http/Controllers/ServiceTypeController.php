@@ -25,6 +25,7 @@ class ServiceTypeController extends Controller
         }
     }
 
+
     // public function store(ServiceTypeRequest $request)
     // {
     //     try {

@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { userService } from "../services/userService";
 
 const useRoles = () => {
-  const { data } = useQuery({
+  const { data: roles } = useQuery({
     queryKey: ["roles"],
     queryFn: userService.getRoles,
     onError: (error) => {
@@ -10,7 +10,7 @@ const useRoles = () => {
     },
   });
 
-  return { roles: data };
+  return { roles };
 };
 
 export default useRoles;

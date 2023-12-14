@@ -1,18 +1,16 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import PaperContainer from "../../components/common/Container/PaperContainer";
 import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
 import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
-import { adaptCustomerData } from "../../features/customer/adapters/adaptCustomerData";
 import CustomerCard from "../../features/customer/components/CustomerCard/CustomerCard";
 import CustomerAddModal from "../../features/customer/components/CustomerModal/CustomerAddModal";
 import CustomerDeleteModal from "../../features/customer/components/CustomerModal/CustomerDeleteModal";
 import CustomerEditModal from "../../features/customer/components/CustomerModal/CustomerEditModal";
 import CustomerTable from "../../features/customer/components/CustomerTable/CustomerTable";
-import { customerService } from "../../features/customer/services/customerService";
+import useCustomer from "../../features/customer/hooks/useCustomer";
 import useAsyncAction from "../../hooks/useAsyncAction";
 import useModalState from "../../hooks/useModalState";
 
@@ -25,16 +23,6 @@ const a11yProps = (index) => {
 
 const CustomerPage = () => {
   const {
-    data: customers,
-    isSuccess,
-    isLoading,
-  } = useQuery({
-    queryKey: ["customers"],
-    queryFn: customerService.getCustomers,
-    select: (data) => data.map(adaptCustomerData),
-  });
-
-  const {
     isRegisterOpen,
     isEditOpen,
     isDeleteOpen,
@@ -42,6 +30,8 @@ const CustomerPage = () => {
     setItemToAction,
     toggleModal,
   } = useModalState();
+
+  const { customers, isLoading, isSuccess } = useCustomer();
 
   const { isSubmitting, handleAsyncAction } = useAsyncAction(customers);
 
@@ -52,7 +42,7 @@ const CustomerPage = () => {
   };
   return (
     <AuthenticatedLayout>
-      <PaperContainer title="Lista de Clientes" relativePosition={true}>
+      <PaperContainer relativePosition={true}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={tabValue}

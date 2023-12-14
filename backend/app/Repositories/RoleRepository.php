@@ -11,6 +11,6 @@ class RoleRepository implements RoleRepositoryInterface
 {
   public function getAll()
   {
-    return Role::select('id', 'role_type')->get();
+    return Role::all();
   }
 }

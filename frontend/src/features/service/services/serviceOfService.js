@@ -22,6 +22,10 @@ export const serviceOfService = {
     return makeRequest("put", `/api/services/${serviceId}`, data);
   },
 
+  getServicesByType(id) {
+    return makeRequest("get", `/api/services/by-type/${id}`);
+  },
+
   addServiceType(data) {
     return makeRequest("post", "/api/services-type", {
       data,

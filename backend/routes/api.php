@@ -53,12 +53,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [ServiceController::class, 'store']);
         Route::put('/{id}', [ServiceController::class, 'update']);
         Route::delete('/{id}', [ServiceController::class, 'destroy']);
+        Route::get('/by-type/{id}', [ServiceController::class, 'getServicesByType']);
     });
     Route::prefix('services-type')->group(function () {
         Route::get('/', [ServiceTypeController::class, 'index']);
-        Route::post('/', [ServiceTypeController::class, 'store']);
-        Route::put('/{id}', [ServiceTypeController::class, 'update']);
-        Route::delete('/{id}', [ServiceTypeController::class, 'destroy']);
+        // Route::post('/', [ServiceTypeController::class, 'store']);
+        // Route::put('/{id}', [ServiceTypeController::class, 'update']);
+        // Route::delete('/{id}', [ServiceTypeController::class, 'destroy']);
+
     });
 
     Route::prefix('products')->group(function () {

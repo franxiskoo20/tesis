@@ -64,4 +64,14 @@ class ServiceController extends Controller
             return response()->json(['errors' => 'Error al eliminar el servicio', 'message' => $e->getMessage()], 500);
         }
     }
+
+    public function getServicesByType($id)
+    {
+        try {
+            $services = $this->serviceRepository->getByServiceTypeId($id);
+            return response()->json($services);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al obtener los servicios', 'message' => $e->getMessage()], 500);
+        }
+    }
 }

@@ -1,20 +1,18 @@
 import { Box, Divider, Tab, Tabs, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import PaperContainer from "../../components/common/Container/PaperContainer";
 import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
 import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
-import BusinessType from "../../features/product/BusinessType/BusinessType";
-import { adaptProductData } from "../../features/product/adapters/adaptProductData";
+import BusinessAccordion from "../../features/product/components/BusinessAccordion/BusinessAccordion";
 import ProductCard from "../../features/product/components/ProductCard/ProductCard";
 import ProductAddModal from "../../features/product/components/ProductModal/ProductAddModal";
 import ProductDeleteModal from "../../features/product/components/ProductModal/ProductDeleteModal";
 import ProductTable from "../../features/product/components/ProductTable/ProductTable";
-import { productService } from "../../features/product/services/productService";
 import useAsyncAction from "../../hooks/useAsyncAction";
 import useModalState from "../../hooks/useModalState";
+import useProduct from "../../features/product/hooks/useProduct";
 
 const a11yProps = (index) => {
   return {
@@ -24,16 +22,7 @@ const a11yProps = (index) => {
 };
 
 const ProductPage = () => {
-  const {
-    data: products,
-    isSuccess,
-    isLoading,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: productService.getProducts,
-    select: (data) => data.map(adaptProductData),
-  });
-
+  const { products, isLoading, isSuccess } = useProduct();
   const {
     isRegisterOpen,
     // isEditOpen,
@@ -49,11 +38,9 @@ const ProductPage = () => {
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
-  console.log(products);
   return (
     <AuthenticatedLayout>
       <PaperContainer title="Lista de Productos" relativePosition={true}>
-        {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}> */}
         <Tabs
           value={tabValue}
           onChange={handleTabChange}
@@ -127,7 +114,7 @@ const ProductPage = () => {
           )}
         </CustomTabPanel>
         <CustomTabPanel value={tabValue} index={2}>
-          <BusinessType />
+          <BusinessAccordion />
         </CustomTabPanel>
       </PaperContainer>
     </AuthenticatedLayout>

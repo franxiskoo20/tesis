@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
-import useBusinessType from "../hooks/useBusinessType";
-import CustomerAccordion from "../../../components/common/Accordion/CustomerAccordion";
+import useBusinessType from "../../hooks/useBusinessType";
+import CustomerAccordion from "../../../../components/common/Accordion/CustomerAccordion";
 
 const BusinessType = () => {
   const { businessType } = useBusinessType();
   return (
-    <Box position="relative">
+    <Box>
       <CustomerAccordion items={businessType} />
     </Box>
   );

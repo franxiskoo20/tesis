@@ -17,7 +17,7 @@ const CustomSwitch = ({ name, label, control, ...rest }) => {
           control={control}
           render={({ field }) => (
             <FormControl component="fieldset" variant="standard">
-              <FormLabel component="legend">Estado del Cliente</FormLabel>
+              <FormLabel component="legend">{label}</FormLabel>
               <FormControlLabel
                 control={
                   <Switch

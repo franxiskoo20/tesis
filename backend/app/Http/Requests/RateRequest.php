@@ -34,7 +34,8 @@ class RateRequest extends FormRequest
             'product_id' => 'required|exists:products,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'status' => 'required|string'
+            'status' => 'required|boolean|in:0,1',
+            'user_id' => 'required|exists:users,id'
         ];
     }
 
@@ -54,7 +55,12 @@ class RateRequest extends FormRequest
             'end_date.required' => 'La fecha de fin es obligatoria.',
             'end_date.date' => 'La fecha de fin no tiene un formato de fecha válido.',
             'end_date.after_or_equal' => 'La fecha de fin debe ser posterior o igual a la fecha de inicio.',
-            'status.required' => 'El campo estado es obligatorio.'
+            'status.required' => 'El campo estado es obligatorio.',
+            'status.boolean' => 'El campo estado debe ser un valor booleano.',
+            'status.in' => 'El campo estado debe ser 0 o 1.',
+            'user_id.required' => 'El campo usuario es obligatorio.',
+            'user_id.exists' => 'El usuario seleccionado no es válido.',
+
         ];
     }
 

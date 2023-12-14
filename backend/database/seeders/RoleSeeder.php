@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Role;
+
 class RoleSeeder extends Seeder
 {
     /**
@@ -15,15 +15,15 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $roles = [
-            'Jefe Comercial',
-            'Customer Service',
-            'Portero',
-            'Romana',
-            'Administrador'
+            ['name' => 'Jefe Comercial', 'description' => 'Encargado de liderar y supervisar las actividades comerciales de la empresa. Responsable de la estrategia de ventas y el crecimiento del negocio.'],
+            ['name' => 'Customer Service', 'description' => 'Responsable de atender las consultas y problemas de los clientes. Su objetivo es garantizar la satisfacción del cliente y mantener una buena relación con ellos.'],
+            ['name' => 'Portero', 'description' => 'Encargado de la seguridad y el control de acceso a las instalaciones de la empresa. Su función incluye verificar la identidad de las personas y prevenir el acceso no autorizado.'],
+            ['name' => 'Romana', 'description' => 'Operador de la balanza o báscula industrial (conocida como romana) en la empresa. Responsable de pesar los productos o mercancías y registrar los datos.'],
+            ['name' => 'Administrador', 'description' => 'Responsable de la gestión y el funcionamiento diario de la empresa. Sus tareas incluyen la planificación, la organización y la supervisión de todas las actividades de la empresa.']
         ];
 
         foreach ($roles as $role) {
-            Role::create(['role_type' => $role]);
+            Role::create($role);
         }
     }
 }

@@ -23,10 +23,10 @@ const UserFormField = ({ control, roles }) => {
           control={control}
           name="role_id"
           label="Rol"
-          autocomplete="username"
+          // autocomplete="username"
           options={(roles ?? []).map((r) => ({
             value: r.id,
-            label: r.role_type,
+            label: r.name,
           }))}
         />
       </Grid>

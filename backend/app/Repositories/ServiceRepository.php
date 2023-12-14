@@ -64,6 +64,11 @@ class ServiceRepository implements ServiceRepositoryInterface
    */
   public function getAll()
   {
-    return Service::with('user',"serviceType")->get();
+    return Service::with('user', "serviceType")->get();
+  }
+
+  public function getByServiceTypeId($serviceTypeId)
+  {
+    return Service::where('service_type_id', $serviceTypeId)->get();
   }
 }

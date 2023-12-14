@@ -13,7 +13,9 @@ import {
 import { styled } from "@mui/material/styles";
 import { useLocation } from "react-router-dom";
 import { titlesByRoute } from "../../../constants/mappingObject";
-import LogoutButton from "../../../features/auth/components/LogoutButton";
+import MenuAppBar from "../../../features/auth/components/MenuAppBar";
+import useAuth from "../../../features/auth/hooks/useAuth";
+import { getRoleNavigationItems } from "../../../utils/navigationUtil";
 import Logo from "../Logo/Logo";
 
 const drawerWidth = 220;
@@ -63,15 +65,13 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-export default function DrawerBar({
-  roleBasedNavigation,
-  toggleDrawer,
-  open,
-  logout,
-}) {
+export default function DrawerBar({ toggleDrawer, open }) {
   const location = useLocation();
   // Obtiene el título basado en la ruta actual, o un título por defecto si la ruta no está definida
   const titles = titlesByRoute[location.pathname] || "Mi Aplicación";
+  const { user, logout } = useAuth();
+  // Obtener las rutas de navegación según el rol del usuario
+  const roleBasedNavigation = getRoleNavigationItems(user.role);
 
   return (
     <>
@@ -96,8 +96,7 @@ export default function DrawerBar({
           >
             {titles}
           </Typography>
-
-          <LogoutButton logout={logout} />
+          <MenuAppBar logout={logout} user={user} />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

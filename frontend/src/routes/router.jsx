@@ -8,7 +8,8 @@ import {
   ProductPage,
   ServicePage,
   UserPage,
-  RatePage
+  RatePage,
+  UserProfile
 } from "../pages";
 import { ProtectedRoutes, PublicRoutes, RoleProtectedElement } from "./";
 
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "app/dashboard", element: <DashboardPage /> },
+      { path: "app/profile", element: <UserProfile /> },
       {
         path: "app/products",
         element: (

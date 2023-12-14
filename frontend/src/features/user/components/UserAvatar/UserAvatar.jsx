@@ -11,9 +11,11 @@ const getInitials = (name) => {
 };
 
 // Componente Avatar
-const UserAvatar = ({ name, role }) => {
-  const avatarColor = ROLE_COLORS[role] || "grey"; // Color por defecto si el rol no está definido
-  return <Avatar sx={{ bgcolor: avatarColor }}>{getInitials(name)}</Avatar>;
+const UserAvatar = ({ name, roleId, sx }) => {
+  const avatarColor = ROLE_COLORS[roleId] || "grey"; // Color por defecto si el rol no está definido
+  return (
+    <Avatar sx={{ ...sx, bgcolor: avatarColor }}>{getInitials(name)}</Avatar>
+  );
 };
 
 export default UserAvatar;

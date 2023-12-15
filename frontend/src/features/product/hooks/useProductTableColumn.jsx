@@ -13,7 +13,7 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
         sort: false,
         customBodyRenderLite: (dataIndex) => {
           const product = products[dataIndex].user;
-          return <UserAvatar name={product.name} role={product.roleId} />;
+          return <UserAvatar name={product.name} roleId={product.roleId} />;
         },
       },
     },
@@ -28,7 +28,7 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
     },
     {
       name: "name",
-      label: "Servicio",
+      label: "Nombre",
       options: {
         filter: false,
         sort: true,
@@ -36,7 +36,7 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
     },
     {
       name: "description",
-      label: "Descripcion",
+      label: "Descripción",
       options: {
         filter: false,
         sort: true,

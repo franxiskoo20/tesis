@@ -12,21 +12,20 @@ const ProductTable = ({
   onDelete,
   isSubmitting,
 }) => {
-  const renderAddProductButton = () => {
+  const renderAddButton = () => {
     return <ChipButton label={"Agregar Producto"} onClick={onAdd} />;
   };
   const columns = useProductTableColumn(products, onEdit, onDelete);
 
   const options = {
     ...productTableStaticOption,
-    customToolbar: renderAddProductButton,
+    customToolbar: renderAddButton,
   };
 
   return (
     <Box position="relative">
       <OverlayLoader isLoading={isSubmitting} />
       <MUIDataTable
-        title={"Lista de servicios"}
         data={products}
         columns={columns}
         options={options}

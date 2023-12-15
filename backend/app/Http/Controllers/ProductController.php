@@ -35,16 +35,6 @@ class ProductController extends Controller
         }
     }
 
-    public function show($id)
-    {
-        try {
-            $product = $this->productRepository->getById($id);
-            return response()->json($product);
-        } catch (Exception $e) {
-            return response()->json(['errors' => 'Error al obtener el producto', 'message' => $e->getMessage()], 500);
-        }
-    }
-
     public function update(ProductRequest $request, $id)
     {
         try {

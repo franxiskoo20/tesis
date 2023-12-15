@@ -15,8 +15,9 @@ import Grid from "@mui/material/Unstable_Grid2"; // Grid version 2
 import { grey } from "@mui/material/colors";
 import { useState } from "react";
 import UserAvatar from "../../../features/user/components/UserAvatar/UserAvatar";
-import StatusBadge from "../../ui/StatusBadge";
+// import StatusBadge from "../../ui/StatusBadge";
 const ExpandMore = styled((props) => {
+  
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
@@ -55,7 +56,6 @@ const CustomCard = ({ data }) => {
                 }
                 sx={{ bgcolor: "primary.main", color: "primary.contrastText" }}
               />
-            </StatusBadge>
             {item.logo && (
               <CardMedia
                 component="img"

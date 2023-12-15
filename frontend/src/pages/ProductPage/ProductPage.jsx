@@ -9,10 +9,11 @@ import BusinessAccordion from "../../features/product/components/BusinessAccordi
 import ProductCard from "../../features/product/components/ProductCard/ProductCard";
 import ProductAddModal from "../../features/product/components/ProductModal/ProductAddModal";
 import ProductDeleteModal from "../../features/product/components/ProductModal/ProductDeleteModal";
+import ProductEditModal from "../../features/product/components/ProductModal/ProductEditModal";
 import ProductTable from "../../features/product/components/ProductTable/ProductTable";
+import useProduct from "../../features/product/hooks/useProduct";
 import useAsyncAction from "../../hooks/useAsyncAction";
 import useModalState from "../../hooks/useModalState";
-import useProduct from "../../features/product/hooks/useProduct";
 
 const a11yProps = (index) => {
   return {
@@ -25,7 +26,7 @@ const ProductPage = () => {
   const { products, isLoading, isSuccess } = useProduct();
   const {
     isRegisterOpen,
-    // isEditOpen,
+    isEditOpen,
     isDeleteOpen,
     itemToAction,
     setItemToAction,
@@ -38,6 +39,7 @@ const ProductPage = () => {
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
+
   return (
     <AuthenticatedLayout>
       <PaperContainer title="Lista de Productos" relativePosition={true}>
@@ -71,12 +73,12 @@ const ProductPage = () => {
             <ProductTable
               products={products}
               onAdd={() => toggleModal("register")}
-              // onEdit={(service) => {
-              //   setItemToAction(service);
-              //   toggleModal("edit");
-              // }}
-              onDelete={(service) => {
-                setItemToAction(service);
+              onEdit={(product) => {
+                setItemToAction(product);
+                toggleModal("edit");
+              }}
+              onDelete={(product) => {
+                setItemToAction(product);
                 toggleModal("delete");
               }}
               isSubmitting={isSubmitting}
@@ -92,15 +94,15 @@ const ProductPage = () => {
           />
           {itemToAction && (
             <>
-              {/* <ServiceEditModal
+              <ProductEditModal
                 open={isEditOpen}
                 onClose={() => {
                   toggleModal("edit");
                   setItemToAction(null);
                 }}
-                serviceToEdit={itemToAction}
-                onServiceUpdated={() => handleAsyncAction()}
-              /> */}
+                toEdit={itemToAction}
+                onUpdated={() => handleAsyncAction()}
+              />
               <ProductDeleteModal
                 open={isDeleteOpen}
                 onClose={() => {

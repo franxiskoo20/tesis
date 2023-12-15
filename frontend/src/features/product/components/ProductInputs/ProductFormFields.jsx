@@ -28,7 +28,6 @@ const ProductFormFields = ({ control, businessType }) => {
           control={control}
           name="business_id"
           label="Tipo de negocio"
-          // autocomplete="username"
           options={(businessType ?? []).map((b) => ({
             value: b.id,
             label: b.name,

@@ -3,8 +3,6 @@ import PaperContainer from "../../components/common/Container/PaperContainer";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import useAuth from "../../features/auth/hooks/useAuth";
 import UserAvatar from "../../features/user/components/UserAvatar/UserAvatar";
-import styled from "@emotion/styled";
-import Paper from "@mui/material/Paper";
 
 const UserProfile = () => {
   const { user } = useAuth();

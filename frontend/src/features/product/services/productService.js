@@ -22,7 +22,7 @@ export const productService = {
   },
 
   updateProduct(
-    ProductId,
+    productId,
     { name, description, status, logo, business_id, user_id }
   ) {
     const formDataUpdate = new FormData();
@@ -32,25 +32,11 @@ export const productService = {
     formDataUpdate.append("logo", logo);
     formDataUpdate.append("business_id", business_id);
     formDataUpdate.append("user_id", user_id);
-
-    return makeRequest("post", `/api/products/${ProductId}`, formDataUpdate);
-  },
-
-  addBusinesses(data) {
-    return makeRequest("post", "/api/businesses", {
-      data,
-    });
+    formDataUpdate.append("_method", "put");
+    return makeRequest("post", `/api/products/${productId}`, formDataUpdate);
   },
 
   getBusinesses() {
     return makeRequest("get", "/api/businesses");
-  },
-
-  deleteBusinesses(businessesId) {
-    return makeRequest("delete", `/api/businesses/${businessesId}`);
-  },
-
-  updateBusinesses(businessesId, data) {
-    return makeRequest("post", `/api/businesses/${businessesId}`, data);
   },
 };

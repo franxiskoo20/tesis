@@ -10,18 +10,15 @@ import { serviceOfService } from "../../services/serviceOfService";
 import { validationSchemasService } from "../../utils/validationSchemasService";
 import ServiceFormFields from "../ServiceInputs/ServiceFormFields";
 
-const ServiceEditModal = ({
-  open,
-  onClose,
-  serviceToEdit,
-  onServiceUpdated,
-}) => {
+const ProductEditModal = ({ open, onClose, toEdit, onUpdated }) => {
   const { user } = useAuth();
 
-  const DEFAULT_VALUES_EDIT_SERVICE = {
+  const DEFAULT_VALUES_EDIT_PRODUCT = {
     name: "",
     description: "",
-    service_type_id: "",
+    status: false,
+    logo: "",
+    business_id: "",
     user_id: user?.id || "",
   };
 
@@ -31,20 +28,20 @@ const ServiceEditModal = ({
   const { handleSubmit, reset, control } = useForm({
     resolver: yupResolver(validationSchemasService),
     mode: "onChange",
-    defaultValues: DEFAULT_VALUES_EDIT_SERVICE,
+    defaultValues: DEFAULT_VALUES_EDIT_PRODUCT,
   });
 
   // cargar datos del usuario a editar
   useEffect(() => {
-    if (serviceToEdit) {
+    if (toEdit) {
       reset({
-        name: serviceToEdit.name,
-        description: serviceToEdit.description,
-        service_type_id: serviceToEdit.serviceTypeId,
+        name: toEdit.name,
+        description: toEdit.description,
+        service_type_id: toEdit.serviceTypeId,
         user_id: user?.id || "",
       });
     }
-  }, [serviceToEdit, reset, user]);
+  }, [toEdit, reset, user]);
 
   const customerUpdateMutation = useGenericMutation({
     mutationFn: (data) =>
@@ -53,7 +50,7 @@ const ServiceEditModal = ({
     errorMessage: SERVICE_SNACKBAR.SERVICE_EDIT_ERROR.message,
     onSuccessCallback: () => {
       onClose?.();
-      onServiceUpdated?.();
+      onUpdated?.();
     },
   });
 
@@ -76,4 +73,4 @@ const ServiceEditModal = ({
   );
 };
 
-export default ServiceEditModal;
+export default ProductEditModal;

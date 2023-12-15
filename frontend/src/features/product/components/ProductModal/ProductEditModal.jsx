@@ -4,56 +4,53 @@ import { useForm } from "react-hook-form";
 import ActionModal from "../../../../components/modal/ActionModal";
 import useGenericMutation from "../../../../hooks/useGenericMutation";
 import useAuth from "../../../auth/hooks/useAuth";
-import { SERVICE_SNACKBAR } from "../../constants/serviceSnackbar";
-import useServiceType from "../../hooks/useServiceType";
-import { serviceOfService } from "../../services/serviceOfService";
-import { validationSchemasService } from "../../utils/validationSchemasService";
-import ServiceFormFields from "../ServiceInputs/ServiceFormFields";
+import { PRODUCT_SNACKBAR } from "../../constants/productSnackbar";
+import useBusinessType from "../../hooks/useBusinessType";
+import { productService } from "../../services/productService";
+import { validationSchemasProduct } from "../../utils/validationSchemasProduct";
+import ProductFormFields from "../ProductInputs/ProductFormFields";
 
-const ServiceEditModal = ({
-  open,
-  onClose,
-  serviceToEdit,
-  onServiceUpdated,
-}) => {
+const ProductEditModal = ({ open, onClose, toEdit, onUpdated }) => {
   const { user } = useAuth();
 
-  const DEFAULT_VALUES_EDIT_SERVICE = {
+  const DEFAULT_VALUES_EDIT_PRODUCT = {
     name: "",
     description: "",
-    service_type_id: "",
+    status: false,
+    logo: "",
+    business_id: "",
     user_id: user?.id || "",
   };
 
-  const { serviceType } = useServiceType();
-  console.log("asd: " + serviceType);
-  // formulario react-hook-form
   const { handleSubmit, reset, control } = useForm({
-    resolver: yupResolver(validationSchemasService),
+    resolver: yupResolver(validationSchemasProduct),
     mode: "onChange",
-    defaultValues: DEFAULT_VALUES_EDIT_SERVICE,
+    defaultValues: DEFAULT_VALUES_EDIT_PRODUCT,
   });
+
+  const { businessType } = useBusinessType();
 
   // cargar datos del usuario a editar
   useEffect(() => {
-    if (serviceToEdit) {
+    if (toEdit) {
       reset({
-        name: serviceToEdit.name,
-        description: serviceToEdit.description,
-        service_type_id: serviceToEdit.serviceTypeId,
+        name: toEdit.name,
+        description: toEdit.description,
+        status: Boolean(toEdit.status),
+        logo: "undefined",
+        business_id: toEdit.businessId,
         user_id: user?.id || "",
       });
     }
-  }, [serviceToEdit, reset, user]);
+  }, [toEdit, reset, user]);
 
   const customerUpdateMutation = useGenericMutation({
-    mutationFn: (data) =>
-      serviceOfService.updateCustomer(serviceOfService.id, data),
-    successMessage: SERVICE_SNACKBAR.SERVICE_EDIT_ERROR.message,
-    errorMessage: SERVICE_SNACKBAR.SERVICE_EDIT_ERROR.message,
+    mutationFn: (data) => productService.updateProduct(toEdit.id, data),
+    successMessage: PRODUCT_SNACKBAR.PRODUCT_EDIT_SUCCESS.message,
+    errorMessage: PRODUCT_SNACKBAR.PRODUCT_EDIT_ERROR.message,
     onSuccessCallback: () => {
       onClose?.();
-      onServiceUpdated?.();
+      onUpdated?.();
     },
   });
 
@@ -71,9 +68,9 @@ const ServiceEditModal = ({
       isPending={customerUpdateMutation.isPending}
       submitLabel="Agregar"
     >
-      <ServiceFormFields control={control} serviceType={serviceType} />
+      <ProductFormFields control={control} businessType={businessType} />
     </ActionModal>
   );
 };
 
-export default ServiceEditModal;
+export default ProductEditModal;

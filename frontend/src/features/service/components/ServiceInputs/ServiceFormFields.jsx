@@ -24,7 +24,6 @@ const CustomerFormFields = ({ control, serviceType }) => {
           control={control}
           name="service_type_id"
           label="Tipo de Servicio"
-          // autocomplete="username"
           options={(serviceType ?? []).map((s) => ({
             value: s.id,
             label: s.name,

@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardMedia,
   Collapse,
+  Divider,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -17,7 +18,6 @@ import { useState } from "react";
 import UserAvatar from "../../../features/user/components/UserAvatar/UserAvatar";
 // import StatusBadge from "../../ui/StatusBadge";
 const ExpandMore = styled((props) => {
-  
   const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
@@ -42,20 +42,20 @@ const CustomCard = ({ data }) => {
       {data?.map((item) => (
         <Grid xs={12} sm={6} md={4} key={item.id}>
           <Card>
-              <CardHeader
-                avatar={
-                  <UserAvatar role={item.user.roleId} name={item.user.name} />
-                }
-                title={item.user.name}
-                subheader={
-                  <Box sx={{ color: grey[400] }}>
-                    {item.user.email}
-                    <br />
-                    {item.createdAt}
-                  </Box>
-                }
-                sx={{ bgcolor: "primary.main", color: "primary.contrastText" }}
-              />
+            <CardHeader
+              avatar={
+                <UserAvatar role={item.user.roleId} name={item.user.name} />
+              }
+              title={item.user.name}
+              subheader={
+                <Box sx={{ color: grey[400] }}>
+                  {item.user.email}
+                  <br />
+                  {item.createdAt}
+                </Box>
+              }
+              sx={{ bgcolor: "primary.main", color: "primary.contrastText" }}
+            />
             {item.logo && (
               <CardMedia
                 component="img"
@@ -80,6 +80,7 @@ const CustomCard = ({ data }) => {
                   <ExpandMoreIcon />
                 </ExpandMore>
               </CardContent>
+              <Divider />
               <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                   <Typography variant="body2">{item.description}</Typography>

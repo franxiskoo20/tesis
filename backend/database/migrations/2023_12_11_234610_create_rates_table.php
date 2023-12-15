@@ -22,6 +22,8 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->boolean('status');
+            $table->decimal('price', 10, 2);
+            $table->string('currency', 3)->default('CLP');
             $table->foreignId('user_id')->constrained("users")->onDelete('cascade');
             $table->timestamps();
         });

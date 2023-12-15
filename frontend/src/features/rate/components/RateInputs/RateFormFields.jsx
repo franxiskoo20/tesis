@@ -31,7 +31,7 @@ const RateFormFields = ({
 
   return (
     <>
-      <Grid xs={12} sx={{ flexWrap: "wrap" }}>
+      <Grid xs={12} wrap>
         <CustomSelect
           control={control}
           name="customer_id"
@@ -80,15 +80,17 @@ const RateFormFields = ({
           disabled={!serviceId}
         />
       </Grid>
-      <CustomDateRangePicker
-        control={control}
-        startDateName="start_date"
-        endDateName="end_date"
-        watch={watch}
-        disabled={!productId}
-      />
       <Grid xs={12}>
         <StatusButtonGroup control={control} name="status" />
+      </Grid>
+      <Grid xs={12}>
+        <CustomDateRangePicker
+          control={control}
+          startDateName="start_date"
+          endDateName="end_date"
+          watch={watch}
+          disabled={!productId}
+        />
       </Grid>
     </>
   );

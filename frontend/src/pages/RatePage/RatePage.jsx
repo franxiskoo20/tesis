@@ -21,7 +21,6 @@ const RatePage = () => {
   return (
     <AuthenticatedLayout>
       <PaperContainer title="Lista de Tarifas" relativePosition={true}>
-        {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}> */}
         <Tabs
           value={tabValue}
           onChange={handleTabChange}
@@ -31,14 +30,20 @@ const RatePage = () => {
           <Tab label="Tipo de Tarifas" {...a11yProps(1)} />
         </Tabs>
         <Divider />
-        <Grid container spacing={2}>
-          <CustomTabPanel value={tabValue} index={0}>
-            <CreateRate />
-          </CustomTabPanel>
-          <CustomTabPanel value={tabValue} index={1}>
-            <h1>PRUEBA</h1>
-          </CustomTabPanel>
-        </Grid>
+        <CustomTabPanel
+          value={tabValue}
+          index={0}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CreateRate />
+        </CustomTabPanel>
+        <CustomTabPanel value={tabValue} index={1}>
+          <h1>PRUEBA</h1>
+        </CustomTabPanel>
       </PaperContainer>
     </AuthenticatedLayout>
   );

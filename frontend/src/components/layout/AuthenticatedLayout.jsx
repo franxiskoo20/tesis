@@ -16,10 +16,7 @@ export default function AuthenticatedLayout({ children }) {
           overflow: "auto",
         }}
       >
-        <Container
-          maxWidth="lg"
-          sx={{ overflow: "auto", boxSizing: "border-box", width: "100%" }}
-        >
+        <Container maxWidth="lg" sx={{ boxSizing: "border-box" }}>
           {children}
         </Container>
       </Box>

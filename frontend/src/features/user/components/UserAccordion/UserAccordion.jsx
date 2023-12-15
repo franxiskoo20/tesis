@@ -5,7 +5,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/system";
 import UserAvatar from "../UserAvatar/UserAvatar";
-
+import RoleChip from "../UserUI/RoleChip";
 const UserAccordion = ({ items, colorMap }) => {
   return (
     <>
@@ -27,6 +27,7 @@ const UserAccordion = ({ items, colorMap }) => {
             >
               <UserAvatar name={item.name} roleId={item.id} />
               {item.name}
+              <RoleChip roleName={item.name} roleId={item.id} />
             </Typography>
           </AccordionSummary>
           <AccordionDetails

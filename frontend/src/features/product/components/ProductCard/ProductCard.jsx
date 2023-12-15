@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardMedia,
   Collapse,
+  Divider,
   IconButton,
   Typography,
 } from "@mui/material";
@@ -16,8 +17,10 @@ import { grey } from "@mui/material/colors";
 import { useState } from "react";
 import UserAvatar from "../../../user/components/UserAvatar/UserAvatar";
 import StatusChip from "../../../../components/ui/StatusChip";
+import BussinesChip from "../ProductUI/BusinessChip";
+
 const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
+  const { ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
@@ -39,7 +42,7 @@ const ProductCard = ({ products }) => {
       [productId]: !prevExpanded[productId],
     }));
   };
-
+  console.log(products);
   return (
     <>
       {products?.map((products) => (
@@ -48,8 +51,8 @@ const ProductCard = ({ products }) => {
             <CardHeader
               avatar={
                 <UserAvatar
-                  role={products.user.roleId}
                   name={products.user.name}
+                  roleId={products.user.roleId}
                 />
               }
               title={products.user.name}
@@ -81,6 +84,10 @@ const ProductCard = ({ products }) => {
               <Typography gutterBottom variant="h6" component="div">
                 {products.name}
                 <StatusChip enabled={products.status} sx={{ m: 1 }} />
+                <BussinesChip
+                  businessId={products.businessId}
+                  bussinessName={products.bussinessName}
+                />
               </Typography>
               <ExpandMore
                 expand={expanded[products.id] || false}
@@ -91,6 +98,7 @@ const ProductCard = ({ products }) => {
                 <ExpandMoreIcon />
               </ExpandMore>
             </CardActions>
+            <Divider />
             <Collapse
               in={expanded[products.id] || false}
               timeout="auto"

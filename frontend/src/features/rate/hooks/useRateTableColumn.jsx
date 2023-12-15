@@ -60,10 +60,10 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
       options: {
         filter: true,
         sort: true,
-        // customBodyRenderLite: (dataIndex) => {
-        //   const serviceTypeName = services[dataIndex].serviceType.name;
-        //   return <span>{serviceTypeName}</span>;
-        // },
+        customBodyRenderLite: (dataIndex) => {
+          const user = users[dataIndex];
+          return <RoleChip roleId={user.roleId} roleName={user.roleName} />;
+        },
       },
     },
 

@@ -1,13 +1,21 @@
 import { Chip } from "@mui/material";
 import { ROLE_COLORS } from "../../constants/userRoles";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import PersonIcon from "@mui/icons-material/Person";
 
 const RoleChip = ({ roleId, roleName, sx }) => {
   const chipColor = ROLE_COLORS[roleId];
-
+  const icon =
+    roleId === 5 ? (
+      <AdminPanelSettingsIcon color="inherit" />
+    ) : (
+      <PersonIcon color="inherit" />
+    );
   return (
     <Chip
       label={roleName}
       size="small"
+      icon={icon}
       sx={{
         ...sx,
         backgroundColor: chipColor,

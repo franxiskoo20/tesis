@@ -4,7 +4,7 @@ import CustomIconButton from "../../../components/common/Button/CustomIconButton
 import UserAvatar from "../components/UserAvatar/UserAvatar";
 import RoleChip from "../components/UserUI/RoleChip";
 
-const useTableColumn = (users, onEdit, onDelete) => {
+const useUserTableColumn = (users, onEdit, onDelete) => {
   const columns = [
     {
       name: "",
@@ -105,4 +105,4 @@ const useTableColumn = (users, onEdit, onDelete) => {
   return columns;
 };
 
-export default useTableColumn;
+export default useUserTableColumn;

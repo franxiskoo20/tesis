@@ -3,6 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import StatusChip from "../../../components/ui/StatusChip";
+import BussinesChip from "../components/ProductUI/BusinessChip";
 
 const useProductTableColumn = (products, onEdit, onDelete) => {
   const columns = [
@@ -60,10 +61,15 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
       options: {
         filter: true,
         sort: true,
-        // customBodyRenderLite: (dataIndex) => {
-        //   const serviceTypeName = services[dataIndex].serviceType.name;
-        //   return <span>{serviceTypeName}</span>;
-        // },
+        customBodyRenderLite: (dataIndex) => {
+          const product = products[dataIndex];
+          return (
+            <BussinesChip
+              businessId={product.businessId}
+              bussinessName={product.bussinessName}
+            />
+          );
+        },
       },
     },
 

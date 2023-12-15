@@ -2,30 +2,30 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Box,
   Button,
-  Container,
+  Divider,
   Paper,
   Step,
   StepLabel,
   Stepper,
   Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import dayjs from "dayjs";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useGenericMutation from "../../../../hooks/useGenericMutation";
 import useAuth from "../../../auth/hooks/useAuth";
 import useCustomer from "../../../customer/hooks/useCustomer";
+import useProduct from "../../../product/hooks/useProduct";
 import useServiceType from "../../../service/hooks/useServiceType";
 import { RATE_SNACKBAR } from "../../constants/rateSnackbar";
 import { rateService } from "../../services/rateService";
 import { validationSchemasRate } from "../../utils/validationSchemasRate";
-import RateFormFields from "../RateInputs/RateFormFields";
-import useProduct from "../../../product/hooks/useProduct";
-import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import dayjs from "dayjs";
+import CheckRate from "./CheckRate";
 import RateForm from "./RateForm";
 import RatePriceForm from "./RatePriceForm";
-import CheckRate from "./CheckRate";
-import { useState } from "react";
-import ActionButton from "../../../../components/common/Button/ActionButton";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 
 const CreateRate = ({ onAdded }) => {
   const { user } = useAuth();
@@ -41,6 +41,8 @@ const CreateRate = ({ onAdded }) => {
     start_date: null,
     end_date: null,
     status: 0,
+    price: 0,
+    currency: "",
     user_id: user?.id || "",
   };
 
@@ -101,7 +103,7 @@ const CreateRate = ({ onAdded }) => {
           />
         );
       case 1:
-        return <RatePriceForm />;
+        return <RatePriceForm control={control} watch={watch} />;
       case 2:
         return <CheckRate />;
       default:
@@ -111,15 +113,12 @@ const CreateRate = ({ onAdded }) => {
 
   console.log(watch());
   return (
-    <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
-      <Paper
-        variant="outlined"
-        sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
-      >
-        <Typography component="h1" variant="h5" align="center">
-          Crear Tarifa
+    <Grid container spacing={2}>
+      <Paper variant="outlined" sx={{ p: "1.5rem" }}>
+        <Typography component="h1" variant="subtitle1" align="center">
+          Formulario de Creación de Tarifa
         </Typography>
-        <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+        <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 4 }}>
           {steps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
@@ -128,43 +127,41 @@ const CreateRate = ({ onAdded }) => {
         </Stepper>
         {activeStep === steps.length ? (
           <>
-            <Typography variant="h5" gutterBottom>
-              Thank you for your order.
-            </Typography>
-            <Typography variant="subtitle1">
-              Your order number is #2001539. We have emailed your order
-              confirmation, and will send you an update when your order has
-              shipped.
-            </Typography>
+            <Typography variant="subtitle1">maximo</Typography>
           </>
         ) : (
           <>
             {getStepContent(activeStep)}
-            {/* <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              {activeStep !== 0 && (
-                <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                  Back
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignContent: "center",
+                p: 1,
+                mt: 1,
+              }}
+            >
+              {activeStep !== 0 ? (
+                <Button onClick={handleBack} startIcon={<NavigateBeforeIcon />}>
+                  Volver
                 </Button>
+              ) : (
+                <Box></Box>
               )}
-
               <Button
                 variant="contained"
                 onClick={handleNext}
-                sx={{ mt: 3, ml: 1 }}
+                endIcon={<NavigateNextIcon />}
               >
-                {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                {activeStep === steps.length - 1
+                  ? "Confirmar Tarifa"
+                  : "Siguiente"}
               </Button>
-            </Box> */}
-            
-                {activeStep !== 0 && (
-                <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                  Back
-                </Button>
-              )}
+            </Box>
           </>
         )}
       </Paper>
-    </Container>
+    </Grid>
   );
 };
 

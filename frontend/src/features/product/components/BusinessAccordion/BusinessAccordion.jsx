@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/system";
 import useBusinessType from "../../hooks/useBusinessType";
 import { BUSINESS_COLORS } from "../../constants/productBusiness";
-
+import BusinessChip from "../ProductUI/BusinessChip";
 const BusinessAccordion = () => {
   const { businessType } = useBusinessType();
 
@@ -42,6 +42,7 @@ const BusinessAccordion = () => {
               }}
             >
               {item.name}
+              <BusinessChip businessId={item.id} bussinessName={item.name} />
             </Typography>
           </AccordionSummary>
           <AccordionDetails

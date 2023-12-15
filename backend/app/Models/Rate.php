@@ -17,6 +17,8 @@ class Rate extends Model
         'start_date', 
         'end_date', 
         'status',
+        'price',
+        'currency',
         'user_id'
     ];
 

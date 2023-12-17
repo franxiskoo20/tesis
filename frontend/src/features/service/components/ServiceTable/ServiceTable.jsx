@@ -12,14 +12,14 @@ const ServiceTable = ({
   onDelete,
   isSubmitting,
 }) => {
-  const renderAddserviceButton = () => {
+  const renderAddButton = () => {
     return <ChipButton label={"Agregar Servicio"} onClick={onAddservice} />;
   };
   const columns = useServiceTableColumn(services, onEdit, onDelete);
 
   const options = {
     ...serviceTableStaticOption,
-    customToolbar: renderAddserviceButton,
+    customToolbar: renderAddButton,
   };
 
   return (

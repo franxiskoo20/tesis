@@ -1,20 +1,13 @@
 import GenericConfirmModal from "../../../../components/modal/GenericConfirmModal";
 import useGenericMutation from "../../../../hooks/useGenericMutation";
-import { PRODUCT_SNACKBAR } from "../../constants/productSnackbar";
-import { productService } from "../../services/productService";
+import { RATE_SNACKBAR } from "../../constants/rateSnackbar";
+import { rateService } from "../../services/rateService";
 
-const ProductDeleteModal = ({
-  open,
-  onClose,
-  toDelete,
-  onDelete,
-}) => {
-
+const RateDeleteModal = ({ open, onClose, toDelete, onDelete }) => {
   const deleteMutation = useGenericMutation({
-    mutationFn: (toDelete) =>
-    productService.deleteProduct(toDelete),
-    successMessage: PRODUCT_SNACKBAR.PRODUCT_DELETE_SUCCESS.message,
-    errorMessage: PRODUCT_SNACKBAR.PRODUCT_DELETE_ERROR.message,
+    mutationFn: (toDelete) => rateService.deleteRate(toDelete),
+    successMessage: RATE_SNACKBAR.RATE_DELETE_SUCCESS.message,
+    errorMessage: RATE_SNACKBAR.RATE_DELETE_ERROR.message,
     onSuccessCallback: () => {
       onClose?.();
       onDelete?.();
@@ -36,4 +29,4 @@ const ProductDeleteModal = ({
   );
 };
 
-export default ProductDeleteModal;
+export default RateDeleteModal;

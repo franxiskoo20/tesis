@@ -2,7 +2,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
-// import StatusChip from "../../../components/ui/StatusChip";
+import StatusChip from "../../../components/ui/StatusChip";
 
 const useRateTableColumn = (rates, onEdit, onDelete) => {
   const columns = [
@@ -12,8 +12,8 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
         filter: false,
         sort: false,
         customBodyRenderLite: (dataIndex) => {
-          const rate = rates[dataIndex].user;
-          return <UserAvatar name={rate.name} role={rate.roleId} />;
+          const rate = rates[dataIndex];
+          return <UserAvatar name={rate.userName} roleId={rate.roleId} />;
         },
       },
     },
@@ -27,7 +27,15 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
       },
     },
     {
-      name: "name",
+      name: "customerName",
+      label: "Cliente",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "serviceName",
       label: "Servicio",
       options: {
         filter: false,
@@ -35,40 +43,36 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
       },
     },
     {
-      name: "description",
-      label: "Descripcion",
+      name: "productName",
+      label: "Producto",
       options: {
         filter: false,
         sort: true,
       },
     },
-    // {
-    //   name: "status",
-    //   label: "Estado",
-    //   options: {
-    //     filter: false,
-    //     sort: true,
-    //     customBodyRenderLite: (dataIndex) => {
-    //       const productState = products[dataIndex].status;
-    //       return <StatusChip enabled={productState} />;
-    //     },
-    //   },
-    // },
-    // {
-    //   name: "bussinessName",
-    //   label: "Tipo de Negocio",
-    //   options: {
-    //     filter: true,
-    //     sort: true,
-    //     customBodyRenderLite: (dataIndex) => {
-    //       const user = users[dataIndex];
-    //       return <RoleChip roleId={user.roleId} roleName={user.roleName} />;
-    //     },
-    //   },
-    // },
     {
-      name: "createdAt",
-      label: "fecha de creacion",
+      name: "routeName",
+      label: "Ruta",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "status",
+      label: "Estado",
+      options: {
+        filter: false,
+        sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const rateStatus = rates[dataIndex].status;
+          return <StatusChip enabled={rateStatus} />;
+        },
+      },
+    },
+    {
+      name: "startDate",
+      label: "fecha de Inicio",
       options: {
         filter: false,
         sort: true,
@@ -76,7 +80,7 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
     },
     {
       name: "updatedAt",
-      label: "fecha de actualizacion",
+      label: "fecha de Termino",
       options: {
         filter: false,
         sort: true,

@@ -9,8 +9,20 @@ class RateRepository implements RateRepositoryInterface
 {
   public function getAll()
   {
-    return Rate::all();
+    return Rate::with([
+      'customer:id,name',
+      'service:id,name',
+      'serviceType:id,name',
+      'product:id,name',
+      'route:id,name',
+      'user' => function ($query) {
+        $query->select('id', 'name', 'role_id')
+          ->with(['role:id,name']);
+      }
+    ])->get();
   }
+
+
 
   public function getById($id)
   {

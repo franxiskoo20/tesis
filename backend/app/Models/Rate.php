@@ -43,6 +43,10 @@ class Rate extends Model
         return $this->belongsTo(Product::class);
     }
 
+    public function route()
+    {
+        return $this->belongsTo(Route::class);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);

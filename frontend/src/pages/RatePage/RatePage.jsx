@@ -5,7 +5,13 @@ import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import CreateRate from "../../features/rate/components/RateForm/CreateRate";
 import RateTable from "../../features/rate/components/RateTable/RateTable";
-// import useModalState from "../../hooks/useModalState";
+import useModalState from "../../hooks/useModalState";
+import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
+import useRate from "../../features/rate/hooks/useRate";
+import useAsyncAction from "../../hooks/useAsyncAction";
+import RateDeleteModal from "../../features/rate/components/RateModal/RateDeleteModal";
+import RateEditModal from "../../features/rate/components/RateModal/RateEditModal";
+
 const a11yProps = (index) => {
   return {
     id: `service-tab-${index}`,
@@ -14,14 +20,16 @@ const a11yProps = (index) => {
 };
 
 const RatePage = () => {
-  // const {
-  //   isRegisterOpen,
-  //   isEditOpen,
-  //   isDeleteOpen,
-  //   itemToAction,
-  //   setItemToAction,
-  //   toggleModal,
-  // } = useModalState();
+  const { rates, isLoading } = useRate();
+  const {
+    isEditOpen,
+    isDeleteOpen,
+    itemToAction,
+    setItemToAction,
+    toggleModal,
+  } = useModalState();
+
+  const { isSubmitting, handleAsyncAction } = useAsyncAction(rates);
 
   const [tabValue, setTabValue] = useState(0);
   const handleTabChange = (event, newValue) => {
@@ -49,10 +57,47 @@ const RatePage = () => {
             alignItems: "center",
           }}
         >
-          <CreateRate />
+          <CreateRate onAdded={() => handleAsyncAction()} />
         </CustomTabPanel>
         <CustomTabPanel value={tabValue} index={1}>
-          <RateTable />
+          {isLoading ? (
+            <LoadingSkeleton />
+          ) : (
+            <RateTable
+              rates={rates}
+              onEdit={(rate) => {
+                setItemToAction(rate);
+                toggleModal("edit");
+              }}
+              onDelete={(rate) => {
+                setItemToAction(rate);
+                toggleModal("delete");
+              }}
+              isSubmitting={isSubmitting}
+            />
+          )}
+          {itemToAction && (
+            <>
+              <RateEditModal
+                open={isEditOpen}
+                onClose={() => {
+                  toggleModal("edit");
+                  setItemToAction(null);
+                }}
+                toEdit={itemToAction}
+                onEdit={() => handleAsyncAction()}
+              />
+              <RateDeleteModal
+                open={isDeleteOpen}
+                onClose={() => {
+                  toggleModal("delete");
+                  setItemToAction(null);
+                }}
+                toDelete={itemToAction}
+                onDelete={() => handleAsyncAction()}
+              />
+            </>
+          )}
         </CustomTabPanel>
       </PaperContainer>
     </AuthenticatedLayout>

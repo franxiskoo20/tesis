@@ -12,5 +12,10 @@ class Route extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function rates()
+    {
+        return $this->hasOne(Rate::class);
+    }
 }
 

@@ -15,6 +15,8 @@ import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import dayjs from "dayjs";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import AcceptButton from "../../../../components/common/Button/AcceptButton";
+import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import useGenericMutation from "../../../../hooks/useGenericMutation";
 import useAuth from "../../../auth/hooks/useAuth";
 import useCustomer from "../../../customer/hooks/useCustomer";
@@ -27,7 +29,6 @@ import { validationSchemasRate } from "../../utils/validationSchemasRate";
 import CheckRate from "./CheckRate";
 import RateForm from "./RateForm";
 import RatePriceForm from "./RatePriceForm";
-import AcceptButton from "../../../../components/common/Button/AcceptButton";
 
 const CreateRate = ({ onAdded }) => {
   const { user } = useAuth();
@@ -35,7 +36,6 @@ const CreateRate = ({ onAdded }) => {
   const { serviceType } = useServiceType();
   const { products } = useProduct();
   const { routes } = useRoutes();
-  console.log(routes);
 
   const DEFAULT_VALUES_RATE = {
     customer_id: "",
@@ -67,7 +67,7 @@ const CreateRate = ({ onAdded }) => {
       setActiveStep(0); // Vuelve al primer paso del formulario
     },
   });
-
+  console.log(watch());
   const onSubmit = (data) => {
     // Formatea las fechas antes de enviar los datos
     const formattedData = {
@@ -130,6 +130,7 @@ const CreateRate = ({ onAdded }) => {
   return (
     <Grid container spacing={2}>
       <Paper variant="outlined" sx={{ p: "1.5rem" }}>
+        <OverlayLoader isLoading={addRateMutation.isPending} />
         <Typography component="h1" variant="subtitle1" align="center">
           Formulario de Creación de Tarifa
         </Typography>
@@ -197,12 +198,12 @@ const CreateRate = ({ onAdded }) => {
                   Volver
                 </Button>
               )}
-
               {activeStep === steps.length - 1 ? (
                 // Caso 3: Último paso - Confirmar Tarifa
                 <AcceptButton
                   variant="contained"
                   onClick={handleSubmit(onSubmit)}
+                  isPending={addRateMutation.isPending}
                   fullWidth={false}
                 >
                   Confirmar Tarifa

@@ -18,15 +18,15 @@ const StatusButtonGroup = ({ control, name, disabled }) => {
           fullWidth
         >
           <Button
-            color={field.value === 0 ? "primary" : "inherit"}
-            onClick={() => field.onChange(0)}
+            color={field.value === 1 ? "primary" : "inherit"}
+            onClick={() => field.onChange(1)}
             startIcon={<CheckCircleIcon />}
           >
             Vigente
           </Button>
           <Button
-            color={field.value === 1 ? "primary" : "inherit"}
-            onClick={() => field.onChange(1)}
+            color={field.value === 0 ? "primary" : "inherit"}
+            onClick={() => field.onChange(0)}
             startIcon={<CancelIcon />}
           >
             Finalizada

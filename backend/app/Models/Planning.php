@@ -10,6 +10,6 @@ class Planning extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'name','days'
     ];
 }

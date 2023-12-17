@@ -20,7 +20,7 @@ import StatusChip from "../../../../components/ui/StatusChip";
 import BussinesChip from "../ProductUI/BusinessChip";
 
 const ExpandMore = styled((props) => {
-  const { ...other } = props;
+  const { expand, ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? "rotate(0deg)" : "rotate(180deg)",

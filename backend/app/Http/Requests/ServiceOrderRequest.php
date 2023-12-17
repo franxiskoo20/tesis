@@ -4,6 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Validation\ValidationException;
+
 class ServiceOrderRequest extends FormRequest
 {
     /**
@@ -11,20 +15,42 @@ class ServiceOrderRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
-    {
-        return false;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, mixed>
-     */
     public function rules()
     {
         return [
-            //
+            'date' => 'required|date',
+            'planning_id' => 'required|exists:plannings,id',
+            'schedule_id' => 'required|exists:schedules,id',
+            'customer_id' => 'required|exists:customers,id',
+            'service_type_id' => 'required|exists:service_types,id',
+            'service_id' => 'required|exists:services,id',
+            'product_id' => 'required|exists:products,id',
+            'business_id' => 'required|exists:businesses,id',
+            'route_id' => 'required|exists:routes,id',
+            'container' => 'nullable|string',
+            'truck_plate' => 'nullable|string',
+            'entry' => 'nullable|date_format:H:i',
+            'exit' => 'nullable|date_format:H:i',
+            'status' => 'required|boolean',
+            'status_date' => 'nullable|date',
+            'rescheduled_os_id' => 'nullable|exists:service_orders,id',
+            'comment' => 'nullable|string',
         ];
+    }
+
+    public function messages()
+    {
+        return [];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+
+        $response = response()->json([
+            'message' => 'Los datos proporcionados no son válidos.',
+            'errors' => $validator->errors()->first(),
+        ],  Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        throw new ValidationException($validator, $response);
     }
 }

@@ -7,6 +7,7 @@ const CreateRate = ({
   customers,
   serviceType,
   products,
+  routes,
 }) => {
   return (
     <RateFormFields
@@ -16,6 +17,7 @@ const CreateRate = ({
       customers={customers}
       serviceType={serviceType}
       products={products}
+      routes={routes}
     />
   );
 };

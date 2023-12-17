@@ -6,6 +6,7 @@ export const rateService = {
     service_type_id,
     service_id,
     product_id,
+    route_id,
     start_date,
     end_date,
     status,
@@ -18,6 +19,7 @@ export const rateService = {
       service_type_id,
       service_id,
       product_id,
+      route_id,
       start_date,
       end_date,
       status,
@@ -36,5 +38,9 @@ export const rateService = {
 
   updateRate(rateId, data) {
     return makeRequest("put", `/api/rates/${rateId}`, data);
+  },
+
+  getRoutes() {
+    return makeRequest("get", "/api/routes");
   },
 };

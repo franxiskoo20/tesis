@@ -20,6 +20,10 @@ class DatabaseSeeder extends Seeder
             BusinessSeeder::class,
             UserSeeder::class,
             ServiceTypeSeeder::class,
+            PlanningSeeder::class,
+            RouteSeeder::class,
+            ScheduleSeeder::class,
+
         ]);
 
         // \App\Models\User::factory(10)->create();

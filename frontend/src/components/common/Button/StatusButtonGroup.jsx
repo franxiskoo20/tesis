@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-const StatusButtonGroup = ({ control, name }) => {
+const StatusButtonGroup = ({ control, name, disabled }) => {
   return (
     <Controller
       name={name}
@@ -14,6 +14,7 @@ const StatusButtonGroup = ({ control, name }) => {
           disableElevation
           variant="contained"
           aria-label="Status buttons"
+          disabled={disabled}
           fullWidth
         >
           <Button

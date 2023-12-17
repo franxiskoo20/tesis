@@ -44,14 +44,15 @@ export const validationSchemasRate = yup.object().shape({
     .required("El ID del tipo de servicio es requerido"),
   service_id: yup.string().required("El ID del servicio es requerido"),
   product_id: yup.string().required("El ID del producto es requerido"),
+  route_id: yup.string().required("El ID de la ruta es requerido"),
+  status: yup.number(),
   start_date: yup.date().required("La fecha de inicio es requerida"),
   end_date: yup.date().required("La fecha de finalización es requerida"),
-  user_id: yup.string().required("El ID del usuario es requerido"),
-  // status: yup.boolean(),
   price: yup
   .number()
   .typeError("El precio debe ser un número")
   .required("El precio es requerido"),
   currency: yup.string().required("La moneda es requerida"),
-  status: yup.number(),
+  user_id: yup.string().required("El ID del usuario es requerido"),
+
 });

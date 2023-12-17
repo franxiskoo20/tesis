@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\ScheduleRepositoryInterface;
-use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {

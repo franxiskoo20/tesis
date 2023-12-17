@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import {
   Box,
   Button,
@@ -20,17 +21,21 @@ import useCustomer from "../../../customer/hooks/useCustomer";
 import useProduct from "../../../product/hooks/useProduct";
 import useServiceType from "../../../service/hooks/useServiceType";
 import { RATE_SNACKBAR } from "../../constants/rateSnackbar";
+import useRoutes from "../../hooks/useRoutes";
 import { rateService } from "../../services/rateService";
 import { validationSchemasRate } from "../../utils/validationSchemasRate";
 import CheckRate from "./CheckRate";
 import RateForm from "./RateForm";
 import RatePriceForm from "./RatePriceForm";
+import AcceptButton from "../../../../components/common/Button/AcceptButton";
 
 const CreateRate = ({ onAdded }) => {
   const { user } = useAuth();
   const { customers } = useCustomer();
   const { serviceType } = useServiceType();
   const { products } = useProduct();
+  const { routes } = useRoutes();
+  console.log(routes);
 
   const DEFAULT_VALUES_RATE = {
     customer_id: "",
@@ -39,13 +44,14 @@ const CreateRate = ({ onAdded }) => {
     product_id: "",
     start_date: null,
     end_date: null,
+    route_id: "",
     status: 0,
     price: "",
     currency: "CLP",
     user_id: user?.id || "",
   };
 
-  const { handleSubmit, control, watch, setValue } = useForm({
+  const { handleSubmit, control, watch, reset, setValue } = useForm({
     mode: "onChange",
     resolver: yupResolver(validationSchemasRate),
     defaultValues: DEFAULT_VALUES_RATE,
@@ -57,6 +63,8 @@ const CreateRate = ({ onAdded }) => {
     errorMessage: RATE_SNACKBAR.RATE_REGISTER_ERROR.message,
     onSuccessCallback: () => {
       onAdded?.();
+      reset(DEFAULT_VALUES_RATE); // Restablece el formulario a sus valores por defecto
+      setActiveStep(0); // Vuelve al primer paso del formulario
     },
   });
 
@@ -99,18 +107,26 @@ const CreateRate = ({ onAdded }) => {
             customers={customers}
             serviceType={serviceType}
             products={products}
+            routes={routes}
           />
         );
       case 1:
         return <RatePriceForm control={control} watch={watch} />;
       case 2:
-        return <CheckRate watch={watch} />;
+        return (
+          <CheckRate
+            watch={watch}
+            customers={customers}
+            serviceType={serviceType}
+            products={products}
+            routes={routes}
+          />
+        );
       default:
         throw new Error("Unknown step");
     }
   };
 
-  console.log(watch());
   return (
     <Grid container spacing={2}>
       <Paper variant="outlined" sx={{ p: "1.5rem" }}>
@@ -124,7 +140,9 @@ const CreateRate = ({ onAdded }) => {
             </Step>
           ))}
         </Stepper>
+
         {activeStep === steps.length ? (
+          // Caso 1: Todos los pasos completados
           <>
             <Typography variant="subtitle1">
               Todos los pasos completados
@@ -148,6 +166,7 @@ const CreateRate = ({ onAdded }) => {
             </Box>
           </>
         ) : (
+          // Caso 2: Pasos en proceso
           <>
             {getStepContent(activeStep)}
             <Box
@@ -159,20 +178,45 @@ const CreateRate = ({ onAdded }) => {
                 mt: 1,
               }}
             >
+              {activeStep === 0 && (
+                <Button
+                  variant="text"
+                  onClick={() => reset(DEFAULT_VALUES_RATE)}
+                  startIcon={<RestartAltIcon />}
+                >
+                  Resetear Campos
+                </Button>
+              )}
+
               {activeStep !== 0 && (
-                <Button onClick={handleBack} startIcon={<NavigateBeforeIcon />}>
+                <Button
+                  variant="text"
+                  onClick={handleBack}
+                  startIcon={<NavigateBeforeIcon />}
+                >
                   Volver
                 </Button>
               )}
-              <Button
-                variant="contained"
-                onClick={handleNext}
-                endIcon={<NavigateNextIcon />}
-              >
-                {activeStep === steps.length - 1
-                  ? "Confirmar Tarifa"
-                  : "Siguiente"}
-              </Button>
+
+              {activeStep === steps.length - 1 ? (
+                // Caso 3: Último paso - Confirmar Tarifa
+                <AcceptButton
+                  variant="contained"
+                  onClick={handleSubmit(onSubmit)}
+                  fullWidth={false}
+                >
+                  Confirmar Tarifa
+                </AcceptButton>
+              ) : (
+                // Botón para avanzar al siguiente paso
+                <Button
+                  variant="contained"
+                  onClick={handleNext}
+                  endIcon={<NavigateNextIcon />}
+                >
+                  Siguiente
+                </Button>
+              )}
             </Box>
           </>
         )}

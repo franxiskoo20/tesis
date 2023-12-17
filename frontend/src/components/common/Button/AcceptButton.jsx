@@ -18,12 +18,13 @@ const AcceptButton = ({
   onClick,
   startIcon = defaultAcceptIcon,
   isPending = false,
+  fullWidth = true,
   sx = {},
 }) => {
   return (
     <Button
       type={type}
-      fullWidth
+      fullWidth={fullWidth}
       variant="contained"
       color={"primary"}
       onClick={onClick}

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('date');
             $table->foreignId('planning_id')->constrained("plannings")->onDelete('cascade');
             $table->foreignId('schedule_id')->constrained('schedules')->onDelete('cascade');
-            $table->foreignId('client_id')->constrained('customers')->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
             $table->foreignId('service_type_id')->constrained('service_types')->onDelete('cascade');
             $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');

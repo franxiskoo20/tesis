@@ -12,13 +12,15 @@ const RateFormFields = ({
   customers,
   serviceType,
   products,
+  routes,
 }) => {
   // Observar cambios en los campos relevantes
   const customerId = watch("customer_id");
   const serviceId = watch("service_id");
   const serviceTypeId = watch("service_type_id");
   const productId = watch("product_id");
-  // Obtener servicios basados en el tipo seleccionado
+  const routeId = watch("route_id");
+
   const { serviceByType } = useServiceByType(serviceTypeId);
 
   useEffect(() => {
@@ -81,7 +83,23 @@ const RateFormFields = ({
         />
       </Grid>
       <Grid xs={12}>
-        <StatusButtonGroup control={control} name="status" />
+        <CustomSelect
+          control={control}
+          name="route_id"
+          label="Ruta"
+          options={(routes ?? []).map((r) => ({
+            value: r.id,
+            label: r.name,
+          }))}
+          disabled={!productId}
+        />
+      </Grid>
+      <Grid xs={12}>
+        <StatusButtonGroup
+          control={control}
+          name="status"
+          disabled={!routeId}
+        />
       </Grid>
       <Grid xs={12}>
         <CustomDateRangePicker
@@ -89,7 +107,7 @@ const RateFormFields = ({
           startDateName="start_date"
           endDateName="end_date"
           watch={watch}
-          disabled={!productId}
+          disabled={!routeId}
         />
       </Grid>
     </>

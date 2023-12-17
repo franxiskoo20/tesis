@@ -61,13 +61,12 @@ class RateRequest extends FormRequest
             'status.boolean' => 'El campo estado debe ser un valor booleano.',
             'status.in' => 'El campo estado debe ser 0 o 1.',
             'price.required' => 'El campo precio es obligatorio.',
-            'price.numeric' => 'El campo precio debe ser un valor numérico.',
+            'price.numeric' => 'El campo precio debe ser un valor decimal.',
             'currency.required' => 'El campo moneda es obligatorio.',
             'currency.string' => 'El campo moneda debe ser un valor de texto.',
             'currency.max' => 'El campo moneda no debe exceder los 3 caracteres.',
             'user_id.required' => 'El campo usuario es obligatorio.',
             'user_id.exists' => 'El usuario seleccionado no es válido.',
-
         ];
     }
 

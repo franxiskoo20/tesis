@@ -4,7 +4,8 @@ import PaperContainer from "../../components/common/Container/PaperContainer";
 import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import CreateRate from "../../features/rate/components/RateForm/CreateRate";
-import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import RateTable from "../../features/rate/components/RateTable/RateTable";
+// import useModalState from "../../hooks/useModalState";
 const a11yProps = (index) => {
   return {
     id: `service-tab-${index}`,
@@ -13,6 +14,15 @@ const a11yProps = (index) => {
 };
 
 const RatePage = () => {
+  // const {
+  //   isRegisterOpen,
+  //   isEditOpen,
+  //   isDeleteOpen,
+  //   itemToAction,
+  //   setItemToAction,
+  //   toggleModal,
+  // } = useModalState();
+
   const [tabValue, setTabValue] = useState(0);
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -26,8 +36,8 @@ const RatePage = () => {
           onChange={handleTabChange}
           aria-label="service tabs"
         >
-          <Tab label="Tarifas" {...a11yProps(0)} />
-          <Tab label="Tipo de Tarifas" {...a11yProps(1)} />
+          <Tab label="Nueva Tarifas" {...a11yProps(0)} />
+          <Tab label="Tarifas" {...a11yProps(1)} />
         </Tabs>
         <Divider />
         <CustomTabPanel
@@ -42,7 +52,7 @@ const RatePage = () => {
           <CreateRate />
         </CustomTabPanel>
         <CustomTabPanel value={tabValue} index={1}>
-          <h1>PRUEBA</h1>
+          <RateTable />
         </CustomTabPanel>
       </PaperContainer>
     </AuthenticatedLayout>

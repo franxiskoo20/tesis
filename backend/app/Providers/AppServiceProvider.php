@@ -19,6 +19,16 @@ use App\Interfaces\BusinessRepositoryInterface;
 use App\Repositories\BusinessRepository;
 use App\Interfaces\RateRepositoryInterface;
 use App\Repositories\RateRepository;
+use App\Interfaces\RouteRepositoryInterface;
+use App\Repositories\RouteRepository;
+use App\Interfaces\PlanningRepositoryInterface;
+use App\Repositories\PlanningRepository;
+use App\Interfaces\ScheduleRepositoryInterface;
+use App\Repositories\ScheduleRepository;
+use App\Interfaces\ServiceOrderRepositoryInterface;
+use App\Repositories\ServiceOrderRepository;
+use App\Interfaces\AccumulatorRepositoryInterface;
+use App\Repositories\AccumulatorRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,6 +47,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
         $this->app->bind(BusinessRepositoryInterface::class, BusinessRepository::class);
         $this->app->bind(RateRepositoryInterface::class, RateRepository::class);
+        $this->app->bind(RouteRepositoryInterface::class, RouteRepository::class);
+        $this->app->bind(PlanningRepositoryInterface::class, PlanningRepository::class);
+        $this->app->bind(ScheduleRepositoryInterface::class, ScheduleRepository::class);
+        $this->app->bind(ServiceOrderRepositoryInterface::class, ServiceOrderRepository::class);
+        $this->app->bind(AccumulatorRepositoryInterface::class, AccumulatorRepository::class);
     }
 
     /**

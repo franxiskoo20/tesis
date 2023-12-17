@@ -23,6 +23,7 @@ const a11yProps = (index) => {
 };
 
 const ProductPage = () => {
+  
   const { products, isLoading, isSuccess } = useProduct();
   const {
     isRegisterOpen,

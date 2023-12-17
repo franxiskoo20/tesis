@@ -9,9 +9,10 @@ export const rateService = {
     start_date,
     end_date,
     status,
+    price,
+    currency,
     user_id,
   }) {
-    // const statusValue = status ? 1 : 0;
     return makeRequest("post", "/api/rates", {
       customer_id,
       service_type_id,
@@ -20,6 +21,8 @@ export const rateService = {
       start_date,
       end_date,
       status,
+      price,
+      currency,
       user_id,
     });
   },

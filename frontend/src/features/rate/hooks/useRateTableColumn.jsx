@@ -2,9 +2,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
-import StatusChip from "../../../components/ui/StatusChip";
+// import StatusChip from "../../../components/ui/StatusChip";
 
-const useProductTableColumn = (products, onEdit, onDelete) => {
+const useRateTableColumn = (rates, onEdit, onDelete) => {
   const columns = [
     {
       name: "",
@@ -12,8 +12,8 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
         filter: false,
         sort: false,
         customBodyRenderLite: (dataIndex) => {
-          const product = products[dataIndex].user;
-          return <UserAvatar name={product.name} role={product.roleId} />;
+          const rate = rates[dataIndex].user;
+          return <UserAvatar name={rate.name} role={rate.roleId} />;
         },
       },
     },
@@ -42,31 +42,30 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
         sort: true,
       },
     },
-    {
-      name: "status",
-      label: "Estado",
-      options: {
-        filter: false,
-        sort: true,
-        customBodyRenderLite: (dataIndex) => {
-          const productState = products[dataIndex].status;
-          return <StatusChip enabled={productState} />;
-        },
-      },
-    },
-    {
-      name: "bussinessName",
-      label: "Tipo de Negocio",
-      options: {
-        filter: true,
-        sort: true,
-        customBodyRenderLite: (dataIndex) => {
-          const user = users[dataIndex];
-          return <RoleChip roleId={user.roleId} roleName={user.roleName} />;
-        },
-      },
-    },
-
+    // {
+    //   name: "status",
+    //   label: "Estado",
+    //   options: {
+    //     filter: false,
+    //     sort: true,
+    //     customBodyRenderLite: (dataIndex) => {
+    //       const productState = products[dataIndex].status;
+    //       return <StatusChip enabled={productState} />;
+    //     },
+    //   },
+    // },
+    // {
+    //   name: "bussinessName",
+    //   label: "Tipo de Negocio",
+    //   options: {
+    //     filter: true,
+    //     sort: true,
+    //     customBodyRenderLite: (dataIndex) => {
+    //       const user = users[dataIndex];
+    //       return <RoleChip roleId={user.roleId} roleName={user.roleName} />;
+    //     },
+    //   },
+    // },
     {
       name: "createdAt",
       label: "fecha de creacion",
@@ -96,13 +95,13 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
             <>
               <CustomIconButton
                 aria-label="edit"
-                onClick={() => onEdit(products[dataIndex])}
+                onClick={() => onEdit(rates[dataIndex])}
               >
                 <EditIcon />
               </CustomIconButton>
               <CustomIconButton
                 aria-label="delete"
-                onClick={() => onDelete(products[dataIndex].id)}
+                onClick={() => onDelete(rates[dataIndex].id)}
               >
                 <DeleteIcon />
               </CustomIconButton>
@@ -116,4 +115,4 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
   return columns;
 };
 
-export default useProductTableColumn;
+export default useRateTableColumn;

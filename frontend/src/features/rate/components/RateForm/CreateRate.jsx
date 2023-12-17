@@ -1,8 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import {
   Box,
   Button,
-  Divider,
   Paper,
   Step,
   StepLabel,
@@ -24,8 +25,6 @@ import { validationSchemasRate } from "../../utils/validationSchemasRate";
 import CheckRate from "./CheckRate";
 import RateForm from "./RateForm";
 import RatePriceForm from "./RatePriceForm";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 
 const CreateRate = ({ onAdded }) => {
   const { user } = useAuth();
@@ -41,8 +40,8 @@ const CreateRate = ({ onAdded }) => {
     start_date: null,
     end_date: null,
     status: 0,
-    price: 0,
-    currency: "",
+    price: "",
+    currency: "CLP",
     user_id: user?.id || "",
   };
 
@@ -105,7 +104,7 @@ const CreateRate = ({ onAdded }) => {
       case 1:
         return <RatePriceForm control={control} watch={watch} />;
       case 2:
-        return <CheckRate />;
+        return <CheckRate watch={watch} />;
       default:
         throw new Error("Unknown step");
     }
@@ -127,7 +126,26 @@ const CreateRate = ({ onAdded }) => {
         </Stepper>
         {activeStep === steps.length ? (
           <>
-            <Typography variant="subtitle1">maximo</Typography>
+            <Typography variant="subtitle1">
+              Todos los pasos completados
+            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                alignContent: "center",
+                p: 1,
+                mt: 1,
+              }}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleSubmit(onSubmit)}
+              >
+                Enviar Formulario
+              </Button>
+            </Box>
           </>
         ) : (
           <>
@@ -141,12 +159,10 @@ const CreateRate = ({ onAdded }) => {
                 mt: 1,
               }}
             >
-              {activeStep !== 0 ? (
+              {activeStep !== 0 && (
                 <Button onClick={handleBack} startIcon={<NavigateBeforeIcon />}>
                   Volver
                 </Button>
-              ) : (
-                <Box></Box>
               )}
               <Button
                 variant="contained"

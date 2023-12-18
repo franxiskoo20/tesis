@@ -38,7 +38,7 @@ const RatePage = () => {
 
   return (
     <AuthenticatedLayout>
-      <PaperContainer title="Lista de Tarifas" relativePosition={true}>
+      <PaperContainer relativePosition={true}>
         <Tabs
           value={tabValue}
           onChange={handleTabChange}

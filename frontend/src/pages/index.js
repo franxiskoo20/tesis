@@ -6,5 +6,6 @@ export { default as ProductPage } from "./ProductPage/ProductPage.jsx";
 // export { default as RegisterClientPage } from "./RegisterClientPage/RegisterClientPage.jsx";
 export { default as ServicePage } from "./ServicePage/ServicePage.jsx";
 export { default as UserPage } from "./UserPage/UserPage.jsx";
-export {default as RatePage} from "./RatePage/RatePage.jsx";
+export { default as RatePage } from "./RatePage/RatePage.jsx";
 export { default as UserProfile } from "./UserPage/UserProfile.jsx";
+export { default as OrderPage } from "./OrderPage/OrderPage.jsx";

@@ -12,4 +12,9 @@ class Planning extends Model
     protected $fillable = [
         'name','days'
     ];
+
+    public function serviceOrders()
+    {
+        return $this->hasOne(ServiceOrder::class);
+    }
 }

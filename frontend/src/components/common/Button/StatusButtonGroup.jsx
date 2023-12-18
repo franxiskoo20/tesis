@@ -29,7 +29,7 @@ const StatusButtonGroup = ({ control, name, disabled }) => {
             onClick={() => field.onChange(0)}
             startIcon={<CancelIcon />}
           >
-            Finalizada
+            Inactiva
           </Button>
         </ButtonGroup>
       )}

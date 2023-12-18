@@ -18,5 +18,10 @@ class Business extends Model
     {
         return $this->hasOne(Product::class);
     }
+
+    public function service()
+    {
+        return $this->hasOne(Service::class);
+    }
     
 }

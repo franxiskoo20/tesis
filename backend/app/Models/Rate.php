@@ -10,18 +10,30 @@ class Rate extends Model
     use HasFactory;
 
     protected $fillable = [
-        'customer_id', 
-        'service_type_id', 
-        'service_id', 
+        'code',
+        'customer_id',
+        'service_type_id',
+        'service_id',
         'product_id',
-        'route_id',  
-        'start_date', 
-        'end_date', 
+        'route_id',
+        'start_date',
+        'end_date',
         'status',
         'price',
         'currency',
         'user_id'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($rate) {
+            $lastRate = self::orderBy('created_at', 'desc')->first();
+            $nextId = $lastRate ? $lastRate->id + 1 : 1;
+            $rate->code = 'TARIFA' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
+        });
+    }
 
     public function customer()
     {
@@ -50,5 +62,10 @@ class Rate extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function serviceOrders()
+    {
+        return $this->hasOne(ServiceOrder::class);
     }
 }

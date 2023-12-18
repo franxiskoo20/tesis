@@ -33,8 +33,6 @@ class RateRequest extends FormRequest
             'service_type_id' => 'required|exists:service_types,id',
             'product_id' => 'required|exists:products,id',
             'route_id' => 'required|exists:routes,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
             'status' => 'required|boolean|in:0,1',
             'price' => 'required|numeric',
             'currency' => 'required|string|max:3',

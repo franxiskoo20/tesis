@@ -7,8 +7,6 @@ export const rateService = {
     service_id,
     product_id,
     route_id,
-    start_date,
-    end_date,
     status,
     price,
     currency,
@@ -20,8 +18,6 @@ export const rateService = {
       service_id,
       product_id,
       route_id,
-      start_date,
-      end_date,
       status,
       price,
       currency,
@@ -42,5 +38,9 @@ export const rateService = {
 
   getRoutes() {
     return makeRequest("get", "/api/routes");
+  },
+
+  getByCode(code) {
+    return makeRequest("get", `/api/rates/getByCode/${code}`);
   },
 };

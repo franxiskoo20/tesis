@@ -2,8 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { serviceOfService } from "../services/serviceOfService";
 
 const useServiceByType = (id) => {
-
-  const { data } = useQuery({
+  const { data: serviceByType } = useQuery({
     queryKey: ["serviceByTypes", id],
     queryFn: () => serviceOfService.getServicesByType(id),
     enabled: !!id,
@@ -15,7 +14,7 @@ const useServiceByType = (id) => {
     },
   });
 
-  return { serviceByType: data };
+  return { serviceByType };
 };
 
 export default useServiceByType;

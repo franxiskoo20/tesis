@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('service_orders', function (Blueprint $table) {
             $table->id();
             $table->date('date');
+            $table->string('code');
+            $table->foreignId('rate_id')->constrained("rates")->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('planning_id')->constrained("plannings")->onDelete('cascade');
             $table->foreignId('schedule_id')->constrained('schedules')->onDelete('cascade');
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
@@ -24,15 +27,16 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->foreignId('business_id')->constrained('businesses')->onDelete('cascade');
             $table->foreignId('route_id')->constrained('routes')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('container')->nullable();
             $table->string('truck_plate')->nullable();
             $table->time('entry')->nullable();
             $table->time('exit')->nullable();
             $table->boolean('status');
             $table->date('status_date')->nullable();
-            $table->foreignId('rescheduled_os_id')->nullable()->constrained('service_orders');
+            // $table->foreignId('rescheduled_os_id')->nullable()->constrained('service_orders');
             $table->text('comment')->nullable();
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 

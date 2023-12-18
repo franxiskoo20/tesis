@@ -10,4 +10,9 @@ class Schedule extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'start_time', 'end_time'];
+
+    public function serviceOrders()
+    {
+        return $this->hasOne(ServiceOrder::class);
+    }
 }

@@ -47,7 +47,7 @@ const ServicePage = () => {
 
   return (
     <AuthenticatedLayout>
-      <PaperContainer title="Lista de Servicios" relativePosition={true}>
+      <PaperContainer relativePosition={true}>
         {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}> */}
         <Tabs
           value={tabValue}

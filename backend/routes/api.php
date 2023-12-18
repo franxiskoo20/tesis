@@ -8,9 +8,12 @@ use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PlanningController;
 use App\Http\Controllers\RateController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServiceOrderController;
 use App\Http\Controllers\ServiceTypeController;
 
 /*
@@ -86,5 +89,21 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [RateController::class, 'store']);
         Route::put('/{id}', [RateController::class, 'update']);
         Route::delete('/{id}', [RateController::class, 'destroy']);
+        Route::get('/getByCode/{code}', [RateController::class, 'getByCode']);
+    });
+
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [ServiceOrderController::class, 'index']);
+        Route::post('/', [ServiceOrderController::class, 'store']);
+        Route::put('/{id}', [ServiceOrderController::class, 'update']);
+        Route::delete('/{id}', [ServiceOrderController::class, 'destroy']);
+    });
+
+    Route::prefix('schedule')->group(function () {
+        Route::get('/', [ScheduleController::class, 'index']);
+    });
+
+    Route::prefix('planning')->group(function () {
+        Route::get('/', [PlanningController::class, 'index']);
     });
 });

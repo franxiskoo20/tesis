@@ -47,4 +47,9 @@ class RateRepository implements RateRepositoryInterface
     $rate->delete();
     return $rate;
   }
+
+  public function getByCode($code)
+  {
+      return Rate::where('code', $code)->first();
+  }
 }

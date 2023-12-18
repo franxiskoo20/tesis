@@ -31,7 +31,7 @@ class ServiceOrderRequest extends FormRequest
             'truck_plate' => 'nullable|string',
             'entry' => 'nullable|date_format:H:i',
             'exit' => 'nullable|date_format:H:i',
-            'status' => 'required|boolean',
+            'status' => 'nullable|boolean',
             'status_date' => 'nullable|date',
             'rescheduled_os_id' => 'nullable|exists:service_orders,id',
             'comment' => 'nullable|string',

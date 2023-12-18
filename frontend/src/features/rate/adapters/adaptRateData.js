@@ -3,12 +3,11 @@ import { formatDate } from "../../../utils/dateUtil"; //
 export const adaptRateData = (rate) => {
   return {
     id: rate.id,
-    customer_id: rate.customer_id,
+    code: rate.code,
+    customerId: rate.customer_id,
     serviceTypeId: rate.service_type_id,
     productId: rate.product_id,
     routeId: rate.route_id,
-    startDate: formatDate(rate.start_date),
-    endDAte: formatDate(rate.end_date),
     status: rate.status,
     price: rate.price,
     currency: rate.currency,

@@ -42,8 +42,6 @@ const CreateRate = ({ onAdded }) => {
     service_type_id: "",
     service_id: "",
     product_id: "",
-    start_date: null,
-    end_date: null,
     route_id: "",
     status: 0,
     price: "",

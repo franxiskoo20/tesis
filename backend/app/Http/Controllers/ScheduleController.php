@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\ScheduleRepositoryInterface;
+use Exception;
 
 class ScheduleController extends Controller
 {
@@ -15,7 +16,11 @@ class ScheduleController extends Controller
 
     public function index()
     {
-        $schedules = $this->scheduleRepository->getAll();
-        return response()->json($schedules);
+        try {
+            $schedules = $this->scheduleRepository->getAll();
+            return response()->json($schedules);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al mostrar los Horarios', 'message' => $e->getMessage()], 500);
+        }
     }
 }

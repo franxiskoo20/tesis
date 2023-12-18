@@ -31,4 +31,9 @@ class Product extends Model
     {
         return $this->hasOne(Rate::class);
     }
+
+    public function serviceOrders()
+    {
+        return $this->hasOne(ServiceOrder::class);
+    }
 }

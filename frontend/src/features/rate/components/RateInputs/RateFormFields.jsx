@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Unstable_Grid2";
 import { useEffect } from "react";
 import StatusButtonGroup from "../../../../components/common/Button/StatusButtonGroup";
-import CustomDateRangePicker from "../../../../components/common/Input/CustomDateRangePicker";
 import CustomSelect from "../../../../components/common/Input/CustomSelect";
 import useServiceByType from "../../../service/hooks/useServiceByType";
 
@@ -98,15 +97,6 @@ const RateFormFields = ({
         <StatusButtonGroup
           control={control}
           name="status"
-          disabled={!routeId}
-        />
-      </Grid>
-      <Grid xs={12}>
-        <CustomDateRangePicker
-          control={control}
-          startDateName="start_date"
-          endDateName="end_date"
-          watch={watch}
           disabled={!routeId}
         />
       </Grid>

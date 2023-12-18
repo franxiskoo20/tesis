@@ -54,4 +54,14 @@ class RateController extends Controller
             return response()->json(['errors' => 'Error al eliminar la tarifa', 'message' => $e->getMessage()], 500);
         }
     }
+
+    public function getByCode($code)
+    {
+        try {
+            $rate = $this->rateRepository->getByCode($code);
+            return response()->json($rate);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al obtener la tarifa a travez del codigo', 'message' => $e->getMessage()], 500);
+        }
+    }
 }

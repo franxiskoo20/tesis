@@ -12,7 +12,7 @@ const useServiceTableColumn = (services, onEdit, onDelete) => {
         sort: false,
         customBodyRenderLite: (dataIndex) => {
           const service = services[dataIndex].user;
-          return <UserAvatar name={service.name} role={service.roleId} />;
+          return <UserAvatar name={service.name} roleId={service.roleId} />;
         },
       },
     },

@@ -9,7 +9,17 @@ class ServiceOrderRepository implements ServiceOrderRepositoryInterface
 {
   public function getAll()
   {
-    return ServiceOrder::all();
+    return ServiceOrder::with([
+      'customer:id,name',
+      'service:id,name',
+      'serviceType:id,name',
+      'product:id,name',
+      'business:id,name',
+      'route:id,name',
+      'planning:id,name',
+      'schedule:id,name',
+      'user:id,name,role_id',
+    ])->get();
   }
 
   public function getById($id)

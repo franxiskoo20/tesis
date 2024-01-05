@@ -10,25 +10,26 @@ import { userValidationSchemaWithPassword } from "../../utils/validationSchemasU
 import UserFormField from "../UserInput/UserFormField";
 import UserFormPasswordField from "../UserInput/UserFormPasswordField";
 
-const DEFAULT_VALUES = {
+const DEFAULT_VALUES_USER = {
   name: "",
   email: "",
+  status: false,
   password: "",
   password_confirmation: "",
   role_id: "",
 };
 
-const UserRegistrationModal = ({ open, onClose, onAdded }) => {
+const UserAddModal = ({ open, onClose, onAdded }) => {
   const { handleSubmit, reset, control } = useForm({
     mode: "onChange",
     resolver: yupResolver(userValidationSchemaWithPassword),
-    defaultValues: DEFAULT_VALUES,
+    defaultValues: DEFAULT_VALUES_USER,
   });
   const { showSnackbar } = useSnackbar();
 
   const { roles } = useRoles();
 
-  const registerMutation = useMutation({
+  const addMutation = useMutation({
     mutationFn: userService.register,
     onError: (error) => {
       const snackbar = USER_SNACKBAR.USER_REGISTER_ERROR;
@@ -43,7 +44,7 @@ const UserRegistrationModal = ({ open, onClose, onAdded }) => {
   });
 
   const onSubmit = (data) => {
-    registerMutation.mutate(data);
+    addMutation.mutate(data);
   };
 
   const handleClose = () => {
@@ -55,10 +56,10 @@ const UserRegistrationModal = ({ open, onClose, onAdded }) => {
     <ActionModal
       open={open}
       onClose={handleClose}
-      title="Registrar Usuario"
+      title="Agregar un Usuario"
       onSubmit={handleSubmit(onSubmit)}
-      isPending={registerMutation.isPending}
-      submitLabel="Registrar"
+      isPending={addMutation.isPending}
+      submitLabel="Agregar"
     >
       <UserFormField control={control} roles={roles} />
       <UserFormPasswordField control={control} />
@@ -66,4 +67,4 @@ const UserRegistrationModal = ({ open, onClose, onAdded }) => {
   );
 };
 
-export default UserRegistrationModal;
+export default UserAddModal;

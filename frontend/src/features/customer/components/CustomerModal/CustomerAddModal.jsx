@@ -8,7 +8,7 @@ import { customerService } from "../../services/customerService";
 import { validationSchemasCustomer } from "../../utils/validationSchemasCustomer";
 import CustomerFormFields from "../CustomerInputs/CustomerFormFields";
 
-const CustomerAddModal = ({ open, onClose, onCustomerAdded }) => {
+const CustomerAddModal = ({ open, onClose, onAdded }) => {
   const { user } = useAuth();
 
   const DEFAULT_VALUES_CUSTOMER = {
@@ -25,18 +25,18 @@ const CustomerAddModal = ({ open, onClose, onCustomerAdded }) => {
     defaultValues: DEFAULT_VALUES_CUSTOMER,
   });
 
-  const addCustomerMutation = useGenericMutation({
+  const addMutation = useGenericMutation({
     mutationFn: customerService.addCustomer,
     successMessage: CUSTOMER_SNACKBAR.CUSTOMER_REGISTER_SUCCESS.message,
     errorMessage: CUSTOMER_SNACKBAR.CUSTOMER_REGISTER_ERROR.message,
     onSuccessCallback: () => {
       onClose?.();
-      onCustomerAdded?.();
+      onAdded?.();
     },
   });
-  
+
   const onSubmit = (data) => {
-    addCustomerMutation.mutate(data);
+    addMutation.mutate(data);
   };
 
   // Reset campos del formulario al cerrar el modal
@@ -50,7 +50,7 @@ const CustomerAddModal = ({ open, onClose, onCustomerAdded }) => {
       onClose={handleClose}
       title="Registrar Cliente"
       onSubmit={handleSubmit(onSubmit)}
-      isPending={addCustomerMutation.isPending}
+      isPending={addMutation.isPending}
       submitLabel="Agregar"
     >
       <CustomerFormFields control={control} />

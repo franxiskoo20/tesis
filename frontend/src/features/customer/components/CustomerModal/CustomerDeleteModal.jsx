@@ -6,8 +6,8 @@ import useGenericMutation from "../../../../hooks/useGenericMutation";
 const CustomerDeleteModal = ({
   open,
   onClose,
-  customerToDelete,
-  onCustomerDelete,
+  toDelete,
+  onDelete,
 }) => {
   const deleteMutation = useGenericMutation({
     mutationFn: (customerToDelete) =>
@@ -16,7 +16,7 @@ const CustomerDeleteModal = ({
     errorMessage: CUSTOMER_SNACKBAR.CUSTOMER_DELETE_ERROR.message,
     onSuccessCallback: () => {
       onClose?.();
-      onCustomerDelete?.();
+      onDelete?.();
     },
   });
 
@@ -25,7 +25,7 @@ const CustomerDeleteModal = ({
       <GenericConfirmModal
         open={open}
         onClose={onClose}
-        onConfirm={() => deleteMutation.mutate(customerToDelete)}
+        onConfirm={() => deleteMutation.mutate(toDelete)}
         title="Confirmar Eliminación"
         confirmButtonText="Eliminar"
         cancelButtonText="Cancelar"

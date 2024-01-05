@@ -65,6 +65,7 @@ export const userValidationSchemaWithPassword = yup.object().shape({
     .string()
     .email("Correo electrónico inválido")
     .required("Este campo es requerido"),
+  status: yup.boolean(),
   password: yup.string().required("La contraseña es requerida"),
   password_confirmation: yup
     .string()
@@ -79,6 +80,7 @@ export const userValidationSchemaWithoutPassword = yup.object().shape({
     .string()
     .email("Correo electrónico inválido")
     .required("Este campo es requerido"),
+  status: yup.boolean(),
   password: yup.string(),
   password_confirmation: yup
     .string()

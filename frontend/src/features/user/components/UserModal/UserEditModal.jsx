@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, FormControlLabel, Switch } from "@mui/material";
+import { Box, FormControlLabel, Paper, Switch } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -15,31 +15,24 @@ import useRoles from "../../hooks/useRoles";
 import { userService } from "../../services/userService";
 import { userValidationSchemaWithoutPassword } from "../../utils/validationSchemasUser";
 
-/**
- * * Componente para editar usuarios
- * @param open abre el modal
- * @param onClose cierra el modal
- * @param toEdit usuario a editar
- * @param onEdit actualiza la lista de usuarios de la tabla
- */
-
-const DEFAULT_VALUES_EDIT = {
+const DEFAULT_VALUES_EDIT_USER = {
   name: "",
   email: "",
+  status: false,
   role_id: "",
   changePassword: false,
   password: "",
   password_confirmation: "",
 };
-
 const UserEditModal = ({ open, onClose, toEdit, onEdit }) => {
   // formulario react-hook-form
   const { handleSubmit, reset, control, setValue } = useForm({
     resolver: yupResolver(userValidationSchemaWithoutPassword),
     mode: "onChange",
-    defaultValues: DEFAULT_VALUES_EDIT,
+    defaultValues: DEFAULT_VALUES_EDIT_USER,
   });
   const { showSnackbar } = useSnackbar();
+
   // switch para mostrar/ocultar campos de contraseña
   const [showPasswordFields, setShowPasswordFields] = useState(false);
   const switchLabel = showPasswordFields
@@ -53,6 +46,7 @@ const UserEditModal = ({ open, onClose, toEdit, onEdit }) => {
         name: toEdit.name,
         email: toEdit.email,
         role_id: toEdit.roleId,
+        status: Boolean(toEdit.status),
         changePassword: false,
         password: "",
         password_confirmation: "",
@@ -97,8 +91,12 @@ const UserEditModal = ({ open, onClose, toEdit, onEdit }) => {
   // verificar si el usuario ha cambiado
   const hasUserChanged = (data) => {
     const roleChanged = parseInt(data.role_id) !== toEdit.roleId;
+
     return (
-      data.name !== toEdit.name || data.email !== toEdit.email || roleChanged
+      data.name !== toEdit.name ||
+      data.email !== toEdit.email ||
+      data.status !== Boolean(toEdit.status) ||
+      roleChanged
     );
   };
 
@@ -143,15 +141,17 @@ const UserEditModal = ({ open, onClose, toEdit, onEdit }) => {
         <Grid container spacing={2}>
           <UserFormField control={control} roles={roles} />
           <Grid xs={12}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={showPasswordFields}
-                  onChange={handleTogglePasswordFields}
-                />
-              }
-              label={switchLabel}
-            />
+            <Paper sx={{ p: "10px" }} elevation={0}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={showPasswordFields}
+                    onChange={handleTogglePasswordFields}
+                  />
+                }
+                label={switchLabel}
+              />
+            </Paper>
           </Grid>
           {showPasswordFields && <UserFormPasswordField control={control} />}
           <Grid xs={12}>

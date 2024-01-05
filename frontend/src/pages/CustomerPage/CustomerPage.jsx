@@ -72,7 +72,7 @@ const CustomerPage = () => {
           ) : (
             <CustomerTable
               customers={customers}
-              onAddCustomer={() => toggleModal("register")}
+              onAdd={() => toggleModal("register")}
               onEdit={(customer) => {
                 setItemToAction(customer);
                 toggleModal("edit");
@@ -90,7 +90,7 @@ const CustomerPage = () => {
               toggleModal("register");
               setItemToAction(null);
             }}
-            onCustomerAdded={() => handleAsyncAction()}
+            onAdded={() => handleAsyncAction()}
           />
           {itemToAction && (
             <>
@@ -100,8 +100,8 @@ const CustomerPage = () => {
                   toggleModal("edit");
                   setItemToAction(null);
                 }}
-                customerToEdit={itemToAction}
-                onCustomerUpdated={() => handleAsyncAction()}
+                toEdit={itemToAction}
+                onEdit={() => handleAsyncAction()}
               />
               <CustomerDeleteModal
                 open={isDeleteOpen}
@@ -109,8 +109,8 @@ const CustomerPage = () => {
                   toggleModal("delete");
                   setItemToAction(null);
                 }}
-                customerToDelete={itemToAction}
-                onCustomerDelete={() => handleAsyncAction()}
+                toDelete={itemToAction}
+                onDelete={() => handleAsyncAction()}
               />
             </>
           )}

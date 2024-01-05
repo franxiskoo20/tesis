@@ -68,18 +68,18 @@ const CreateRate = ({ onAdded }) => {
   console.log(watch());
   const onSubmit = (data) => {
     // Formatea las fechas antes de enviar los datos
-    const formattedData = {
-      ...data,
-      start_date: data.start_date
-        ? dayjs(data.start_date).format("YYYY-MM-DD HH:mm:ss")
-        : null,
-      end_date: data.end_date
-        ? dayjs(data.end_date).format("YYYY-MM-DD HH:mm:ss")
-        : null,
-    };
+    // const formattedData = {
+    //   ...data,
+    //   start_date: data.start_date
+    //     ? dayjs(data.start_date).format("YYYY-MM-DD HH:mm:ss")
+    //     : null,
+    //   end_date: data.end_date
+    //     ? dayjs(data.end_date).format("YYYY-MM-DD HH:mm:ss")
+    //     : null,
+    // };
 
     // Luego llama a la mutación con los datos formateados
-    addRateMutation.mutate(formattedData);
+    addRateMutation.mutate(data);
   };
 
   const [activeStep, setActiveStep] = useState(0);

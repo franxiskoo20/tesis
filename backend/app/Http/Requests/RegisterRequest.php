@@ -30,6 +30,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'status' => 'required|boolean',
             'password' => 'required|string|min:3|confirmed',
             'role_id' => 'required|numeric',
         ];
@@ -43,6 +44,7 @@ class RegisterRequest extends FormRequest
             'email.required' => 'El campo email es obligatorio.',
             'email.email' => 'El campo email debe ser una dirección de correo válida.',
             'email.unique' => 'El email ya está registrado.',
+            'status.required' => 'El campo estado es obligatorio.',
             'password.required' => 'El campo contraseña es obligatorio.',
             'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
             'password.confirmed' => 'La contraseña no se confirmo correctamente',

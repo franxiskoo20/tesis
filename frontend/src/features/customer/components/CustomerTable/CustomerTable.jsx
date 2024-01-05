@@ -7,13 +7,13 @@ import useCustomerTableColumn from "../../hooks/useCustomerTableColumn";
 
 const CustomerTable = ({
   customers,
-  onAddCustomer,
+  onAdd,
   onEdit,
   onDelete,
   isSubmitting,
 }) => {
   const renderAddCustomerButton = () => {
-    return <ChipButton label={"Agregar Cliente"} onClick={onAddCustomer} />;
+    return <ChipButton label={"Agregar Cliente"} onClick={onAdd} />;
   };
   const columns = useCustomerTableColumn(customers, onEdit, onDelete);
   const options = {

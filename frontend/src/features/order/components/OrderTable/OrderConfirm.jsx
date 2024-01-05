@@ -2,10 +2,11 @@ import { Box } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import { orderTableOption } from "../../constants/orderTableOption";
-import useOrderTableColumn from "../../hooks/useOrderTableColumn";
-const OrderTable = ({ orders, onEdit, onDelete, isSubmitting }) => {
-  const columns = useOrderTableColumn(orders, onEdit, onDelete);
-  
+import useOrderConfirmTableColumn from "../../hooks/useOrderConfirmTableColumn";
+
+const OrderTrunk = ({ orders, onEdit, isSubmitting }) => {
+  const columns = useOrderConfirmTableColumn(orders, onEdit);
+
   const options = {
     ...orderTableOption,
   };
@@ -18,4 +19,4 @@ const OrderTable = ({ orders, onEdit, onDelete, isSubmitting }) => {
   );
 };
 
-export default OrderTable;
+export default OrderTrunk;

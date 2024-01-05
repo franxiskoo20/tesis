@@ -15,7 +15,7 @@ class ServiceOrder extends Model
         'rate_id',
         'planning_id',
         'schedule_id',
-        'client_id',
+        'customer_id',
         'service_type_id',
         'service_id',
         'product_id',
@@ -46,7 +46,7 @@ class ServiceOrder extends Model
         return $this->belongsTo(Schedule::class);
     }
 
-    public function client()
+    public function customer()
     {
         return $this->belongsTo(Customer::class);
     }

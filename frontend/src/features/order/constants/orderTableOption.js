@@ -1,11 +1,11 @@
-export const rateTableStaticOption = {
+export const orderTableOption = {
   filterType: "checkbox",
   responsive: "standard",
   selectableRows: "none",
   viewColumns: "false",
   textLabels: {
     body: {
-      noMatch: "Lo sentimos, no se encontraron tarifas",
+      noMatch: "Lo sentimos, no se encontraron ordenes",
       toolTip: "Ordenar",
     },
     pagination: {

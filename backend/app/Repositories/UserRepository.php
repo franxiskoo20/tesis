@@ -23,8 +23,9 @@ class UserRepository implements UserRepositoryInterface
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'status' => $data['status'],
             'role_id' => $data['role_id'],
+            'password' => Hash::make($data['password']),
         ]);
     }
 
@@ -55,6 +56,7 @@ class UserRepository implements UserRepositoryInterface
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
+            'status' => $user->status,
             'role_id' => $user->role_id,
             'role' => $user->role->name ?? null,
         ];

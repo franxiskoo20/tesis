@@ -12,7 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
-import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import AcceptButton from "../../../../components/common/Button/AcceptButton";
@@ -23,22 +22,25 @@ import { validationSchemasOrder } from "../../utils/validationSchemasOrder";
 // import CheckRate from "./CheckRate";
 // import RateForm from "./RateForm";
 // import RatePriceForm from "./RatePriceForm";
+import useRateCode from "../../../rate/hooks/useRateCode";
 import { ORDER_SNACKBAR } from "../../constants/orderSnackbar";
 import OrderCodeRate from "./OrderCodeRate";
-import useRateCode from "../../../rate/hooks/useRateCode";
 // import useAuth from "../../../auth/hooks/useAuth";
+import dayjs from "dayjs";
+import useAuth from "../../../auth/hooks/useAuth";
 import useCustomer from "../../../customer/hooks/useCustomer";
-import useServiceType from "../../../service/hooks/useServiceType";
+import useBusinessType from "../../../product/hooks/useBusinessType";
 import useProduct from "../../../product/hooks/useProduct";
 import useRoutes from "../../../rate/hooks/useRoutes";
-import OrderFormFields from "../OrderInputs/OrderFormFields";
 import useService from "../../../service/hooks/useService";
+import useServiceType from "../../../service/hooks/useServiceType";
 import usePlanning from "../../hooks/usePlanning";
 import useSchedule from "../../hooks/useSchedule";
+import OrderFormFields from "../OrderInputs/OrderFormFields";
 import CheckOrder from "./CheckOrder";
-import useBusinessType from "../../../product/hooks/useBusinessType";
+
 const CreateOrder = ({ onAdded }) => {
-  // const { user } = useAuth();
+  const { user } = useAuth();
   const { customers } = useCustomer();
   const { serviceType } = useServiceType();
   const { products } = useProduct();
@@ -67,6 +69,7 @@ const CreateOrder = ({ onAdded }) => {
     status: 0,
     status_date: "",
     comment: "",
+    user_id: user?.id || "",
   };
 
   const { handleSubmit, control, watch, reset, setValue } = useForm({
@@ -102,18 +105,13 @@ const CreateOrder = ({ onAdded }) => {
   console.log(watch());
   const onSubmit = (data) => {
     // Formatea las fechas antes de enviar los datos
-    // const formattedData = {
-    //   ...data,
-    //   start_date: data.start_date
-    //     ? dayjs(data.start_date).format("YYYY-MM-DD HH:mm:ss")
-    //     : null,
-    //   end_date: data.end_date
-    //     ? dayjs(data.end_date).format("YYYY-MM-DD HH:mm:ss")
-    //     : null,
-    // };
+    const formattedData = {
+      ...data,
+      date: data.date ? dayjs(data.date).format("YYYY-MM-DD HH:mm:ss") : null,
+    };
 
     // Luego llama a la mutación con los datos formateados
-    addMutation.mutate(data);
+    addMutation.mutate(formattedData);
   };
 
   const [activeStep, setActiveStep] = useState(0);

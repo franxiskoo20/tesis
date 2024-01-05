@@ -2,7 +2,7 @@ import { Box, Container } from "@mui/material";
 import { useDrawer } from "../../hooks/useDrawer";
 import DrawerBar from "../common/Navigation/DrawerBar";
 
-export default function AuthenticatedLayout({ children }) {
+const AuthenticatedLayout = ({ children }) => {
   const { drawerOpen, toggleDrawer } = useDrawer();
 
   return (
@@ -22,4 +22,6 @@ export default function AuthenticatedLayout({ children }) {
       </Box>
     </Box>
   );
-}
+};
+
+export default AuthenticatedLayout;

@@ -20,6 +20,7 @@ export const orderService = {
     status,
     status_date,
     comment,
+    user_id,
   }) {
     return makeRequest("post", "/api/orders", {
       date,
@@ -40,6 +41,7 @@ export const orderService = {
       status,
       status_date,
       comment,
+      user_id,
     });
   },
   getOrders() {

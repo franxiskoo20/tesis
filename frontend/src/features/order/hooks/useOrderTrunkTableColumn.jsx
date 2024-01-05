@@ -1,10 +1,8 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import StatusChip from "../../../components/ui/StatusChip";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
-
-const customerTableColumn = (customers, onEdit, onDelete) => {
+const useOrderTrunkTableColumn = (orders, onEdit) => {
   const columns = [
     {
       name: "",
@@ -12,31 +10,30 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
         filter: false,
         sort: false,
         customBodyRenderLite: (dataIndex) => {
-          const customer = customers[dataIndex].user;
-          return <UserAvatar name={customer.name} roleId={customer.roleId} />;
+          const order = orders[dataIndex];
+          return <UserAvatar name={order.userName} roleId={order.userRoleId} />;
         },
       },
     },
     {
-      name: "id",
-      label: "ID",
-      options: {
-        filter: false,
-        sort: true,
-        customBodyRenderLite: (dataIndex) => dataIndex + 1,
-      },
-    },
-    {
-      name: "name",
-      label: "Empresa",
+      name: "code",
+      label: "Codigo",
       options: {
         filter: false,
         sort: true,
       },
     },
     {
-      name: "description",
-      label: "Descripcion",
+      name: "routeName",
+      label: "Ruta",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "truckPlate",
+      label: "Placa Camion",
       options: {
         filter: false,
         sort: true,
@@ -49,8 +46,8 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
         filter: false,
         sort: true,
         customBodyRenderLite: (dataIndex) => {
-          const customerStatus = customers[dataIndex].status;
-          return <StatusChip enabled={customerStatus} />;
+          const orderStatus = orders[dataIndex].status;
+          return <StatusChip enabled={orderStatus} />;
         },
       },
     },
@@ -83,15 +80,9 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
             <>
               <CustomIconButton
                 aria-label="edit"
-                onClick={() => onEdit(customers[dataIndex])}
+                onClick={() => onEdit(orders[dataIndex])}
               >
-                <EditIcon />
-              </CustomIconButton>
-              <CustomIconButton
-                aria-label="delete"
-                onClick={() => onDelete(customers[dataIndex].id)}
-              >
-                <DeleteIcon />
+                <AssignmentTurnedInIcon />
               </CustomIconButton>
             </>
           );
@@ -103,4 +94,4 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
   return columns;
 };
 
-export default customerTableColumn;
+export default useOrderTrunkTableColumn;

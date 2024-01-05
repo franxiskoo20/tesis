@@ -7,7 +7,7 @@ import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import RoleAccordion from "../../features/user/components/RoleAccordion/RoleAccordion";
 import UserDeleteModal from "../../features/user/components/UserModal/UserDeleteModal";
 import UserEditModal from "../../features/user/components/UserModal/UserEditModal";
-import UserRegistrationModal from "../../features/user/components/UserModal/UserRegistrationModal";
+import UserAddModal from "../../features/user/components/UserModal/UserAddModal";
 import UserTable from "../../features/user/components/UserTable/UserTable";
 import useUser from "../../features/user/hooks/useUser";
 import useAsyncAction from "../../hooks/useAsyncAction";
@@ -22,7 +22,7 @@ const a11yProps = (index) => {
 
 const UserPage = () => {
   const { users, isLoading } = useUser();
-
+  
   const {
     isRegisterOpen,
     isEditOpen,
@@ -45,7 +45,7 @@ const UserPage = () => {
         <Tabs
           value={tabValue}
           onChange={handleTabChange}
-          aria-label="users tabs"
+          aria-label="users-tabs"
         >
           <Tab label="Lista" {...a11yProps(0)} />
           <Tab label="Roles" {...a11yProps(1)} />
@@ -69,7 +69,7 @@ const UserPage = () => {
               isSubmitting={isSubmitting}
             />
           )}
-          <UserRegistrationModal
+          <UserAddModal
             open={isRegisterOpen}
             onClose={() => {
               toggleModal("register");

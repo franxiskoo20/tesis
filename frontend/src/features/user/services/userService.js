@@ -1,11 +1,12 @@
 import makeRequest from "../../../services/api/makeRequest";
 
 export const userService = {
-  
-  register({ name, email, password, password_confirmation, role_id }) {
+  register({ name, email, status, password, password_confirmation, role_id }) {
+    status = status ? 1 : 0;
     return makeRequest("post", "/api/register", {
       name,
       email,
+      status,
       password,
       password_confirmation,
       role_id,
@@ -22,8 +23,14 @@ export const userService = {
   deleteUser(userId) {
     return makeRequest("delete", `/api/user/${userId}`);
   },
-  updateUser(userId, data) {
-    return makeRequest("put", `/api/user/${userId}`, data);
+  updateUser(userId, { name, email, status, role_id }) {
+    status = status ? 1 : 0;
+    return makeRequest("put", `/api/user/${userId}`, {
+      name,
+      email,
+      status,
+      role_id,
+    });
   },
   updateUserPassword(userId, data) {
     return makeRequest("put", `/api/user/${userId}/change-password`, data);

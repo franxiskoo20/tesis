@@ -5,6 +5,7 @@ export const adaptUserData = (userData) => {
     id: userData.id,
     name: userData.name,
     email: userData.email,
+    status: userData.status,
     roleId: userData.role_id,
     createdAt: formatDate(userData.created_at),
     updatedAt: formatDate(userData.updated_at),

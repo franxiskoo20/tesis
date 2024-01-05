@@ -1,5 +1,6 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ListAltIcon from '@mui/icons-material/ListAlt';
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import PeopleIcon from "@mui/icons-material/People";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
@@ -21,7 +22,17 @@ const navigationByRole = {
     { name: "Servicios", path: "/app/services", icon: <PostAddIcon /> },
     { name: "Clientes", path: "/app/customers", icon: <SupportAgentIcon /> },
     { name: "Tarifas", path: "/app/rates", icon: <ShoppingCartIcon /> },
-    { name: "Orden de Servicio", path: "/app/orders", icon: <ListAltIcon />}
+    { name: "Orden de Servicio", path: "/app/orders", icon: <ListAltIcon /> },
+    {
+      name: "Confirmar Placa",
+      path: "/app/orders-trunk",
+      icon: <LocalShippingIcon />,
+    },
+    {
+      name: "OS Confirmación",
+      path: "/app/orders-confirm",
+      icon: <ListAltIcon />,
+    },
   ],
   [ROLES_USER.JEFE_COMERCIAL]: [
     { name: "Dashboard", path: "/app/dashboard", icon: <DashboardIcon /> },

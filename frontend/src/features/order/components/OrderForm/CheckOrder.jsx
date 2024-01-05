@@ -1,7 +1,8 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import useService from "../../../service/hooks/useService";
 // import useUser from "../../../user/hooks/useUser";
 import dayjs from "dayjs";
+import useUser from "../../../user/hooks/useUser";
 
 const CheckOrder = ({
   watch,
@@ -12,6 +13,7 @@ const CheckOrder = ({
   routes,
 }) => {
   const { services } = useService();
+  const { users } = useUser();
   // const { users } = useUser();
   const formData = watch(); // Obtiene todos los valores a la vez
 
@@ -72,7 +74,7 @@ const CheckOrder = ({
         value={formData.comment ? formData.comment : "No completado"}
       />
 
-      {/* <Divider />
+      <Divider />
       <Box sx={{ backgroundColor: "primary.main", color: "white", p: 1 }}>
         <InfoLine
           label="Usuario"
@@ -92,7 +94,7 @@ const CheckOrder = ({
             "No seleccionado"
           }
         />
-      </Box> */}
+      </Box>
     </>
   );
 };

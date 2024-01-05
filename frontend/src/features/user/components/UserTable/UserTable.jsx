@@ -15,7 +15,6 @@ const UserTable = ({ users, onAdd, onEdit, onDelete, isSubmitting }) => {
   const options = {
     ...userTableStaticOption,
     customToolbar: renderAddButton,
-    elevation: 2,
   };
 
   return (

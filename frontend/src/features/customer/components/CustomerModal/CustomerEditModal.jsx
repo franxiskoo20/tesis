@@ -9,12 +9,7 @@ import { customerService } from "../../services/customerService";
 import { validationSchemasCustomer } from "../../utils/validationSchemasCustomer";
 import CustomerFormFields from "../CustomerInputs/CustomerFormFields";
 
-const CustomerEditModal = ({
-  open,
-  onClose,
-  customerToEdit,
-  onCustomerUpdated,
-}) => {
+const CustomerEditModal = ({ open, onClose, toEdit, onEdit }) => {
   const { user } = useAuth();
   const DEFAULT_VALUES_EDIT_CUSTOMER = {
     name: "",
@@ -33,25 +28,24 @@ const CustomerEditModal = ({
 
   // cargar datos del usuario a editar
   useEffect(() => {
-    if (customerToEdit) {
+    if (toEdit) {
       reset({
-        name: customerToEdit.name,
-        description: customerToEdit.description,
-        status: Boolean(customerToEdit.status),
+        name: toEdit.name,
+        description: toEdit.description,
+        status: Boolean(toEdit.status),
         logo: undefined,
         user_id: user?.id || "",
       });
     }
-  }, [customerToEdit, reset, user]);
+  }, [toEdit, reset, user]);
 
   const customerUpdateMutation = useGenericMutation({
-    mutationFn: (data) =>
-      customerService.updateCustomer(customerToEdit.id, data),
+    mutationFn: (data) => customerService.updateCustomer(toEdit.id, data),
     successMessage: CUSTOMER_SNACKBAR.CUSTOMER_EDIT_ERROR.message,
     errorMessage: CUSTOMER_SNACKBAR.CUSTOMER_EDIT_ERROR.message,
     onSuccessCallback: () => {
       onClose?.();
-      onCustomerUpdated?.();
+      onEdit?.();
     },
   });
 

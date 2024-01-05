@@ -9,7 +9,7 @@ const CustomTextField = ({
   label,
   type,
   control,
-  maxLength = 256,
+  maxLength = 255,
   ...rest
 }) => {
   const [charCount, setCharCount] = useState(0);
@@ -22,6 +22,7 @@ const CustomTextField = ({
       <CheckCircleOutlineIcon sx={{ color: "primary.main" }} />
     ) : null;
   };
+
   const renderHelperText = (isDirty, error, charCount) => {
     const charCountText = `${charCount}/${maxLength} caracteres`;
     return error ? error.message : isDirty ? "Correcto - " + charCountText : "";

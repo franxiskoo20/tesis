@@ -3,11 +3,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import UserAvatar from "../components/UserAvatar/UserAvatar";
 import RoleChip from "../components/UserUI/RoleChip";
+import StatusChip from "../../../components/ui/StatusChip";
 
 const useUserTableColumn = (users, onEdit, onDelete) => {
   const columns = [
     {
-      name: "",
+      name: "Avatar",
       options: {
         filter: false,
         sort: false,
@@ -17,15 +18,15 @@ const useUserTableColumn = (users, onEdit, onDelete) => {
         },
       },
     },
-    {
-      name: "id",
-      label: "ID",
-      options: {
-        filter: false,
-        sort: true,
-        customBodyRenderLite: (dataIndex) => dataIndex + 1,
-      },
-    },
+    // {
+    //   name: "id",
+    //   label: "ID",
+    //   options: {
+    //     filter: false,
+    //     sort: true,
+    //     customBodyRenderLite: (dataIndex) => dataIndex + 1,
+    //   },
+    // },
     {
       name: "name",
       label: "Nombre",
@@ -40,6 +41,18 @@ const useUserTableColumn = (users, onEdit, onDelete) => {
       options: {
         filter: false,
         sort: true,
+      },
+    },
+    {
+      name: "status",
+      label: "Estado",
+      options: {
+        filter: false,
+        sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const userStatus = users[dataIndex].status;
+          return <StatusChip enabled={userStatus} />;
+        },
       },
     },
     {

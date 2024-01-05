@@ -48,11 +48,11 @@ const CheckRate = ({ watch, customers, serviceType, products, routes }) => {
         value={findSelected(products, formData.product_id)}
       />
       <InfoLine label="Ruta" value={findSelected(routes, formData.route_id)} />
-      <InfoLine
+      {/* <InfoLine
         label="Fecha de Inicio"
         value={formatFecha(formData.start_date)}
       />
-      <InfoLine label="Fecha de Fin" value={formatFecha(formData.end_date)} />
+      <InfoLine label="Fecha de Fin" value={formatFecha(formData.end_date)} /> */}
       <InfoLine
         label="Estado"
         value={formData.status ? "Activo" : "Inactivo"}

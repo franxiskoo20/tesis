@@ -1,6 +1,7 @@
 import Grid from "@mui/material/Unstable_Grid2";
 import CustomSelect from "../../../../components/common/Input/CustomSelect";
 import CustomTextField from "../../../../components/common/Input/CustomTextField";
+import CustomSwitch from "../../../../components/common/Input/CustomSwitch";
 
 const UserFormField = ({ control, roles }) => {
   const renderTextField = (name, label, type) => (
@@ -30,6 +31,7 @@ const UserFormField = ({ control, roles }) => {
           }))}
         />
       </Grid>
+      <CustomSwitch name="status" label="Habilitado" control={control} />
     </>
   );
 };

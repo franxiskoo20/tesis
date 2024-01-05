@@ -10,7 +10,6 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-
       <AuthProvider>
         <DrawerProvider>
           <SnackbarProvider>

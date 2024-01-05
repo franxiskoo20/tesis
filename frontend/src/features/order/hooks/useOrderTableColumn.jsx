@@ -4,7 +4,7 @@ import CustomIconButton from "../../../components/common/Button/CustomIconButton
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import StatusChip from "../../../components/ui/StatusChip";
 
-const useRateTableColumn = (rates, onEdit, onDelete) => {
+const useOrderTableColumn = (orders, onEdit, onDelete) => {
   const columns = [
     {
       name: "",
@@ -12,8 +12,8 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
         filter: false,
         sort: false,
         customBodyRenderLite: (dataIndex) => {
-          const rate = rates[dataIndex];
-          return <UserAvatar name={rate.userName} roleId={rate.roleId} />;
+          const order = orders[dataIndex];
+          return <UserAvatar name={order.userName} roleId={order.userRoleId} />;
         },
       },
     },
@@ -28,6 +28,14 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
     {
       name: "customerName",
       label: "Cliente",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "serviceTypeName",
+      label: "Tipo de Servicio",
       options: {
         filter: false,
         sort: true,
@@ -50,6 +58,14 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
       },
     },
     {
+      name: "businessName",
+      label: "Negocio",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
       name: "routeName",
       label: "Ruta",
       options: {
@@ -64,8 +80,8 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
         filter: false,
         sort: true,
         customBodyRenderLite: (dataIndex) => {
-          const rateStatus = rates[dataIndex].status;
-          return <StatusChip enabled={rateStatus} />;
+          const orderStatus = orders[dataIndex].status;
+          return <StatusChip enabled={orderStatus} />;
         },
       },
     },
@@ -98,13 +114,13 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
             <>
               <CustomIconButton
                 aria-label="edit"
-                onClick={() => onEdit(rates[dataIndex])}
+                onClick={() => onEdit(orders[dataIndex])}
               >
                 <EditIcon />
               </CustomIconButton>
               <CustomIconButton
                 aria-label="delete"
-                onClick={() => onDelete(rates[dataIndex].id)}
+                onClick={() => onDelete(orders[dataIndex].id)}
               >
                 <DeleteIcon />
               </CustomIconButton>
@@ -118,4 +134,4 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
   return columns;
 };
 
-export default useRateTableColumn;
+export default useOrderTableColumn;

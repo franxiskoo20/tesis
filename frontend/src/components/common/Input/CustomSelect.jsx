@@ -8,6 +8,7 @@ import {
 import { Controller } from "react-hook-form";
 
 const CustomSelect = ({ name, label, options, control, disabled, ...rest }) => {
+  
   const renderHelperText = (isDirty, error) => {
     return error ? error.message : isDirty ? "Correcto" : "";
   };

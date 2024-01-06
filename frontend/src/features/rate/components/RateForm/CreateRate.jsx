@@ -26,9 +26,10 @@ import { RATE_SNACKBAR } from "../../constants/rateSnackbar";
 import useRoutes from "../../hooks/useRoutes";
 import { rateService } from "../../services/rateService";
 import { validationSchemasRate } from "../../utils/validationSchemasRate";
+import RateVerify from "../RateForm/RateVerify";
+import RateFormFieldsVerify from "../RateInputs/RateFormFieldsVerify";
+
 import CheckRate from "./CheckRate";
-import RateForm from "./RateForm";
-import RatePriceForm from "./RatePriceForm";
 
 const CreateRate = ({ onAdded }) => {
   const { user } = useAuth();
@@ -36,6 +37,8 @@ const CreateRate = ({ onAdded }) => {
   const { serviceType } = useServiceType();
   const { productsActive } = useActiveProduct();
   const { routes } = useRoutes();
+  const [activeStep, setActiveStep] = useState(0);
+  const [verifiedRates, setVerifiedRates] = useState(null);
 
   const DEFAULT_VALUES_RATE = {
     customer_id: "",
@@ -43,8 +46,8 @@ const CreateRate = ({ onAdded }) => {
     service_id: "",
     product_id: "",
     business_id: "",
-    start_date: "",
-    end_date: "",
+    start_date: null,
+    end_date: null,
     route_id: "",
     status: 0,
     price: "",
@@ -64,17 +67,23 @@ const CreateRate = ({ onAdded }) => {
     errorMessage: RATE_SNACKBAR.RATE_REGISTER_ERROR.message,
     onSuccessCallback: () => {
       onAdded?.();
-      reset(DEFAULT_VALUES_RATE); // Restablece el formulario a sus valores por defecto
-      setActiveStep(0); // Vuelve al primer paso del formulario
+      reset(DEFAULT_VALUES_RATE);
+      setActiveStep(0);
     },
   });
 
-
+  const getByAttributes = useGenericMutation({
+    mutationFn: rateService.getByAttributes,
+    successMessage: RATE_SNACKBAR.RATE_REGISTER_SUCCESS.message,
+    errorMessage: RATE_SNACKBAR.RATE_REGISTER_ERROR.message,
+    onSuccessCallbackData: (data) => {
+      setVerifiedRates(data);
+    },
+  });
 
   console.log(watch());
 
   const onSubmit = (data) => {
-    // Formatea las fechas antes de enviar los datos
     const formattedData = {
       ...data,
       start_date: data.start_date
@@ -85,17 +94,19 @@ const CreateRate = ({ onAdded }) => {
         : null,
     };
 
-    // Luego llama a la mutación con los datos formateados
     addMutation.mutate(formattedData);
   };
 
-  const [activeStep, setActiveStep] = useState(0);
+  const handleVerifyRate = (data) => {
+    getByAttributes.mutate(data);
+  };
 
   const handleNext = () => {
     if (activeStep === 0) {
-      handleSubmit(handleVerifyRate)(); // Llama a handleVerifyRate para el primer paso
+      handleVerifyRate(watch());
+      setActiveStep(activeStep + 1);
     } else {
-      setActiveStep(activeStep + 1); // Para otros pasos, simplemente avanza
+      setActiveStep(activeStep + 1);
     }
   };
 
@@ -103,13 +114,13 @@ const CreateRate = ({ onAdded }) => {
     setActiveStep(activeStep - 1);
   };
 
-  const steps = ["Verificar Trafia", "Precio Tarifa", "Revisar Tarifa"];
+  const steps = ["Verificar Trafia", "Crear Tarifa", "Revisar Tarifa"];
 
   const getStepContent = (step) => {
     switch (step) {
       case 0:
         return (
-          <RateForm
+          <RateFormFieldsVerify
             control={control}
             watch={watch}
             setValue={setValue}
@@ -120,7 +131,13 @@ const CreateRate = ({ onAdded }) => {
           />
         );
       case 1:
-        return <RatePriceForm control={control} watch={watch} />;
+        return (
+          <RateVerify
+            control={control}
+            watch={watch}
+            verifiedRates={verifiedRates}
+          />
+        );
       case 2:
         return (
           <CheckRate

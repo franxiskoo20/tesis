@@ -56,11 +56,12 @@ class RateRepository implements RateRepositoryInterface
 
   public function getByAttributes(array $data)
   {
-    return Rate::where('customer_id', $data['customerId'])
-      ->where('service_type_id', $data['serviceTypeId'])
-      ->where('service_id', $data['serviceId'])
-      ->where('product_id', $data['productId'])
-      ->where('route_id', $data['routeId'])
+    return Rate::where('customer_id', $data['customer_id'])
+      ->where('service_type_id', $data['service_type_id'])
+      ->where('service_id', $data['service_id'])
+      ->where('product_id', $data['product_id'])
+      ->where('business_id', $data['business_id'])
+      ->where('route_id', $data['route_id'])
       ->get();
   }
 }

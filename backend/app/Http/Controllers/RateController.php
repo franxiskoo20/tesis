@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\RateRepositoryInterface;
 use App\Http\Requests\RateRequest;
+use App\Http\Requests\RateVerifyRequest;
 use Exception;
 
 class RateController extends Controller
@@ -65,7 +66,7 @@ class RateController extends Controller
         }
     }
 
-    public function getByAttributes(RateRequest $request)
+    public function getByAttributes(RateVerifyRequest $request)
     {
         try {
             $rate = $this->rateRepository->getByAttributes($request->validated());

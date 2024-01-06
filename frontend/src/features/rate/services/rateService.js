@@ -45,4 +45,22 @@ export const rateService = {
   getByCode(code) {
     return makeRequest("get", `/api/rates/getByCode/${code}`);
   },
+
+  getByAttributes({
+    customer_id,
+    service_type_id,
+    service_id,
+    product_id,
+    business_id,
+    route_id,
+  }) {
+    return makeRequest("post", "/api/rates/getByAttributes", {
+      customer_id,
+      service_type_id,
+      service_id,
+      product_id,
+      business_id,
+      route_id,
+    });
+  },
 };

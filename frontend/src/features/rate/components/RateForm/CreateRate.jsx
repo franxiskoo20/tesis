@@ -19,8 +19,8 @@ import AcceptButton from "../../../../components/common/Button/AcceptButton";
 import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import useGenericMutation from "../../../../hooks/useGenericMutation";
 import useAuth from "../../../auth/hooks/useAuth";
-import useCustomer from "../../../customer/hooks/useCustomer";
-import useProduct from "../../../product/hooks/useProduct";
+import useActiveCustomer from "../../../customer/hooks/useActiveCustomer";
+import useActiveProduct from "../../../product/hooks/useActiveProduct";
 import useServiceType from "../../../service/hooks/useServiceType";
 import { RATE_SNACKBAR } from "../../constants/rateSnackbar";
 import useRoutes from "../../hooks/useRoutes";
@@ -32,9 +32,9 @@ import RatePriceForm from "./RatePriceForm";
 
 const CreateRate = ({ onAdded }) => {
   const { user } = useAuth();
-  const { customers } = useCustomer();
+  const { customersActive } = useActiveCustomer();
   const { serviceType } = useServiceType();
-  const { products } = useProduct();
+  const { productsActive } = useActiveProduct();
   const { routes } = useRoutes();
 
   const DEFAULT_VALUES_RATE = {
@@ -42,6 +42,9 @@ const CreateRate = ({ onAdded }) => {
     service_type_id: "",
     service_id: "",
     product_id: "",
+    business_id: "",
+    start_date: "",
+    end_date: "",
     route_id: "",
     status: 0,
     price: "",
@@ -55,7 +58,7 @@ const CreateRate = ({ onAdded }) => {
     defaultValues: DEFAULT_VALUES_RATE,
   });
 
-  const addRateMutation = useGenericMutation({
+  const addMutation = useGenericMutation({
     mutationFn: rateService.addRate,
     successMessage: RATE_SNACKBAR.RATE_REGISTER_SUCCESS.message,
     errorMessage: RATE_SNACKBAR.RATE_REGISTER_ERROR.message,
@@ -68,18 +71,18 @@ const CreateRate = ({ onAdded }) => {
   console.log(watch());
   const onSubmit = (data) => {
     // Formatea las fechas antes de enviar los datos
-    // const formattedData = {
-    //   ...data,
-    //   start_date: data.start_date
-    //     ? dayjs(data.start_date).format("YYYY-MM-DD HH:mm:ss")
-    //     : null,
-    //   end_date: data.end_date
-    //     ? dayjs(data.end_date).format("YYYY-MM-DD HH:mm:ss")
-    //     : null,
-    // };
+    const formattedData = {
+      ...data,
+      start_date: data.start_date
+        ? dayjs(data.start_date).format("YYYY-MM-DD HH:mm:ss")
+        : null,
+      end_date: data.end_date
+        ? dayjs(data.end_date).format("YYYY-MM-DD HH:mm:ss")
+        : null,
+    };
 
     // Luego llama a la mutación con los datos formateados
-    addRateMutation.mutate(data);
+    addMutation.mutate(formattedData);
   };
 
   const [activeStep, setActiveStep] = useState(0);
@@ -92,7 +95,7 @@ const CreateRate = ({ onAdded }) => {
     setActiveStep(activeStep - 1);
   };
 
-  const steps = ["Formulario Trafia", "Precio Tarifa", "Revisar Tarifa"];
+  const steps = ["Verificar Trafia", "Precio Tarifa", "Revisar Tarifa"];
 
   const getStepContent = (step) => {
     switch (step) {
@@ -102,9 +105,9 @@ const CreateRate = ({ onAdded }) => {
             control={control}
             watch={watch}
             setValue={setValue}
-            customers={customers}
+            customers={customersActive}
             serviceType={serviceType}
-            products={products}
+            products={productsActive}
             routes={routes}
           />
         );
@@ -114,9 +117,9 @@ const CreateRate = ({ onAdded }) => {
         return (
           <CheckRate
             watch={watch}
-            customers={customers}
+            customers={customersActive}
             serviceType={serviceType}
-            products={products}
+            products={productsActive}
             routes={routes}
           />
         );
@@ -128,7 +131,7 @@ const CreateRate = ({ onAdded }) => {
   return (
     <Grid container spacing={2}>
       <Paper variant="outlined" sx={{ p: "1.5rem" }}>
-        <OverlayLoader isLoading={addRateMutation.isPending} />
+        <OverlayLoader isLoading={addMutation.isPending} />
         <Typography component="h1" variant="subtitle1" align="center">
           Formulario de Creación de Tarifa
         </Typography>
@@ -201,7 +204,7 @@ const CreateRate = ({ onAdded }) => {
                 <AcceptButton
                   variant="contained"
                   onClick={handleSubmit(onSubmit)}
-                  isPending={addRateMutation.isPending}
+                  isPending={addMutation.isPending}
                   fullWidth={false}
                 >
                   Confirmar Tarifa

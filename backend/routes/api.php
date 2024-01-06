@@ -51,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [CustomerController::class, 'store']); // Crear un nuevo cliente
         Route::put('/{id}', [CustomerController::class, 'update']); // Actualizar un cliente
         Route::delete('/{id}', [CustomerController::class, 'destroy']); // Eliminar un cliente
+        Route::get('/active', [CustomerController::class, 'getActive']); // Obtener un cliente por su id
     });
     Route::prefix('services')->group(function () {
         Route::get('/', [ServiceController::class, 'index']);
@@ -72,6 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [ProductController::class, 'store']);
         Route::put('/{id}', [ProductController::class, 'update']);
         Route::delete('/{id}', [ProductController::class, 'destroy']);
+        Route::get('/active', [ProductController::class, 'getActive']);
     });
     Route::prefix('businesses')->group(function () {
         Route::get('/', [BusinessController::class, 'index']);

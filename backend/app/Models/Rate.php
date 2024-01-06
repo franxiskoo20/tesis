@@ -15,6 +15,7 @@ class Rate extends Model
         'service_type_id',
         'service_id',
         'product_id',
+        'business_id',
         'route_id',
         'start_date',
         'end_date',
@@ -53,6 +54,11 @@ class Rate extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function business()
+    {
+        return $this->belongsTo(Business::class);
     }
 
     public function route()

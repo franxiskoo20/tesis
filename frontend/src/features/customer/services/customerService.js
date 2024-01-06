@@ -34,4 +34,7 @@ export const customerService = {
       formDataUpdate
     );
   },
+  getActiveCustomers() {
+    return makeRequest("get", "/api/customers/active");
+  },
 };

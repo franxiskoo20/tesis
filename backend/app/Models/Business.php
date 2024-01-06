@@ -11,7 +11,7 @@ class Business extends Model
 
 
     protected $fillable = [
-        'name','description'
+        'name', 'description'
     ];
 
     public function product()
@@ -23,5 +23,9 @@ class Business extends Model
     {
         return $this->hasOne(Service::class);
     }
-    
+
+    public function rate()
+    {
+        return $this->hasOne(Rate::class);
+    }
 }

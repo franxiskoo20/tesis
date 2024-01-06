@@ -54,4 +54,14 @@ class ProductController extends Controller
             return response()->json(['errors' => 'Error al eliminar el producto', 'message' => $e->getMessage()], 500);
         }
     }
+
+    public function getActive()
+    {
+        try {
+            $products = $this->productRepository->getActive();
+            return response()->json($products);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al obtener los productos activos', 'message' => $e->getMessage()], 500);
+        }
+    }
 }

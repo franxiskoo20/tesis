@@ -20,6 +20,9 @@ return new class extends Migration
             $table->foreignId('service_type_id')->constrained('service_types')->onDelete('cascade');
             $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('business_id')->constrained('businesses')->onDelete('cascade');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->foreignId('route_id')->constrained('routes')->onDelete('cascade');
             $table->boolean('status');
             $table->decimal('price', 10, 2);

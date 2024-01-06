@@ -75,6 +75,15 @@ class ProductRepository implements ProductRepositoryInterface
    */
   public function getAll()
   {
-    return Product::with('user','business')->get();
+    return Product::with('user', 'business')->get();
+  }
+
+  /**
+   * Obtiene todos los productos activos.
+   * @return \Illuminate\Database\Eloquent\Collection
+   */
+  public function getActive()
+  {
+    return Product::with('business')->where('status', 1)->get();
   }
 }

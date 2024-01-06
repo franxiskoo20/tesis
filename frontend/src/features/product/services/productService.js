@@ -32,11 +32,14 @@ export const productService = {
     formDataUpdate.append("logo", logo);
     formDataUpdate.append("business_id", business_id);
     formDataUpdate.append("user_id", user_id);
-    formDataUpdate.append("_method", "put");
+    formDataUpdate.append("_method", "PUT");
     return makeRequest("post", `/api/products/${productId}`, formDataUpdate);
   },
 
   getBusinesses() {
     return makeRequest("get", "/api/businesses");
+  },
+  getActiveProducts() {
+    return makeRequest("get", "/api/products/active");
   },
 };

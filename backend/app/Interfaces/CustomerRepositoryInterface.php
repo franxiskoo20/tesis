@@ -10,4 +10,5 @@ interface CustomerRepositoryInterface
   public function update($id, array $data);
   public function delete($id);
   public function getAll();
+  public function getActive();
 }

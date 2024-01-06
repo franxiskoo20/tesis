@@ -1,6 +1,6 @@
-import RateFormFields from "../RateInputs/RateFormFields";
+import RateFormFieldsVerify from "../RateInputs/RateFormFieldsVerify";
 
-const CreateRate = ({
+const RateForm = ({
   control,
   watch,
   setValue,
@@ -10,7 +10,7 @@ const CreateRate = ({
   routes,
 }) => {
   return (
-    <RateFormFields
+    <RateFormFieldsVerify
       control={control}
       watch={watch}
       setValue={setValue}
@@ -22,4 +22,4 @@ const CreateRate = ({
   );
 };
 
-export default CreateRate;
+export default RateForm;

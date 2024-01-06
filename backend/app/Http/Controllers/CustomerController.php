@@ -39,15 +39,15 @@ class CustomerController extends Controller
         }
     }
 
-    public function show($id)
-    {
-        try {
-            $customer = $this->customerRepository->getById($id);
-            return response()->json($customer);
-        } catch (Exception $e) {
-            return response()->json(['errors' => 'Error al obtener el Cliente', 'message' => $e->getMessage()], 500);
-        }
-    }
+    // public function show($id)
+    // {
+    //     try {
+    //         $customer = $this->customerRepository->getById($id);
+    //         return response()->json($customer);
+    //     } catch (Exception $e) {
+    //         return response()->json(['errors' => 'Error al obtener el Cliente', 'message' => $e->getMessage()], 500);
+    //     }
+    // }
 
     public function update(CustomerRequest $request, $id)
     {
@@ -68,6 +68,16 @@ class CustomerController extends Controller
             return response()->json(['message' => 'Cliente eliminado con éxito']);
         } catch (Exception $e) {
             return response()->json(['errors' => 'Error al elminar el cliente', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function getActive()
+    {
+        try {
+            $customers = $this->customerRepository->getActive();
+            return response()->json($customers);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al mostrar los Clientes activos', 'message' => $e->getMessage()], 500);
         }
     }
 }

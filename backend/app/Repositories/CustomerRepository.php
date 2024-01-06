@@ -84,4 +84,9 @@ class CustomerRepository implements CustomerRepositoryInterface
   {
     return Customer::with('user')->get();
   }
+
+  public function getActive()
+  {
+    return Customer::where('status', 1)->get();
+  }
 }

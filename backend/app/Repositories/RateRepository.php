@@ -14,6 +14,7 @@ class RateRepository implements RateRepositoryInterface
       'service:id,name',
       'serviceType:id,name',
       'product:id,name',
+      'business:id,name',
       'route:id,name',
       'user' => function ($query) {
         $query->select('id', 'name', 'role_id')
@@ -50,6 +51,6 @@ class RateRepository implements RateRepositoryInterface
 
   public function getByCode($code)
   {
-      return Rate::where('code', $code)->first();
+    return Rate::where('code', $code)->first();
   }
 }

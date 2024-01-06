@@ -1,10 +1,11 @@
 import Grid from "@mui/material/Unstable_Grid2";
-import { useEffect } from "react";
-import StatusButtonGroup from "../../../../components/common/Button/StatusButtonGroup";
+import { useEffect, useState } from "react";
+// import StatusButtonGroup from "../../../../components/common/Button/StatusButtonGroup";
+import { TextField } from "@mui/material";
 import CustomSelect from "../../../../components/common/Input/CustomSelect";
 import useServiceByType from "../../../service/hooks/useServiceByType";
 
-const RateFormFields = ({
+const RateFormFieldsVerify = ({
   control,
   watch,
   setValue,
@@ -18,9 +19,9 @@ const RateFormFields = ({
   const serviceId = watch("service_id");
   const serviceTypeId = watch("service_type_id");
   const productId = watch("product_id");
-  const routeId = watch("route_id");
-
   const { serviceByType } = useServiceByType(serviceTypeId);
+  const selectedProduct = products && products.find((p) => p.id === productId);
+  const [businessName, setBusinessName] = useState("");
 
   useEffect(() => {
     const isServiceIdValid = serviceByType?.some((s) => s.id === serviceId);
@@ -29,6 +30,15 @@ const RateFormFields = ({
       setValue("service_id", "");
     }
   }, [serviceTypeId, serviceByType, serviceId, setValue]);
+
+  useEffect(() => {
+    if (selectedProduct && selectedProduct.business) {
+      setBusinessName(selectedProduct.business.name);
+      setValue("business_id", selectedProduct.business.id);
+    } else {
+      setBusinessName("");
+    }
+  }, [selectedProduct, setValue]);
 
   return (
     <>
@@ -82,15 +92,15 @@ const RateFormFields = ({
         />
       </Grid>
       <Grid xs={12}>
-        <CustomSelect
-          control={control}
-          name="product_id"
-          label="Producto"
-          options={(products ?? []).map((p) => ({
-            value: p.id,
-            label: p.name,
-          }))}
-          disabled={!serviceId}
+        <TextField
+          label="Tipo de Negocio"
+          fullWidth
+          value={businessName}
+          helperText={businessName !== "" ? "Correcto" : ""}
+          FormHelperTextProps={{
+            style: { color: "#0070ba" },
+          }}
+          disabled
         />
       </Grid>
       <Grid xs={12}>
@@ -105,15 +115,8 @@ const RateFormFields = ({
           disabled={!productId}
         />
       </Grid>
-      <Grid xs={12}>
-        <StatusButtonGroup
-          control={control}
-          name="status"
-          disabled={!routeId}
-        />
-      </Grid>
     </>
   );
 };
 
-export default RateFormFields;
+export default RateFormFieldsVerify;

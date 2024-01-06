@@ -6,10 +6,10 @@ const useProduct = () => {
   const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: productService.getProducts,
+    select: (data) => data.map(adaptProductData),
     onError: (error) => {
       console.error("Error al cargar los Productos: ", error);
     },
-    select: (data) => data.map(adaptProductData),
   });
 
   return { products, isLoading };

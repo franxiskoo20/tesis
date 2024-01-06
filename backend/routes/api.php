@@ -92,6 +92,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{id}', [RateController::class, 'update']);
         Route::delete('/{id}', [RateController::class, 'destroy']);
         Route::get('/getByCode/{code}', [RateController::class, 'getByCode']);
+        Route::post('/getByAttributes', [RateController::class, 'getByAttributes']);
     });
 
     Route::prefix('orders')->group(function () {

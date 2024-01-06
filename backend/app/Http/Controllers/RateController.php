@@ -64,4 +64,14 @@ class RateController extends Controller
             return response()->json(['errors' => 'Error al obtener la tarifa a travez del codigo', 'message' => $e->getMessage()], 500);
         }
     }
+
+    public function getByAttributes(RateRequest $request)
+    {
+        try {
+            $rate = $this->rateRepository->getByAttributes($request->validated());
+            return response()->json($rate);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al obtener la tarifa a travez de los atributos', 'message' => $e->getMessage()], 500);
+        }
+    }
 }

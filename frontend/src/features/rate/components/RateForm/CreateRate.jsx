@@ -68,7 +68,11 @@ const CreateRate = ({ onAdded }) => {
       setActiveStep(0); // Vuelve al primer paso del formulario
     },
   });
+
+
+
   console.log(watch());
+
   const onSubmit = (data) => {
     // Formatea las fechas antes de enviar los datos
     const formattedData = {
@@ -88,7 +92,11 @@ const CreateRate = ({ onAdded }) => {
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    if (activeStep === 0) {
+      handleSubmit(handleVerifyRate)(); // Llama a handleVerifyRate para el primer paso
+    } else {
+      setActiveStep(activeStep + 1); // Para otros pasos, simplemente avanza
+    }
   };
 
   const handleBack = () => {

@@ -12,4 +12,5 @@ interface RateRepositoryInterface
   public function update($id, array $data);
   public function delete($id);
   public function getByCode($code);
+  public function getByAttributes(array $data);
 }

@@ -12,9 +12,7 @@ const CheckRate = ({ watch, customers, serviceType, products, routes }) => {
     items?.find((item) => item.id === id)?.name || "No seleccionado";
 
   const formatFecha = (fecha) =>
-    fecha
-      ? dayjs(fecha).format("dddd, D [de] MMMM [de] YYYY")
-      : "No seleccionado";
+    fecha ? dayjs(fecha).format("DD/MM/YYYY") : "No seleccionado";
 
   const InfoLine = ({ label, value }) => (
     <Box

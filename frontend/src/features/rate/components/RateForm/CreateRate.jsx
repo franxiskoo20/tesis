@@ -49,7 +49,7 @@ const CreateRate = ({ onAdded }) => {
     start_date: null,
     end_date: null,
     route_id: "",
-    status: 0,
+    status: 1,
     price: "",
     currency: "CLP",
     user_id: user?.id || "",
@@ -112,6 +112,9 @@ const CreateRate = ({ onAdded }) => {
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+    if (activeStep === 1) {
+      setVerifiedRates(null);
+    }
   };
 
   const steps = ["Verificar Trafia", "Crear Tarifa", "Revisar Tarifa"];
@@ -136,6 +139,7 @@ const CreateRate = ({ onAdded }) => {
             control={control}
             watch={watch}
             verifiedRates={verifiedRates}
+            isVerifying={getByAttributes.isPending}
           />
         );
       case 2:

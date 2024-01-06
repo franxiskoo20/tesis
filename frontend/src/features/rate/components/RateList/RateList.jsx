@@ -7,8 +7,12 @@ import {
   Divider,
   Box,
 } from "@mui/material";
+import dayjs from "dayjs";
 
-const RateList = ({ rates }) => {
+const RateList = ({ rates, isVerifying }) => {
+  const formatFecha = (fecha) =>
+    fecha ? dayjs(fecha).format("DD/MM/YYYY") : "No seleccionado";
+
   return (
     <Paper sx={{ m: 1, p: 1 }} elevation={0}>
       {rates && rates.length > 0 ? (
@@ -25,7 +29,7 @@ const RateList = ({ rates }) => {
                 secondary={
                   <Box>
                     <Typography variant="body2" component="span">
-                      Fecha de Incio: {rate.start_date}
+                      {} Fecha de Incio: {formatFecha(rate.start_date)}
                     </Typography>
                     <br />
                     <Typography
@@ -35,7 +39,7 @@ const RateList = ({ rates }) => {
                     >
                       Fecha de Fin:
                     </Typography>
-                    {rate.end_date}
+                    {formatFecha(rate.end_date)}
                   </Box>
                 }
               />
@@ -43,9 +47,17 @@ const RateList = ({ rates }) => {
           ))}
         </List>
       ) : (
-        <Typography variant="subtitle1" align="center">
-          No existen Tarifas
-        </Typography>
+        <>
+          {!isVerifying ? (
+            <Typography variant="subtitle1" align="center">
+              No existen Tarifas
+            </Typography>
+          ) : (
+            <Typography variant="subtitle1" align="center">
+              Cargado...
+            </Typography>
+          )}
+        </>
       )}
       <Divider />
     </Paper>

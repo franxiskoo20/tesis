@@ -29,10 +29,9 @@ class Rate extends Model
     {
         parent::boot();
 
-        static::creating(function ($rate) {
-            $lastRate = self::orderBy('created_at', 'desc')->first();
-            $nextId = $lastRate ? $lastRate->id + 1 : 1;
-            $rate->code = 'TARIFA' . str_pad($nextId, 4, '0', STR_PAD_LEFT);
+        static::created(function ($rate) {
+            $rate->code = 'TARIFA' . str_pad($rate->id, 4, '0', STR_PAD_LEFT);
+            $rate->save();
         });
     }
 

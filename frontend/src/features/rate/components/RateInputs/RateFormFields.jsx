@@ -5,9 +5,12 @@ import CustomSelect from "../../../../components/common/Input/CustomSelect";
 import CustomTextFieldPrice from "../../../../components/common/Input/CustomTextFieldPrice";
 import { CURRENCIES_RATE } from "../../constants/rateCurrency";
 
-const RateFormFields = ({ control, watch }) => {
+const RateFormFields = ({ control, watch, verifiedRates }) => {
   const routeId = watch("route_id");
   const endDate = watch("end_date");
+
+ 
+
   return (
     <>
       <Grid xs={12}>
@@ -24,6 +27,7 @@ const RateFormFields = ({ control, watch }) => {
           endDateName="end_date"
           watch={watch}
           label="Rango de fechas"
+          verifiedRates={verifiedRates}
           disabled={!routeId}
         />
       </Grid>

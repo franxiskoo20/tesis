@@ -1,11 +1,20 @@
 import RateList from "../RateList/RateList";
 import RateFormFields from "../RateInputs/RateFormFields";
+import { Box } from "@mui/material";
+import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 
-const RateVerify = ({ control, watch, verifiedRates }) => {
+const RateVerify = ({ control, watch, verifiedRates, isVerifying }) => {
   return (
     <>
-      <RateList rates={verifiedRates} />
-      <RateFormFields control={control} watch={watch} />
+      <Box position="relative">
+        <OverlayLoader isLoading={isVerifying} />
+        <RateList rates={verifiedRates} isVerifying={isVerifying} />
+      </Box>
+      <RateFormFields
+        control={control}
+        watch={watch}
+        verifiedRates={verifiedRates}
+      />
     </>
   );
 };

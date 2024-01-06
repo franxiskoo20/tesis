@@ -12,13 +12,26 @@ dayjs.locale("es");
 
 const today = dayjs();
 
+const getLastEndDate = (rates) => {
+  if (rates && rates.length > 0) {
+    const lastRate = rates
+      .slice()
+      .sort((a, b) => dayjs(b.end_date).unix() - dayjs(a.end_date).unix())[0];
+    return dayjs(lastRate.end_date).add(1, "day");
+  }
+  return today;
+};
+
 const CustomDateRangePicker = ({
   control,
   startDateName,
   endDateName,
   watch,
+  verifiedRates,
   disabled,
 }) => {
+  const lastEndDate = getLastEndDate(verifiedRates);
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"es"}>
       <Grid container spacing={2}>
@@ -30,7 +43,7 @@ const CustomDateRangePicker = ({
               <DatePicker
                 {...field}
                 label="Fecha de Inicio"
-                minDate={today}
+                minDate={lastEndDate}
                 disabled={disabled}
               />
             )}

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->nullable()->change();
+            $table->string('code')->nullable();
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
             $table->foreignId('service_type_id')->constrained('service_types')->onDelete('cascade');
             $table->foreignId('service_id')->constrained('services')->onDelete('cascade');

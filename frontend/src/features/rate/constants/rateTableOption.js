@@ -5,7 +5,7 @@ export const rateTableStaticOption = {
   viewColumns: "false",
   textLabels: {
     body: {
-      noMatch: "Lo sentimos, no se encontraron tarifas",
+      noMatch: "Lo sentimos, no se encontraron Tarifas",
       toolTip: "Ordenar",
     },
     pagination: {

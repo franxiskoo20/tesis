@@ -5,17 +5,15 @@ import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 
 const RateVerify = ({ control, watch, verifiedRates, isVerifying }) => {
   return (
-    <>
-      <Box position="relative">
-        <OverlayLoader isLoading={isVerifying} />
-        <RateList rates={verifiedRates} isVerifying={isVerifying} />
-      </Box>
+    <Box position="relative">
+      <OverlayLoader isLoading={isVerifying} />
+      <RateList rates={verifiedRates} isVerifying={isVerifying} />
       <RateFormFields
         control={control}
         watch={watch}
         verifiedRates={verifiedRates}
       />
-    </>
+    </Box>
   );
 };
 

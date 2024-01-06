@@ -43,7 +43,7 @@ const useServiceTableColumn = (services, onEdit, onDelete) => {
           const serviceType = services[dataIndex];
           return (
             <ServiceTypeChip
-              serviceTypeId={serviceType.id}
+              serviceTypeId={serviceType.serviceTypeId}
               serviceTypeName={serviceType.serviceTypeName}
             />
           );

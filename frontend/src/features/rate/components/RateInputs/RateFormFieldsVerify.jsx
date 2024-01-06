@@ -25,7 +25,6 @@ const RateFormFieldsVerify = ({
 
   useEffect(() => {
     const isServiceIdValid = serviceByType?.some((s) => s.id === serviceId);
-
     if (serviceTypeId && !isServiceIdValid) {
       setValue("service_id", "");
     }

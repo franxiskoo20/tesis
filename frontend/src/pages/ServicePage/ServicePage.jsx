@@ -86,7 +86,7 @@ const ServicePage = () => {
                   setItemToAction(null);
                 }}
                 toEdit={itemToAction}
-                onUpdated={() => handleAsyncAction()}
+                onEdit={() => handleAsyncAction()}
               />
               <ServiceDeleteModal
                 open={isDeleteOpen}

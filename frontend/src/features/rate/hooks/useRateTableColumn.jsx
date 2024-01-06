@@ -7,7 +7,7 @@ import StatusChip from "../../../components/ui/StatusChip";
 const useRateTableColumn = (rates, onEdit, onDelete) => {
   const columns = [
     {
-      name: "",
+      name: "Avatar",
       options: {
         filter: false,
         sort: false,

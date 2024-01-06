@@ -33,8 +33,8 @@ import CheckRate from "./CheckRate";
 
 const CreateRate = ({ onAdded }) => {
   const { user } = useAuth();
-  const { customersActive } = useActiveCustomer();
   const { serviceType } = useServiceType();
+  const { customersActive } = useActiveCustomer();
   const { productsActive } = useActiveProduct();
   const { routes } = useRoutes();
   const [activeStep, setActiveStep] = useState(0);
@@ -80,8 +80,6 @@ const CreateRate = ({ onAdded }) => {
       setVerifiedRates(data);
     },
   });
-
-  console.log(watch());
 
   const onSubmit = (data) => {
     const formattedData = {

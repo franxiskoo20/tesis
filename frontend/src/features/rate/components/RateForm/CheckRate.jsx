@@ -2,10 +2,11 @@ import { Box, Divider, Typography } from "@mui/material";
 import useService from "../../../service/hooks/useService";
 import useUser from "../../../user/hooks/useUser";
 import dayjs from "dayjs";
+import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 
 const CheckRate = ({ watch, customers, serviceType, products, routes }) => {
-  const { services } = useService();
-  const { users } = useUser();
+  const { services, isLoading: isLoadingService } = useService();
+  const { users, isLoading: isLoadingUsers } = useUser();
   const formData = watch(); // Obtiene todos los valores a la vez
 
   const findSelected = (items, id) =>
@@ -28,7 +29,8 @@ const CheckRate = ({ watch, customers, serviceType, products, routes }) => {
   );
 
   return (
-    <>
+    <Box position="relative">
+      <OverlayLoader isLoading={isLoadingService || isLoadingUsers} />
       <InfoLine
         label="Cliente"
         value={findSelected(customers, formData.customer_id)}
@@ -82,7 +84,7 @@ const CheckRate = ({ watch, customers, serviceType, products, routes }) => {
           }
         />
       </Box>
-    </>
+    </Box>
   );
 };
 

@@ -48,8 +48,8 @@ const CustomerCard = ({ customers }) => {
             <CardHeader
               avatar={
                 <UserAvatar
-                  role={customer.user.roleId}
                   name={customer.user.name}
+                  roleId={customer.user.roleId}
                 />
               }
               title={customer.user.name}

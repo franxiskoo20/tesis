@@ -4,7 +4,9 @@ import PaperContainer from "../../components/common/Container/PaperContainer";
 import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import CreateRate from "../../features/rate/components/RateForm/CreateRate";
-import RateTable from "../../features/rate/components/RateTable/RateTable";
+import RateTableCurrent from "../../features/rate/components/RateTable/RateTableCurrent";
+import RateTableIdle from "../../features/rate/components/RateTable/RateTableIdle";
+
 import useModalState from "../../hooks/useModalState";
 import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
 import useRate from "../../features/rate/hooks/useRate";
@@ -45,7 +47,8 @@ const RatePage = () => {
           aria-label="service tabs"
         >
           <Tab label="Nueva Tarifas" {...a11yProps(0)} />
-          <Tab label="Tarifas" {...a11yProps(1)} />
+          <Tab label="Tarifas Vigente" {...a11yProps(1)} />
+          <Tab label="Tarifas Inactivas" {...a11yProps(1)} />
         </Tabs>
         <Divider />
         <CustomTabPanel
@@ -63,7 +66,7 @@ const RatePage = () => {
           {isLoading ? (
             <LoadingSkeleton />
           ) : (
-            <RateTable
+            <RateTableCurrent
               rates={rates}
               onEdit={(rate) => {
                 setItemToAction(rate);
@@ -97,6 +100,13 @@ const RatePage = () => {
                 onDelete={() => handleAsyncAction()}
               />
             </>
+          )}
+        </CustomTabPanel>
+        <CustomTabPanel value={tabValue} index={2}>
+          {isLoading ? (
+            <LoadingSkeleton />
+          ) : (
+            <RateTableIdle rates={rates} isSubmitting={isSubmitting} />
           )}
         </CustomTabPanel>
       </PaperContainer>

@@ -1,10 +1,7 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 
-const useRateTableColumn = (rates, onEdit, onDelete) => {
+const useRateTableColumnIdle = (rates) => {
   const columns = [
     {
       name: "Avatar",
@@ -90,37 +87,9 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
         sort: true,
       },
     },
-
-    {
-      name: "actions",
-      label: "Acción",
-      options: {
-        filter: false,
-        sort: false,
-        empty: true,
-        customBodyRenderLite: (dataIndex) => {
-          return (
-            <>
-              <CustomIconButton
-                aria-label="edit"
-                onClick={() => onEdit(rates[dataIndex])}
-              >
-                <EditIcon />
-              </CustomIconButton>
-              <CustomIconButton
-                aria-label="delete"
-                onClick={() => onDelete(rates[dataIndex].id)}
-              >
-                <DeleteIcon />
-              </CustomIconButton>
-            </>
-          );
-        },
-      },
-    },
   ];
 
   return columns;
 };
 
-export default useRateTableColumn;
+export default useRateTableColumnIdle;

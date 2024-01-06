@@ -1,9 +1,7 @@
 export const rateTableStaticOption = {
-  filter: false,
   filterType: "checkbox",
   responsive: "standard",
   selectableRows: "none",
-  search: false,
   download: false,
   print: false,
   viewColumns: false,

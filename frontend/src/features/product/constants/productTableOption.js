@@ -2,7 +2,9 @@ export const productTableStaticOption = {
   filterType: "checkbox",
   responsive: "standard",
   selectableRows: "none",
-  viewColumns: "false",
+  download: false,
+  print: false,
+  viewColumns: false,
   textLabels: {
     body: {
       noMatch: "Lo sentimos, no se encontraron Productos",

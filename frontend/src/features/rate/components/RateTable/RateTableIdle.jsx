@@ -2,33 +2,30 @@ import { Box, Chip } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import { rateTableStaticOption } from "../../constants/rateTableOption";
-import useRateTableColumn from "../../hooks/useRateTableColumn";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import useRateTableColumnIdle from "../../hooks/useRateTableColumnIdle";
+import CancelIcon from "@mui/icons-material/Cancel";
 
-const RateTable = ({ rates, onEdit, onDelete, isSubmitting }) => {
-  const columns = useRateTableColumn(rates, onEdit, onDelete);
+const RateTableIdle = ({ rates, isSubmitting }) => {
+  const columns = useRateTableColumnIdle(rates);
 
   const options = {
     ...rateTableStaticOption,
   };
+  const idleRates = rates.filter((rate) => rate.status === 0);
 
   return (
     <Box position="relative">
       <OverlayLoader isLoading={isSubmitting} />
       <MUIDataTable
         title={
-          <Chip
-            label="Tarifas Vigente"
-            color="success"
-            icon={<CheckCircleIcon />}
-          />
+          <Chip label="Tarifas Inactiva" color="error" icon={<CancelIcon />} />
         }
-        data={rates}
+        data={idleRates}
         columns={columns}
         options={options}
-      />  
+      />
     </Box>
   );
 };
 
-export default RateTable;
+export default RateTableIdle;

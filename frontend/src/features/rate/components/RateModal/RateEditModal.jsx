@@ -79,7 +79,7 @@ const ProductEditModal = ({ open, onClose, toEdit, onUpdated }) => {
     <ActionModal
       open={open}
       onClose={onClose}
-      title="Registrar Cliente"
+      title="Modificar Tarifa"
       onSubmit={handleSubmit(onSubmit)}
       isPending={updateMutation.isPending}
       submitLabel="Agregar"

@@ -6,9 +6,20 @@ import "dayjs/locale/es";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { Controller } from "react-hook-form";
 
-// Configura dayjs con el plugin y la localización
 dayjs.extend(customParseFormat);
 dayjs.locale("es");
+
+const today = dayjs();
+
+const getLastEndDate = (rates) => {
+  if (rates && rates.length > 0) {
+    const lastRate = rates
+      .slice()
+      .sort((a, b) => dayjs(b.end_date).unix() - dayjs(a.end_date).unix())[0];
+    return dayjs(lastRate.end_date).add(1, "day");
+  }
+  return today;
+};
 
 const CustomDateRangePicker = ({
   control,
@@ -18,17 +29,7 @@ const CustomDateRangePicker = ({
   verifiedRates,
   disabled,
 }) => {
-  // Ajusta 'verifiedRates' para definir rangos de fechas deshabilitados (inclusivos)
-  const isDateDisabled = (date) => {
-    return verifiedRates.some((range) => {
-      const start = dayjs(range.start_date);
-      const end = dayjs(range.end_date);
-      return (
-        (date.isAfter(start) || date.isSame(start, "day")) &&
-        (date.isBefore(end) || date.isSame(end, "day"))
-      );
-    });
-  };
+  const lastEndDate = getLastEndDate(verifiedRates);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={"es"}>
@@ -41,7 +42,7 @@ const CustomDateRangePicker = ({
               <DatePicker
                 {...field}
                 label="Fecha de Inicio"
-                shouldDisableDate={isDateDisabled}
+                minDate={lastEndDate}
                 disabled={disabled}
               />
             )}
@@ -58,7 +59,6 @@ const CustomDateRangePicker = ({
                 minDate={
                   watch(startDateName) ? dayjs(watch(startDateName)) : null
                 }
-                shouldDisableDate={isDateDisabled}
                 disabled={!watch(startDateName)}
               />
             )}
@@ -68,5 +68,4 @@ const CustomDateRangePicker = ({
     </LocalizationProvider>
   );
 };
-
 export default CustomDateRangePicker;

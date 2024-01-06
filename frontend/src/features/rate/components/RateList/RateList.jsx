@@ -5,7 +5,6 @@ import {
   Typography,
   Paper,
   Divider,
-  Box,
 } from "@mui/material";
 import dayjs from "dayjs";
 
@@ -27,9 +26,9 @@ const RateList = ({ rates, isVerifying }) => {
                 }}
                 primary={`Tarifa: ${rate.code}`}
                 secondary={
-                  <Box>
+                  <Typography component="span">
                     <Typography variant="body2" component="span">
-                      {} Fecha de Incio: {formatFecha(rate.start_date)}
+                      Fecha de Incio: {formatFecha(rate.start_date)}
                     </Typography>
                     <br />
                     <Typography
@@ -39,8 +38,10 @@ const RateList = ({ rates, isVerifying }) => {
                     >
                       Fecha de Fin:
                     </Typography>
-                    {formatFecha(rate.end_date)}
-                  </Box>
+                    <Typography variant="body2" component="span">
+                      {formatFecha(rate.end_date)}
+                    </Typography>
+                  </Typography>
                 }
               />
             </ListItem>

@@ -2,7 +2,9 @@ export const customerTableStaticOption = {
   filterType: "checkbox",
   responsive: "standard",
   selectableRows: "none",
-  viewColumns: "false",
+  download: false,
+  print: false,
+  viewColumns: false,
   textLabels: {
     body: {
       noMatch: "Lo siento, no se encontraron Clientes",

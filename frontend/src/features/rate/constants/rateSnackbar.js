@@ -23,4 +23,12 @@ export const RATE_SNACKBAR = {
     message: "Error al eliminar el Tarifas",
     type: "error",
   },
+  RATE_VERIFY_SUCCESS: {
+    message: "Tarifas revisada con éxito",
+    type: "success",
+  },
+  RATE_VERIFY_ERROR: {
+    message: "Error en la revisión del Tarifas",
+    type: "error",
+  },
 };

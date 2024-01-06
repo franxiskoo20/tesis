@@ -5,8 +5,8 @@ import dayjs from "dayjs";
 import "dayjs/locale/es";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { Controller } from "react-hook-form";
+import { isWithinInterval } from 'date-fns';
 
-// Configura dayjs con el plugin y la localización
 dayjs.extend(customParseFormat);
 dayjs.locale("es");
 

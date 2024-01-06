@@ -3,6 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import StatusChip from "../../../components/ui/StatusChip";
+import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
 
 const useRateTableColumn = (rates, onEdit, onDelete) => {
   const columns = [
@@ -42,6 +43,23 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
       },
     },
     {
+      name: "serviceTypeName",
+      label: "Tipo de Servicio",
+      options: {
+        filter: true,
+        sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const serviceType = rates[dataIndex];
+          return (
+            <ServiceTypeChip
+              serviceTypeId={serviceType.serviceTypeId}
+              serviceTypeName={serviceType.serviceTypeName}
+            />
+          );
+        },
+      },
+    },
+    {
       name: "productName",
       label: "Producto",
       options: {
@@ -57,21 +75,21 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
         sort: true,
       },
     },
-    {
-      name: "status",
-      label: "Estado",
-      options: {
-        filter: false,
-        sort: true,
-        customBodyRenderLite: (dataIndex) => {
-          const rateStatus = rates[dataIndex].status;
-          return <StatusChip enabled={rateStatus} />;
-        },
-      },
-    },
+    // {
+    //   name: "status",
+    //   label: "Estado",
+    //   options: {
+    //     filter: false,
+    //     sort: true,
+    //     customBodyRenderLite: (dataIndex) => {
+    //       const rateStatus = rates[dataIndex].status;
+    //       return <StatusChip enabled={rateStatus} />;
+    //     },
+    //   },
+    // },
     {
       name: "createdAt",
-      label: "fecha de creacion",
+      label: "Fecha de Creación",
       options: {
         filter: false,
         sort: true,
@@ -79,7 +97,7 @@ const useRateTableColumn = (rates, onEdit, onDelete) => {
     },
     {
       name: "updatedAt",
-      label: "fecha de actualizacion",
+      label: "Fecha de Actualización",
       options: {
         filter: false,
         sort: true,

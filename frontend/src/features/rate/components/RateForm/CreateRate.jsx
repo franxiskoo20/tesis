@@ -74,8 +74,8 @@ const CreateRate = ({ onAdded }) => {
 
   const getByAttributes = useGenericMutation({
     mutationFn: rateService.getByAttributes,
-    successMessage: RATE_SNACKBAR.RATE_REGISTER_SUCCESS.message,
-    errorMessage: RATE_SNACKBAR.RATE_REGISTER_ERROR.message,
+    successMessage: RATE_SNACKBAR.RATE_VERIFY_SUCCESS.message,
+    errorMessage: RATE_SNACKBAR.RATE_VERIFY_ERROR.message,
     onSuccessCallbackData: (data) => {
       setVerifiedRates(data);
     },

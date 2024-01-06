@@ -9,17 +9,15 @@ const RateFormFields = ({ control, watch, verifiedRates }) => {
   const routeId = watch("route_id");
   const endDate = watch("end_date");
 
- 
-
   return (
     <>
-      <Grid xs={12}>
+      {/* <Grid xs={12}>
         <StatusButtonGroup
           control={control}
           name="status"
           disabled={!routeId}
         />
-      </Grid>
+      </Grid> */}
       <Grid xs={12}>
         <CustomDateRangePicker
           control={control}

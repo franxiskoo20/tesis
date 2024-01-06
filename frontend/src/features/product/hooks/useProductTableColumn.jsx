@@ -8,7 +8,7 @@ import BussinesChip from "../components/ProductUI/BusinessChip";
 const useProductTableColumn = (products, onEdit, onDelete) => {
   const columns = [
     {
-      name: "",
+      name: "Avatar",
       options: {
         filter: false,
         sort: false,
@@ -16,15 +16,6 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
           const product = products[dataIndex].user;
           return <UserAvatar name={product.name} roleId={product.roleId} />;
         },
-      },
-    },
-    {
-      name: "id",
-      label: "ID",
-      options: {
-        filter: false,
-        sort: true,
-        customBodyRenderLite: (dataIndex) => dataIndex + 1,
       },
     },
     {
@@ -75,7 +66,7 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
 
     {
       name: "createdAt",
-      label: "fecha de creacion",
+      label: "Fecha de Creación",
       options: {
         filter: false,
         sort: true,
@@ -83,7 +74,7 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
     },
     {
       name: "updatedAt",
-      label: "fecha de actualizacion",
+      label: "Fecha de Actualizacion",
       options: {
         filter: false,
         sort: true,

@@ -23,8 +23,7 @@ const a11yProps = (index) => {
 };
 
 const ProductPage = () => {
-  
-  const { products, isLoading, isSuccess } = useProduct();
+  const { products, isLoading } = useProduct();
   const {
     isRegisterOpen,
     isEditOpen,
@@ -57,14 +56,16 @@ const ProductPage = () => {
         <CustomTabPanel value={tabValue} index={0}>
           {isLoading ? (
             <LoadingSkeleton count={3} xs={12} sm={12} md={6} lg={4} />
-          ) : isSuccess ? (
+          ) : products && products.length > 0 ? (
             <Box component="article" mt={4}>
               <Grid container spacing={2}>
                 <ProductCard products={products} />
               </Grid>
             </Box>
           ) : (
-            <Typography>No hay datos disponibles</Typography>
+            <Box component="article" sx={{ mt: 4, textAlign: "center" }}>
+              <Typography>Lo sentimos, no se encontraron Productos</Typography>
+            </Box>
           )}
         </CustomTabPanel>
         <CustomTabPanel value={tabValue} index={1}>

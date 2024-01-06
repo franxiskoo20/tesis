@@ -3,12 +3,7 @@ import useGenericMutation from "../../../../hooks/useGenericMutation";
 import { SERVICE_SNACKBAR } from "../../constants/serviceSnackbar";
 import { serviceOfService } from "../../services/serviceOfService";
 
-const ServiceDeleteModal = ({
-  open,
-  onClose,
-  serviceToDelete,
-  onServiceDelete,
-}) => {
+const ServiceDeleteModal = ({ open, onClose, toDelete, onDelete }) => {
   const deleteMutation = useGenericMutation({
     mutationFn: (serviceToDelete) =>
       serviceOfService.deleteService(serviceToDelete),
@@ -16,7 +11,7 @@ const ServiceDeleteModal = ({
     errorMessage: SERVICE_SNACKBAR.SERVICE_DELETE_ERROR.message,
     onSuccessCallback: () => {
       onClose?.();
-      onServiceDelete?.();
+      onDelete?.();
     },
   });
 
@@ -25,7 +20,7 @@ const ServiceDeleteModal = ({
       <GenericConfirmModal
         open={open}
         onClose={onClose}
-        onConfirm={() => deleteMutation.mutate(serviceToDelete)}
+        onConfirm={() => deleteMutation.mutate(toDelete)}
         title="Confirmar Eliminación"
         confirmButtonText="Eliminar"
         cancelButtonText="Cancelar"

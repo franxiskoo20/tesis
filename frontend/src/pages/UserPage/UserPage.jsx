@@ -4,7 +4,8 @@ import PaperContainer from "../../components/common/Container/PaperContainer";
 import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
 import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
-import RoleAccordion from "../../features/user/components/RoleAccordion/RoleAccordion";
+// import RoleDescription from "../../features/user/components/RoleDescription/RoleDescription";
+import UserAccordion from "../../features/user/components/UserAccordion/UserAccordion";
 import UserDeleteModal from "../../features/user/components/UserModal/UserDeleteModal";
 import UserEditModal from "../../features/user/components/UserModal/UserEditModal";
 import UserAddModal from "../../features/user/components/UserModal/UserAddModal";
@@ -22,7 +23,7 @@ const a11yProps = (index) => {
 
 const UserPage = () => {
   const { users, isLoading } = useUser();
-  
+
   const {
     isRegisterOpen,
     isEditOpen,
@@ -101,7 +102,7 @@ const UserPage = () => {
           )}
         </CustomTabPanel>
         <CustomTabPanel value={tabValue} index={1}>
-          <RoleAccordion />
+          <UserAccordion />
         </CustomTabPanel>
       </PaperContainer>
     </AuthenticatedLayout>

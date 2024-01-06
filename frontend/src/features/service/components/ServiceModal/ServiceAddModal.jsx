@@ -9,7 +9,7 @@ import { validationSchemasService } from "../../utils/validationSchemasService";
 import ServiceFormFields from "../ServiceInputs/ServiceFormFields";
 import useServiceType from "../../hooks/useServiceType";
 
-const ServiceAddModal = ({ open, onClose, onServiceAdded }) => {
+const ServiceAddModal = ({ open, onClose, onAdded }) => {
   const { user } = useAuth();
 
   const DEFAULT_VALUES_SERVICE = {
@@ -33,7 +33,7 @@ const ServiceAddModal = ({ open, onClose, onServiceAdded }) => {
     errorMessage: SERVICE_SNACKBAR.SERVICE_REGISTER_ERROR.message,
     onSuccessCallback: () => {
       onClose?.();
-      onServiceAdded?.();
+      onAdded?.();
     },
   });
 

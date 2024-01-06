@@ -25,7 +25,6 @@ const CustomerTable = ({
     <Box position="relative">
       <OverlayLoader isLoading={isSubmitting} />
       <MUIDataTable
-        title={"Lista de usuarios"}
         data={customers}
         columns={columns}
         options={options}

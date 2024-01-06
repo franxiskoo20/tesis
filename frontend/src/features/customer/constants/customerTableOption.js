@@ -5,7 +5,7 @@ export const customerTableStaticOption = {
   viewColumns: "false",
   textLabels: {
     body: {
-      noMatch: "Lo siento, no se encontraron registros",
+      noMatch: "Lo siento, no se encontraron Clientes",
       toolTip: "Ordenar",
     },
     pagination: {

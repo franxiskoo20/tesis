@@ -7,10 +7,3 @@ export const BUSINESS_COLORS = {
   4: blue[800], // ID para MADERA
   5: blue[900], // ID para FERTILIZANTES
 };
-export const BUSINESS_PRODUCT = {
-  OTRA_CARGAS: "Otras Cargas",
-  METAL_MECANICO: "Metal Mecánico",
-  MADERA_CONSOLIDADA: "Madera Consolidada",
-  MADERA: "Madera",
-  FERTILIZANTES: "Fertilizantes",
-};

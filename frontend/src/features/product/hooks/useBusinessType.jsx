@@ -6,7 +6,7 @@ const useBusinessType = () => {
     queryKey: ["businessType"],
     queryFn: productService.getBusinesses,
     onError: (error) => {
-      console.error("Error al cargar los tipos de negocios: ", error);
+      console.error("Error al cargar los Tipos de Negocios: ", error);
     },
   });
   return { businessType };

@@ -4,17 +4,17 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/system";
-import { ROLE_COLORS } from "../../constants/userRoles";
-import useRoles from "../../hooks/useRoles";
-import UserAvatar from "../UserAvatar/UserAvatar";
-import RoleChip from "../UserUI/RoleChip";
+import { SERVICE_TYPE_COLORS } from "../../constants/serviceType";
+import useServiceType from "../../hooks/useServiceType";
+import ServiceTypeChip from "../ServiceUI/ServiceTypeChip";
 
-const UserAccordion = () => {
-  const { roles } = useRoles();
+const ServiceAccordion = () => {
+  const { serviceType } = useServiceType();
+
   return (
     <>
-      {roles?.map((item) => (
-        <Accordion key={item.id} elevation={2}>
+      {serviceType?.map((item) => (
+        <Accordion key={item.id}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel${item.id}a-content`}
@@ -26,18 +26,22 @@ const UserAccordion = () => {
                 display: "flex",
                 alignItems: "center",
                 gap: 1,
-                color: ROLE_COLORS ? ROLE_COLORS[item.id] : "default",
+                color: SERVICE_TYPE_COLORS
+                  ? SERVICE_TYPE_COLORS[item.id]
+                  : "default",
               }}
             >
-              <UserAvatar name={item.name} roleId={item.id} />
               {item.name}
-              <RoleChip roleName={item.name} roleId={item.id} />
+              <ServiceTypeChip
+                serviceTypeId={item.id}
+                serviceTypeName={item.name}
+              />
             </Typography>
           </AccordionSummary>
           <AccordionDetails
             sx={{
-              backgroundColor: ROLE_COLORS
-                ? alpha(ROLE_COLORS[item.id], 0.1)
+              backgroundColor: SERVICE_TYPE_COLORS
+                ? alpha(SERVICE_TYPE_COLORS[item.id], 0.1)
                 : "default",
             }}
           >
@@ -49,4 +53,4 @@ const UserAccordion = () => {
   );
 };
 
-export default UserAccordion;
+export default ServiceAccordion;

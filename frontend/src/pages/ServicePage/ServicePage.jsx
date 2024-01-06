@@ -1,20 +1,17 @@
 import { Divider, Tab, Tabs } from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import PaperContainer from "../../components/common/Container/PaperContainer";
 import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
 import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
-import { adaptServiceData } from "../../features/service/adapters/adaptServiceData";
+import ServiceAccordion from "../../features/service/components/ServiceAccordion/ServiceAccordion";
 import ServiceAddModal from "../../features/service/components/ServiceModal/ServiceAddModal";
 import ServiceDeleteModal from "../../features/service/components/ServiceModal/ServiceDeleteModal";
 import ServiceEditModal from "../../features/service/components/ServiceModal/ServiceEditModal";
 import ServiceTable from "../../features/service/components/ServiceTable/ServiceTable";
-import ServiceType from "../../features/service/serviceType/serviceType";
-import { serviceOfService } from "../../features/service/services/serviceOfService";
+import useService from "../../features/service/hooks/useService";
 import useAsyncAction from "../../hooks/useAsyncAction";
 import useModalState from "../../hooks/useModalState";
-
 const a11yProps = (index) => {
   return {
     id: `service-tab-${index}`,
@@ -23,11 +20,7 @@ const a11yProps = (index) => {
 };
 
 const ServicePage = () => {
-  const { data: services, isLoading } = useQuery({
-    queryKey: ["services"],
-    queryFn: serviceOfService.getServices,
-    select: (data) => data.map(adaptServiceData),
-  });
+  const { services, isLoading } = useService();
 
   const {
     isRegisterOpen,
@@ -64,7 +57,7 @@ const ServicePage = () => {
           ) : (
             <ServiceTable
               services={services}
-              onAddservice={() => toggleModal("register")}
+              onAdd={() => toggleModal("register")}
               onEdit={(service) => {
                 setItemToAction(service);
                 toggleModal("edit");
@@ -82,7 +75,7 @@ const ServicePage = () => {
               toggleModal("register");
               setItemToAction(null);
             }}
-            onServiceAdded={() => handleAsyncAction()}
+            onAdded={() => handleAsyncAction()}
           />
           {itemToAction && (
             <>
@@ -101,14 +94,14 @@ const ServicePage = () => {
                   toggleModal("delete");
                   setItemToAction(null);
                 }}
-                serviceToDelete={itemToAction}
-                onServiceDelete={() => handleAsyncAction()}
+                toDelete={itemToAction}
+                onDelete={() => handleAsyncAction()}
               />
             </>
           )}
         </CustomTabPanel>
         <CustomTabPanel value={tabValue} index={1}>
-          <ServiceType />
+          <ServiceAccordion />
         </CustomTabPanel>
       </PaperContainer>
     </AuthenticatedLayout>

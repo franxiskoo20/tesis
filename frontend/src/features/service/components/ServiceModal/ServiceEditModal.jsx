@@ -10,7 +10,7 @@ import { serviceOfService } from "../../services/serviceOfService";
 import { validationSchemasService } from "../../utils/validationSchemasService";
 import ServiceFormFields from "../ServiceInputs/ServiceFormFields";
 
-const ServiceEditModal = ({ open, onClose, toEdit, onUpdated }) => {
+const ServiceEditModal = ({ open, onClose, toEdit, onEdit }) => {
   const { user } = useAuth();
 
   const DEFAULT_VALUES_EDIT_SERVICE = {
@@ -46,7 +46,7 @@ const ServiceEditModal = ({ open, onClose, toEdit, onUpdated }) => {
     errorMessage: SERVICE_SNACKBAR.SERVICE_EDIT_ERROR.message,
     onSuccessCallback: () => {
       onClose?.();
-      onUpdated?.();
+      onEdit?.();
     },
   });
 

@@ -7,13 +7,13 @@ import useServiceTableColumn from "../../hooks/useServiceTableColumn";
 
 const ServiceTable = ({
   services,
-  onAddservice,
+  onAdd,
   onEdit,
   onDelete,
   isSubmitting,
 }) => {
   const renderAddButton = () => {
-    return <ChipButton label={"Agregar Servicio"} onClick={onAddservice} />;
+    return <ChipButton label={"Agregar Servicio"} onClick={onAdd} />;
   };
   const columns = useServiceTableColumn(services, onEdit, onDelete);
 
@@ -26,7 +26,6 @@ const ServiceTable = ({
     <Box position="relative">
       <OverlayLoader isLoading={isSubmitting} />
       <MUIDataTable
-        title={"Lista de servicios"}
         data={services}
         columns={columns}
         options={options}

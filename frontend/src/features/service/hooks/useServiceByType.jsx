@@ -8,7 +8,7 @@ const useServiceByType = (id) => {
     enabled: !!id,
     onError: (error) => {
       console.error(
-        "Error al cargar los servicios perteneciente a un tipo de servicio: ",
+        "Error al cargar los servicios perteneciente a un Tipo de Servicio: ",
         error
       );
     },

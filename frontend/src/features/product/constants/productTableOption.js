@@ -5,7 +5,7 @@ export const productTableStaticOption = {
   viewColumns: "false",
   textLabels: {
     body: {
-      noMatch: "Lo sentimos, no se encontraron productos",
+      noMatch: "Lo sentimos, no se encontraron Productos",
       toolTip: "Ordenar",
     },
     pagination: {

@@ -2,11 +2,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
+import ServiceTypeChip from "../components/ServiceUI/ServiceTypeChip";
 
 const useServiceTableColumn = (services, onEdit, onDelete) => {
   const columns = [
     {
-      name: "",
+      name: "Avatar",
       options: {
         filter: false,
         sort: false,
@@ -14,15 +15,6 @@ const useServiceTableColumn = (services, onEdit, onDelete) => {
           const service = services[dataIndex].user;
           return <UserAvatar name={service.name} roleId={service.roleId} />;
         },
-      },
-    },
-    {
-      name: "id",
-      label: "ID",
-      options: {
-        filter: false,
-        sort: true,
-        customBodyRenderLite: (dataIndex) => dataIndex + 1,
       },
     },
     {
@@ -47,27 +39,20 @@ const useServiceTableColumn = (services, onEdit, onDelete) => {
       options: {
         filter: true,
         sort: true,
-        // customBodyRenderLite: (dataIndex) => {
-        //   const serviceTypeName = services[dataIndex].serviceType.name;
-        //   return <span>{serviceTypeName}</span>;
-        // },
+        customBodyRenderLite: (dataIndex) => {
+          const serviceType = services[dataIndex];
+          return (
+            <ServiceTypeChip
+              serviceTypeId={serviceType.id}
+              serviceTypeName={serviceType.name}
+            />
+          );
+        },
       },
     },
-    // {
-    //   name: "serviceType.name",
-    //   label: "Tipo de Servicio",
-    //   options: {
-    //     filter: false,
-    //     sort: true,
-    // customBodyRenderLite: (dataIndex) => {
-    //   const servicestatus = services[dataIndex].;
-    //   return <StatusChip enabled={servicestatus} />;
-    // },
-    //   },
-    // },
     {
       name: "createdAt",
-      label: "fecha de creacion",
+      label: "Fecha de Creación",
       options: {
         filter: false,
         sort: true,
@@ -75,13 +60,12 @@ const useServiceTableColumn = (services, onEdit, onDelete) => {
     },
     {
       name: "updatedAt",
-      label: "fecha de actualizacion",
+      label: "Fecha de Actualización",
       options: {
         filter: false,
         sort: true,
       },
     },
-
     {
       name: "actions",
       label: "Acción",

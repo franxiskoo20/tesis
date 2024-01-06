@@ -7,7 +7,7 @@ import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 const customerTableColumn = (customers, onEdit, onDelete) => {
   const columns = [
     {
-      name: "",
+      name: "Avatar",
       options: {
         filter: false,
         sort: false,
@@ -15,15 +15,6 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
           const customer = customers[dataIndex].user;
           return <UserAvatar name={customer.name} roleId={customer.roleId} />;
         },
-      },
-    },
-    {
-      name: "id",
-      label: "ID",
-      options: {
-        filter: false,
-        sort: true,
-        customBodyRenderLite: (dataIndex) => dataIndex + 1,
       },
     },
     {
@@ -56,7 +47,7 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
     },
     {
       name: "createdAt",
-      label: "fecha de creacion",
+      label: "Fecha de Creación",
       options: {
         filter: false,
         sort: true,
@@ -64,13 +55,12 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
     },
     {
       name: "updatedAt",
-      label: "fecha de actualizacion",
+      label: "Fecha de Actualización",
       options: {
         filter: false,
         sort: true,
       },
     },
-
     {
       name: "actions",
       label: "Acción",

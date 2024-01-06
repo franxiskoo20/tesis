@@ -5,7 +5,7 @@ export const serviceTableStaticOption = {
   viewColumns: "false",
   textLabels: {
     body: {
-      noMatch: "Lo siento, no se encontraron registros",
+      noMatch: "Lo siento, no se encontraron Servicios",
       toolTip: "Ordenar",
     },
     pagination: {

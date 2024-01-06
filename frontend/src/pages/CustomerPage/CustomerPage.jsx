@@ -31,7 +31,7 @@ const CustomerPage = () => {
     toggleModal,
   } = useModalState();
 
-  const { customers, isLoading, isSuccess } = useCustomer();
+  const { customers, isLoading } = useCustomer();
 
   const { isSubmitting, handleAsyncAction } = useAsyncAction(customers);
 
@@ -56,14 +56,16 @@ const CustomerPage = () => {
         <CustomTabPanel value={tabValue} index={0}>
           {isLoading ? (
             <LoadingSkeleton count={3} xs={12} sm={12} md={6} lg={4} />
-          ) : isSuccess ? (
+          ) : customers && customers.length > 0 ? (
             <Box component="article" mt={4}>
               <Grid container spacing={2}>
                 <CustomerCard customers={customers} />
               </Grid>
             </Box>
           ) : (
-            <Typography>No hay datos disponibles</Typography>
+            <Box component="article" sx={{ mt: 4, textAlign: "center" }}>
+              <Typography>Lo sentimos, no se encontraron Clientes</Typography>
+            </Box>
           )}
         </CustomTabPanel>
         <CustomTabPanel value={tabValue} index={1}>

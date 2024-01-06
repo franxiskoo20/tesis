@@ -7,19 +7,12 @@ import { alpha } from "@mui/system";
 import useBusinessType from "../../hooks/useBusinessType";
 import { BUSINESS_COLORS } from "../../constants/productBusiness";
 import BusinessChip from "../ProductUI/BusinessChip";
+
 const BusinessAccordion = () => {
   const { businessType } = useBusinessType();
 
   return (
     <>
-      <Typography variant="subtitle1" gutterBottom mb={2}>
-        En nuestro análisis, clasificamos los productos según su pertenencia a
-        distintos sectores industriales, cada uno con características y
-        requerimientos específicos. Esta clasificación no solo facilita la
-        comprensión de las dinámicas de mercado, sino que también ayuda a
-        identificar estrategias de gestión y comercialización adecuadas para
-        cada tipo de producto. Los tipos de negocios que consideramos son:
-      </Typography>
       {businessType?.map((item) => (
         <Accordion key={item.id}>
           <AccordionSummary

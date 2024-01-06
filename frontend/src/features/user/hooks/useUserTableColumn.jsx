@@ -1,9 +1,9 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
+import StatusChip from "../../../components/ui/StatusChip";
 import UserAvatar from "../components/UserAvatar/UserAvatar";
 import RoleChip from "../components/UserUI/RoleChip";
-import StatusChip from "../../../components/ui/StatusChip";
 
 const useUserTableColumn = (users, onEdit, onDelete) => {
   const columns = [
@@ -18,15 +18,6 @@ const useUserTableColumn = (users, onEdit, onDelete) => {
         },
       },
     },
-    // {
-    //   name: "id",
-    //   label: "ID",
-    //   options: {
-    //     filter: false,
-    //     sort: true,
-    //     customBodyRenderLite: (dataIndex) => dataIndex + 1,
-    //   },
-    // },
     {
       name: "name",
       label: "Nombre",

@@ -20,8 +20,24 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
       },
     },
     {
+      name: "id",
+      label: "ID",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
       name: "code",
       label: "Código",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "date",
+      label: "Fecha",
       options: {
         filter: false,
         sort: true,
@@ -121,7 +137,38 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
         sort: true,
       },
     },
-
+    {
+      name: "entry",
+      label: "Fecha de Ingreso",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "exit",
+      label: "Fecha de Salida",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "supervisorName",
+      label: "Supervisor",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "customerServiceName",
+      label: "Customer Service",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
     {
       name: "actions",
       label: "Acción",

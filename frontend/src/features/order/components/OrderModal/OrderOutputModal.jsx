@@ -3,9 +3,9 @@ import useGenericMutation from "../../../../hooks/useGenericMutation";
 import { ORDER_SNACKBAR } from "../../constants/orderSnackbar";
 import { orderService } from "../../services/orderService";
 
-const OrderInputModal = ({ open, onClose, toEdit, onEdit }) => {
+const OrderOutputModal = ({ open, onClose, toEdit, onEdit }) => {
   const updateMutation = useGenericMutation({
-    mutationFn: (toEdit) => orderService.updateEntryDate(toEdit),
+    mutationFn: (toEdit) => orderService.updateExitDate(toEdit),
     successMessage: ORDER_SNACKBAR.ORDER_EDIT_SUCCESS.message,
     errorMessage: ORDER_SNACKBAR.ORDER_EDIT_ERROR.message,
     onSuccessCallback: () => {
@@ -20,12 +20,12 @@ const OrderInputModal = ({ open, onClose, toEdit, onEdit }) => {
         open={open}
         onClose={onClose}
         onConfirm={() => updateMutation.mutate(toEdit)}
-        title="Confirmar Ingreso"
-        message="¿Está seguro que desea confirmar el ingreso del camion?"
+        title="Confirmar Salida"
+        message="¿Está seguro que desea confirmar la salida del camion?"
         isPending={updateMutation.isPending}
       />
     </>
   );
 };
 
-export default OrderInputModal;
+export default OrderOutputModal;

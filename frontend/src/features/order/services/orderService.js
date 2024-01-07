@@ -63,4 +63,10 @@ export const orderService = {
   getPlanning() {
     return makeRequest("get", "/api/planning");
   },
+  updateEntryDate(orderId) {
+    return makeRequest("put", `/api/orders/updateEntryDate/${orderId}`);
+  },
+  updateExitDate(orderId) {
+    return makeRequest("put", `/api/orders/updateExitDate/${orderId}`);
+  }
 };

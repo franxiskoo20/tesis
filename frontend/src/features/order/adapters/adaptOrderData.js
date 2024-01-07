@@ -1,9 +1,9 @@
-import { formatDate } from "../../../utils/dateUtil"; //
+import { formatDate, formatToDayMonthYear } from "../../../utils/dateUtil"; //
 
 export const adaptOrderData = (order) => {
   return {
     id: order.id,
-    date: order.date,
+    date: order.date ? formatToDayMonthYear(order.date) : null,
     code: order.code,
     planningId: order.planning_id,
     customer_id: order.customer,
@@ -15,8 +15,8 @@ export const adaptOrderData = (order) => {
     userId: order.user_id,
     container: order.container,
     truckPlate: order.truck_plate,
-    entry: order.entry,
-    exit: order.exit,
+    entry: order.entry ? formatDate(order.entry) : null,
+    exit: order.exit ? formatDate(order.exit) : null,
     comment: order.comment,
     status: order.status,
     statusDate: order.status_date,
@@ -30,5 +30,10 @@ export const adaptOrderData = (order) => {
     routeName: order.route.name,
     userName: order.user.name,
     userRoleId: order.user.role_id,
+    reserve: order.reserve,
+    supervisorName: order.supervisor_name,
+    customerServiceName: order.customer_service_name,
+    rateId: order.rate_id,
+    rescheduledOsId: order.rescheduled_os_id,
   };
 };

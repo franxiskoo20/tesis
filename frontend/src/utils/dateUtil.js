@@ -1,10 +1,9 @@
-export const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear().toString().substr(-2);
-  const hours = String(date.getHours()).padStart(2, "0");
-  const minutes = String(date.getMinutes()).padStart(2, "0");
+import dayjs from "dayjs";
 
-  return `${day}/${month}/${year} ${hours}:${minutes}`;
+export const formatDate = (dateString) => {
+  return dayjs(dateString).format("DD/MM/YYYY HH:mm");
+};
+
+export const formatToDayMonthYear = (dateString) => {
+  return dayjs(dateString).format("DD/MM/YYYY");
 };

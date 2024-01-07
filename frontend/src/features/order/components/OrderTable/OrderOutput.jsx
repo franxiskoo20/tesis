@@ -2,18 +2,19 @@ import { Box, Chip } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import { orderTableOption } from "../../constants/orderTableOption";
-import useOrderInputTableColumn from "../../hooks/useOrderInputTableColumn";
-import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
+import useOrderOutputTableColumn from "../../hooks/useOrderOutputTableColumn";
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
 import dayjs from "dayjs";
 
-const OrderInput = ({ orders, onEdit, isSubmitting }) => {
+const OrderOutput = ({ orders, onEdit, isSubmitting }) => {
   const today = dayjs().format("DD/MM/YYYY");
 
   const filteredOrders = orders.filter(
-    (order) => order.entry === null && order.date === today
+    (order) =>
+      order.entry !== null && order.exit === null && order.date === today
   );
 
-  const columns = useOrderInputTableColumn(filteredOrders, onEdit);
+  const columns = useOrderOutputTableColumn(filteredOrders, onEdit);
 
   const options = {
     ...orderTableOption,
@@ -25,9 +26,9 @@ const OrderInput = ({ orders, onEdit, isSubmitting }) => {
       <MUIDataTable
         title={
           <Chip
-            label="Registrar Ingreso"
-            color="primary"
-            icon={<ArrowCircleRightRoundedIcon />}
+            label="Registrar Salida"
+            color="error"
+            icon={<ArrowCircleLeftRoundedIcon />}
           />
         }
         data={filteredOrders}
@@ -38,4 +39,4 @@ const OrderInput = ({ orders, onEdit, isSubmitting }) => {
   );
 };
 
-export default OrderInput;
+export default OrderOutput;

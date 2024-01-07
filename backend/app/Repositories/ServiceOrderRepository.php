@@ -46,10 +46,18 @@ class ServiceOrderRepository implements ServiceOrderRepositoryInterface
     return $serviceOrder;
   }
 
-  public function updateEntryDate($id, $entryDate)
+  public function updateEntryDate($id)
   {
     $serviceOrder = ServiceOrder::findOrFail($id);
-    $serviceOrder->entry = $entryDate;
+    $serviceOrder->entry = now();
+    $serviceOrder->save();
+    return $serviceOrder;
+  }
+
+  public function updateExitDate($id)
+  {
+    $serviceOrder = ServiceOrder::findOrFail($id);
+    $serviceOrder->exit = now();
     $serviceOrder->save();
     return $serviceOrder;
   }

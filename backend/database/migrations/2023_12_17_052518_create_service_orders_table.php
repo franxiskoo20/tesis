@@ -27,15 +27,21 @@ return new class extends Migration
             $table->foreignId('business_id')->constrained('businesses')->onDelete('cascade');
             $table->foreignId('route_id')->constrained('routes')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('reserve')->nullable();
+            $table->string('customer_service_name')->nullable();
+            $table->string('supervisor_name')->nullable();
             $table->string('container')->nullable();
             $table->string('truck_plate')->nullable();
-            $table->time('entry')->nullable();
-            $table->time('exit')->nullable();
+            $table->dateTime('entry')->nullable();
+            $table->dateTime('exit')->nullable();
             $table->boolean('status');
-            $table->date('status_date')->nullable();
-            // $table->foreignId('rescheduled_os_id')->nullable()->constrained('service_orders');
+            $table->foreignId('rescheduled_os_id')->nullable()->constrained('service_orders');
             $table->text('comment')->nullable();
             $table->timestamps();
+            
+            // $table->foreignId('customer_service_id')->constrained('users')->onDelete('cascade');
+            // $table->foreignId('supervisor_id')->constrained('users')->onDelete('cascade');
+
         });
     }
 

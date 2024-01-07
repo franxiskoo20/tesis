@@ -1,11 +1,12 @@
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
-import StatusChip from "../../../components/ui/StatusChip";
+import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
+
 const useOrderTrunkTableColumn = (orders, onEdit) => {
   const columns = [
     {
-      name: "",
+      name: "Avatar",
       options: {
         filter: false,
         sort: false,
@@ -15,12 +16,46 @@ const useOrderTrunkTableColumn = (orders, onEdit) => {
         },
       },
     },
+
     {
-      name: "code",
-      label: "Código",
+      name: "id",
+      label: "ID",
       options: {
         filter: false,
         sort: true,
+      },
+    },
+    {
+      name: "date",
+      label: "Fecha",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "customerName",
+      label: "Cliente",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "serviceTypeName",
+      label: "Tipo de Servicio",
+      options: {
+        filter: true,
+        sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const serviceType = orders[dataIndex];
+          return (
+            <ServiceTypeChip
+              serviceTypeId={serviceType.serviceTypeId}
+              serviceTypeName={serviceType.serviceTypeName}
+            />
+          );
+        },
       },
     },
     {
@@ -31,6 +66,7 @@ const useOrderTrunkTableColumn = (orders, onEdit) => {
         sort: true,
       },
     },
+
     {
       name: "truckPlate",
       label: "Placa Camion",
@@ -39,35 +75,6 @@ const useOrderTrunkTableColumn = (orders, onEdit) => {
         sort: true,
       },
     },
-    {
-      name: "status",
-      label: "Estado",
-      options: {
-        filter: false,
-        sort: true,
-        customBodyRenderLite: (dataIndex) => {
-          const orderStatus = orders[dataIndex].status;
-          return <StatusChip enabled={orderStatus} />;
-        },
-      },
-    },
-    {
-      name: "createdAt",
-      label: "fecha de creacion",
-      options: {
-        filter: false,
-        sort: true,
-      },
-    },
-    {
-      name: "updatedAt",
-      label: "fecha de actualizacion",
-      options: {
-        filter: false,
-        sort: true,
-      },
-    },
-
     {
       name: "actions",
       label: "Acción",

@@ -20,6 +20,7 @@ class ServiceOrderRequest extends FormRequest
         return [
             'date' => 'required|date',
             'code' => 'required|string',
+            'rate_id' => 'required|exists:rates,id',
             'planning_id' => 'required|exists:plannings,id',
             'schedule_id' => 'required|exists:schedules,id',
             'customer_id' => 'required|exists:customers,id',
@@ -28,16 +29,20 @@ class ServiceOrderRequest extends FormRequest
             'product_id' => 'required|exists:products,id',
             'business_id' => 'required|exists:businesses,id',
             'route_id' => 'required|exists:routes,id',
-            'rate_id' => 'required|exists:rates,id',
             'container' => 'nullable|string',
             'truck_plate' => 'nullable|string',
             'entry' => 'nullable|date_format:H:i',
             'exit' => 'nullable|date_format:H:i',
             'status' => 'nullable|boolean',
-            'status_date' => 'nullable|date',
             'rescheduled_os_id' => 'nullable|exists:service_orders,id',
             'comment' => 'nullable|string',
             'user_id' => 'required|exists:users,id',
+            'reserve' => 'nullable|string',
+            'customer_service_name' => 'nullable|string',
+            'supervisor_name' => 'nullable|string',
+            'rescheduled_os_id' => 'nullable|exists:service_orders,id',
+            // 'customer_service_id' => 'nullable|exists:users,id',
+            // 'supervisor_id' => 'nullable|exists:users,id',
         ];
     }
 

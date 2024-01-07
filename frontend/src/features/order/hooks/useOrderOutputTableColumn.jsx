@@ -2,7 +2,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
 
-const useOrderInputTableColumn = (filteredOrders, onEdit) => {
+const useOrderOutputTableColumn = (filteredOrders, onEdit) => {
   const columns = [
     {
       name: "id",
@@ -54,6 +54,14 @@ const useOrderInputTableColumn = (filteredOrders, onEdit) => {
       },
     },
     {
+      name: "entry",
+      label: "Fecha de Ingreso",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
       name: "actions",
       label: "Acción",
       options: {
@@ -77,4 +85,4 @@ const useOrderInputTableColumn = (filteredOrders, onEdit) => {
   return columns;
 };
 
-export default useOrderInputTableColumn;
+export default useOrderOutputTableColumn;

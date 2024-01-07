@@ -9,5 +9,6 @@ interface ServiceOrderRepositoryInterface
     public function create(array $attributes);
     public function update($id, array $attributes);
     public function delete($id);
-    public function updateEntryDate($id, $entryDate);
+    public function updateEntryDate($id);
+    public function updateExitDate($id);
 }

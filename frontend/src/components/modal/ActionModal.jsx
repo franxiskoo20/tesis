@@ -12,6 +12,7 @@ const ActionModal = ({
   onSubmit,
   isPending,
   submitLabel,
+  acceptButtonIcon = <HowToRegIcon />,
 }) => {
   return (
     <ModalLayout title={title} open={open} onClose={onClose}>
@@ -21,7 +22,7 @@ const ActionModal = ({
           <Grid xs={12}>
             <ActionButton
               acceptButtonLabel={submitLabel}
-              acceptButtonIcon={<HowToRegIcon />}
+              acceptButtonIcon={acceptButtonIcon}
               onCancel={onClose}
               isPending={isPending}
             />

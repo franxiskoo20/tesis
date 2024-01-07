@@ -59,3 +59,13 @@ export const validationSchemasOrder = yup.object().shape({
   // status_date: yup.string().required("La fecha del estado es requerida"),
   // comment: yup.string().required("El comentario es requerido"),
 });
+
+export const validationSchemasOrderTrunk = yup.object().shape({
+  // tus otras validaciones...
+  truck_plate: yup
+    .string()
+    .matches(
+      /^[A-Z0-9]{2}-[A-Z0-9]{2}-[A-Z0-9]{2}$/,
+      "Formato de patente inválido"
+    ),
+});

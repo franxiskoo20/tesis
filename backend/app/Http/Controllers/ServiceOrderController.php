@@ -57,10 +57,20 @@ class ServiceOrderController extends Controller
     public function updateEntryDate($id)
     {
         try {
-            $serviceOrder = $this->serviceOrderRepository->updateEntryDate($id, now());
+            $serviceOrder = $this->serviceOrderRepository->updateEntryDate($id);
             return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Fecha de entrada de la orden de servicio actualizada con éxito']);
         } catch (Exception $e) {
             return response()->json(['errors' => 'Error al actualizar la fecha de entrada de la orden de servicio', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function updateExitDate($id)
+    {
+        try {
+            $serviceOrder = $this->serviceOrderRepository->updateExitDate($id);
+            return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Fecha de salida de la orden de servicio actualizada con éxito']);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al actualizar la fecha de salida de la orden de servicio', 'message' => $e->getMessage()], 500);
         }
     }
 }

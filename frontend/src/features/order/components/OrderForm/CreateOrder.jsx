@@ -51,7 +51,7 @@ const CreateOrder = ({ onAdded }) => {
   const { businessType } = useBusinessType();
 
   const DEFAULT_VALUES_ORDER = {
-    date: "",
+    date: null,
     code: "",
     rate_id: "",
     planning_id: "",
@@ -88,6 +88,7 @@ const CreateOrder = ({ onAdded }) => {
       setValue("service_type_id", rateCode.service_type_id);
       setValue("service_id", rateCode.service_id);
       setValue("product_id", rateCode.product_id);
+      setValue("business_id", rateCode.business_id);
       setValue("route_id", rateCode.route_id);
     }
   }, [isSuccess, rateCode, setValue, selectedCode]);
@@ -124,7 +125,14 @@ const CreateOrder = ({ onAdded }) => {
     setActiveStep(activeStep - 1);
   };
 
-  const steps = ["Tarifa Codigo", "Formulario OS", "Revisar OS"];
+  const steps = ["Tarifa Código", "Formulario OS", "Revisar OS"];
+
+  const isNextButtonDisabled = (step) => {
+    if (step === 0) {
+      return !selectedCode; // Deshabilita si no hay código en el primer paso
+    }
+    return false; // Para otros pasos, el botón está siempre habilitado (ajustar según sea necesario)
+  };
 
   const getStepContent = (step) => {
     switch (step) {
@@ -251,6 +259,7 @@ const CreateOrder = ({ onAdded }) => {
                   variant="contained"
                   onClick={handleNext}
                   endIcon={<NavigateNextIcon />}
+                  disabled={isNextButtonDisabled(activeStep)}
                 >
                   Siguiente
                 </Button>

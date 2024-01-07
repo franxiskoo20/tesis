@@ -1,4 +1,4 @@
-import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import StatusChip from "../../../components/ui/StatusChip";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
@@ -17,7 +17,7 @@ const useOrderTrunkTableColumn = (orders, onEdit) => {
     },
     {
       name: "code",
-      label: "Codigo",
+      label: "Código",
       options: {
         filter: false,
         sort: true,

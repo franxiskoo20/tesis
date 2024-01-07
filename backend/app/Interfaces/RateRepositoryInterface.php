@@ -2,7 +2,6 @@
 
 namespace App\Interfaces;
 
-use App\Models\Rate;
 
 interface RateRepositoryInterface
 {
@@ -13,4 +12,5 @@ interface RateRepositoryInterface
   public function delete($id);
   public function getByCode($code);
   public function getByAttributes(array $data);
+  public function updateStatus($id);
 }

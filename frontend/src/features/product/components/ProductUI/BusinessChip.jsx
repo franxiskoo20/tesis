@@ -1,12 +1,12 @@
 import { Chip } from "@mui/material";
 import { BUSINESS_COLORS } from "../../constants/productBusiness";
 
-const BusinessChip = ({ businessId, bussinessName, sx }) => {
+const BusinessChip = ({ businessId, businessName, sx }) => {
   const chipColor = BUSINESS_COLORS[businessId];
 
   return (
     <Chip
-      label={bussinessName}
+      label={businessName}
       size="small"
       sx={{
         ...sx,

@@ -1,7 +1,6 @@
 import Grid from "@mui/material/Unstable_Grid2";
 import CustomSelect from "../../../../components/common/Input/CustomSelect";
 import CustomDatePicker from "../../../../components/common/Input/CustomDatePicker";
-import CustomTextField from "../../../../components/common/Input/CustomTextField";
 
 const OrderFormFields = ({
   control,
@@ -17,9 +16,8 @@ const OrderFormFields = ({
   return (
     <>
       <Grid xs={12}>
-        <CustomDatePicker control={control} name={"date"} label={"fecha"} />
+        <CustomDatePicker control={control} name={"date"} label={"Fecha"} />
       </Grid>
-
       <Grid xs={12}>
         <CustomSelect
           control={control}
@@ -99,13 +97,7 @@ const OrderFormFields = ({
             value: b.id,
             label: b.name,
           }))}
-        />
-      </Grid>
-      <Grid xs={12}>
-        <CustomTextField
-          control={control}
-          name="container"
-          label="Contenedor"
+          disabled
         />
       </Grid>
       <Grid xs={12}>

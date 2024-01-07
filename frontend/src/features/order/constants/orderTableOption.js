@@ -2,10 +2,12 @@ export const orderTableOption = {
   filterType: "checkbox",
   responsive: "standard",
   selectableRows: "none",
-  viewColumns: "false",
+  download: false,
+  print: false,
+  viewColumns: false,
   textLabels: {
     body: {
-      noMatch: "Lo sentimos, no se encontraron ordenes",
+      noMatch: "Lo sentimos, no se encontraron Ordenes de Servicio",
       toolTip: "Ordenar",
     },
     pagination: {

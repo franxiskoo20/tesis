@@ -6,6 +6,7 @@ use App\Interfaces\RateRepositoryInterface;
 use App\Http\Requests\RateRequest;
 use App\Http\Requests\RateVerifyRequest;
 use Exception;
+use Illuminate\Http\Request;
 
 class RateController extends Controller
 {
@@ -73,6 +74,16 @@ class RateController extends Controller
             return response()->json($rate);
         } catch (Exception $e) {
             return response()->json(['errors' => 'Error al obtener la tarifa a travez de los atributos', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function updateStatus($id)
+    {
+        try {
+            $rate = $this->rateRepository->updateStatus($id, 0); // Estado establecido a 0
+            return response()->json(['rate' => $rate, 'message' => 'Estado de la tarifa actualizado con éxito']);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al actualizar el estado de la tarifa', 'message' => $e->getMessage()], 500);
         }
     }
 }

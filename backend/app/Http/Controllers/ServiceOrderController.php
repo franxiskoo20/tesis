@@ -54,4 +54,13 @@ class ServiceOrderController extends Controller
             return response()->json(['errors' => 'Error al eliminar la orden de servicio', 'message' => $e->getMessage()], 500);
         }
     }
+    public function updateEntryDate($id)
+    {
+        try {
+            $serviceOrder = $this->serviceOrderRepository->updateEntryDate($id, now());
+            return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Fecha de entrada de la orden de servicio actualizada con éxito']);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al actualizar la fecha de entrada de la orden de servicio', 'message' => $e->getMessage()], 500);
+        }
+    }
 }

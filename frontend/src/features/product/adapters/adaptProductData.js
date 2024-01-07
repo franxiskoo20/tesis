@@ -11,7 +11,7 @@ export const adaptProductData = (product) => {
     businessId: product.business_id,
     createdAt: formatDate(product.created_at),
     updatedAt: formatDate(product.updated_at),
-    bussinessName: product.business.name,
+    businessName: product.business.name,
     user: {
       id: product.user.id,
       name: product.user.name,

@@ -62,6 +62,15 @@ class RateRepository implements RateRepositoryInterface
       ->where('product_id', $data['product_id'])
       ->where('business_id', $data['business_id'])
       ->where('route_id', $data['route_id'])
+      ->where('status', 1)
       ->get();
+  }
+
+  public function updateStatus($id, $status = 0) // $status tiene un valor predeterminado de 0
+  {
+    $rate = Rate::findOrFail($id);
+    $rate->status = $status;
+    $rate->save();
+    return $rate;
   }
 }

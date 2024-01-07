@@ -5,5 +5,8 @@ export const titlesByRoute = {
   "/app/services": "Servicios",
   "/app/customers": "Clientes",
   "/app/rates": "Tarifas",
+  "/app/orders": "Orden de Servicio",
+  "/app/orders-input": "Ingreso",
+  "/app/orders-output": "Salida",
   // Agrega más rutas y títulos según sea necesario
 };

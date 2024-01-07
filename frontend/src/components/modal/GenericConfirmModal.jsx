@@ -1,7 +1,4 @@
-import {
-  DialogActions,
-  DialogContentText
-} from "@mui/material";
+import { DialogActions, DialogContentText } from "@mui/material";
 import ActionButtons from "../common/Button/ActionButton";
 import ModalLayout from "../layout/ModalLayout";
 
@@ -17,7 +14,7 @@ const GenericConfirmModal = ({
 }) => (
   <ModalLayout title={title} open={open} onClose={onClose}>
     <DialogContentText>{message}</DialogContentText>
-    <DialogActions sx={{ display: "flex", justifyContent: "center" }}>
+    <DialogActions sx={{ display: "flex", justifyContent: "center", mt:2 }}>
       <ActionButtons
         onAccept={onConfirm}
         onCancel={onClose}

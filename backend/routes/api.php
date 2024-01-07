@@ -93,6 +93,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{id}', [RateController::class, 'destroy']);
         Route::get('/getByCode/{code}', [RateController::class, 'getByCode']);
         Route::post('/getByAttributes', [RateController::class, 'getByAttributes']);
+        Route::put('/updateStatus/{id}', [RateController::class, 'updateStatus']);
     });
 
     Route::prefix('orders')->group(function () {
@@ -100,6 +101,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [ServiceOrderController::class, 'store']);
         Route::put('/{id}', [ServiceOrderController::class, 'update']);
         Route::delete('/{id}', [ServiceOrderController::class, 'destroy']);
+        Route::put('/updateEntryDate/{id}', [ServiceOrderController::class, 'updateEntryDate']);
     });
 
     Route::prefix('schedule')->group(function () {

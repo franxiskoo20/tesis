@@ -3,11 +3,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import StatusChip from "../../../components/ui/StatusChip";
+import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
+import BussinesChip from "../../product/components/ProductUI/BusinessChip";
 
 const useOrderTableColumn = (orders, onEdit, onDelete) => {
   const columns = [
     {
-      name: "",
+      name: "Avatar",
       options: {
         filter: false,
         sort: false,
@@ -19,7 +21,7 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
     },
     {
       name: "code",
-      label: "Codigo",
+      label: "Código",
       options: {
         filter: false,
         sort: true,
@@ -37,8 +39,17 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
       name: "serviceTypeName",
       label: "Tipo de Servicio",
       options: {
-        filter: false,
+        filter: true,
         sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const serviceType = orders[dataIndex];
+          return (
+            <ServiceTypeChip
+              serviceTypeId={serviceType.serviceTypeId}
+              serviceTypeName={serviceType.serviceTypeName}
+            />
+          );
+        },
       },
     },
     {
@@ -58,11 +69,20 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
       },
     },
     {
-      name: "businessName",
-      label: "Negocio",
+      name: "bussinessName",
+      label: "Tipo de Negocio",
       options: {
-        filter: false,
+        filter: true,
         sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const business = orders[dataIndex];
+          return (
+            <BussinesChip
+              businessId={business.businessId}
+              businessName={business.businessName}
+            />
+          );
+        },
       },
     },
     {
@@ -87,7 +107,7 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
     },
     {
       name: "createdAt",
-      label: "fecha de creacion",
+      label: "Fecha de Creación",
       options: {
         filter: false,
         sort: true,
@@ -95,7 +115,7 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
     },
     {
       name: "updatedAt",
-      label: "fecha de actualizacion",
+      label: "Fecha de Actualización",
       options: {
         filter: false,
         sort: true,

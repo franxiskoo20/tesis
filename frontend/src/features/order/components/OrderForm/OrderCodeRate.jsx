@@ -6,7 +6,10 @@ import useRate from "../../../rate/hooks/useRate";
 
 const OrderCodeRate = ({ control }) => {
   const { rates } = useRate();
-  const options = rates?.map((rate) => rate.code.toString()) || [];
+  const options =
+    rates
+      ?.filter((rate) => rate.status === 1)
+      .map((rate) => rate.code.toString()) || [];
 
   return (
     <Grid container spacing={2}>

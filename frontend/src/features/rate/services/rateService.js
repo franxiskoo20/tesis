@@ -38,8 +38,8 @@ export const rateService = {
     return makeRequest("delete", `/api/rates/${rateId}`);
   },
 
-  updateRate(rateId, data) {
-    return makeRequest("put", `/api/rates/${rateId}`, data);
+  updateStatus(rateId) {
+    return makeRequest("put", `/api/rates/updateStatus/${rateId}`);
   },
 
   getRoutes() {

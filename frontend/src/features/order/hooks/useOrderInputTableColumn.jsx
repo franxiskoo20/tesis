@@ -1,40 +1,12 @@
-import AutorenewIcon from "@mui/icons-material/Autorenew";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
-import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 
-const useRateTableColumn = (currentRates, onEdit) => {
+const useOrderInputTableColumn = (orders, onEdit) => {
   const columns = [
-    {
-      name: "Avatar",
-      options: {
-        filter: false,
-        sort: false,
-        customBodyRenderLite: (dataIndex) => {
-          const rate = currentRates[dataIndex];
-          return <UserAvatar name={rate.userName} roleId={rate.roleId} />;
-        },
-      },
-    },
-    {
-      name: "code",
-      label: "Código",
-      options: {
-        filter: false,
-        sort: true,
-      },
-    },
     {
       name: "customerName",
       label: "Cliente",
-      options: {
-        filter: false,
-        sort: true,
-      },
-    },
-    {
-      name: "serviceName",
-      label: "Servicio",
       options: {
         filter: false,
         sort: true,
@@ -47,7 +19,7 @@ const useRateTableColumn = (currentRates, onEdit) => {
         filter: true,
         sort: true,
         customBodyRenderLite: (dataIndex) => {
-          const serviceType = currentRates[dataIndex];
+          const serviceType = orders[dataIndex];
           return (
             <ServiceTypeChip
               serviceTypeId={serviceType.serviceTypeId}
@@ -55,14 +27,6 @@ const useRateTableColumn = (currentRates, onEdit) => {
             />
           );
         },
-      },
-    },
-    {
-      name: "productName",
-      label: "Producto",
-      options: {
-        filter: false,
-        sort: true,
       },
     },
     {
@@ -74,16 +38,8 @@ const useRateTableColumn = (currentRates, onEdit) => {
       },
     },
     {
-      name: "createdAt",
-      label: "Fecha de Creación",
-      options: {
-        filter: false,
-        sort: true,
-      },
-    },
-    {
-      name: "updatedAt",
-      label: "Fecha de Actualización",
+      name: "date",
+      label: "Fecha",
       options: {
         filter: false,
         sort: true,
@@ -100,9 +56,9 @@ const useRateTableColumn = (currentRates, onEdit) => {
           return (
             <CustomIconButton
               aria-label="edit"
-              onClick={() => onEdit(currentRates[dataIndex].id)}
+              onClick={() => onEdit(orders[dataIndex].id)}
             >
-              <AutorenewIcon />
+              <LocalShippingIcon />
             </CustomIconButton>
           );
         },
@@ -113,4 +69,4 @@ const useRateTableColumn = (currentRates, onEdit) => {
   return columns;
 };
 
-export default useRateTableColumn;
+export default useOrderInputTableColumn;

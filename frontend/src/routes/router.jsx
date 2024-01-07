@@ -13,6 +13,8 @@ import {
   OrderPage,
   OrderTrunkPage,
   OrderConfirmPage,
+  OrderInputPage,
+  OrderOutputPage,
 } from "../pages";
 import { ProtectedRoutes, PublicRoutes, RoleProtectedElement } from "./";
 
@@ -116,6 +118,26 @@ const router = createBrowserRouter([
             allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
           >
             <OrderConfirmPage />
+          </RoleProtectedElement>
+        ),
+      },
+      {
+        path: "app/orders-input",
+        element: (
+          <RoleProtectedElement
+            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
+          >
+            <OrderInputPage />
+          </RoleProtectedElement>
+        ),
+      },
+      {
+        path: "app/orders-output",
+        element: (
+          <RoleProtectedElement
+            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
+          >
+            <OrderOutputPage />
           </RoleProtectedElement>
         ),
       },

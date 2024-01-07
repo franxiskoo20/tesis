@@ -45,4 +45,12 @@ class ServiceOrderRepository implements ServiceOrderRepositoryInterface
     $serviceOrder->delete();
     return $serviceOrder;
   }
+
+  public function updateEntryDate($id, $entryDate)
+  {
+    $serviceOrder = ServiceOrder::findOrFail($id);
+    $serviceOrder->entry = $entryDate;
+    $serviceOrder->save();
+    return $serviceOrder;
+  }
 }

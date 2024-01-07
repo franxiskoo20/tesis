@@ -57,7 +57,7 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
           return (
             <BussinesChip
               businessId={product.businessId}
-              bussinessName={product.bussinessName}
+              businessName={product.businessName}
             />
           );
         },

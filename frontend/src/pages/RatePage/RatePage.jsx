@@ -1,18 +1,16 @@
 import { Divider, Tab, Tabs } from "@mui/material";
 import { useState } from "react";
 import PaperContainer from "../../components/common/Container/PaperContainer";
+import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
 import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import CreateRate from "../../features/rate/components/RateForm/CreateRate";
+import RateEditStatusModal from "../../features/rate/components/RateModal/RateEditStatusModal";
 import RateTableCurrent from "../../features/rate/components/RateTable/RateTableCurrent";
 import RateTableIdle from "../../features/rate/components/RateTable/RateTableIdle";
-
-import useModalState from "../../hooks/useModalState";
-import LoadingSkeleton from "../../components/common/Loading/LoadingSkeleton";
 import useRate from "../../features/rate/hooks/useRate";
 import useAsyncAction from "../../hooks/useAsyncAction";
-import RateDeleteModal from "../../features/rate/components/RateModal/RateDeleteModal";
-import RateEditModal from "../../features/rate/components/RateModal/RateEditModal";
+import useModalState from "../../hooks/useModalState";
 
 const a11yProps = (index) => {
   return {
@@ -23,13 +21,9 @@ const a11yProps = (index) => {
 
 const RatePage = () => {
   const { rates, isLoading } = useRate();
-  const {
-    isEditOpen,
-    isDeleteOpen,
-    itemToAction,
-    setItemToAction,
-    toggleModal,
-  } = useModalState();
+
+  const { isEditOpen, itemToAction, setItemToAction, toggleModal } =
+    useModalState();
 
   const { isSubmitting, handleAsyncAction } = useAsyncAction(rates);
 
@@ -72,16 +66,12 @@ const RatePage = () => {
                 setItemToAction(rate);
                 toggleModal("edit");
               }}
-              onDelete={(rate) => {
-                setItemToAction(rate);
-                toggleModal("delete");
-              }}
               isSubmitting={isSubmitting}
             />
           )}
           {itemToAction && (
             <>
-              <RateEditModal
+              <RateEditStatusModal
                 open={isEditOpen}
                 onClose={() => {
                   toggleModal("edit");
@@ -89,15 +79,6 @@ const RatePage = () => {
                 }}
                 toEdit={itemToAction}
                 onEdit={() => handleAsyncAction()}
-              />
-              <RateDeleteModal
-                open={isDeleteOpen}
-                onClose={() => {
-                  toggleModal("delete");
-                  setItemToAction(null);
-                }}
-                toDelete={itemToAction}
-                onDelete={() => handleAsyncAction()}
               />
             </>
           )}

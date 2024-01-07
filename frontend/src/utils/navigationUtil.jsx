@@ -1,3 +1,5 @@
+import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
+import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
@@ -32,6 +34,16 @@ const navigationByRole = {
       name: "OS Confirmación",
       path: "/app/orders-confirm",
       icon: <ListAltIcon />,
+    },
+    {
+      name: "OS Ingreso",
+      path: "/app/orders-input",
+      icon: <ArrowCircleRightRoundedIcon />,
+    },
+    {
+      name: "OS Salida",
+      path: "/app/orders-output",
+      icon: <ArrowCircleLeftRoundedIcon />,
     },
   ],
   [ROLES_USER.JEFE_COMERCIAL]: [

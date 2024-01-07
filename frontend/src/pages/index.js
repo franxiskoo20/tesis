@@ -8,7 +8,7 @@ export { default as OrderConfirmPage } from "./OrderPage/OrderConfirmPage.jsx";
 export { default as OrderInputPage } from "./OrderPage/OrderInputPage.jsx";
 export { default as OrderOutputPage } from "./OrderPage/OrderOutputPage.jsx";
 export { default as OrderPage } from "./OrderPage/OrderPage.jsx";
-export { default as OrderTrunkPage } from "./OrderPage/OrderTrunkPage.jsx";
+export { default as OrderTruckPage } from "./OrderPage/OrderTruckPage.jsx";
 export { default as RatePage } from "./RatePage/RatePage.jsx";
 export { default as ServicePage } from "./ServicePage/ServicePage.jsx";
 export { default as UserPage } from "./UserPage/UserPage.jsx";

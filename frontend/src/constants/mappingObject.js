@@ -8,5 +8,6 @@ export const titlesByRoute = {
   "/app/orders": "Orden de Servicio (OS)",
   "/app/orders-input": "Ingreso",
   "/app/orders-output": "Salida",
+  "/app/orders-truck": "Registrar Patente",
   // Agrega más rutas y títulos según sea necesario
 };

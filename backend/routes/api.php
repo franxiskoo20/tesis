@@ -103,6 +103,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/{id}', [ServiceOrderController::class, 'destroy']);
         Route::put('/updateEntryDate/{id}', [ServiceOrderController::class, 'updateEntryDate']);
         Route::put('/updateExitDate/{id}', [ServiceOrderController::class, 'updateExitDate']);
+        Route::put('/addTruckPlate/{id}', [ServiceOrderController::class, 'addTruckPlate']);
     });
 
     Route::prefix('schedule')->group(function () {

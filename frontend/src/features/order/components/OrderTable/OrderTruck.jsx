@@ -2,10 +2,10 @@ import { Box, Chip } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import { orderTableOption } from "../../constants/orderTableOption";
-import useOrderTrunkTableColumn from "../../hooks/useOrderTrunkTableColumn";
+import useOrderTruckTableColumn from "../../hooks/useOrderTruckTableColumn";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-const OrderTrunk = ({ orders, onEdit, isSubmitting }) => {
-  const columns = useOrderTrunkTableColumn(orders, onEdit);
+const OrderTruck = ({ orders, onEdit, isSubmitting }) => {
+  const columns = useOrderTruckTableColumn(orders, onEdit);
 
   const options = {
     ...orderTableOption,
@@ -30,4 +30,4 @@ const OrderTrunk = ({ orders, onEdit, isSubmitting }) => {
   );
 };
 
-export default OrderTrunk;
+export default OrderTruck;

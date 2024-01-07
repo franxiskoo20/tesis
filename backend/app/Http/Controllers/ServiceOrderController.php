@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Interfaces\ServiceOrderRepositoryInterface;
 use App\Http\Requests\ServiceOrderRequest;
 use Exception;
+use Illuminate\Http\Request;
 
 class ServiceOrderController extends Controller
 {
@@ -71,6 +72,16 @@ class ServiceOrderController extends Controller
             return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Fecha de salida de la orden de servicio actualizada con éxito']);
         } catch (Exception $e) {
             return response()->json(['errors' => 'Error al actualizar la fecha de salida de la orden de servicio', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function addTruckPlate(Request $request, $id)
+    {
+        try {
+            $serviceOrder = $this->serviceOrderRepository->addTruckPlate($id, $request->all());
+            return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Placa del camión agregada con éxito']);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al agregar la placa del camión', 'message' => $e->getMessage()], 500);
         }
     }
 }

@@ -11,7 +11,7 @@ import {
   RatePage,
   UserProfile,
   OrderPage,
-  OrderTrunkPage,
+  OrderTruckPage,
   OrderConfirmPage,
   OrderInputPage,
   OrderOutputPage,
@@ -102,12 +102,12 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "app/orders-trunk",
+        path: "app/orders-truck",
         element: (
           <RoleProtectedElement
             allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
           >
-            <OrderTrunkPage />
+            <OrderTruckPage />
           </RoleProtectedElement>
         ),
       },

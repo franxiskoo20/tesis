@@ -154,14 +154,6 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
       },
     },
     {
-      name: "supervisorName",
-      label: "Supervisor",
-      options: {
-        filter: false,
-        sort: true,
-      },
-    },
-    {
       name: "customerServiceName",
       label: "Customer Service",
       options: {
@@ -169,6 +161,23 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
         sort: true,
       },
     },
+    {
+      name: "truckPlate",
+      label: "Patente de Camión",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "supervisorName",
+      label: "Supervisor",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+
     {
       name: "actions",
       label: "Acción",

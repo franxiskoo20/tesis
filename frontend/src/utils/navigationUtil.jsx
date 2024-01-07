@@ -26,8 +26,8 @@ const navigationByRole = {
     { name: "Tarifas", path: "/app/rates", icon: <ShoppingCartIcon /> },
     { name: "Orden de Servicio", path: "/app/orders", icon: <ListAltIcon /> },
     {
-      name: "Confirmar Placa",
-      path: "/app/orders-trunk",
+      name: "Registrar Patente",
+      path: "/app/orders-truck",
       icon: <LocalShippingIcon />,
     },
     {

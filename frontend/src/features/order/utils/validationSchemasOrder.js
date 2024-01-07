@@ -60,7 +60,7 @@ export const validationSchemasOrder = yup.object().shape({
   // comment: yup.string().required("El comentario es requerido"),
 });
 
-export const validationSchemasOrderTrunk = yup.object().shape({
+export const validationSchemasOrderTruck = yup.object().shape({
   // tus otras validaciones...
   truck_plate: yup
     .string()

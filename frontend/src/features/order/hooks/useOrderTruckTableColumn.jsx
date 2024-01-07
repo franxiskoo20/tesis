@@ -3,7 +3,7 @@ import CustomIconButton from "../../../components/common/Button/CustomIconButton
 import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 
-const useOrderTrunkTableColumn = (orders, onEdit) => {
+const useOrderTruckTableColumn = (orders, onEdit) => {
   const columns = [
     {
       name: "Avatar",
@@ -87,7 +87,7 @@ const useOrderTrunkTableColumn = (orders, onEdit) => {
             <>
               <CustomIconButton
                 aria-label="edit"
-                onClick={() => onEdit(orders[dataIndex])}
+                onClick={() => onEdit(orders[dataIndex].id)}
               >
                 <AssignmentTurnedInIcon />
               </CustomIconButton>
@@ -101,4 +101,4 @@ const useOrderTrunkTableColumn = (orders, onEdit) => {
   return columns;
 };
 
-export default useOrderTrunkTableColumn;
+export default useOrderTruckTableColumn;

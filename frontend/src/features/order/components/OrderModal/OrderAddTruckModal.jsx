@@ -6,27 +6,27 @@ import ActionModal from "../../../../components/modal/ActionModal";
 import useGenericMutation from "../../../../hooks/useGenericMutation";
 import { ORDER_SNACKBAR } from "../../constants/orderSnackbar";
 import { orderService } from "../../services/orderService";
-import { validationSchemasOrderTrunk } from "../../utils/validationSchemasOrder";
+import { validationSchemasOrderTruck } from "../../utils/validationSchemasOrder";
 import CustomTextFieldDisabled from "../../../../components/common/Input/CustomTextFieldDisabled";
 import useAuth from "../../../auth/hooks/useAuth";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 
-const OrderAddTrunckModal = ({ open, onClose, toAdd, onAdd }) => {
+const OrderAddTruckModal = ({ open, onClose, toAdd, onAdd }) => {
   const { user } = useAuth();
 
-  const DEFAULT_VALUES_TRUNCK = {
+  const DEFAULT_VALUES_TRUCK = {
     truck_plate: "",
-    customer_service_name: "",
+    customer_service_name: user?.name || "",
   };
 
-  const { handleSubmit, reset, control } = useForm({
+  const { handleSubmit, reset, control, watch } = useForm({
     mode: "onChange",
-    resolver: yupResolver(validationSchemasOrderTrunk),
-    defaultValues: DEFAULT_VALUES_TRUNCK,
+    resolver: yupResolver(validationSchemasOrderTruck),
+    defaultValues: DEFAULT_VALUES_TRUCK,
   });
 
   const addMutation = useGenericMutation({
-    mutationFn: (data) => orderService.updateTrunk(toAdd, data),
+    mutationFn: (data) => orderService.addTruckPlate(toAdd, data),
     successMessage: ORDER_SNACKBAR.ORDER_EDIT_SUCCESS.message,
     errorMessage: ORDER_SNACKBAR.ORDER_EDIT_ERROR.message,
     onSuccessCallback: () => {
@@ -43,7 +43,7 @@ const OrderAddTrunckModal = ({ open, onClose, toAdd, onAdd }) => {
   const onSubmit = (data) => {
     addMutation.mutate(data);
   };
-
+  console.log(watch());
   return (
     <ActionModal
       open={open}
@@ -66,12 +66,11 @@ const OrderAddTrunckModal = ({ open, onClose, toAdd, onAdd }) => {
         <CustomTextFieldDisabled
           name="customer_service_name"
           label="Nombre del Customer Service"
-          value={user?.name || ""}
-          maxLength="50"
+          control={control}
         />
       </Grid>
     </ActionModal>
   );
 };
 
-export default OrderAddTrunckModal;
+export default OrderAddTruckModal;

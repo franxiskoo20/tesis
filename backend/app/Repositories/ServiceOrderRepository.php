@@ -61,4 +61,13 @@ class ServiceOrderRepository implements ServiceOrderRepositoryInterface
     $serviceOrder->save();
     return $serviceOrder;
   }
+
+  public function addTruckPlate($id, array $data)
+  {
+    $serviceOrder = ServiceOrder::findOrFail($id);
+    $serviceOrder->truck_plate = $data['truck_plate'];
+    $serviceOrder->customer_service_name = $data['customer_service_name'];
+    $serviceOrder->save();
+    return $serviceOrder;
+  }
 }

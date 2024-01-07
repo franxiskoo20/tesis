@@ -1,6 +1,7 @@
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
+import TruckChip from "../components/OrderUI/TruckChip";
 
 const useOrderInputTableColumn = (filteredOrders, onEdit) => {
   const columns = [
@@ -10,6 +11,18 @@ const useOrderInputTableColumn = (filteredOrders, onEdit) => {
       options: {
         filter: false,
         sort: true,
+      },
+    },
+    {
+      name: "truckPlate",
+      label: "Patente Camión",
+      options: {
+        filter: false,
+        sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const order = filteredOrders[dataIndex];
+          return <TruckChip truck_plate={order.truckPlate} />;
+        },
       },
     },
     {

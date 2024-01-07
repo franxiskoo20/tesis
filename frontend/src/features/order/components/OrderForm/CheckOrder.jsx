@@ -3,6 +3,7 @@ import useService from "../../../service/hooks/useService";
 // import useUser from "../../../user/hooks/useUser";
 import dayjs from "dayjs";
 import useUser from "../../../user/hooks/useUser";
+import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 
 const CheckOrder = ({
   watch,
@@ -12,18 +13,16 @@ const CheckOrder = ({
   businessType,
   routes,
 }) => {
-  const { services } = useService();
-  const { users } = useUser();
-  // const { users } = useUser();
-  const formData = watch(); // Obtiene todos los valores a la vez
+  const { services, isLoading: isLoadingService } = useService();
+  const { users, isLoading: isLoadingUsers } = useUser();
+
+  const formData = watch();
 
   const findSelected = (items, id) =>
     items?.find((item) => item.id === id)?.name || "No seleccionado";
 
   const formatFecha = (fecha) =>
-    fecha
-      ? dayjs(fecha).format("dddd, D [de] MMMM [de] YYYY")
-      : "No seleccionado";
+    fecha ? dayjs(fecha).format("DD/MM/YYYY") : "No seleccionado";
 
   const InfoLine = ({ label, value }) => (
     <Box
@@ -39,7 +38,8 @@ const CheckOrder = ({
   );
 
   return (
-    <>
+    <Box position="relative">
+      <OverlayLoader isLoading={isLoadingService || isLoadingUsers} />
       <InfoLine label="Codigo Tarifa" value={formData.code} />
       <InfoLine label="Fecha" value={formatFecha(formData.date)} />
       <InfoLine
@@ -95,7 +95,7 @@ const CheckOrder = ({
           }
         />
       </Box>
-    </>
+    </Box>
   );
 };
 

@@ -86,7 +86,7 @@ const ProductCard = ({ products }) => {
                 <StatusChip enabled={products.status} sx={{ m: 1 }} />
                 <BussinesChip
                   businessId={products.businessId}
-                  bussinessName={products.bussinessName}
+                  businessName={products.businessName}
                 />
               </Typography>
               <ExpandMore

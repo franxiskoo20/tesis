@@ -69,3 +69,11 @@ export const validationSchemasOrderTruck = yup.object().shape({
       "Formato de patente inválido"
     ),
 });
+
+export const validationSchemaWeight = yup.object().shape({
+  weight_entry: yup
+    .number()
+    .min(0, "El peso no puede ser negativo")
+    .max(500000, "El peso no puede ser mayor a 500000 kg")
+    .required("El peso es requerido"),
+});

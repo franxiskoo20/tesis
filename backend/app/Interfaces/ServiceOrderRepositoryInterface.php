@@ -12,4 +12,6 @@ interface ServiceOrderRepositoryInterface
     public function updateEntryDate($id);
     public function updateExitDate($id);
     public function addTruckPlate($id, array $attributes);
+    public function addWeightEntry($id, array $attributes);
+    public function addWeightExit($id, array $attributes);
 }

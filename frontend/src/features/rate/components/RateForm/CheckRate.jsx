@@ -5,8 +5,10 @@ import dayjs from "dayjs";
 import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 
 const CheckRate = ({ watch, customers, serviceType, products, routes }) => {
+  
   const { services, isLoading: isLoadingService } = useService();
   const { users, isLoading: isLoadingUsers } = useUser();
+  
   const formData = watch(); // Obtiene todos los valores a la vez
 
   const findSelected = (items, id) =>

@@ -4,7 +4,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import { Controller } from "react-hook-form";
 
-const CustomTextFieldPrice = ({ control, name, label, currency, ...rest }) => {
+const CustomTextFieldNumber = ({ name, label, currency, control, ...rest }) => {
   // mostrar icono de error o de correcto en el campo de texto
   const renderEndAdornment = (isDirty, error) => {
     return error ? (
@@ -28,7 +28,7 @@ const CustomTextFieldPrice = ({ control, name, label, currency, ...rest }) => {
           id={name}
           label={label}
           variant="outlined"
-          type="text"
+          type="number"
           fullWidth
           error={!!error}
           autoComplete={name}
@@ -41,6 +41,9 @@ const CustomTextFieldPrice = ({ control, name, label, currency, ...rest }) => {
                 {renderEndAdornment(isDirty, error)}
               </InputAdornment>
             ),
+            inputProps: {
+              min: 0,
+            },
           }}
           helperText={renderHelperText(isDirty, error)}
           FormHelperTextProps={{
@@ -55,4 +58,4 @@ const CustomTextFieldPrice = ({ control, name, label, currency, ...rest }) => {
   );
 };
 
-export default CustomTextFieldPrice;
+export default CustomTextFieldNumber;

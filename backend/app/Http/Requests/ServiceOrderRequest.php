@@ -40,7 +40,9 @@ class ServiceOrderRequest extends FormRequest
             'reserve' => 'nullable|string',
             'customer_service_name' => 'nullable|string',
             'supervisor_name' => 'nullable|string',
-            'rescheduled_os_id' => 'nullable|exists:service_orders,id',
+            'weight_entry' => 'nullable|numeric',
+            'weight_exit' => 'nullable|numeric',
+            // 'rescheduled_os_id' => 'nullable|exists:service_orders,id',
             // 'customer_service_id' => 'nullable|exists:users,id',
             // 'supervisor_id' => 'nullable|exists:users,id',
         ];

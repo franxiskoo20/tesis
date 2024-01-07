@@ -35,10 +35,12 @@ return new class extends Migration
             $table->dateTime('entry')->nullable();
             $table->dateTime('exit')->nullable();
             $table->boolean('status');
-            $table->foreignId('rescheduled_os_id')->nullable()->constrained('service_orders');
             $table->text('comment')->nullable();
+            $table->decimal('weight_entry', 10, 2)->nullable();
+            $table->decimal('weight_exit', 10, 2)->nullable();
             $table->timestamps();
-            
+            // $table->foreignId('rescheduled_os_id')->nullable()->constrained('service_orders');
+
             // $table->foreignId('customer_service_id')->constrained('users')->onDelete('cascade');
             // $table->foreignId('supervisor_id')->constrained('users')->onDelete('cascade');
 

@@ -11,6 +11,8 @@ import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { Link } from "react-router-dom";
 import { ROLES_USER } from "../features/user/constants/userRoles";
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 
 const navigationByRole = {
   [ROLES_USER.ADMINISTRADOR]: [
@@ -44,6 +46,16 @@ const navigationByRole = {
       name: "OS Salida",
       path: "/app/orders-output",
       icon: <ArrowCircleLeftRoundedIcon />,
+    },
+    {
+      name: "OS Ingreso Peso",
+      path: "/app/orders-weight-input",
+      icon: <ArrowCircleDownIcon />,
+    },
+    {
+      name: "OS Salida Peso",
+      path: "/app/orders-weight-output",
+      icon: <ArrowCircleUpIcon />,
     },
   ],
   [ROLES_USER.JEFE_COMERCIAL]: [

@@ -5,6 +5,8 @@ import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import StatusChip from "../../../components/ui/StatusChip";
 import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
 import BussinesChip from "../../product/components/ProductUI/BusinessChip";
+import TruckChip from "../components/OrderUI/TruckChip";
+import WeightChip from "../components/OrderUI/WeightChip";
 
 const useOrderTableColumn = (orders, onEdit, onDelete) => {
   const columns = [
@@ -163,10 +165,14 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
     },
     {
       name: "truckPlate",
-      label: "Patente de Camión",
+      label: "Patente Camión",
       options: {
         filter: false,
         sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const order = orders[dataIndex];
+          return <TruckChip truck_plate={order.truckPlate} />;
+        },
       },
     },
     {
@@ -177,7 +183,26 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
         sort: true,
       },
     },
-
+    {
+      name: "weightEntry",
+      label: "Peso de Entrada",
+      options: {
+        filter: false,
+        sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const order = orders[dataIndex];
+          return <WeightChip weight={order.weightEntry} />;
+        },
+      },
+    },
+    {
+      name: "weightExit",
+      label: "Peso de Salida",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
     {
       name: "actions",
       label: "Acción",

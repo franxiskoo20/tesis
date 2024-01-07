@@ -2,6 +2,7 @@ import AutorenewIcon from "@mui/icons-material/Autorenew";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
+import PriceChip from "../components/RateUI/PriceChip";
 
 const useRateTableColumn = (currentRates, onEdit) => {
   const columns = [
@@ -71,6 +72,18 @@ const useRateTableColumn = (currentRates, onEdit) => {
       options: {
         filter: false,
         sort: true,
+      },
+    },
+    {
+      name: "price",
+      label: "Precio",
+      options: {
+        filter: true,
+        sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const rate = currentRates[dataIndex];
+          return <PriceChip price={rate.price} currency={rate.currency} />;
+        },
       },
     },
     {

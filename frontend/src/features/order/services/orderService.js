@@ -72,4 +72,10 @@ export const orderService = {
   addTruckPlate(orderId, data) {
     return makeRequest("put", `/api/orders/addTruckPlate/${orderId}`, data);
   },
+  addWeightEntry(orderId, data) {
+    return makeRequest("put", `/api/orders/addWeightEntry/${orderId}`, data);
+  },
+  addWeightExit(orderId, data) {
+    return makeRequest("put", `/api/orders/addWeightExit/${orderId}`, data);
+  },
 };

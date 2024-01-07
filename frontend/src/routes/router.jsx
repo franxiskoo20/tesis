@@ -15,6 +15,8 @@ import {
   OrderConfirmPage,
   OrderInputPage,
   OrderOutputPage,
+  OrderWeightInputPage,
+  OrderWeightOutputPage,
 } from "../pages";
 import { ProtectedRoutes, PublicRoutes, RoleProtectedElement } from "./";
 
@@ -138,6 +140,26 @@ const router = createBrowserRouter([
             allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
           >
             <OrderOutputPage />
+          </RoleProtectedElement>
+        ),
+      },
+      {
+        path: "app/orders-weight-input",
+        element: (
+          <RoleProtectedElement
+            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
+          >
+            <OrderWeightInputPage />
+          </RoleProtectedElement>
+        ),
+      },
+      {
+        path: "app/orders-weight-output",
+        element: (
+          <RoleProtectedElement
+            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
+          >
+            <OrderWeightOutputPage />
           </RoleProtectedElement>
         ),
       },

@@ -79,9 +79,29 @@ class ServiceOrderController extends Controller
     {
         try {
             $serviceOrder = $this->serviceOrderRepository->addTruckPlate($id, $request->all());
-            return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Placa del camión agregada con éxito']);
+            return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Patente del camión agregada con éxito']);
         } catch (Exception $e) {
             return response()->json(['errors' => 'Error al agregar la placa del camión', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function addWeightEntry(Request $request, $id)
+    {
+        try {
+            $serviceOrder = $this->serviceOrderRepository->addWeightEntry($id, $request->all());
+            return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Peso de entrada agregado con éxito']);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al agregar el peso de entrada', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function addWeightExit(Request $request, $id)
+    {
+        try {
+            $serviceOrder = $this->serviceOrderRepository->addWeightExit($id, $request->all());
+            return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Peso de salida agregado con éxito']);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al agregar el peso de salida', 'message' => $e->getMessage()], 500);
         }
     }
 }

@@ -25,10 +25,15 @@ class ServiceOrder extends Model
         'truck_plate',
         'entry',
         'exit',
+        'weight_entry',
+        'weight_exit',
         'status',
         'status_date',
         'comment',
-        'user_id'
+        'user_id',
+        'reserve',
+        'customer_service_name',
+        'supervisor_name'
     ];
 
     public function rate()

@@ -5,12 +5,14 @@ import { orderTableOption } from "../../constants/orderTableOption";
 import useOrderTruckTableColumn from "../../hooks/useOrderTruckTableColumn";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 const OrderTruck = ({ orders, onEdit, isSubmitting }) => {
+
   const columns = useOrderTruckTableColumn(orders, onEdit);
 
   const options = {
     ...orderTableOption,
   };
 
+  
   return (
     <Box position="relative">
       <OverlayLoader isLoading={isSubmitting} />

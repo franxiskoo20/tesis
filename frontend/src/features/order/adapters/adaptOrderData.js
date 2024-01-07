@@ -35,5 +35,7 @@ export const adaptOrderData = (order) => {
     customerServiceName: order.customer_service_name,
     rateId: order.rate_id,
     rescheduledOsId: order.rescheduled_os_id,
+    weightEntry: order.weight_entry,
+    weightExit: order.weight_exit,
   };
 };

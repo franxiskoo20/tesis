@@ -1,23 +1,10 @@
-import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
+import ScaleIcon from "@mui/icons-material/Scale";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
-import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import TruckChip from "../components/OrderUI/TruckChip";
 
-const useOrderTruckTableColumn = (orders, onEdit) => {
+const useOrderWeightInputTableColumn = (filteredOrders, onEdit) => {
   const columns = [
-    {
-      name: "Avatar",
-      options: {
-        filter: false,
-        sort: false,
-        customBodyRenderLite: (dataIndex) => {
-          const order = orders[dataIndex];
-          return <UserAvatar name={order.userName} roleId={order.userRoleId} />;
-        },
-      },
-    },
-
     {
       name: "id",
       label: "ID",
@@ -27,11 +14,15 @@ const useOrderTruckTableColumn = (orders, onEdit) => {
       },
     },
     {
-      name: "date",
-      label: "Fecha",
+      name: "truckPlate",
+      label: "Patente del Camión",
       options: {
         filter: false,
         sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const order = filteredOrders[dataIndex];
+          return <TruckChip truck_plate={order.truckPlate} />;
+        },
       },
     },
     {
@@ -49,7 +40,7 @@ const useOrderTruckTableColumn = (orders, onEdit) => {
         filter: true,
         sort: true,
         customBodyRenderLite: (dataIndex) => {
-          const serviceType = orders[dataIndex];
+          const serviceType = filteredOrders[dataIndex];
           return (
             <ServiceTypeChip
               serviceTypeId={serviceType.serviceTypeId}
@@ -60,23 +51,19 @@ const useOrderTruckTableColumn = (orders, onEdit) => {
       },
     },
     {
-      name: "routeName",
-      label: "Ruta",
+      name: "date",
+      label: "Fecha",
       options: {
         filter: false,
         sort: true,
       },
     },
     {
-      name: "truckPlate",
-      label: "Patente Camión",
+      name: "entry",
+      label: "Fecha de Ingreso",
       options: {
         filter: false,
         sort: true,
-        customBodyRenderLite: (dataIndex) => {
-          const order = orders[dataIndex];
-          return <TruckChip truck_plate={order.truckPlate} />;
-        },
       },
     },
     {
@@ -88,14 +75,12 @@ const useOrderTruckTableColumn = (orders, onEdit) => {
         empty: true,
         customBodyRenderLite: (dataIndex) => {
           return (
-            <>
-              <CustomIconButton
-                aria-label="edit"
-                onClick={() => onEdit(orders[dataIndex].id)}
-              >
-                <AssignmentTurnedInIcon />
-              </CustomIconButton>
-            </>
+            <CustomIconButton
+              aria-label="edit"
+              onClick={() => onEdit(filteredOrders[dataIndex].id)}
+            >
+              <ScaleIcon />
+            </CustomIconButton>
           );
         },
       },
@@ -105,4 +90,4 @@ const useOrderTruckTableColumn = (orders, onEdit) => {
   return columns;
 };
 
-export default useOrderTruckTableColumn;
+export default useOrderWeightInputTableColumn;

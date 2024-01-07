@@ -12,3 +12,18 @@ export const CURRENCIES_RATE = [
     label: "€ EUR",
   },
 ];
+
+export const CURRENCIES_RATE_SIMBOL = [
+  {
+    value: "CLP",
+    simbol: "$",
+  },
+  {
+    value: "USD",
+    simbol: "$",
+  },
+  {
+    value: "EUR",
+    simbol: "€",
+  },
+];

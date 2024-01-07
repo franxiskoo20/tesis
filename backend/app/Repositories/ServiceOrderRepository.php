@@ -70,4 +70,20 @@ class ServiceOrderRepository implements ServiceOrderRepositoryInterface
     $serviceOrder->save();
     return $serviceOrder;
   }
+
+  public function addWeightEntry($id, array $data)
+  {
+    $serviceOrder = ServiceOrder::findOrFail($id);
+    $serviceOrder->weight_entry = $data['weight_entry'];
+    $serviceOrder->save();
+    return $serviceOrder;
+  }
+
+  public function addWeightExit($id, array $data)
+  {
+    $serviceOrder = ServiceOrder::findOrFail($id);
+    $serviceOrder->weight_exit = $data['weight_exit'];
+    $serviceOrder->save();
+    return $serviceOrder;
+  }
 }

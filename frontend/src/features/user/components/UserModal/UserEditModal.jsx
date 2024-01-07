@@ -136,7 +136,7 @@ const UserEditModal = ({ open, onClose, toEdit, onEdit }) => {
     updateMutation.isPending || updatePasswordMutation.isPending;
 
   return (
-    <ModalLayout title="Registrar Usuario" open={open} onClose={onClose}>
+    <ModalLayout title="Editar Usuario" open={open} onClose={onClose}>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} my={1} noValidate>
         <Grid container spacing={2}>
           <UserFormField control={control} roles={roles} />

@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { useForm } from "react-hook-form";
 import ActionModal from "../../../../components/modal/ActionModal";
 import useGenericMutation from "../../../../hooks/useGenericMutation";
@@ -51,7 +52,8 @@ const CustomerAddModal = ({ open, onClose, onAdded }) => {
       title="Registrar Cliente"
       onSubmit={handleSubmit(onSubmit)}
       isPending={addMutation.isPending}
-      submitLabel="Agregar"
+      submitLabel="Registrar"
+      acceptButtonIcon={<SupportAgentIcon />}
     >
       <CustomerFormFields control={control} />
     </ActionModal>

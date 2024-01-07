@@ -4,6 +4,7 @@ import CustomIconButton from "../../../components/common/Button/CustomIconButton
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import StatusChip from "../../../components/ui/StatusChip";
 import BussinesChip from "../components/ProductUI/BusinessChip";
+import { Box } from "@mui/material";
 
 const useProductTableColumn = (products, onEdit, onDelete) => {
   const columns = [
@@ -28,10 +29,18 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
     },
     {
       name: "description",
-      label: "Descripción",
+      label: "Descripcion",
       options: {
         filter: false,
         sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const description = products[dataIndex].description;
+          return (
+            <Box style={{ textAlign: "left", textJustify: "inter-word" }}>
+              {description}
+            </Box>
+          );
+        },
       },
     },
     {
@@ -74,7 +83,7 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
     },
     {
       name: "updatedAt",
-      label: "Fecha de Actualizacion",
+      label: "Fecha de Actualización",
       options: {
         filter: false,
         sort: true,

@@ -30,6 +30,7 @@ const CustomerDeleteModal = ({
         confirmButtonText="Eliminar"
         cancelButtonText="Cancelar"
         isPending={deleteMutation.isPending}
+        message="¿Está seguro que desea eliminar este cliente?"
       />
     </>
   );

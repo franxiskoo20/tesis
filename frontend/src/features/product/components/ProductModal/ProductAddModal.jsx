@@ -1,13 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import { useForm } from "react-hook-form";
 import ActionModal from "../../../../components/modal/ActionModal";
 import useGenericMutation from "../../../../hooks/useGenericMutation";
 import useAuth from "../../../auth/hooks/useAuth";
 import { PRODUCT_SNACKBAR } from "../../constants/productSnackbar";
+import useBusinessType from "../../hooks/useBusinessType";
 import { productService } from "../../services/productService";
 import { validationSchemasProduct } from "../../utils/validationSchemasProduct";
 import ProductFormFields from "../ProductInputs/ProductFormFields";
-import useBusinessType from "../../hooks/useBusinessType";
 
 const ProductAddModal = ({ open, onClose, onAdded }) => {
   const { user } = useAuth();
@@ -56,6 +57,7 @@ const ProductAddModal = ({ open, onClose, onAdded }) => {
       onSubmit={handleSubmit(onSubmit)}
       isPending={addProductMutation.isPending}
       submitLabel="Agregar"
+      acceptButtonIcon={<ProductionQuantityLimitsIcon />}
     >
       <ProductFormFields control={control} businessType={businessType} />
     </ActionModal>

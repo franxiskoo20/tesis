@@ -1,13 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 import { useForm } from "react-hook-form";
 import ActionModal from "../../../../components/modal/ActionModal";
 import useGenericMutation from "../../../../hooks/useGenericMutation";
 import useAuth from "../../../auth/hooks/useAuth";
 import { SERVICE_SNACKBAR } from "../../constants/serviceSnackbar";
+import useServiceType from "../../hooks/useServiceType";
 import { serviceOfService } from "../../services/serviceOfService";
 import { validationSchemasService } from "../../utils/validationSchemasService";
 import ServiceFormFields from "../ServiceInputs/ServiceFormFields";
-import useServiceType from "../../hooks/useServiceType";
 
 const ServiceAddModal = ({ open, onClose, onAdded }) => {
   const { user } = useAuth();
@@ -54,6 +55,7 @@ const ServiceAddModal = ({ open, onClose, onAdded }) => {
       onSubmit={handleSubmit(onSubmit)}
       isPending={addServiceMutation.isPending}
       submitLabel="Agregar"
+      acceptButtonIcon={<PostAddIcon />}
     >
       <ServiceFormFields control={control} serviceType={serviceType} />
     </ActionModal>

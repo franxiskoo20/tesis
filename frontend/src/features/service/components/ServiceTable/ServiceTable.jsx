@@ -5,13 +5,7 @@ import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import { serviceTableStaticOption } from "../../constants/serviceTableOption";
 import useServiceTableColumn from "../../hooks/useServiceTableColumn";
 
-const ServiceTable = ({
-  services,
-  onAdd,
-  onEdit,
-  onDelete,
-  isSubmitting,
-}) => {
+const ServiceTable = ({ services, onAdd, onEdit, onDelete, isSubmitting }) => {
   const renderAddButton = () => {
     return <ChipButton label={"Agregar Servicio"} onClick={onAdd} />;
   };
@@ -25,11 +19,7 @@ const ServiceTable = ({
   return (
     <Box position="relative">
       <OverlayLoader isLoading={isSubmitting} />
-      <MUIDataTable
-        data={services}
-        columns={columns}
-        options={options}
-      />
+      <MUIDataTable data={services} columns={columns} options={options} />
     </Box>
   );
 };

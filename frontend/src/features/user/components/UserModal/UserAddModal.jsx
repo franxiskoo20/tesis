@@ -56,10 +56,10 @@ const UserAddModal = ({ open, onClose, onAdded }) => {
     <ActionModal
       open={open}
       onClose={handleClose}
-      title="Agregar un Usuario"
+      title="Registrar Usuario"
       onSubmit={handleSubmit(onSubmit)}
       isPending={addMutation.isPending}
-      submitLabel="Agregar"
+      submitLabel="Registrar"
     >
       <UserFormField control={control} roles={roles} />
       <UserFormPasswordField control={control} />

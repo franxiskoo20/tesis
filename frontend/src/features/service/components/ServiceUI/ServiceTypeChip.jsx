@@ -1,9 +1,8 @@
-import { Chip } from "@mui/material";
-import { SERVICE_TYPE_COLORS } from "../../constants/serviceType";
+import BeenhereIcon from "@mui/icons-material/Beenhere";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import MoveUpIcon from "@mui/icons-material/MoveUp";
-import BeenhereIcon from "@mui/icons-material/Beenhere";
-import QuestionMarkRoundedIcon from "@mui/icons-material/QuestionMarkRounded";
+import { Chip } from "@mui/material";
+import { SERVICE_TYPE_COLORS } from "../../constants/serviceType";
 
 const getServiceTypeIcon = (serviceTypeId) => {
   switch (serviceTypeId) {
@@ -13,8 +12,6 @@ const getServiceTypeIcon = (serviceTypeId) => {
       return <MoveUpIcon color="inherit" />;
     case 3:
       return <BeenhereIcon color="inherit" />;
-    case 4:
-      return <QuestionMarkRoundedIcon color="inherit" />;
     default:
       return null;
   }

@@ -27,7 +27,7 @@ const customerTableColumn = (customers, onEdit, onDelete) => {
     },
     {
       name: "description",
-      label: "Descripcion",
+      label: "Descripción",
       options: {
         filter: false,
         sort: true,

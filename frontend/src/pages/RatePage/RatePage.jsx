@@ -40,9 +40,9 @@ const RatePage = () => {
           onChange={handleTabChange}
           aria-label="service tabs"
         >
-          <Tab label="Nueva Tarifas" {...a11yProps(0)} />
+          <Tab label="Nueva Tarifa" {...a11yProps(0)} />
           <Tab label="Tarifas Vigente" {...a11yProps(1)} />
-          <Tab label="Tarifas Inactivas" {...a11yProps(1)} />
+          <Tab label="Tarifas Inactiva" {...a11yProps(1)} />
         </Tabs>
         <Divider />
         <CustomTabPanel

@@ -25,6 +25,7 @@ const ServiceDeleteModal = ({ open, onClose, toDelete, onDelete }) => {
         confirmButtonText="Eliminar"
         cancelButtonText="Cancelar"
         isPending={deleteMutation.isPending}
+        message="¿Está seguro que desea eliminar este servicio?"
       />
     </>
   );

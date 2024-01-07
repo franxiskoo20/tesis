@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import ActionModal from "../../../../components/modal/ActionModal";
@@ -63,10 +64,11 @@ const ProductEditModal = ({ open, onClose, toEdit, onUpdated }) => {
     <ActionModal
       open={open}
       onClose={onClose}
-      title="Registrar Cliente"
+      title="Editar Producto"
       onSubmit={handleSubmit(onSubmit)}
       isPending={customerUpdateMutation.isPending}
-      submitLabel="Agregar"
+      submitLabel="Editar"
+      acceptButtonIcon={<ProductionQuantityLimitsIcon />}
     >
       <ProductFormFields control={control} businessType={businessType} />
     </ActionModal>

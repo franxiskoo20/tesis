@@ -19,6 +19,11 @@ const ServiceAccordion = () => {
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel${item.id}a-content`}
             id={`panel${item.id}a-header`}
+            sx={{
+              backgroundColor: SERVICE_TYPE_COLORS
+                ? alpha(SERVICE_TYPE_COLORS[item.id], 0.1)
+                : "default",
+            }}
           >
             <Typography
               component={"div"}

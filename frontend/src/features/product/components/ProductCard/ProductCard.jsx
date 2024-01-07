@@ -42,7 +42,7 @@ const ProductCard = ({ products }) => {
       [productId]: !prevExpanded[productId],
     }));
   };
-  console.log(products);
+
   return (
     <>
       {products?.map((products) => (

@@ -35,13 +35,13 @@ const BusinessAccordion = () => {
               }}
             >
               {item.name}
-              <BusinessChip businessId={item.id} bussinessName={item.name} />
+              <BusinessChip businessId={item.id} businessName={item.name} />
             </Typography>
           </AccordionSummary>
           <AccordionDetails
             sx={{
               backgroundColor: BUSINESS_COLORS
-                ? alpha(BUSINESS_COLORS[item.id], 0.8)
+                ? alpha(BUSINESS_COLORS[item.id], 0.6)
                 : "default",
               color: "white",
             }}

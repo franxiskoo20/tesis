@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import ActionModal from "../../../../components/modal/ActionModal";
@@ -58,10 +59,11 @@ const CustomerEditModal = ({ open, onClose, toEdit, onEdit }) => {
     <ActionModal
       open={open}
       onClose={onClose}
-      title="Registrar Cliente"
+      title="Editar Cliente"
       onSubmit={handleSubmit(onSubmit)}
       isPending={customerUpdateMutation.isPending}
-      submitLabel="Agregar"
+      submitLabel="Editar"
+      acceptButtonIcon={<SupportAgentIcon/>}
     >
       <CustomerFormFields control={control} />
     </ActionModal>

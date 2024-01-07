@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import ActionModal from "../../../../components/modal/ActionModal";
@@ -22,12 +23,11 @@ const ServiceEditModal = ({ open, onClose, toEdit, onEdit }) => {
 
   const { serviceType } = useServiceType();
 
-  const { handleSubmit, reset, control, watch } = useForm({
+  const { handleSubmit, reset, control } = useForm({
     resolver: yupResolver(validationSchemasService),
     mode: "onChange",
     defaultValues: DEFAULT_VALUES_EDIT_SERVICE,
   });
-  console.log(watch());
   // cargar datos del usuario a editar
   useEffect(() => {
     if (toEdit) {
@@ -59,10 +59,11 @@ const ServiceEditModal = ({ open, onClose, toEdit, onEdit }) => {
     <ActionModal
       open={open}
       onClose={onClose}
-      title="Registrar Servicio"
+      title="Editar Servicio"
       onSubmit={handleSubmit(onSubmit)}
       isPending={serviceUpdateMutation.isPending}
-      submitLabel="Agregar"
+      submitLabel="Editar"
+      acceptButtonIcon={<PostAddIcon />}
     >
       <ServiceFormFields control={control} serviceType={serviceType} />
     </ActionModal>

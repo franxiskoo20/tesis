@@ -5,13 +5,7 @@ import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import { productTableStaticOption } from "../../constants/productTableOption";
 import useProductTableColumn from "../../hooks/useProductTableColumn";
 
-const ProductTable = ({
-  products,
-  onAdd,
-  onEdit,
-  onDelete,
-  isSubmitting,
-}) => {
+const ProductTable = ({ products, onAdd, onEdit, onDelete, isSubmitting }) => {
   const renderAddButton = () => {
     return <ChipButton label={"Agregar Producto"} onClick={onAdd} />;
   };
@@ -25,11 +19,7 @@ const ProductTable = ({
   return (
     <Box position="relative">
       <OverlayLoader isLoading={isSubmitting} />
-      <MUIDataTable
-        data={products}
-        columns={columns}
-        options={options}
-      />
+      <MUIDataTable data={products} columns={columns} options={options} />
     </Box>
   );
 };

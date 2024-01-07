@@ -19,6 +19,11 @@ const UserAccordion = () => {
             expandIcon={<ExpandMoreIcon />}
             aria-controls={`panel${item.id}a-content`}
             id={`panel${item.id}a-header`}
+            sx={{
+              backgroundColor: ROLE_COLORS
+                ? alpha(ROLE_COLORS[item.id], 0.1)
+                : "default",
+            }}
           >
             <Typography
               component={"div"}

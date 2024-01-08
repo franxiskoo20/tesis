@@ -20,6 +20,10 @@ const CustomDateRangePicker = ({
 }) => {
   // Ajusta 'verifiedRates' para definir rangos de fechas deshabilitados (inclusivos)
   const isDateDisabled = (date) => {
+    if (!verifiedRates) {
+      return false;
+    }
+
     return verifiedRates.some((range) => {
       const start = dayjs(range.start_date);
       const end = dayjs(range.end_date);

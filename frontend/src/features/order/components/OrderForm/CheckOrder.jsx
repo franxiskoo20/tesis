@@ -38,7 +38,7 @@ const CheckOrder = ({
   );
 
   return (
-    <Box position="relative">
+    <Box position="relative" p={1}>
       <OverlayLoader isLoading={isLoadingService || isLoadingUsers} />
       <InfoLine label="Codigo Tarifa" value={formData.code} />
       <InfoLine label="Fecha" value={formatFecha(formData.date)} />

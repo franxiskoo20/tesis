@@ -10,7 +10,7 @@ const RateTableCurrent = ({ rates, onEdit, isSubmitting }) => {
     ...rateTableStaticOption,
   };
   const currentRates = rates.filter((rate) => rate.status === 1);
-  
+
   const columns = useRateTableColumn(currentRates, onEdit);
   return (
     <Box position="relative">

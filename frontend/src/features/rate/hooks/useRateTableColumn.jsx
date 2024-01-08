@@ -78,7 +78,7 @@ const useRateTableColumn = (currentRates, onEdit) => {
       name: "price",
       label: "Precio",
       options: {
-        filter: true,
+        filter: false,
         sort: true,
         customBodyRenderLite: (dataIndex) => {
           const rate = currentRates[dataIndex];

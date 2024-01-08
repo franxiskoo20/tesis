@@ -20,8 +20,8 @@ const RateEditStatusModal = ({ open, onClose, toEdit, onEdit }) => {
         open={open}
         onClose={onClose}
         onConfirm={() => updateMutation.mutate(toEdit)}
-        title="Confirmar Cambio de Estado"
-        message="¿Estás seguro de que quieres cambiar el Estado de la Tarifa a Inactiva?"
+        title="Cambio de Estado"
+        message="¿Estás seguro de que quieres cambiar el estado de la tarifa a inactiva?"
         isPending={updateMutation.isPending}
       />
     </>

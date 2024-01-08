@@ -31,7 +31,7 @@ const CheckRate = ({ watch, customers, serviceType, products, routes }) => {
   );
 
   return (
-    <Box position="relative">
+    <Box position="relative" p={1}>
       <OverlayLoader isLoading={isLoadingService || isLoadingUsers} />
       <InfoLine
         label="Cliente"

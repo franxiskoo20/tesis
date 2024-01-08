@@ -12,7 +12,7 @@ const OrderCodeRate = ({ control }) => {
       .map((rate) => rate.code.toString()) || [];
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} p={1}>
       <Grid xs={12}>
         <Controller
           name="code"

@@ -1,5 +1,6 @@
 import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
+import PriceChip from "../components/RateUI/PriceChip";
 
 const useRateTableColumnIdle = (rates) => {
   const columns = [
@@ -69,6 +70,18 @@ const useRateTableColumnIdle = (rates) => {
       options: {
         filter: false,
         sort: true,
+      },
+    },
+    {
+      name: "price",
+      label: "Precio",
+      options: {
+        filter: false,
+        sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const rate = rates[dataIndex];
+          return <PriceChip price={rate.price} currency={rate.currency} />;
+        },
       },
     },
     {

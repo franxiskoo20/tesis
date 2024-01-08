@@ -1,6 +1,10 @@
 import { Chip } from "@mui/material";
 
 const TruckChip = ({ truck_plate }) => {
+  if (truck_plate == null) {
+    return null;
+  }
+
   const formattedPlate = truck_plate ? truck_plate.split("-").join(" · ") : " ";
 
   return (

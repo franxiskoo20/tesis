@@ -3,7 +3,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import StatusChip from "../../../components/ui/StatusChip";
-import BussinesChip from "../components/ProductUI/BusinessChip";
+import BusinessChip from "../components/ProductUI/BusinessChip";
 import { Box } from "@mui/material";
 
 const useProductTableColumn = (products, onEdit, onDelete) => {
@@ -56,7 +56,7 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
       },
     },
     {
-      name: "bussinessName",
+      name: "businessName",
       label: "Tipo de Negocio",
       options: {
         filter: true,
@@ -64,7 +64,7 @@ const useProductTableColumn = (products, onEdit, onDelete) => {
         customBodyRenderLite: (dataIndex) => {
           const product = products[dataIndex];
           return (
-            <BussinesChip
+            <BusinessChip
               businessId={product.businessId}
               businessName={product.businessName}
             />

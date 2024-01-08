@@ -19,13 +19,9 @@ import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import useGenericMutation from "../../../../hooks/useGenericMutation";
 import { orderService } from "../../services/orderService";
 import { validationSchemasOrder } from "../../utils/validationSchemasOrder";
-// import CheckRate from "./CheckRate";
-// import RateForm from "./RateForm";
-// import RatePriceForm from "./RatePriceForm";
 import useRateCode from "../../../rate/hooks/useRateCode";
 import { ORDER_SNACKBAR } from "../../constants/orderSnackbar";
 import OrderCodeRate from "./OrderCodeRate";
-// import useAuth from "../../../auth/hooks/useAuth";
 import dayjs from "dayjs";
 import useAuth from "../../../auth/hooks/useAuth";
 import useCustomer from "../../../customer/hooks/useCustomer";
@@ -63,12 +59,7 @@ const CreateOrder = ({ onAdded }) => {
     business_id: "",
     route_id: "",
     container: "",
-    truck_plate: "",
-    entry: "",
-    exit: "",
     status: 0,
-    status_date: "",
-    comment: "",
     user_id: user?.id || "",
   };
 
@@ -103,7 +94,7 @@ const CreateOrder = ({ onAdded }) => {
       setActiveStep(0); // Vuelve al primer paso del formulario
     },
   });
-  console.log(watch());
+
   const onSubmit = (data) => {
     // Formatea las fechas antes de enviar los datos
     const formattedData = {

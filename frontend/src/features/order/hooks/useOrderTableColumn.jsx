@@ -4,7 +4,7 @@ import CustomIconButton from "../../../components/common/Button/CustomIconButton
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import StatusChip from "../../../components/ui/StatusChip";
 import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
-import BussinesChip from "../../product/components/ProductUI/BusinessChip";
+import BusinessChip from "../../product/components/ProductUI/BusinessChip";
 import TruckChip from "../components/OrderUI/TruckChip";
 import WeightChip from "../components/OrderUI/WeightChip";
 
@@ -95,7 +95,7 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
         customBodyRenderLite: (dataIndex) => {
           const business = orders[dataIndex];
           return (
-            <BussinesChip
+            <BusinessChip
               businessId={business.businessId}
               businessName={business.businessName}
             />
@@ -201,6 +201,10 @@ const useOrderTableColumn = (orders, onEdit, onDelete) => {
       options: {
         filter: false,
         sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const order = orders[dataIndex];
+          return <WeightChip weight={order.weightExit} />;
+        },
       },
     },
     {

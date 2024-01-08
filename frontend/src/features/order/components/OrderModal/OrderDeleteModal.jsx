@@ -1,13 +1,14 @@
 import GenericConfirmModal from "../../../../components/modal/GenericConfirmModal";
 import useGenericMutation from "../../../../hooks/useGenericMutation";
-import { RATE_SNACKBAR } from "../../constants/rateSnackbar";
-import { rateService } from "../../services/rateService";
+import { ORDER_SNACKBAR } from "../../constants/orderSnackbar";
+import { orderService } from "../../services/orderService";
 
-const RateDeleteModal = ({ open, onClose, toDelete, onDelete }) => {
+const OrderDeleteModal = ({ open, onClose, toDelete, onDelete }) => {
+
   const deleteMutation = useGenericMutation({
-    mutationFn: (toDelete) => rateService.deleteRate(toDelete),
-    successMessage: RATE_SNACKBAR.RATE_DELETE_SUCCESS.message,
-    errorMessage: RATE_SNACKBAR.RATE_DELETE_ERROR.message,
+    mutationFn: (toDelete) => orderService.deleteOrder(toDelete),
+    successMessage: ORDER_SNACKBAR.ORDER_DELETE_ERROR.message,
+    errorMessage: ORDER_SNACKBAR.ORDER_DELETE_ERROR.message,
     onSuccessCallback: () => {
       onClose?.();
       onDelete?.();
@@ -24,9 +25,10 @@ const RateDeleteModal = ({ open, onClose, toDelete, onDelete }) => {
         confirmButtonText="Eliminar"
         cancelButtonText="Cancelar"
         isPending={deleteMutation.isPending}
+        message="¿Está seguro que desea eliminar esta orden de servicio?"
       />
     </>
   );
 };
 
-export default RateDeleteModal;
+export default OrderDeleteModal;

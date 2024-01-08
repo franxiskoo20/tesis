@@ -161,7 +161,6 @@ const CreateOrder = ({ onAdded }) => {
         throw new Error("Unknown step");
     }
   };
-  console.log(watch());
 
   return (
     <Grid container spacing={2}>

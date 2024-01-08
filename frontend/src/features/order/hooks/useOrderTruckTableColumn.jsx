@@ -17,7 +17,6 @@ const useOrderTruckTableColumn = (orders, onEdit) => {
         },
       },
     },
-
     {
       name: "id",
       label: "ID",

@@ -77,3 +77,10 @@ export const validationSchemaWeight = yup.object().shape({
     .max(500000, "El peso no puede ser mayor a 500000 kg")
     .required("El peso es requerido"),
 });
+
+export const validationSchemaStatus = yup.object().shape({
+  status: yup.number().required("El estado es requerido"),
+  comment: yup
+    .string()
+    .max(255, "El comentario no puede tener más de 255 caracteres"),
+});

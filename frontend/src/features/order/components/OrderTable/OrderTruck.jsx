@@ -4,6 +4,7 @@ import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import { orderTableOption } from "../../constants/orderTableOption";
 import useOrderTruckTableColumn from "../../hooks/useOrderTruckTableColumn";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+
 const OrderTruck = ({ orders, onEdit, isSubmitting }) => {
 
   const columns = useOrderTruckTableColumn(orders, onEdit);

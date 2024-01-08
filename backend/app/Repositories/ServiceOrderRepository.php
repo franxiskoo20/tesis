@@ -86,4 +86,23 @@ class ServiceOrderRepository implements ServiceOrderRepositoryInterface
     $serviceOrder->save();
     return $serviceOrder;
   }
+
+  public function updateDate($id, array $data)
+  {
+    $serviceOrder = ServiceOrder::findOrFail($id);
+    $serviceOrder->date = $data['date'];
+    $serviceOrder->save();
+    return $serviceOrder;
+  }
+
+  public function updateStatus($id, array $data)
+  {
+    $serviceOrder = ServiceOrder::findOrFail($id);
+    $serviceOrder->status = $data['status'];
+    $serviceOrder->comment = $data['comment'];
+    $serviceOrder->supervisor_name = $data['supervisor_name'];
+    $serviceOrder->date_status = now();
+    $serviceOrder->save();
+    return $serviceOrder;
+  }
 }

@@ -1,11 +1,20 @@
-import { Box } from "@mui/material";
+import { Box, Chip } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import { orderTableOption } from "../../constants/orderTableOption";
 import useOrderConfirmTableColumn from "../../hooks/useOrderConfirmTableColumn";
+import RecommendIcon from "@mui/icons-material/Recommend";
 
 const OrderTrunk = ({ orders, onEdit, isSubmitting }) => {
-  const columns = useOrderConfirmTableColumn(orders, onEdit);
+  const filteredOrders = orders.filter(
+    (order) =>
+      order.entry !== null &&
+      order.truckPlate !== null &&
+      order.entry !== null &&
+      order.weightEntry !== null
+  );
+
+  const columns = useOrderConfirmTableColumn(filteredOrders, onEdit);
 
   const options = {
     ...orderTableOption,
@@ -14,7 +23,18 @@ const OrderTrunk = ({ orders, onEdit, isSubmitting }) => {
   return (
     <Box position="relative">
       <OverlayLoader isLoading={isSubmitting} />
-      <MUIDataTable data={orders} columns={columns} options={options} />
+      <MUIDataTable
+        title={
+          <Chip
+            label="Registrar Ingreso"
+            color="success"
+            icon={<RecommendIcon />}
+          />
+        }
+        data={filteredOrders}
+        columns={columns}
+        options={options}
+      />
     </Box>
   );
 };

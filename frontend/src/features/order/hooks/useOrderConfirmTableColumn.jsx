@@ -1,26 +1,77 @@
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
-import StatusChip from "../../../components/ui/StatusChip";
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
-const useOrderTrunkTableColumn = (orders, onEdit) => {
+import TruckChip from "../components/OrderUI/TruckChip";
+import WeightChip from "../components/OrderUI/WeightChip";
+import OsStatusChip from "../components/OrderUI/OsStatusChip";
+
+const useOrderConfirmTableColumn = (filteredOrders, onEdit) => {
   const columns = [
     {
-      name: "",
+      name: "Avatar",
       options: {
         filter: false,
         sort: false,
         customBodyRenderLite: (dataIndex) => {
-          const order = orders[dataIndex];
+          const order = filteredOrders[dataIndex];
           return <UserAvatar name={order.userName} roleId={order.userRoleId} />;
         },
       },
     },
     {
-      name: "code",
-      label: "Codigo",
+      name: "id",
+      label: "ID",
       options: {
         filter: false,
         sort: true,
+      },
+    },
+    {
+      name: "date",
+      label: "Fecha",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "customerServiceName",
+      label: "Customer Service",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "truckPlate",
+      label: "Patente Camión",
+      options: {
+        filter: false,
+        sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const order = filteredOrders[dataIndex];
+          return <TruckChip truck_plate={order.truckPlate} />;
+        },
+      },
+    },
+    {
+      name: "entry",
+      label: "Fecha de Ingreso",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "weightEntry",
+      label: "Peso de Entrada",
+      options: {
+        filter: false,
+        sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const order = filteredOrders[dataIndex];
+          return <WeightChip weight={order.weightEntry} />;
+        },
       },
     },
     {
@@ -30,14 +81,30 @@ const useOrderTrunkTableColumn = (orders, onEdit) => {
         filter: false,
         sort: true,
         customBodyRenderLite: (dataIndex) => {
-          const orderStatus = orders[dataIndex].status;
-          return <StatusChip enabled={orderStatus} />;
+          const order = filteredOrders[dataIndex];
+          return <OsStatusChip enabled={order.status} />;
         },
       },
     },
     {
-      name: "date",
-      label: "fecha",
+      name: "comment",
+      label: "Comentario",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "supervisorName",
+      label: "Supervisor",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "dateStatus",
+      label: "Fecha de Estado",
       options: {
         filter: false,
         sort: true,
@@ -55,7 +122,7 @@ const useOrderTrunkTableColumn = (orders, onEdit) => {
             <>
               <CustomIconButton
                 aria-label="edit"
-                onClick={() => onEdit(orders[dataIndex])}
+                onClick={() => onEdit(filteredOrders[dataIndex])}
               >
                 <CheckCircleIcon />
               </CustomIconButton>
@@ -69,4 +136,4 @@ const useOrderTrunkTableColumn = (orders, onEdit) => {
   return columns;
 };
 
-export default useOrderTrunkTableColumn;
+export default useOrderConfirmTableColumn;

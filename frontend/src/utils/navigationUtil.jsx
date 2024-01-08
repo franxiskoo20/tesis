@@ -1,18 +1,19 @@
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import ArrowCircleLeftRoundedIcon from "@mui/icons-material/ArrowCircleLeftRounded";
 import ArrowCircleRightRoundedIcon from "@mui/icons-material/ArrowCircleRightRounded";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import PeopleIcon from "@mui/icons-material/People";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
+import RecommendIcon from '@mui/icons-material/Recommend';
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { Link } from "react-router-dom";
 import { ROLES_USER } from "../features/user/constants/userRoles";
-import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 
 const navigationByRole = {
   [ROLES_USER.ADMINISTRADOR]: [
@@ -35,7 +36,7 @@ const navigationByRole = {
     {
       name: "OS Confirmación",
       path: "/app/orders-confirm",
-      icon: <ListAltIcon />,
+      icon: <RecommendIcon />,
     },
     {
       name: "OS Ingreso",

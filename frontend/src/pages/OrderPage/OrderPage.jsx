@@ -6,11 +6,11 @@ import CustomTabPanel from "../../components/common/Navigation/CustomTabPanel";
 import AuthenticatedLayout from "../../components/layout/AuthenticatedLayout";
 import CreateOrder from "../../features/order/components/OrderForm/CreateOrder";
 import OrderDeleteModal from "../../features/order/components/OrderModal/OrderDeleteModal";
+import OrderEditModal from "../../features/order/components/OrderModal/OrderEditModal";
 import OrderTable from "../../features/order/components/OrderTable/OrderTable";
 import useOrder from "../../features/order/hooks/useOrder";
 import useAsyncAction from "../../hooks/useAsyncAction";
 import useModalState from "../../hooks/useModalState";
-import OrderEditModal from "../../features/order/components/OrderModal/OrderEditModal";
 
 const a11yProps = (index) => {
   return {
@@ -94,7 +94,7 @@ const OrderPage = () => {
                   setItemToAction(null);
                 }}
                 toEdit={itemToAction}
-                onUpdated={() => handleAsyncAction()}
+                onEdit={() => handleAsyncAction()}
               />
             </>
           )}

@@ -25,6 +25,7 @@ class ServiceOrder extends Model
         'truck_plate',
         'entry',
         'exit',
+        'date_status',
         'weight_entry',
         'weight_exit',
         'status',

@@ -11,10 +11,10 @@ const OrderWeightInput = ({ orders, onEdit, isSubmitting }) => {
 
   const filteredOrders = orders.filter(
     (order) =>
-      order.entry !== null &&
       order.date === today &&
+      order.entry !== null &&
       order.truckPlate !== null &&
-      order.weightInput === null
+      order.weightEntry === null
   );
 
   const columns = useOrderWeightInputTableColumn(filteredOrders, onEdit);

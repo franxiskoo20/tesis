@@ -34,6 +34,7 @@ return new class extends Migration
             $table->string('truck_plate')->nullable();
             $table->dateTime('entry')->nullable();
             $table->dateTime('exit')->nullable();
+            $table->dateTime('date_status')->nullable();
             $table->boolean('status');
             $table->text('comment')->nullable();
             $table->decimal('weight_entry', 10, 2)->nullable();

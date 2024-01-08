@@ -17,6 +17,7 @@ export const adaptOrderData = (order) => {
     truckPlate: order.truck_plate,
     entry: order.entry ? formatDate(order.entry) : null,
     exit: order.exit ? formatDate(order.exit) : null,
+    dateStatus: order.date_status ? formatDate(order.date_status) : null,
     comment: order.comment,
     status: order.status,
     statusDate: order.status_date,

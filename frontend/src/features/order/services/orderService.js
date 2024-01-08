@@ -56,6 +56,9 @@ export const orderService = {
     return makeRequest("put", `/api/orders/${orderId}`, data);
   },
 
+  updateDate(orderId, data) {
+    return makeRequest("put", `/api/orders/updateDate/${orderId}`, data);
+  },
   getSchedule() {
     return makeRequest("get", "/api/schedule");
   },

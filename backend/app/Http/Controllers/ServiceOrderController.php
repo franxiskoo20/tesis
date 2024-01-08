@@ -104,4 +104,24 @@ class ServiceOrderController extends Controller
             return response()->json(['errors' => 'Error al agregar el peso de salida', 'message' => $e->getMessage()], 500);
         }
     }
+
+    public function updateDate(Request $request, $id)
+    {
+        try {
+            $serviceOrder = $this->serviceOrderRepository->updateDate($id, $request->all());
+            return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Fecha de la orden de servicio actualizada con éxito']);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al actualizar la fecha de la orden de servicio', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            $serviceOrder = $this->serviceOrderRepository->updateStatus($id, $request->all());
+            return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Estado de la orden de servicio actualizado con éxito']);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al actualizar el estado de la orden de servicio', 'message' => $e->getMessage()], 500);
+        }
+    }
 }

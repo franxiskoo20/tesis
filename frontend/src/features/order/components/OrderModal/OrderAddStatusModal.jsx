@@ -1,27 +1,34 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import RecommendIcon from "@mui/icons-material/Recommend";
+
 import Grid from "@mui/material/Unstable_Grid2";
 import { useForm } from "react-hook-form";
-import CustomTextFieldPrice from "../../../../components/common/Input/CustomTextFieldNumber";
+import StatusButtonGroup from "../../../../components/common/Button/StatusButtonGroup";
+import CustomTextField from "../../../../components/common/Input/CustomTextField";
 import ActionModal from "../../../../components/modal/ActionModal";
 import useGenericMutation from "../../../../hooks/useGenericMutation";
+import useAuth from "../../../auth/hooks/useAuth";
 import { ORDER_SNACKBAR } from "../../constants/orderSnackbar";
 import { orderService } from "../../services/orderService";
-import { validationSchemaWeight } from "../../utils/validationSchemasOrder";
+import { validationSchemaStatus } from "../../utils/validationSchemasOrder";
 
-const OrderWeightInputModal = ({ open, onClose, toAdd, onAdd }) => {
-  const DEFAULT_VALUES_WEIGHT_ENTRY = {
-    weight_entry: "",
+const OrderAddStatusModal = ({ open, onClose, toAdd, onAdd }) => {
+  const { user } = useAuth();
+
+  const DEFAULT_VALUES_STATUS = {
+    status: 0,
+    comment: "",
+    supervisor_name: user?.name || "",
   };
 
   const { handleSubmit, reset, control, watch } = useForm({
     mode: "onChange",
-    resolver: yupResolver(validationSchemaWeight),
-    defaultValues: DEFAULT_VALUES_WEIGHT_ENTRY,
+    resolver: yupResolver(validationSchemaStatus),
+    defaultValues: DEFAULT_VALUES_STATUS,
   });
-  
+
   const addMutation = useGenericMutation({
-    mutationFn: (data) => orderService.addWeightEntry(toAdd, data),
+    mutationFn: (data) => orderService.addTruckPlate(toAdd, data),
     successMessage: ORDER_SNACKBAR.ORDER_EDIT_SUCCESS.message,
     errorMessage: ORDER_SNACKBAR.ORDER_EDIT_ERROR.message,
     onSuccessCallback: () => {
@@ -39,26 +46,36 @@ const OrderWeightInputModal = ({ open, onClose, toAdd, onAdd }) => {
     addMutation.mutate(data);
   };
   console.log(watch());
+
   return (
     <ActionModal
       open={open}
       onClose={handleClose}
-      title="Registrar Peso de Ingreso"
+      title="Registrar Patente"
       onSubmit={handleSubmit(onSubmit)}
       isPending={addMutation.isPending}
       submitLabel="Agregar"
-      acceptButtonIcon={<LocalShippingIcon />}
+      acceptButtonIcon={<RecommendIcon />}
     >
       <Grid xs={12}>
-        <CustomTextFieldPrice
-          name="weight_entry"
-          label="Peso del Camión (kg)"
-          currency="kg"
+        <StatusButtonGroup
+          name="status"
+          labelOne="Confirmar"
+          labelTwo="Rechazar"
           control={control}
+        />
+      </Grid>
+      <Grid xs={12}>
+        <CustomTextField
+          name="comment"
+          label="Comentario (opcional)"
+          control={control}
+          type="textarea"
+          multiline
         />
       </Grid>
     </ActionModal>
   );
 };
 
-export default OrderWeightInputModal;
+export default OrderAddStatusModal;

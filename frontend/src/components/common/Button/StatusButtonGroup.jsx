@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-const StatusButtonGroup = ({ control, name, disabled }) => {
+const StatusButtonGroup = ({ name, labelOne, labelTwo, control }) => {
   return (
     <Controller
       name={name}
@@ -14,22 +14,21 @@ const StatusButtonGroup = ({ control, name, disabled }) => {
           disableElevation
           variant="contained"
           aria-label="Status buttons"
-          disabled={disabled}
           fullWidth
         >
           <Button
-            color={field.value === 1 ? "primary" : "inherit"}
+            color={field.value === 1 ? "success" : "inherit"}
             onClick={() => field.onChange(1)}
             startIcon={<CheckCircleIcon />}
           >
-            Vigente
+            {labelOne}
           </Button>
           <Button
-            color={field.value === 0 ? "primary" : "inherit"}
+            color={field.value === 0 ? "success" : "inherit"}
             onClick={() => field.onChange(0)}
             startIcon={<CancelIcon />}
           >
-            Inactiva
+            {labelTwo}
           </Button>
         </ButtonGroup>
       )}

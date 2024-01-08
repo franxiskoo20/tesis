@@ -13,13 +13,13 @@ const PriceChip = ({ price, currency }) => {
   switch (currency) {
     case "CLP":
     case "USD":
-      priceLabel = `${currency} ${price} ${symbol}`;
+      priceLabel = `${currency} ${price}${symbol}`;
       break;
     case "EUR":
-      priceLabel = `${currency} ${price} ${symbol}`;
+      priceLabel = `${currency} ${price}${symbol}`;
       break;
     default:
-      priceLabel = `${currency} ${price} ${symbol}`;
+      priceLabel = `${currency} ${price}${symbol}`;
   }
 
   return (

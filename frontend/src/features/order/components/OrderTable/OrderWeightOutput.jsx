@@ -14,8 +14,8 @@ const OrderWeightOutput = ({ orders, onEdit, isSubmitting }) => {
       order.entry !== null &&
       order.date === today &&
       order.truckPlate !== null &&
-      order.weightInput !== null &&
-      order.weightOutput === null
+      order.weightEntry !== null &&
+      order.weightExit === null
   );
 
   const columns = useOrderWeighOutputTableColumn(filteredOrders, onEdit);

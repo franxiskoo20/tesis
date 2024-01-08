@@ -9,13 +9,14 @@ import { ORDER_SNACKBAR } from "../../constants/orderSnackbar";
 import { orderService } from "../../services/orderService";
 import { validationSchemasOrder } from "../../utils/validationSchemasOrder";
 import dayjs from "dayjs";
+import ListAltIcon from "@mui/icons-material/ListAlt";
 
 const OrderEditModal = ({ open, onClose, toEdit, onEdit }) => {
   const DEFAULT_VALUES_EDIT_ORDER = {
     date: null,
   };
 
-  const { handleSubmit, reset, control } = useForm({
+  const { handleSubmit, reset, control, watch } = useForm({
     resolver: yupResolver(validationSchemasOrder),
     mode: "onChange",
     defaultValues: DEFAULT_VALUES_EDIT_ORDER,
@@ -30,8 +31,10 @@ const OrderEditModal = ({ open, onClose, toEdit, onEdit }) => {
     }
   }, [toEdit, reset]);
 
+  console.log(watch("date"));
+
   const updateMutation = useGenericMutation({
-    mutationFn: (data) => orderService.updateOrder(toEdit.id, data),
+    mutationFn: (data) => orderService.updateDate(toEdit.id, data),
     successMessage: ORDER_SNACKBAR.ORDER_EDIT_SUCCESS.message,
     errorMessage: ORDER_SNACKBAR.ORDER_EDIT_SUCCESS.message,
     onSuccessCallback: () => {
@@ -42,7 +45,11 @@ const OrderEditModal = ({ open, onClose, toEdit, onEdit }) => {
 
   // enviar datos del formulario para editar usuario
   const onSubmit = (data) => {
-    updateMutation.mutate(data);
+    const formattedData = {
+      ...data,
+      date: dayjs(data.date).format("YYYY-MM-DD HH:mm:ss"),
+    };
+    updateMutation.mutate(formattedData);
   };
 
   return (
@@ -53,6 +60,7 @@ const OrderEditModal = ({ open, onClose, toEdit, onEdit }) => {
       onSubmit={handleSubmit(onSubmit)}
       isPending={updateMutation.isPending}
       submitLabel="Editar"
+      acceptButtonIcon={<ListAltIcon />}
     >
       <Grid xs={12}>
         <CustomDatePicker control={control} name={"date"} label={"Fecha"} />

@@ -6,14 +6,16 @@ import useOrderTruckTableColumn from "../../hooks/useOrderTruckTableColumn";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 
 const OrderTruck = ({ orders, onEdit, isSubmitting }) => {
+  const filteredOrders = orders.filter(
+    (order) => order.statusEnd === null && order.rescheduledOsId === null
+  );
 
-  const columns = useOrderTruckTableColumn(orders, onEdit);
+  const columns = useOrderTruckTableColumn(filteredOrders, onEdit);
 
   const options = {
     ...orderTableOption,
   };
 
-  
   return (
     <Box position="relative">
       <OverlayLoader isLoading={isSubmitting} />
@@ -25,7 +27,7 @@ const OrderTruck = ({ orders, onEdit, isSubmitting }) => {
             icon={<LocalShippingIcon />}
           />
         }
-        data={orders}
+        data={filteredOrders}
         columns={columns}
         options={options}
       />

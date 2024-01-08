@@ -2,15 +2,15 @@ import { Box, Chip } from "@mui/material";
 import MUIDataTable from "mui-datatables";
 import OverlayLoader from "../../../../components/common/Loading/OverlayLoader";
 import { orderTableOption } from "../../constants/orderTableOption";
-import useOrderTableColumn from "../../hooks/useOrderTableColumn";
-import ListAltIcon from "@mui/icons-material/ListAlt";
+import useOrderTableColumnReschedule from "../../hooks/useOrderTableColumnReschedule";
+import EventRepeatIcon from "@mui/icons-material/EventRepeat";
 
-const OrderTable = ({ orders, onEdit, onMoveEnd, isSubmitting }) => {
+const OrderTableReschedule = ({ orders, isSubmitting }) => {
   const filteredOrders = orders.filter(
-    (order) => order.statusEnd === null && order.rescheduledOsId === null
+    (order) => order.rescheduledOsId !== null
   );
 
-  const columns = useOrderTableColumn(filteredOrders, onEdit, onMoveEnd);
+  const columns = useOrderTableColumnReschedule(filteredOrders);
 
   const options = {
     ...orderTableOption,
@@ -22,9 +22,9 @@ const OrderTable = ({ orders, onEdit, onMoveEnd, isSubmitting }) => {
       <MUIDataTable
         title={
           <Chip
-            label="Orden de Servicio vigentes"
-            color="primary"
-            icon={<ListAltIcon />}
+            label="Orden de Servicio reprogramadas"
+            color="warning"
+            icon={<EventRepeatIcon />}
           />
         }
         data={filteredOrders}
@@ -35,4 +35,4 @@ const OrderTable = ({ orders, onEdit, onMoveEnd, isSubmitting }) => {
   );
 };
 
-export default OrderTable;
+export default OrderTableReschedule;

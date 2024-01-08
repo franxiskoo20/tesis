@@ -111,7 +111,7 @@ class ServiceOrderController extends Controller
             $serviceOrder = $this->serviceOrderRepository->updateDate($id, $request->all());
             return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Fecha de la orden de servicio actualizada con éxito']);
         } catch (Exception $e) {
-            return response()->json(['errors' => 'Error al actualizar la fecha de la orden de servicio', 'message' => $e->getMessage()], 500);
+            return response()->json(['errors' => 'La fecha proporcionada es la misma que la actual. No se requiere reprogramación.', 'message' => $e->getMessage()], 500);
         }
     }
 
@@ -119,6 +119,16 @@ class ServiceOrderController extends Controller
     {
         try {
             $serviceOrder = $this->serviceOrderRepository->updateStatus($id, $request->all());
+            return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Estado de la orden de servicio actualizado con éxito']);
+        } catch (Exception $e) {
+            return response()->json(['errors' => 'Error al actualizar el estado de la orden de servicio', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function updateStatusEnd($id)
+    {
+        try {
+            $serviceOrder = $this->serviceOrderRepository->updateStatusEnd($id);
             return response()->json(['serviceOrder' => $serviceOrder, 'message' => 'Estado de la orden de servicio actualizado con éxito']);
         } catch (Exception $e) {
             return response()->json(['errors' => 'Error al actualizar el estado de la orden de servicio', 'message' => $e->getMessage()], 500);

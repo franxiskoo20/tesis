@@ -18,6 +18,7 @@ export const orderService = {
     entry,
     exit,
     status,
+    status_end,
     status_date,
     comment,
     user_id,
@@ -39,6 +40,7 @@ export const orderService = {
       entry,
       exit,
       status,
+      status_end,
       status_date,
       comment,
       user_id,
@@ -71,6 +73,12 @@ export const orderService = {
   },
   updateExitDate(orderId) {
     return makeRequest("put", `/api/orders/updateExitDate/${orderId}`);
+  },
+  updateStatus(orderId, data) {
+    return makeRequest("put", `/api/orders/updateStatus/${orderId}`, data);
+  },
+  updateStatusEnd(orderId) {
+    return makeRequest("put", `/api/orders/updateStatusEnd/${orderId}`);
   },
   addTruckPlate(orderId, data) {
     return makeRequest("put", `/api/orders/addTruckPlate/${orderId}`, data);

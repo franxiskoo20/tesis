@@ -4,7 +4,7 @@ import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip"
 import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import TruckChip from "../components/OrderUI/TruckChip";
 
-const useOrderTruckTableColumn = (orders, onEdit) => {
+const useOrderTruckTableColumn = (filteredOrders, onEdit) => {
   const columns = [
     {
       name: "Avatar",
@@ -12,7 +12,7 @@ const useOrderTruckTableColumn = (orders, onEdit) => {
         filter: false,
         sort: false,
         customBodyRenderLite: (dataIndex) => {
-          const order = orders[dataIndex];
+          const order = filteredOrders[dataIndex];
           return <UserAvatar name={order.userName} roleId={order.userRoleId} />;
         },
       },
@@ -48,7 +48,7 @@ const useOrderTruckTableColumn = (orders, onEdit) => {
         filter: true,
         sort: true,
         customBodyRenderLite: (dataIndex) => {
-          const serviceType = orders[dataIndex];
+          const serviceType = filteredOrders[dataIndex];
           return (
             <ServiceTypeChip
               serviceTypeId={serviceType.serviceTypeId}
@@ -73,7 +73,7 @@ const useOrderTruckTableColumn = (orders, onEdit) => {
         filter: false,
         sort: true,
         customBodyRenderLite: (dataIndex) => {
-          const order = orders[dataIndex];
+          const order = filteredOrders[dataIndex];
           return <TruckChip truck_plate={order.truckPlate} />;
         },
       },
@@ -90,7 +90,7 @@ const useOrderTruckTableColumn = (orders, onEdit) => {
             <>
               <CustomIconButton
                 aria-label="edit"
-                onClick={() => onEdit(orders[dataIndex].id)}
+                onClick={() => onEdit(filteredOrders[dataIndex].id)}
               >
                 <AssignmentTurnedInIcon />
               </CustomIconButton>

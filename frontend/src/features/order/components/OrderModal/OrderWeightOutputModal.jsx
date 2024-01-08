@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import Grid from "@mui/material/Unstable_Grid2";
 import { useForm } from "react-hook-form";
 import CustomTextFieldPrice from "../../../../components/common/Input/CustomTextFieldNumber";
@@ -46,7 +46,7 @@ const OrderWeightInputModal = ({ open, onClose, toAdd, onAdd }) => {
       onSubmit={handleSubmit(onSubmit)}
       isPending={addMutation.isPending}
       submitLabel="Agregar"
-      acceptButtonIcon={<LocalShippingIcon />}
+      acceptButtonIcon={<CheckCircleIcon />}
     >
       <Grid xs={12}>
         <CustomTextFieldPrice

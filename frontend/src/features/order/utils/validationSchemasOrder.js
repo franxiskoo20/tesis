@@ -73,8 +73,11 @@ export const validationSchemasOrderTruck = yup.object().shape({
 export const validationSchemaWeight = yup.object().shape({
   weight_entry: yup
     .number()
+    .transform((value, originalValue) => {
+      return originalValue === "" ? undefined : value;
+    })
     .min(0, "El peso no puede ser negativo")
-    .max(500000, "El peso no puede ser mayor a 500000 kg")
+    .max(50000, "El peso no puede ser mayor a 50000 kg")
     .required("El peso es requerido"),
 });
 
@@ -83,4 +86,11 @@ export const validationSchemaStatus = yup.object().shape({
   comment: yup
     .string()
     .max(255, "El comentario no puede tener más de 255 caracteres"),
+  container: yup
+    .string()
+    .nullable()
+    .matches(
+      /^[A-Z0-9]{8}$/,
+      "Formato de contenedor inválido. Ej: ABCD1234567"
+    ),
 });

@@ -108,6 +108,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/addWeightEntry/{id}', [ServiceOrderController::class, 'addWeightEntry']);
         Route::put('/addWeightExit/{id}', [ServiceOrderController::class, 'addWeightExit']);
         Route::put('/updateStatus/{id}', [ServiceOrderController::class, 'updateStatus']);
+        Route::put('/updateStatusEnd/{id}', [ServiceOrderController::class, 'updateStatusEnd']);
     });
 
     Route::prefix('schedule')->group(function () {

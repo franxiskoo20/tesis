@@ -1,15 +1,11 @@
-import ArchiveIcon from "@mui/icons-material/Archive";
-import EventRepeatIcon from "@mui/icons-material/EventRepeat";
-
-import CustomIconButton from "../../../components/common/Button/CustomIconButton";
-import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import StatusChip from "../../../components/ui/StatusChip";
-import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
 import BusinessChip from "../../product/components/ProductUI/BusinessChip";
+import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
+import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import TruckChip from "../components/OrderUI/TruckChip";
 import WeightChip from "../components/OrderUI/WeightChip";
 
-const useOrderTableColumn = (filteredOrders, onEdit, onMoveEnd) => {
+const useOrderTableColumn = (filteredOrders) => {
   const columns = [
     {
       name: "Avatar",
@@ -25,6 +21,14 @@ const useOrderTableColumn = (filteredOrders, onEdit, onMoveEnd) => {
     {
       name: "id",
       label: "ID",
+      options: {
+        filter: false,
+        sort: true,
+      },
+    },
+    {
+      name: "rescheduledOsId",
+      label: "ID Reprogramada",
       options: {
         filter: false,
         sort: true,
@@ -205,33 +209,6 @@ const useOrderTableColumn = (filteredOrders, onEdit, onMoveEnd) => {
         customBodyRenderLite: (dataIndex) => {
           const order = filteredOrders[dataIndex];
           return <WeightChip weight={order.weightExit} />;
-        },
-      },
-    },
-    {
-      name: "actions",
-      label: "Acción",
-      options: {
-        filter: false,
-        sort: false,
-        empty: true,
-        customBodyRenderLite: (dataIndex) => {
-          return (
-            <>
-              <CustomIconButton
-                aria-label="edit"
-                onClick={() => onEdit(filteredOrders[dataIndex])}
-              >
-                <EventRepeatIcon />
-              </CustomIconButton>
-              <CustomIconButton
-                aria-label="delete"
-                onClick={() => onMoveEnd(filteredOrders[dataIndex].id)}
-              >
-                <ArchiveIcon />
-              </CustomIconButton>
-            </>
-          );
         },
       },
     },

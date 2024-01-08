@@ -24,7 +24,7 @@ const StatusButtonGroup = ({ name, labelOne, labelTwo, control }) => {
             {labelOne}
           </Button>
           <Button
-            color={field.value === 0 ? "success" : "inherit"}
+            color={field.value === 0 ? "error" : "inherit"}
             onClick={() => field.onChange(0)}
             startIcon={<CancelIcon />}
           >

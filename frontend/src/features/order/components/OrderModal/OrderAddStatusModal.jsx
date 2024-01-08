@@ -18,6 +18,7 @@ const OrderAddStatusModal = ({ open, onClose, toAdd, onAdd }) => {
   const DEFAULT_VALUES_STATUS = {
     status: 0,
     comment: "",
+    container: null,
     supervisor_name: user?.name || "",
   };
 
@@ -28,7 +29,7 @@ const OrderAddStatusModal = ({ open, onClose, toAdd, onAdd }) => {
   });
 
   const addMutation = useGenericMutation({
-    mutationFn: (data) => orderService.addTruckPlate(toAdd, data),
+    mutationFn: (data) => orderService.updateStatus(toAdd, data),
     successMessage: ORDER_SNACKBAR.ORDER_EDIT_SUCCESS.message,
     errorMessage: ORDER_SNACKBAR.ORDER_EDIT_ERROR.message,
     onSuccessCallback: () => {
@@ -51,7 +52,7 @@ const OrderAddStatusModal = ({ open, onClose, toAdd, onAdd }) => {
     <ActionModal
       open={open}
       onClose={handleClose}
-      title="Registrar Patente"
+      title="Estado Orden de Servicio"
       onSubmit={handleSubmit(onSubmit)}
       isPending={addMutation.isPending}
       submitLabel="Agregar"
@@ -72,6 +73,15 @@ const OrderAddStatusModal = ({ open, onClose, toAdd, onAdd }) => {
           control={control}
           type="textarea"
           multiline
+        />
+      </Grid>
+      <Grid xs={12}>
+        <CustomTextField
+          name="container"
+          label="Container (opcional)"
+          control={control}
+          type="text"
+          maxLength={8}
         />
       </Grid>
     </ActionModal>

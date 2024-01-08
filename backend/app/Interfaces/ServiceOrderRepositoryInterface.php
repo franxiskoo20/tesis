@@ -16,4 +16,5 @@ interface ServiceOrderRepositoryInterface
     public function addWeightExit($id, array $attributes);
     public function updateDate($id, array $attributes);
     public function updateStatus($id, array $attributes);
+    public function updateStatusEnd($id);
 }

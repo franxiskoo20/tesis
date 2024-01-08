@@ -23,4 +23,8 @@ export const ORDER_SNACKBAR = {
     message: "Error al eliminar el Orden de Servicio",
     type: "error",
   },
+  ORDER_EDIT_ERROR_DATE: {
+    message: "No se puede reprogramar la Orden de Servicio para la misma fecha",
+    type: "error",
+  },
 };

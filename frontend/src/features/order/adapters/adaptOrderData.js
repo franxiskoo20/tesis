@@ -21,6 +21,7 @@ export const adaptOrderData = (order) => {
     comment: order.comment,
     status: order.status,
     statusDate: order.status_date,
+    statusEnd: order.status_end,
     createdAt: formatDate(order.created_at),
     updatedAt: formatDate(order.updated_at),
     customerName: order.customer.name,

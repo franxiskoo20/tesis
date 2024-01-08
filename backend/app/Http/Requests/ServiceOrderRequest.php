@@ -35,6 +35,7 @@ class ServiceOrderRequest extends FormRequest
             'exit' => 'nullable|date_format:H:i',
             'date_status' => 'nullable|date_format:H:i',
             'status' => 'nullable|boolean',
+            'status_end' => 'nullable|boolean',
             'rescheduled_os_id' => 'nullable|exists:service_orders,id',
             'comment' => 'nullable|string',
             'user_id' => 'required|exists:users,id',
@@ -43,9 +44,7 @@ class ServiceOrderRequest extends FormRequest
             'supervisor_name' => 'nullable|string',
             'weight_entry' => 'nullable|numeric',
             'weight_exit' => 'nullable|numeric',
-            // 'rescheduled_os_id' => 'nullable|exists:service_orders,id',
-            // 'customer_service_id' => 'nullable|exists:users,id',
-            // 'supervisor_id' => 'nullable|exists:users,id',
+            'rescheduled_os_id' => 'nullable|exists:service_orders,id',
         ];
     }
 

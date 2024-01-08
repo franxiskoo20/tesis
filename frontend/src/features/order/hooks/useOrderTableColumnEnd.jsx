@@ -1,15 +1,13 @@
-import ArchiveIcon from "@mui/icons-material/Archive";
-import EventRepeatIcon from "@mui/icons-material/EventRepeat";
-
 import CustomIconButton from "../../../components/common/Button/CustomIconButton";
-import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import StatusChip from "../../../components/ui/StatusChip";
-import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
 import BusinessChip from "../../product/components/ProductUI/BusinessChip";
+import ServiceTypeChip from "../../service/components/ServiceUI/ServiceTypeChip";
+import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import TruckChip from "../components/OrderUI/TruckChip";
 import WeightChip from "../components/OrderUI/WeightChip";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const useOrderTableColumn = (filteredOrders, onEdit, onMoveEnd) => {
+const useOrderTableColumnEnd = (filteredOrders, onDelete) => {
   const columns = [
     {
       name: "Avatar",
@@ -119,8 +117,8 @@ const useOrderTableColumn = (filteredOrders, onEdit, onMoveEnd) => {
         filter: false,
         sort: true,
         customBodyRenderLite: (dataIndex) => {
-          const filteredOrderstatus = filteredOrders[dataIndex].status;
-          return <StatusChip enabled={filteredOrderstatus} />;
+          const orderStatus = filteredOrders[dataIndex].status;
+          return <StatusChip enabled={orderStatus} />;
         },
       },
     },
@@ -217,20 +215,12 @@ const useOrderTableColumn = (filteredOrders, onEdit, onMoveEnd) => {
         empty: true,
         customBodyRenderLite: (dataIndex) => {
           return (
-            <>
-              <CustomIconButton
-                aria-label="edit"
-                onClick={() => onEdit(filteredOrders[dataIndex])}
-              >
-                <EventRepeatIcon />
-              </CustomIconButton>
-              <CustomIconButton
-                aria-label="delete"
-                onClick={() => onMoveEnd(filteredOrders[dataIndex].id)}
-              >
-                <ArchiveIcon />
-              </CustomIconButton>
-            </>
+            <CustomIconButton
+              aria-label="delete"
+              onClick={() => onDelete(filteredOrders[dataIndex].id)}
+            >
+              <DeleteIcon />
+            </CustomIconButton>
           );
         },
       },
@@ -240,4 +230,4 @@ const useOrderTableColumn = (filteredOrders, onEdit, onMoveEnd) => {
   return columns;
 };
 
-export default useOrderTableColumn;
+export default useOrderTableColumnEnd;

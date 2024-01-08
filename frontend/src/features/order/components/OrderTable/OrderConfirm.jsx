@@ -5,12 +5,11 @@ import { orderTableOption } from "../../constants/orderTableOption";
 import useOrderConfirmTableColumn from "../../hooks/useOrderConfirmTableColumn";
 import RecommendIcon from "@mui/icons-material/Recommend";
 
-const OrderTrunk = ({ orders, onEdit, isSubmitting }) => {
+const OrderConfirm = ({ orders, onEdit, isSubmitting }) => {
   const filteredOrders = orders.filter(
     (order) =>
       order.entry !== null &&
       order.truckPlate !== null &&
-      order.entry !== null &&
       order.weightEntry !== null
   );
 
@@ -26,7 +25,7 @@ const OrderTrunk = ({ orders, onEdit, isSubmitting }) => {
       <MUIDataTable
         title={
           <Chip
-            label="Registrar Ingreso"
+            label="Confirmar"
             color="success"
             icon={<RecommendIcon />}
           />
@@ -39,4 +38,4 @@ const OrderTrunk = ({ orders, onEdit, isSubmitting }) => {
   );
 };
 
-export default OrderTrunk;
+export default OrderConfirm;

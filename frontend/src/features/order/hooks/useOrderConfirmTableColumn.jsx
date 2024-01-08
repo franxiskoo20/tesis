@@ -4,6 +4,7 @@ import UserAvatar from "../../user/components/UserAvatar/UserAvatar";
 import TruckChip from "../components/OrderUI/TruckChip";
 import WeightChip from "../components/OrderUI/WeightChip";
 import OsStatusChip from "../components/OrderUI/OsStatusChip";
+import ContainerChip from "../components/OrderUI/ContainerChip";
 
 const useOrderConfirmTableColumn = (filteredOrders, onEdit) => {
   const columns = [
@@ -95,6 +96,18 @@ const useOrderConfirmTableColumn = (filteredOrders, onEdit) => {
       },
     },
     {
+      name: "container",
+      label: "Container",
+      options: {
+        filter: false,
+        sort: true,
+        customBodyRenderLite: (dataIndex) => {
+          const order = filteredOrders[dataIndex];
+          return <ContainerChip container={order.container} />;
+        },
+      },
+    },
+    {
       name: "supervisorName",
       label: "Supervisor",
       options: {
@@ -122,7 +135,7 @@ const useOrderConfirmTableColumn = (filteredOrders, onEdit) => {
             <>
               <CustomIconButton
                 aria-label="edit"
-                onClick={() => onEdit(filteredOrders[dataIndex])}
+                onClick={() => onEdit(filteredOrders[dataIndex].id)}
               >
                 <CheckCircleIcon />
               </CustomIconButton>

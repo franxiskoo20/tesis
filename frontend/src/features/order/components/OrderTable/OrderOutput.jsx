@@ -11,7 +11,10 @@ const OrderOutput = ({ orders, onEdit, isSubmitting }) => {
 
   const filteredOrders = orders.filter(
     (order) =>
-      order.entry !== null && order.exit === null && order.date === today
+      order.entry !== null &&
+      order.exit === null &&
+      order.date === today &&
+      order.weightExit !== null
   );
 
   const columns = useOrderOutputTableColumn(filteredOrders, onEdit);

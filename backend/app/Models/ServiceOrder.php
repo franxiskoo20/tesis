@@ -29,6 +29,7 @@ class ServiceOrder extends Model
         'weight_entry',
         'weight_exit',
         'status',
+        'status_end',
         'status_date',
         'comment',
         'user_id',

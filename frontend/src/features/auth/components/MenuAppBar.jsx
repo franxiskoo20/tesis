@@ -75,7 +75,7 @@ const MenuAppBar = ({ logout, user }) => {
       >
         <MenuItem onClick={handleClose} component={Link} to="/app/profile">
           <ListItemIcon>
-            <Avatar />
+            <UserAvatar name={user.name} roleId={user.role_id} />
           </ListItemIcon>
           Perfil
         </MenuItem>
@@ -83,7 +83,7 @@ const MenuAppBar = ({ logout, user }) => {
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          Salir
         </MenuItem>
       </Menu>
       <LogoutDialog

@@ -36,15 +36,12 @@ return new class extends Migration
             $table->dateTime('exit')->nullable();
             $table->dateTime('date_status')->nullable();
             $table->boolean('status');
+            $table->boolean('status_end')->nullable();
             $table->text('comment')->nullable();
             $table->decimal('weight_entry', 10, 2)->nullable();
             $table->decimal('weight_exit', 10, 2)->nullable();
             $table->timestamps();
-            // $table->foreignId('rescheduled_os_id')->nullable()->constrained('service_orders');
-
-            // $table->foreignId('customer_service_id')->constrained('users')->onDelete('cascade');
-            // $table->foreignId('supervisor_id')->constrained('users')->onDelete('cascade');
-
+            $table->foreignId('rescheduled_os_id')->nullable()->constrained('service_orders');
         });
     }
 

@@ -7,7 +7,7 @@ const OrderDeleteModal = ({ open, onClose, toDelete, onDelete }) => {
 
   const deleteMutation = useGenericMutation({
     mutationFn: (toDelete) => orderService.deleteOrder(toDelete),
-    successMessage: ORDER_SNACKBAR.ORDER_DELETE_ERROR.message,
+    successMessage: ORDER_SNACKBAR.ORDER_DELETE_SUCCESS.message,
     errorMessage: ORDER_SNACKBAR.ORDER_DELETE_ERROR.message,
     onSuccessCallback: () => {
       onClose?.();

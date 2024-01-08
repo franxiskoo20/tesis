@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Interfaces\ServiceOrderRepositoryInterface;
 use App\Models\ServiceOrder;
+use Exception;
+use Carbon\Carbon;
 
 class ServiceOrderRepository implements ServiceOrderRepositoryInterface
 {
@@ -87,21 +89,53 @@ class ServiceOrderRepository implements ServiceOrderRepositoryInterface
     return $serviceOrder;
   }
 
+
   public function updateDate($id, array $data)
   {
-    $serviceOrder = ServiceOrder::findOrFail($id);
-    $serviceOrder->date = $data['date'];
-    $serviceOrder->save();
-    return $serviceOrder;
+    // Encontrar la OS original
+    $originalServiceOrder = ServiceOrder::findOrFail($id);
+
+    // Convertir ambas fechas a objetos Carbon para comparación precisa
+    $originalDate = Carbon::parse($originalServiceOrder->date);
+    $newDate = Carbon::parse($data['date']);
+
+    // Verificar si la nueva fecha es igual a la actual
+    if ($originalDate->toDateString() === $newDate->toDateString()) {
+      // Lanzar una excepción o manejar como prefieras
+      throw new Exception("La fecha proporcionada es la misma que la actual. No se requiere reprogramación.");
+    }
+
+    // Clonar la OS original
+    $newServiceOrder = $originalServiceOrder->replicate();
+    $newServiceOrder->date = $data['date']; // Establecer la nueva fecha
+    $newServiceOrder->save(); // Guardar la nueva OS
+
+    // Actualizar la OS original
+    $originalServiceOrder->rescheduled_os_id = $newServiceOrder->id; // Guardar el ID de la nueva OS
+    $originalServiceOrder->save(); // Guardar cambios en la OS original
+
+    return $originalServiceOrder;
   }
+
+
+
 
   public function updateStatus($id, array $data)
   {
     $serviceOrder = ServiceOrder::findOrFail($id);
     $serviceOrder->status = $data['status'];
     $serviceOrder->comment = $data['comment'];
+    $serviceOrder->container = $data['container'];
     $serviceOrder->supervisor_name = $data['supervisor_name'];
     $serviceOrder->date_status = now();
+    $serviceOrder->save();
+    return $serviceOrder;
+  }
+
+  public function updateStatusEnd($id)
+  {
+    $serviceOrder = ServiceOrder::findOrFail($id);
+    $serviceOrder->status_end = 1;
     $serviceOrder->save();
     return $serviceOrder;
   }

@@ -16,7 +16,7 @@ const OrderEditModal = ({ open, onClose, toEdit, onEdit }) => {
     date: null,
   };
 
-  const { handleSubmit, reset, control, watch } = useForm({
+  const { handleSubmit, reset, control } = useForm({
     resolver: yupResolver(validationSchemasOrder),
     mode: "onChange",
     defaultValues: DEFAULT_VALUES_EDIT_ORDER,
@@ -31,12 +31,10 @@ const OrderEditModal = ({ open, onClose, toEdit, onEdit }) => {
     }
   }, [toEdit, reset]);
 
-  console.log(watch("date"));
-
   const updateMutation = useGenericMutation({
     mutationFn: (data) => orderService.updateDate(toEdit.id, data),
     successMessage: ORDER_SNACKBAR.ORDER_EDIT_SUCCESS.message,
-    errorMessage: ORDER_SNACKBAR.ORDER_EDIT_SUCCESS.message,
+    errorMessage: ORDER_SNACKBAR.ORDER_EDIT_ERROR_DATE.message,
     onSuccessCallback: () => {
       onClose?.();
       onEdit?.();
@@ -56,10 +54,10 @@ const OrderEditModal = ({ open, onClose, toEdit, onEdit }) => {
     <ActionModal
       open={open}
       onClose={onClose}
-      title="Editar Orden de Servicio"
+      title="Reprogramar Orden de Servicio"
       onSubmit={handleSubmit(onSubmit)}
       isPending={updateMutation.isPending}
-      submitLabel="Editar"
+      submitLabel="Reprogramar"
       acceptButtonIcon={<ListAltIcon />}
     >
       <Grid xs={12}>

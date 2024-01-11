@@ -87,17 +87,11 @@ const router = createBrowserRouter([
         path: "app/orders",
         element: (
           <RoleProtectedElement
-            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
-          >
-            <OrderPage />
-          </RoleProtectedElement>
-        ),
-      },
-      {
-        path: "app/orders",
-        element: (
-          <RoleProtectedElement
-            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
+            allowedRoles={[
+              ROLES_USER.ADMINISTRADOR,
+              ROLES_USER.JEFE_COMERCIAL,
+              ROLES_USER.CUSTOMER_SERVICE,
+            ]}
           >
             <OrderPage />
           </RoleProtectedElement>
@@ -107,7 +101,11 @@ const router = createBrowserRouter([
         path: "app/orders-truck",
         element: (
           <RoleProtectedElement
-            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
+            allowedRoles={[
+              ROLES_USER.ADMINISTRADOR,
+              ROLES_USER.JEFE_COMERCIAL,
+              ROLES_USER.CUSTOMER_SERVICE,
+            ]}
           >
             <OrderTruckPage />
           </RoleProtectedElement>
@@ -117,7 +115,7 @@ const router = createBrowserRouter([
         path: "app/orders-confirm",
         element: (
           <RoleProtectedElement
-            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
+            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.SUPERVISOR]}
           >
             <OrderConfirmPage />
           </RoleProtectedElement>
@@ -127,7 +125,11 @@ const router = createBrowserRouter([
         path: "app/orders-input",
         element: (
           <RoleProtectedElement
-            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
+            allowedRoles={[
+              ROLES_USER.ADMINISTRADOR,
+              ROLES_USER.JEFE_COMERCIAL,
+              ROLES_USER.PORTERO,
+            ]}
           >
             <OrderInputPage />
           </RoleProtectedElement>
@@ -137,7 +139,11 @@ const router = createBrowserRouter([
         path: "app/orders-output",
         element: (
           <RoleProtectedElement
-            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
+            allowedRoles={[
+              ROLES_USER.ADMINISTRADOR,
+              ROLES_USER.JEFE_COMERCIAL,
+              ROLES_USER.PORTERO,
+            ]}
           >
             <OrderOutputPage />
           </RoleProtectedElement>
@@ -147,7 +153,11 @@ const router = createBrowserRouter([
         path: "app/orders-weight-input",
         element: (
           <RoleProtectedElement
-            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
+            allowedRoles={[
+              ROLES_USER.ADMINISTRADOR,
+              ROLES_USER.JEFE_COMERCIAL,
+              ROLES_USER.ROMANA,
+            ]}
           >
             <OrderWeightInputPage />
           </RoleProtectedElement>
@@ -157,7 +167,11 @@ const router = createBrowserRouter([
         path: "app/orders-weight-output",
         element: (
           <RoleProtectedElement
-            allowedRoles={[ROLES_USER.ADMINISTRADOR, ROLES_USER.JEFE_COMERCIAL]}
+            allowedRoles={[
+              ROLES_USER.ADMINISTRADOR,
+              ROLES_USER.JEFE_COMERCIAL,
+              ROLES_USER.ROMANA,
+            ]}
           >
             <OrderWeightOutputPage />
           </RoleProtectedElement>

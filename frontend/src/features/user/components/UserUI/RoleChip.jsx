@@ -6,7 +6,7 @@ import PersonIcon from "@mui/icons-material/Person";
 const RoleChip = ({ roleId, roleName, sx }) => {
   const chipColor = ROLE_COLORS[roleId];
   const icon =
-    roleId === 5 ? (
+    roleId === 6 ? (
       <AdminPanelSettingsIcon color="inherit" />
     ) : (
       <PersonIcon color="inherit" />

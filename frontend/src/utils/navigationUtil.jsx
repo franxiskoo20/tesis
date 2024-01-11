@@ -8,7 +8,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import PeopleIcon from "@mui/icons-material/People";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
-import RecommendIcon from '@mui/icons-material/Recommend';
+import RecommendIcon from "@mui/icons-material/Recommend";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import { ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
@@ -69,18 +69,76 @@ const navigationByRole = {
     },
     { name: "Servicios", path: "/app/services", icon: <PostAddIcon /> },
     { name: "Clientes", path: "/app/customers", icon: <SupportAgentIcon /> },
+    { name: "Tarifas", path: "/app/rates", icon: <ShoppingCartIcon /> },
+    { name: "Orden de Servicio", path: "/app/orders", icon: <ListAltIcon /> },
+    {
+      name: "OS Confirmación",
+      path: "/app/orders-confirm",
+      icon: <RecommendIcon />,
+    },
+    {
+      name: "OS Ingreso",
+      path: "/app/orders-input",
+      icon: <ArrowCircleRightRoundedIcon />,
+    },
+    {
+      name: "OS Salida",
+      path: "/app/orders-output",
+      icon: <ArrowCircleLeftRoundedIcon />,
+    },
+    {
+      name: "OS Ingreso Peso",
+      path: "/app/orders-weight-input",
+      icon: <ArrowCircleDownIcon />,
+    },
+    {
+      name: "OS Salida Peso",
+      path: "/app/orders-weight-output",
+      icon: <ArrowCircleUpIcon />,
+    },
   ],
   [ROLES_USER.CUSTOMER_SERVICE]: [
     { name: "Dashboard", path: "/app/dashboard", icon: <DashboardIcon /> },
-    { name: "Products", path: "/app/products", icon: <ShoppingCartIcon /> },
+    { name: "Orden de Servicio", path: "/app/orders", icon: <ListAltIcon /> },
+    {
+      name: "Registrar Patente",
+      path: "/app/orders-truck",
+      icon: <LocalShippingIcon />,
+    },
   ],
   [ROLES_USER.ROMANA]: [
     { name: "Dashboard", path: "/app/dashboard", icon: <DashboardIcon /> },
-    { name: "Products", path: "/app/products", icon: <ShoppingCartIcon /> },
+    {
+      name: "OS Ingreso Peso",
+      path: "/app/orders-weight-input",
+      icon: <ArrowCircleDownIcon />,
+    },
+    {
+      name: "OS Salida Peso",
+      path: "/app/orders-weight-output",
+      icon: <ArrowCircleUpIcon />,
+    },
   ],
   [ROLES_USER.PORTERO]: [
     { name: "Dashboard", path: "/app/dashboard", icon: <DashboardIcon /> },
-    { name: "Products", path: "/app/products", icon: <ShoppingCartIcon /> },
+    {
+      name: "OS Ingreso",
+      path: "/app/orders-input",
+      icon: <ArrowCircleRightRoundedIcon />,
+    },
+    {
+      name: "OS Salida",
+      path: "/app/orders-output",
+      icon: <ArrowCircleLeftRoundedIcon />,
+    },
+  ],
+  [ROLES_USER.SUPERVISOR]: [
+    { name: "Dashboard", path: "/app/dashboard", icon: <DashboardIcon /> },
+    {
+      name: "OS Confirmación",
+      path: "/app/orders-confirm",
+      icon: <RecommendIcon />,
+    },
   ],
 };
 

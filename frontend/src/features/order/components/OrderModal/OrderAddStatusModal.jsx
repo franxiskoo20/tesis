@@ -78,7 +78,7 @@ const OrderAddStatusModal = ({ open, onClose, toAdd, onAdd }) => {
       <Grid xs={12}>
         <CustomTextField
           name="container"
-          label="Container (opcional)"
+          label="Contenedor (opcional)"
           control={control}
           type="text"
           maxLength={8}

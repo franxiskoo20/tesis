@@ -10,7 +10,8 @@ const OrderConfirm = ({ orders, onEdit, isSubmitting }) => {
     (order) =>
       order.entry !== null &&
       order.truckPlate !== null &&
-      order.weightEntry !== null
+      order.weightEntry !== null &&
+      order.statusEnd === null
   );
 
   const columns = useOrderConfirmTableColumn(filteredOrders, onEdit);
@@ -24,11 +25,7 @@ const OrderConfirm = ({ orders, onEdit, isSubmitting }) => {
       <OverlayLoader isLoading={isSubmitting} />
       <MUIDataTable
         title={
-          <Chip
-            label="Confirmar"
-            color="success"
-            icon={<RecommendIcon />}
-          />
+          <Chip label="Confirmar" color="success" icon={<RecommendIcon />} />
         }
         data={filteredOrders}
         columns={columns}

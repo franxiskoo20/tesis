@@ -77,7 +77,7 @@ export const validationSchemaWeight = yup.object().shape({
       return originalValue === "" ? undefined : value;
     })
     .min(0, "El peso no puede ser negativo")
-    .max(50000, "El peso no puede ser mayor a 50000 kg")
+    .max(500000, "El peso no puede ser mayor a 500000 kg")
     .required("El peso es requerido"),
 });
 

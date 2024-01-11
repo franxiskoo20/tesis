@@ -97,7 +97,7 @@ const useOrderConfirmTableColumn = (filteredOrders, onEdit) => {
     },
     {
       name: "container",
-      label: "Container",
+      label: "Contenedor",
       options: {
         filter: false,
         sort: true,
